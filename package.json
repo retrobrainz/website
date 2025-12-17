@@ -59,9 +59,12 @@
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^4.0.0",
     "@vinejs/vine": "^3.0.1",
+    "antd": "^6.1.1",
     "edge.js": "^6.2.1",
     "luxon": "^3.7.2",
     "pg": "^8.16.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
