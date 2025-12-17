@@ -1,4 +1,4 @@
-import { defineConfig } from '@adonisjs/vite'
+import { defineConfig } from '@adonisjs/vite';
 
 const viteBackendConfig = defineConfig({
   /**
@@ -23,6 +23,6 @@ const viteBackendConfig = defineConfig({
   scriptAttributes: {
     defer: true,
   },
-})
+});
 
-export default viteBackendConfig
+export default viteBackendConfig;

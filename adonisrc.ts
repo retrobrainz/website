@@ -1,4 +1,4 @@
-import { defineConfig } from '@adonisjs/core/app'
+import { defineConfig } from '@adonisjs/core/app';
 
 export default defineConfig({
   /*
@@ -50,7 +50,7 @@ export default defineConfig({
     () => import('@adonisjs/shield/shield_provider'),
     () => import('@adonisjs/static/static_provider'),
     () => import('@adonisjs/lucid/database_provider'),
-    () => import('@adonisjs/auth/auth_provider')
+    () => import('@adonisjs/auth/auth_provider'),
   ],
 
   /*
@@ -103,4 +103,4 @@ export default defineConfig({
   hooks: {
     onBuildStarting: [() => import('@adonisjs/vite/build_hook')],
   },
-})
+});
