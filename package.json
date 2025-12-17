@@ -2,17 +2,21 @@
   "name": "website",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
-  "license": "UNLICENSED",
-  "scripts": {
-    "start": "node bin/server.js",
-    "build": "node ace build",
-    "dev": "node ace serve --hmr",
-    "test": "node ace test",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+  "homepage": "https://github.com/retrobrainz/website#readme",
+  "bugs": {
+    "url": "https://github.com/retrobrainz/website/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/retrobrainz/website.git"
+  },
+  "funding": "https://github.com/sponsors/retrobrainz",
+  "license": "AGPL-3.0-only",
+  "author": {
+    "name": "Guo Yunhe",
+    "email": "i@guoyunhe.me"
+  },
+  "type": "module",
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
@@ -31,27 +35,34 @@
     "#start/*": "./start/*.js",
     "#config/*": "./config/*.js"
   },
-  "devDependencies": {
-    "@adonisjs/assembler": "^7.8.2",
-    "@adonisjs/eslint-config": "^2.0.0",
-    "@adonisjs/prettier-config": "^1.4.4",
-    "@adonisjs/tsconfig": "^1.4.0",
-    "@japa/assert": "^4.0.1",
-    "@japa/plugin-adonisjs": "^4.0.0",
-    "@japa/runner": "^4.2.0",
-    "@swc/core": "1.11.24",
-    "@types/luxon": "^3.7.1",
-    "@types/node": "^22.15.18",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.2.2",
-    "eslint": "^9.26.0",
-    "hot-hook": "^0.4.0",
-    "pino-pretty": "^13.0.0",
-    "prettier": "^3.5.3",
-    "ts-node-maintained": "^10.9.5",
-    "typescript": "~5.8",
-    "vite": "^6.3.5"
+  "scripts": {
+    "build": "node ace build",
+    "ci:eslint": "eslint -f json src -o ./.ci/eslint.json",
+    "dev": "node ace serve --hmr",
+    "format": "prettier --write .",
+    "lint": "eslint . && stylelint --allow-empty-input \"**/*.{css,less,scss}\"",
+    "lint:fix": "prettier --write . && eslint --fix . && stylelint --allow-empty-input --fix \"**/*.{css,less,scss}\"",
+    "prepare": "husky",
+    "start": "node bin/server.js",
+    "test": "node ace test",
+    "typecheck": "tsc --noEmit"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{cjs,cts,js,jsx,mjs,mts,ts,tsx,vue}": "eslint --fix",
+    "*.{css,less,scss}": "stylelint --fix",
+    "*.{cjs,css,cts,html,js,json,jsx,less,md,mjs,mts,scss,ts,tsx,vue,yaml,yml}": "prettier --write"
+  },
+  "prettier": "prettier-config-ali",
+  "stylelint": {
+    "extends": [
+      "stylelint-config-ali",
+      "stylelint-prettier/recommended"
+    ]
   },
   "dependencies": {
     "@adonisjs/auth": "^9.4.0",
@@ -71,11 +82,43 @@
     "reflect-metadata": "^0.2.2",
     "wouter": "^3.8.1"
   },
+  "devDependencies": {
+    "@adonisjs/assembler": "^7.8.2",
+    "@adonisjs/eslint-config": "^2.0.0",
+    "@adonisjs/prettier-config": "^1.4.4",
+    "@adonisjs/tsconfig": "^1.4.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@japa/assert": "^4.0.1",
+    "@japa/plugin-adonisjs": "^4.0.0",
+    "@japa/runner": "^4.2.0",
+    "@swc/core": "1.11.24",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^22.15.18",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "eslint": "^9.39.2",
+    "eslint-config-ali": "^16.5.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "hot-hook": "^0.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "pino-pretty": "^13.0.0",
+    "prettier": "^3.7.4",
+    "prettier-config-ali": "^1.5.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-ali": "^2.3.0",
+    "stylelint-prettier": "^5.0.3",
+    "ts-node-maintained": "^10.9.5",
+    "typescript": "~5.8",
+    "vite": "^6.3.5"
+  },
   "hotHook": {
     "boundaries": [
       "./app/controllers/**/*.ts",
       "./app/middleware/*.ts"
     ]
-  },
-  "prettier": "@adonisjs/prettier-config"
+  }
 }
