@@ -1,0 +1,43 @@
+import Game from '#models/game';
+import type { HttpContext } from '@adonisjs/core/http';
+
+export default class GamesController {
+  /**
+   * Display a list of resource
+   */
+  async index({ request }: HttpContext) {
+    const page = request.input('page', 1);
+    const pageSize = request.input('pageSize', 10);
+    return Game.query().paginate(page, pageSize);
+  }
+
+  /**
+   * Display form to create a new record
+   */
+  async create({}: HttpContext) {}
+
+  /**
+   * Handle form submission for the create action
+   */
+  async store({ request }: HttpContext) {}
+
+  /**
+   * Show individual record
+   */
+  async show({ params }: HttpContext) {}
+
+  /**
+   * Edit individual record
+   */
+  async edit({ params }: HttpContext) {}
+
+  /**
+   * Handle form submission for the edit action
+   */
+  async update({ params, request }: HttpContext) {}
+
+  /**
+   * Delete record
+   */
+  async destroy({ params }: HttpContext) {}
+}
