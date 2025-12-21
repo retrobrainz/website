@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: retrobrainz
+      POSTGRES_DB: retrobrainz
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
