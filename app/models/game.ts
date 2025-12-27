@@ -1,5 +1,7 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm';
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
+import type { HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import GameTranslation from './game_translation.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +21,9 @@ export default class Game extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime;
+
+  // Relationships
+
+  @hasMany(() => GameTranslation)
+  declare translations: HasMany<typeof GameTranslation>;
 }
