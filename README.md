@@ -45,3 +45,6 @@ RetroBrainz Website is built using the following free & open source technologies
 - [Ant Design](https://ant.design/) as the UI component library.
 - [Wouter](https://github.com/molefrog/wouter) as the routing library.
 - [PostgreSQL](https://www.postgresql.org/) as the database.
+- [PM2](https://pm2.keymetrics.io/) as the process manager.
+- [Nginx](https://www.nginx.com/) as the web server.
+- [Certbot](https://certbot.eff.org/) as the SSL certificate manager.
