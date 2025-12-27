@@ -10,7 +10,7 @@
 
 ```bash
 # openSUSE/SLE
-sudo zypper install git nodejs postgresql nginx python3-certbot python3-certbot-nginx
+sudo zypper install git nodejs postgresql postgresql-server postgresql-contrib nginx python3-certbot python3-certbot-nginx
 ```
 
 ### Clone repository and build
