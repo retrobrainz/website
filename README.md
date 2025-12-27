@@ -23,6 +23,14 @@ npm install
 npm run build
 ```
 
+### PM2 setup
+
+```bash
+sudo npm install -g pm2
+pm2 start ecosystem.config.cjs
+pm2 save
+```
+
 ## Acknowledge
 
 RetroBrainz Website is built using the following free & open source technologies:
