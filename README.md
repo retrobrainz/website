@@ -6,6 +6,22 @@
 
 [Setup_openSUSE_VPS](https://en.opensuse.org/Setup_openSUSE_VPS)
 
+### Initialize PostgresQL
+
+```bash
+sudo su postgres
+psql
+```
+
+```sql
+CREATE USER retrobrainz WITH PASSWORD 'your_password_here';
+CREATE DATABASE your_user;
+GRANT ALL PRIVILEGES ON DATABASE retrobrainz TO your_user;
+\c EXAMPLE_DB postgres
+GRANT ALL ON SCHEMA public TO EXAMPLE_USER;
+exit
+```
+
 ### Install packages
 
 ```bash
