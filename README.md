@@ -28,6 +28,7 @@ npm run build
 ```bash
 sudo npm install -g pm2
 pm2 start ecosystem.config.cjs
+pm2 startup
 pm2 save
 ```
 
