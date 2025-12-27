@@ -7,7 +7,14 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.foreign('game_id').references('games.id').onDelete('CASCADE');
+      table
+        .integer('game_id')
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('games')
+        .onDelete('CASCADE');
+
       table.string('locale', 5).notNullable();
 
       table.string('title').notNullable();
