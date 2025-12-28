@@ -2,6 +2,7 @@ import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
 import type { HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import GameTranslation from './game_translation.js';
+import Rom from './rom.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -26,4 +27,7 @@ export default class Game extends BaseModel {
 
   @hasMany(() => GameTranslation)
   declare translations: HasMany<typeof GameTranslation>;
+
+  @hasMany(() => Rom)
+  declare roms: HasMany<typeof Rom>;
 }
