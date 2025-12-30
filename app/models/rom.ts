@@ -17,10 +17,16 @@ export default class Rom extends BaseModel {
   @column()
   declare crc: string | null;
 
-  @column()
+  @column({
+    // Otherwise AdonisJS mistakes column name to md_5
+    columnName: 'md5',
+  })
   declare md5: string | null;
 
-  @column()
+  @column({
+    // Otherwise AdonisJS mistakes column name to sha_1
+    columnName: 'sha1',
+  })
   declare sha1: string | null;
 
   @column()
