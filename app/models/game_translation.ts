@@ -12,7 +12,7 @@ export default class GameTranslation extends BaseModel {
   declare locale: string;
 
   @column()
-  declare title: string;
+  declare name: string;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;

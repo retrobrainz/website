@@ -9,6 +9,7 @@ export default class extends BaseSchema {
 
       table.string('platform').notNullable();
       table.string('name').notNullable();
+      table.string('region', 32).nullable();
       table.date('release_date').nullable();
 
       table.timestamp('created_at');
