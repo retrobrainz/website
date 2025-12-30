@@ -20,7 +20,7 @@ export default class extends BaseSchema {
       table.string('crc', 8).nullable();
       table.string('md5', 32).nullable();
       table.string('sha1', 40).nullable();
-      table.string('serial', 16).nullable();
+      table.string('serial', 32).nullable();
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
