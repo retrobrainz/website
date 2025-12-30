@@ -136,8 +136,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(prettier@3.7.4)
       robloach-datfile:
-        specifier: ^2.4.0
-        version: 2.4.0
+        specifier: ^2.4.1
+        version: 2.4.1
       stylelint:
         specifier: ^16.26.1
         version: 16.26.1(typescript@5.8.3)
@@ -4354,8 +4354,8 @@ packages:
   rndm@1.2.0:
     resolution: {integrity: sha512-fJhQQI5tLrQvYIYFpOnFinzv9dwmR7hRnUz1XqP3OJ1jIweTNOd6aTO4jwQSgcBSFUB+/KHJxuGneime+FdzOw==}
 
-  robloach-datfile@2.4.0:
-    resolution: {integrity: sha512-owIJNLBTe6siSv0vEJLZFZRYm41xb5OdWaS1rwUmkfovrsFhsTAYveFQoZhy4bis2TCc++zG0TfOwYCErLeJlQ==}
+  robloach-datfile@2.4.1:
+    resolution: {integrity: sha512-2xtDVvT0/feV1ww85Xh2yxmo2me0uWOi3BKvBBGU8oODD1pq1j0iW1UmAKKcyE+EfyNGiHd9zq+oH7sJ+jwsyA==}
 
   rollup@4.53.5:
     resolution: {integrity: sha512-iTNAbFSlRpcHeeWu73ywU/8KuU/LZmNCSxp6fjQkJBD3ivUb8tpDrXhIxEzA05HlYMEwmtaUnb3RP+YNv162OQ==}
@@ -9638,7 +9638,7 @@ snapshots:
 
   rndm@1.2.0: {}
 
-  robloach-datfile@2.4.0:
+  robloach-datfile@2.4.1:
     dependencies:
       extend-shallow: 3.0.2
 
