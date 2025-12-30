@@ -8,13 +8,13 @@ export default class extends BaseSchema {
       table.increments('id');
 
       table.string('platform').notNullable();
-      table.string('title').notNullable();
+      table.string('name').notNullable();
       table.date('release_date').nullable();
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
 
-      table.unique(['platform', 'title']);
+      table.unique(['platform', 'name']);
     });
   }
 
