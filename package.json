@@ -100,7 +100,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint": "^9.39.2",
-    "eslint-config-ali": "^16.5.1",
+    "eslint-config-ali": "^16.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "hot-hook": "^0.4.0",
