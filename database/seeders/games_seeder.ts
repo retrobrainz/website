@@ -1,6 +1,7 @@
 import Game from '#models/game';
 import Rom from '#models/rom';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
+import { DateTime } from 'luxon';
 import datfile from 'robloach-datfile';
 import xior from 'xior';
 
@@ -9,8 +10,12 @@ export default class extends BaseSeeder {
     // https://en.wikipedia.org/wiki/List_of_best-selling_game_consoles
 
     // Nintendo DS/DSi
-    await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', 'nds');
+    await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', 'nds');
+    await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
     await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
+
+    // Nintendo DSi
+    await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', 'nds');
 
     await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', 'md');
   }
@@ -26,7 +31,23 @@ export default class extends BaseSeeder {
         platform,
         name,
       });
+
       game.merge(attrs);
+
+      if (releaseyear || releasemonth || releaseday) {
+        game.releaseDate ||= DateTime.fromISO('1970-01-01');
+
+        if (releaseyear) {
+          game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
+        }
+        if (releasemonth) {
+          game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
+        }
+        if (releaseday) {
+          game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
+        }
+      }
+
       if (game.$isDirty) {
         if (game.$isNew) {
           console.log(`Create game: ${name} (${platform})`);
@@ -59,12 +80,29 @@ export default class extends BaseSeeder {
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
-    for (const { entries, ...attrs } of data) {
+    for (const { entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
       const rom = await Rom.findBy('crc', entries[0].crc);
       if (!rom) continue;
+
       const game = await Game.find(rom.gameId);
       if (!game) continue;
+
       game.merge(attrs);
+
+      if (releaseyear || releasemonth || releaseday) {
+        game.releaseDate ||= DateTime.fromISO('1970-01-01');
+
+        if (releaseyear) {
+          game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
+        }
+        if (releasemonth) {
+          game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
+        }
+        if (releaseday) {
+          game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
+        }
+      }
+
       if (game.$isDirty) {
         if (game.$isNew) {
           console.log(`Create game: ${game.name} (${game.platform})`);
