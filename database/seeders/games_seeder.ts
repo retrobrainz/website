@@ -15,23 +15,25 @@ export default class extends BaseSeeder {
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
-    for (const gameData of data) {
-      console.log(gameData);
-      const game = await Game.firstOrCreate(
-        {
-          platform,
-          name: gameData.name,
-        },
-        {
-          platform,
-          name: gameData.name,
-          region: gameData.region || null,
-        },
-      );
+    for (const { name, region, entries } of data) {
+      console.log(platform, name);
+      const game = await Game.firstOrNew({
+        platform,
+        name,
+      });
+      game.merge({ region });
+      if (game.isDirty()) {
+        await game.save();
+      }
+
       await Promise.all(
-        gameData.entries.map((entry: any) =>
-          Rom.firstOrCreate({ md5: entry.md5 }, { ...entry, gameId: game.id }),
-        ),
+        entries.map(async (entry: any) => {
+          const rom = await Rom.firstOrNew({ md5: entry.md5 });
+          rom.merge({ gameId: game.id, ...entry });
+          if (rom.isDirty()) {
+            await rom.save();
+          }
+        }),
       );
     }
   }
