@@ -17,6 +17,12 @@ export default class Game extends BaseModel {
   @column()
   declare region: string | null;
 
+  @column()
+  declare serial: string | null;
+
+  @column()
+  declare publisher: string | null;
+
   @column.date()
   declare releaseDate: DateTime | null;
 

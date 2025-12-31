@@ -10,6 +10,8 @@ export default class extends BaseSchema {
       table.string('platform').notNullable();
       table.string('name').notNullable();
       table.string('region', 32).nullable();
+      table.string('serial', 32).nullable();
+      table.string('publisher').nullable();
       table.date('release_date').nullable();
 
       table.timestamp('created_at');
