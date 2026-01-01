@@ -30,6 +30,35 @@ export default class extends BaseSeeder {
       await this.fetchDatFile('metadat/redump/Sony - PlayStation.dat', psx.id);
     }
 
+    // PlayStation 2
+    const ps2 = await Platform.findBy('code', 'ps2');
+    if (ps2) {
+      await this.fetchDatFile('metadat/redump/Sony - PlayStation 2.dat', ps2.id);
+    }
+
+    // PlayStation 3
+    const ps3 = await Platform.findBy('code', 'ps3');
+    if (ps3) {
+      await this.fetchDatFile('metadat/redump/Sony - PlayStation 3.dat', ps3.id);
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation 3 (PSN).dat', ps3.id);
+    }
+
+    // PlayStation Portable
+    const psp = await Platform.findBy('code', 'psp');
+    if (psp) {
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable.dat', psp.id);
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable (PSN).dat', psp.id);
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable (PSX2PSP).dat', psp.id);
+      await this.fetchDatFile('metadat/redump/Sony - PlayStation Portable.dat', psp.id);
+    }
+
+    // PlayStation Vita
+    const psv = await Platform.findBy('code', 'psv');
+    if (psv) {
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Vita.dat', psv.id);
+      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Vita (PSN).dat', psv.id);
+    }
+
     // Sega Mega Drive/Genesis
     const md = await Platform.findBy('code', 'md');
     if (md) {
