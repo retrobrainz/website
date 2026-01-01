@@ -7,7 +7,14 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.string('platform').notNullable();
+      table
+        .integer('platform_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('platforms')
+        .onDelete('SET NULL');
+
       table.string('name').notNullable();
       table.string('region', 32).nullable();
       table.string('serial', 32).nullable();
@@ -18,7 +25,7 @@ export default class extends BaseSchema {
       table.timestamp('created_at');
       table.timestamp('updated_at');
 
-      table.unique(['platform', 'name']);
+      table.unique(['platform_id', 'name']);
     });
   }
 

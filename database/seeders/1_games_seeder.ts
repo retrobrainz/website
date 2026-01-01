@@ -1,4 +1,5 @@
 import Game from '#models/game';
+import Platform from '#models/platform';
 import Rom from '#models/rom';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { DateTime } from 'luxon';
@@ -9,18 +10,25 @@ export default class extends BaseSeeder {
   async run() {
     // https://en.wikipedia.org/wiki/List_of_best-selling_game_consoles
 
-    // Nintendo DS/DSi
-    await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', 'nds');
-    await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
-    await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
+    // Nintendo DS
+    // await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', 'nds');
+    // await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
+    // await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
 
     // Nintendo DSi
-    await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', 'nds');
+    const nds = await Platform.findBy('code', 'nds');
+    if (nds) {
+      await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', nds.id);
+      await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
+    }
 
-    await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', 'md');
+    const md = await Platform.findBy('code', 'md');
+    if (md) {
+      await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
+    }
   }
 
-  async fetchDatFile(file: string, platform: string): Promise<void> {
+  async fetchDatFile(file: string, platformId: number): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     const data = await xior
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
@@ -28,7 +36,7 @@ export default class extends BaseSeeder {
 
     for (const { name, entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
       const game = await Game.firstOrNew({
-        platform,
+        platformId,
         name,
       });
 
@@ -81,6 +89,8 @@ export default class extends BaseSeeder {
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
     for (const { entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
+      console.log(attrs);
+      console.log(entries);
       const rom = await Rom.findBy('crc', entries[0].crc);
       if (!rom) continue;
 
