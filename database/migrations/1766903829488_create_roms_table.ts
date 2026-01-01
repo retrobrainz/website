@@ -16,7 +16,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE');
 
       table.string('name').notNullable();
-      table.integer('size').nullable();
+      table.bigInteger('size').nullable();
       table.string('crc', 8).nullable();
       table.string('md5', 32).nullable();
       table.string('sha1', 40).nullable();
