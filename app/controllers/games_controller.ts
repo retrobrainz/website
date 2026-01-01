@@ -8,6 +8,6 @@ export default class GamesController {
   async index({ request }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
-    return Game.query().preload('translations').paginate(page, pageSize);
+    return Game.query().preload('translations').preload('platform').paginate(page, pageSize);
   }
 }

@@ -58,9 +58,9 @@ export default class extends BaseSeeder {
 
       if (game.$isDirty) {
         if (game.$isNew) {
-          console.log(`Create game: ${name} (${platform})`);
+          console.log(`Create game: ${name}`);
         } else {
-          console.log(`Update game: ${name} (${platform})`);
+          console.log(`Update game: ${name}`);
         }
         await game.save();
       }
@@ -115,9 +115,9 @@ export default class extends BaseSeeder {
 
       if (game.$isDirty) {
         if (game.$isNew) {
-          console.log(`Create game: ${game.name} (${game.platform})`);
+          console.log(`Create game: ${game.name}`);
         } else {
-          console.log(`Update game: ${game.name} (${game.platform})`);
+          console.log(`Update game: ${game.name}`);
         }
         await game.save();
       }
