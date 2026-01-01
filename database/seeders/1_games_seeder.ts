@@ -109,9 +109,9 @@ export default class extends BaseSeeder {
           rom.merge({ gameId: game.id, ...entry });
           if (rom.$isDirty) {
             if (rom.$isNew) {
-              console.log(`  Create rom: ${entry.name} (${entry.md5})`);
+              console.log(`  Create rom: ${entry.name}`);
             } else {
-              console.log(`  Update rom: ${entry.name} (${entry.md5})`);
+              console.log(`  Update rom: ${entry.name}`);
             }
             await rom.save();
           }
@@ -127,8 +127,6 @@ export default class extends BaseSeeder {
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
     for (const { entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
-      console.log(attrs);
-      console.log(entries);
       const rom = await Rom.findBy('crc', entries[0].crc);
       if (!rom) continue;
 
@@ -152,11 +150,8 @@ export default class extends BaseSeeder {
       }
 
       if (game.$isDirty) {
-        if (game.$isNew) {
-          console.log(`Create game: ${game.name}`);
-        } else {
-          console.log(`Update game: ${game.name}`);
-        }
+        console.log(`Update game: ${game.name}`);
+
         await game.save();
       }
     }
