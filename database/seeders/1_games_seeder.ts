@@ -8,20 +8,29 @@ import xior from 'xior';
 
 export default class extends BaseSeeder {
   async run() {
-    // https://en.wikipedia.org/wiki/List_of_best-selling_game_consoles
-
     // Nintendo DS
-    // await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', 'nds');
-    // await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
-    // await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
-
-    // Nintendo DSi
     const nds = await Platform.findBy('code', 'nds');
     if (nds) {
       await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', nds.id);
       await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
+      // await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
+      // await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
     }
 
+    // Nitendo Game Boy
+    const gb = await Platform.findBy('code', 'gb');
+    if (gb) {
+      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy.dat', gb.id);
+      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy Color.dat', gb.id);
+    }
+
+    // PlayStation
+    const psx = await Platform.findBy('code', 'psx');
+    if (psx) {
+      await this.fetchDatFile('metadat/redump/Sony - PlayStation.dat', psx.id);
+    }
+
+    // Sega Mega Drive/Genesis
     const md = await Platform.findBy('code', 'md');
     if (md) {
       await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
