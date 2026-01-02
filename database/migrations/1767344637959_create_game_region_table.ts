@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema';
 
 export default class extends BaseSchema {
-  protected tableName = 'game_translations';
+  protected tableName = 'game_region';
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -15,9 +15,13 @@ export default class extends BaseSchema {
         .inTable('games')
         .onDelete('CASCADE');
 
-      table.string('locale', 5).notNullable();
-
-      table.string('name').notNullable();
+      table
+        .integer('region_id')
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('regions')
+        .onDelete('CASCADE');
 
       table.timestamp('created_at');
       table.timestamp('updated_at');

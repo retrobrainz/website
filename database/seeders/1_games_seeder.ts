@@ -71,6 +71,10 @@ export default class extends BaseSeeder {
     }
   }
 
+  filterByName(name: string): boolean {
+    return !name.includes('(Beta)');
+  }
+
   /**
    * https://wiki.recalbox.com/en/tutorials/games/generalities/tags-used-in-rom-names
    */
@@ -80,6 +84,7 @@ export default class extends BaseSeeder {
 
   async fetchDatFile(file: string, platformId: number): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
+    console.log(url);
     const data = await xior
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
@@ -93,6 +98,10 @@ export default class extends BaseSeeder {
       description, // unused
       ...attrs
     } of data) {
+      if (!this.filterByName(name)) {
+        continue;
+      }
+
       const game = await Game.firstOrNew({
         platformId,
         name,
@@ -103,13 +112,16 @@ export default class extends BaseSeeder {
       if (releaseyear || releasemonth || releaseday) {
         game.releaseDate ||= DateTime.fromISO('1970-01-01');
 
-        if (releaseyear) {
+        if (releaseyear && game.releaseDate.year !== Number(releaseyear)) {
+          console.log('releaseyear', releaseyear, game.releaseDate.year);
           game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
         }
-        if (releasemonth) {
+        if (releasemonth && game.releaseDate.month !== Number(releasemonth)) {
+          console.log('releasemonth', releasemonth, game.releaseDate.month);
           game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
         }
-        if (releaseday) {
+        if (releaseday && game.releaseDate.day !== Number(releaseday)) {
+          console.log('releaseday', releaseday, game.releaseDate.day);
           game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
         }
       }
@@ -119,6 +131,7 @@ export default class extends BaseSeeder {
           console.log(`Create game: ${name}`);
         } else {
           console.log(`Update game: ${name}`);
+          console.log(game.$dirty);
         }
         await game.save();
       }
@@ -132,6 +145,7 @@ export default class extends BaseSeeder {
               console.log(`  Create rom: ${romData.name}`);
             } else {
               console.log(`  Update rom: ${romData.name}`);
+              console.log(rom.$dirty);
             }
             await rom.save();
           }
@@ -158,13 +172,13 @@ export default class extends BaseSeeder {
       if (releaseyear || releasemonth || releaseday) {
         game.releaseDate ||= DateTime.fromISO('1970-01-01');
 
-        if (releaseyear) {
+        if (releaseyear && game.releaseDate.year !== Number(releaseyear)) {
           game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
         }
-        if (releasemonth) {
+        if (releasemonth && game.releaseDate.month !== Number(releasemonth)) {
           game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
         }
-        if (releaseday) {
+        if (releaseday && game.releaseDate.day !== Number(releaseday)) {
           game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
         }
       }

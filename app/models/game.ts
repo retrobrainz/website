@@ -1,10 +1,11 @@
 import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
-import GameTranslation from './game_translation.js';
 import Genre from './genre.js';
 import Platform from './platform.js';
+import Region from './region.js';
 import Rom from './rom.js';
+import Title from './title.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -14,16 +15,10 @@ export default class Game extends BaseModel {
   declare platformId: number;
 
   @column()
+  declare titleId: number;
+
+  @column()
   declare name: string;
-
-  @column()
-  declare region: string | null;
-
-  @column()
-  declare developer: string | null;
-
-  @column()
-  declare publisher: string | null;
 
   @column.date()
   declare releaseDate: DateTime | null;
@@ -39,11 +34,16 @@ export default class Game extends BaseModel {
   @belongsTo(() => Platform)
   declare platform: BelongsTo<typeof Platform>;
 
-  @hasMany(() => GameTranslation)
-  declare translations: HasMany<typeof GameTranslation>;
+  @belongsTo(() => Title)
+  declare title: BelongsTo<typeof Title>;
 
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
+
+  @manyToMany(() => Region, {
+    pivotTable: 'game_region',
+  })
+  declare regions: ManyToMany<typeof Region>;
 
   @manyToMany(() => Genre, {
     pivotTable: 'game_genre',

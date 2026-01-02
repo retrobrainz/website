@@ -1,12 +1,12 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm';
 import { DateTime } from 'luxon';
 
-export default class GameTranslation extends BaseModel {
+export default class TitleTranslation extends BaseModel {
   @column({ isPrimary: true })
   declare id: number;
 
   @column()
-  declare gameId: number;
+  declare titleId: number;
 
   @column()
   declare locale: string;

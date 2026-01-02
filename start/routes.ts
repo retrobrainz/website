@@ -8,11 +8,17 @@
 */
 
 import GamesController from '#controllers/games_controller';
+import GenresController from '#controllers/genres_controller';
+import PlatformsController from '#controllers/platforms_controller';
+import RegionsController from '#controllers/regions_controller';
 import router from '@adonisjs/core/services/router';
 
 router
   .group(() => {
     router.resource('games', GamesController).apiOnly();
+    router.resource('genres', GenresController).apiOnly();
+    router.resource('platforms', PlatformsController).apiOnly();
+    router.resource('regions', RegionsController).apiOnly();
   })
   .prefix('/api');
 
