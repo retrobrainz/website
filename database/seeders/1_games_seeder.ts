@@ -21,7 +21,12 @@ export default class extends BaseSeeder {
     const gb = await Platform.findBy('code', 'gb');
     if (gb) {
       await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy.dat', gb.id);
-      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy Color.dat', gb.id);
+    }
+
+    // Nitendo Game Boy Color
+    const gbc = await Platform.findBy('code', 'gbc');
+    if (gbc) {
+      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy Color.dat', gbc.id);
     }
 
     // PlayStation
@@ -79,7 +84,15 @@ export default class extends BaseSeeder {
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
-    for (const { name, entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
+    for (const {
+      name,
+      entries,
+      releaseyear,
+      releasemonth,
+      releaseday,
+      description, // unused
+      ...attrs
+    } of data) {
       const game = await Game.firstOrNew({
         platformId,
         name,
