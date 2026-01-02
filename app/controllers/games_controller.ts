@@ -12,6 +12,7 @@ export default class GamesController {
       .preload('title', (query) => query.preload('translations'))
       .preload('platform')
       .preload('regions')
+      .preload('roms')
       .paginate(page, pageSize);
   }
 }

@@ -1,6 +1,7 @@
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
 import type { HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import Game from './game.js';
 import TitleTranslation from './title_translation.js';
 
 export default class Title extends BaseModel {
@@ -20,4 +21,7 @@ export default class Title extends BaseModel {
 
   @hasMany(() => TitleTranslation)
   declare translations: HasMany<typeof TitleTranslation>;
+
+  @hasMany(() => Game)
+  declare games: HasMany<typeof Game>;
 }

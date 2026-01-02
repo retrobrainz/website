@@ -12,7 +12,12 @@ export default function HomePage() {
     <div>
       <Table
         dataSource={data?.data}
-        pagination={{ current: page, onChange: setPage, total: data?.meta?.total }}
+        pagination={{
+          current: page,
+          onChange: setPage,
+          total: data?.meta?.total,
+          showTotal: (total) => `Total ${total} games`,
+        }}
         columns={[
           {
             dataIndex: ['platform', 'name'],
@@ -50,6 +55,11 @@ export default function HomePage() {
           {
             dataIndex: 'releaseDate',
             title: 'Release Date',
+          },
+          {
+            dataIndex: 'roms',
+            title: 'ROMs',
+            render: (roms: any[]) => roms.length,
           },
         ]}
       />
