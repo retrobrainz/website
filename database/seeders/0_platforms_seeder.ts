@@ -11,10 +11,8 @@ export default class extends BaseSeeder {
     await Platform.firstOrCreate({ code: 'ps2' }, { name: 'PlayStation 2', company: 'Sony' });
     await Platform.firstOrCreate({ code: 'nds' }, { name: 'Nintendo DS', company: 'Nintendo' });
     await Platform.firstOrCreate({ code: 'ns' }, { name: 'Nintendo Switch', company: 'Nintendo' });
-    await Platform.firstOrCreate(
-      { code: 'gb' },
-      { name: 'Game Boy/Game Boy Color', company: 'Nintendo' },
-    );
+    await Platform.firstOrCreate({ code: 'gb' }, { name: 'Game Boy', company: 'Nintendo' });
+    await Platform.firstOrCreate({ code: 'gbc' }, { name: 'Game Boy Color', company: 'Nintendo' });
     await Platform.firstOrCreate({ code: 'psx' }, { name: 'PlayStation', company: 'Sony' });
     await Platform.firstOrCreate({ code: 'wii' }, { name: 'Wii', company: 'Nintendo' });
     await Platform.firstOrCreate({ code: 'ps3' }, { name: 'PlayStation 3', company: 'Sony' });
