@@ -66,6 +66,13 @@ export default class extends BaseSeeder {
     }
   }
 
+  /**
+   * https://wiki.recalbox.com/en/tutorials/games/generalities/tags-used-in-rom-names
+   */
+  trimName(name: string): string {
+    return name.replace(/\s+\[.*?\]$/u, '').trim();
+  }
+
   async fetchDatFile(file: string, platformId: number): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     const data = await xior
@@ -104,14 +111,14 @@ export default class extends BaseSeeder {
       }
 
       await Promise.all(
-        entries.map(async (entry: any) => {
-          const rom = await Rom.firstOrNew({ crc: entry.crc });
-          rom.merge({ gameId: game.id, ...entry });
+        entries.map(async ({ crc, serial = null, ...romData }: any) => {
+          const rom = await Rom.firstOrNew({ crc, serial });
+          rom.merge({ gameId: game.id, ...romData });
           if (rom.$isDirty) {
             if (rom.$isNew) {
-              console.log(`  Create rom: ${entry.name}`);
+              console.log(`  Create rom: ${romData.name}`);
             } else {
-              console.log(`  Update rom: ${entry.name}`);
+              console.log(`  Update rom: ${romData.name}`);
             }
             await rom.save();
           }
