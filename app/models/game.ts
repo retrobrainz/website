@@ -1,7 +1,8 @@
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import GameTranslation from './game_translation.js';
+import Genre from './genre.js';
 import Platform from './platform.js';
 import Rom from './rom.js';
 
@@ -17,9 +18,6 @@ export default class Game extends BaseModel {
 
   @column()
   declare region: string | null;
-
-  @column()
-  declare serial: string | null;
 
   @column()
   declare developer: string | null;
@@ -46,4 +44,9 @@ export default class Game extends BaseModel {
 
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
+
+  @manyToMany(() => Genre, {
+    pivotTable: 'game_genre',
+  })
+  declare genres: ManyToMany<typeof Genre>;
 }
