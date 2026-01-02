@@ -24,7 +24,7 @@ export default class extends BaseSchema {
         .onDelete('SET NULL');
 
       table.string('name', 256).notNullable();
-      table.string('languages', 32).nullable();
+      table.string('languages', 64).nullable();
       table.date('release_date').nullable();
 
       table.timestamp('created_at');
