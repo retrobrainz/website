@@ -32,6 +32,9 @@ export default class Rom extends BaseModel {
   @column()
   declare serial: string | null;
 
+  @column()
+  declare disc: number | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 

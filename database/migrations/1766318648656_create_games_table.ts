@@ -23,7 +23,8 @@ export default class extends BaseSchema {
         .inTable('titles')
         .onDelete('SET NULL');
 
-      table.string('name', 128).notNullable();
+      table.string('name', 256).notNullable();
+      table.string('languages', 32).nullable();
       table.date('release_date').nullable();
 
       table.timestamp('created_at');

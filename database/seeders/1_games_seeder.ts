@@ -1,6 +1,9 @@
+import parseName from '#database/utils/parseName';
 import Game from '#models/game';
 import Platform from '#models/platform';
+import Region from '#models/region';
 import Rom from '#models/rom';
+import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { DateTime } from 'luxon';
 import datfile from 'robloach-datfile';
@@ -71,17 +74,6 @@ export default class extends BaseSeeder {
     }
   }
 
-  filterByName(name: string): boolean {
-    return !name.includes('(Beta)');
-  }
-
-  /**
-   * https://wiki.recalbox.com/en/tutorials/games/generalities/tags-used-in-rom-names
-   */
-  trimName(name: string): string {
-    return name.replace(/\s+\[.*?\]$/u, '').trim();
-  }
-
   async fetchDatFile(file: string, platformId: number): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     console.log(url);
@@ -90,40 +82,38 @@ export default class extends BaseSeeder {
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
     for (const {
-      name,
+      name: rawName,
       entries,
       releaseyear,
       releasemonth,
       releaseday,
       description, // unused
+      region, // unused
+      serial: gameSerial = null, // unused
       ...attrs
     } of data) {
-      if (!this.filterByName(name)) {
-        continue;
-      }
+      const { title: titleName, name, disc = null, regions, languages = null } = parseName(rawName);
+
+      const title = await Title.firstOrCreate({ name: titleName });
 
       const game = await Game.firstOrNew({
         platformId,
+        titleId: title.id,
         name,
       });
 
+      if (languages) {
+        game.languages = languages;
+      }
+
       game.merge(attrs);
 
-      if (releaseyear || releasemonth || releaseday) {
-        game.releaseDate ||= DateTime.fromISO('1970-01-01');
-
-        if (releaseyear && game.releaseDate.year !== Number(releaseyear)) {
-          console.log('releaseyear', releaseyear, game.releaseDate.year);
-          game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
-        }
-        if (releasemonth && game.releaseDate.month !== Number(releasemonth)) {
-          console.log('releasemonth', releasemonth, game.releaseDate.month);
-          game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
-        }
-        if (releaseday && game.releaseDate.day !== Number(releaseday)) {
-          console.log('releaseday', releaseday, game.releaseDate.day);
-          game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
-        }
+      if (!game.releaseDate && releaseyear && releasemonth && releaseday) {
+        game.releaseDate = DateTime.fromObject({
+          year: Number(releaseyear),
+          month: Number(releasemonth),
+          day: Number(releaseday),
+        });
       }
 
       if (game.$isDirty) {
@@ -136,10 +126,23 @@ export default class extends BaseSeeder {
         await game.save();
       }
 
+      if (region && !regions.includes(region)) {
+        regions.push(region);
+      }
+
+      const regionIds: number[] = await Promise.all(
+        regions.map(async (regionName) => {
+          const regionObj = await Region.firstOrCreate({ name: regionName });
+          return regionObj.id;
+        }),
+      );
+
+      await game.related('regions').sync(regionIds, true);
+
       await Promise.all(
-        entries.map(async ({ crc, serial = null, ...romData }: any) => {
-          const rom = await Rom.firstOrNew({ crc, serial });
-          rom.merge({ gameId: game.id, ...romData });
+        entries.map(async ({ crc, serial: romSerial = null, ...romData }: any) => {
+          const rom = await Rom.firstOrNew({ crc, serial: romSerial || gameSerial });
+          rom.merge({ gameId: game.id, disc, ...romData });
           if (rom.$isDirty) {
             if (rom.$isNew) {
               console.log(`  Create rom: ${romData.name}`);

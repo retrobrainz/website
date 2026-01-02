@@ -52,53 +52,48 @@ const regionMap: Record<string, string> = { 'United Kingdom': 'UK' };
 
 const regionRegex = new RegExp(`\\(((?:${allRegions.join('|')}|, )+)\\)`);
 
-function remapRegion(region?: string) {
-  return regionMap[region ?? ''] || region || 'Unknown';
+function remapRegion(region: string) {
+  return regionMap[region ?? ''] || region;
 }
 
 export interface ParsedResult {
   title: string;
-  displayName: string;
-  mainName: string;
+  name: string;
   disc: number;
-  region: string;
-  language?: string;
+  regions: string[];
+  languages?: string;
 }
 
 /**
  * Parse Redump game name and get region, language, disc number and regular game title.
  */
-export default function parseName(name: string): ParsedResult {
-  const regionMatch = name.match(regionRegex);
+export default function parseName(rawName: string): ParsedResult {
+  const regionMatch = rawName.match(regionRegex);
 
   if (!regionMatch) {
-    console.warn(`No region found in "${name}"`);
+    console.warn(`No region found in "${rawName}"`);
   }
 
-  const region = remapRegion(regionMatch?.[1]);
-  const langMatch = name.match(langRegex);
-  const language = langMatch?.[1];
-  const discMatch = name.match(discRegex);
+  const regions = regionMatch?.[1].split(', ').map(remapRegion)?.filter(Boolean) || [];
+  const langMatch = rawName.match(langRegex);
+  const languages = langMatch?.[1];
+  const discMatch = rawName.match(discRegex);
   const disc = discMatch ? parseInt(discMatch[1], 10) : 1;
 
-  const mainName = name
-    .replace(revRegex, '') // remove (Rev 1)
-    .replace(altRegex, '') // remove (Alt)
-    .replace(discRegex, '(Disc 1)') // change (Disc 2) to (Disc 1)
-    .replace('(Virtual Console)', '') // See https://en.wikipedia.org/wiki/Virtual_Console
-    .replace(/\s+/g, ' ') // combine spaces
+  const title = rawName.substring(0, regionMatch?.index).trim();
+
+  const name = rawName
+    .replace(altRegex, '')
+    .replace(discRegex, '')
+    .replace(revRegex, '')
+    .replace(/\s+/g, ' ')
     .trim();
-
-  const title = name.substring(0, regionMatch?.index).trim();
-
-  const displayName = regionMatch ? `${title} (${region})` : title;
 
   return {
     title,
-    mainName,
-    displayName,
+    name,
+    regions,
+    languages,
     disc,
-    region,
-    language,
   };
 }

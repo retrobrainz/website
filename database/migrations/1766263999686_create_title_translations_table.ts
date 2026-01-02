@@ -17,7 +17,7 @@ export default class extends BaseSchema {
 
       table.string('locale', 5).notNullable();
 
-      table.string('name').notNullable();
+      table.string('name', 256).notNullable();
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
