@@ -126,10 +126,6 @@ export default class extends BaseSeeder {
         await game.save();
       }
 
-      if (region && !regions.includes(region)) {
-        regions.push(region);
-      }
-
       const regionIds: number[] = await Promise.all(
         regions.map(async (regionName) => {
           const regionObj = await Region.firstOrCreate({ name: regionName });

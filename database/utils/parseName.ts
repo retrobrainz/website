@@ -53,7 +53,7 @@ const regionMap: Record<string, string> = { 'United Kingdom': 'UK' };
 const regionRegex = new RegExp(`\\(((?:${allRegions.join('|')}|, )+)\\)`);
 
 function remapRegion(region: string) {
-  return regionMap[region ?? ''] || region;
+  return regionMap[region] || region;
 }
 
 export interface ParsedResult {

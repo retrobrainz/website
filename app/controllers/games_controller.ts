@@ -11,6 +11,7 @@ export default class GamesController {
     return Game.query()
       .preload('title', (query) => query.preload('translations'))
       .preload('platform')
+      .preload('regions')
       .paginate(page, pageSize);
   }
 }
