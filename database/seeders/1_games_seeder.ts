@@ -10,6 +10,8 @@ import datfile from 'robloach-datfile';
 import xior from 'xior';
 
 export default class extends BaseSeeder {
+  tagCounts: Record<string, number> = {};
+
   async run() {
     // Nintendo DS
     const nds = await Platform.findBy('code', 'nds');
@@ -72,6 +74,12 @@ export default class extends BaseSeeder {
     if (md) {
       await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
     }
+
+    Object.entries(this.tagCounts)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([tag, count]) => {
+        console.log(`${tag}: ${count}`);
+      });
   }
 
   async fetchDatFile(file: string, platformId: number): Promise<void> {
@@ -82,7 +90,7 @@ export default class extends BaseSeeder {
       .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
 
     for (const {
-      name: rawName,
+      name: romName,
       entries,
       releaseyear,
       releasemonth,
@@ -92,14 +100,25 @@ export default class extends BaseSeeder {
       serial: gameSerial = null, // unused
       ...attrs
     } of data) {
-      const { title: titleName, name, disc = null, regions, languages = null } = parseName(rawName);
+      const {
+        title: titleName,
+        name: gameName,
+        disc = null,
+        regions,
+        languages = null,
+        tags,
+      } = parseName(romName, gameSerial);
+
+      tags?.forEach((tag) => {
+        this.tagCounts[tag] = (this.tagCounts[tag] || 0) + 1;
+      });
 
       const title = await Title.firstOrCreate({ name: titleName });
 
       const game = await Game.firstOrNew({
         platformId,
         titleId: title.id,
-        name,
+        name: gameName,
       });
 
       if (languages) {
@@ -118,9 +137,9 @@ export default class extends BaseSeeder {
 
       if (game.$isDirty) {
         if (game.$isNew) {
-          console.log(`Create game: ${name}`);
+          console.log(`Create game: ${gameName}`);
         } else {
-          console.log(`Update game: ${name}`);
+          console.log(`Update game: ${gameName}`);
           console.log(game.$dirty);
         }
         await game.save();
@@ -136,14 +155,19 @@ export default class extends BaseSeeder {
       await game.related('regions').sync(regionIds, true);
 
       await Promise.all(
-        entries.map(async ({ crc, serial: romSerial = null, ...romData }: any) => {
-          const rom = await Rom.firstOrNew({ crc, serial: romSerial || gameSerial });
+        entries.map(async ({ name: filename, crc, serial: romSerial = null, ...romData }: any) => {
+          const rom = await Rom.firstOrNew({
+            name: romName,
+            filename,
+            crc,
+            serial: romSerial || gameSerial,
+          });
           rom.merge({ gameId: game.id, disc, ...romData });
           if (rom.$isDirty) {
             if (rom.$isNew) {
-              console.log(`  Create rom: ${romData.name}`);
+              console.log(`  Create rom: ${filename}`);
             } else {
-              console.log(`  Update rom: ${romData.name}`);
+              console.log(`  Update rom: ${filename}`);
               console.log(rom.$dirty);
             }
             await rom.save();

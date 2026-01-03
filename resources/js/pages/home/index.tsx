@@ -1,4 +1,4 @@
-import { Flex, Table, Tag } from 'antd';
+import { Flex, Table, Tag, Tooltip } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 
@@ -59,7 +59,15 @@ export default function HomePage() {
           {
             dataIndex: 'roms',
             title: 'ROMs',
-            render: (roms: any[]) => roms.length,
+            render: (roms: any[]) => (
+              <Tooltip
+                title={roms.map((rom) => (
+                  <div key={rom.filename}>{rom.filename}</div>
+                ))}
+              >
+                {roms.length}
+              </Tooltip>
+            ),
           },
         ]}
       />

@@ -12,6 +12,9 @@ export default class Rom extends BaseModel {
   declare name: string;
 
   @column()
+  declare filename: string;
+
+  @column()
   declare size: number | null;
 
   @column()

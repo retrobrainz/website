@@ -27,6 +27,14 @@ export default class extends BaseSchema {
       table.string('languages', 64).nullable();
       table.date('release_date').nullable();
 
+      table
+        .integer('duplicate_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('games')
+        .onDelete('SET NULL');
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
 
