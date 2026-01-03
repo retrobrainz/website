@@ -65,57 +65,10 @@ function remapRegion(region: string) {
 
 const tagRegex = /\(([^)]+)\)/g;
 
-const knownTags = [
-  '3DS Virtual Console',
-  'Aftermarket',
-  'Alt',
-  'DLC',
-  'DS Broadcast',
-  'EDC',
-  'Evercade',
-  'GB Compatible',
-  'Genteiban',
-  'Kiosk',
-  'Limited Run Games',
-  'Major Wave',
-  'Menu',
-  'minis',
-  'NDSi Enhanced',
-  'NG',
-  'NGen',
-  'NP',
-  'Patreon',
-  'PCE',
-  'Pirate',
-  'Premium Box',
-  'PSN',
-  'PSP',
-  'Retro-Bit',
-  'Retro-Bit Generations',
-  'Rumble Version',
-  'Sample',
-  'Save Data',
-  'Sega Channel',
-  'SGB Enhanced',
-  'Shokai Genteiban',
-  'Steam',
-  'Switch',
-  'Switch Online',
-  'Trade Demo',
-  'Unl',
-  'USA Wii Virtual Console',
-  'Video',
-  'Virtual Console',
-  'Wi-Fi Kiosk',
-  'Wii Virtual Console',
-  'Wii U Virtual Console',
-  'Wii and Wii U Virtual Console',
-];
-
-const knownTagRegex = new RegExp(`\\(((?:${knownTags.join('|')}|, )+)\\)`, 'g');
-
 export interface ParsedResult {
+  /** Game title without regions, languages and other tags */
   title: string;
+  /** Game name without disc number, version, beta, demo and serial tags */
   name: string;
   disc: number | null;
   regions: string[];
@@ -134,14 +87,13 @@ export default function parseName(romName: string, serial?: string): ParsedResul
   }
 
   const regions = regionMatch?.[1].split(', ').map(remapRegion)?.filter(Boolean) || [];
-  const langMatch = romName.match(langRegex);
-  const languages = langMatch?.[1];
+  const languages = romName.match(langRegex)?.[1];
   const discMatch = romName.match(discRegex);
   const disc = discMatch ? parseInt(discMatch[1], 10) : null;
 
   const title = romName.substring(0, regionMatch?.index).trim();
 
-  let name = romName
+  const name = romName
     .replace(discRegex, '')
     .replace(revRegex, '')
     .replace(verRegex, '')
@@ -149,6 +101,7 @@ export default function parseName(romName: string, serial?: string): ParsedResul
     .replace(betaRegex, '')
     .replace(demoRegex, '')
     .replace(dateRegex, '')
+    .replace('(Alt)', '')
     .replace(`(${serial})`, '')
     .replace(/\s+/g, ' ')
     .trim();
@@ -159,8 +112,6 @@ export default function parseName(romName: string, serial?: string): ParsedResul
     .split(', ')
     .map((tag) => tag.trim())
     .filter((tag) => tag && tag !== languages && !allRegions.includes(tag));
-
-  name = name.replace(knownTagRegex, '').replace(/\s+/g, ' ').trim();
 
   return {
     title,
