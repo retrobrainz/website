@@ -67,6 +67,7 @@
   "dependencies": {
     "@adonisjs/auth": "^9.4.0",
     "@adonisjs/core": "^6.18.0",
+    "@adonisjs/drive": "^3.4.1",
     "@adonisjs/lucid": "^21.6.1",
     "@adonisjs/session": "^7.5.1",
     "@adonisjs/shield": "^8.2.0",
@@ -75,12 +76,15 @@
     "@vinejs/vine": "^3.0.1",
     "antd": "^6.1.1",
     "edge.js": "^6.2.1",
+    "image-dimensions": "^2.5.0",
+    "image-type": "^6.0.0",
     "luxon": "^3.7.2",
     "pg": "^8.16.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-fast-fetch": "^2.0.1",
     "reflect-metadata": "^0.2.2",
+    "sharp": "^0.34.5",
     "wouter": "^3.8.1",
     "xior": "^0.8.2"
   },

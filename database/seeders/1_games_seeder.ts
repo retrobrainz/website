@@ -6,6 +6,7 @@ import Rom from '#models/rom';
 import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { DateTime } from 'luxon';
+import { tmpdir } from 'os';
 import datfile from 'robloach-datfile';
 import xior from 'xior';
 
@@ -294,5 +295,11 @@ export default class extends BaseSeeder {
         await game.save();
       }
     }
+  }
+
+  async fetchImg(repo: string): Promise<void> {
+    const url = `https://github.com/libretro-thumbnails/${repo}/archive/refs/heads/master.zip`;
+    const tmpzip = `${tmpdir()}/${repo.replace('/', '_')}_master.zip`;
+    console.log(url);
   }
 }

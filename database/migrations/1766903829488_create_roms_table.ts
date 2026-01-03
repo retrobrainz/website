@@ -17,7 +17,7 @@ export default class extends BaseSchema {
 
       table.string('name', 256).notNullable();
       table.string('filename', 256).notNullable();
-      table.bigInteger('size').nullable();
+      table.bigint('size').unsigned().nullable();
       table.string('crc', 8).nullable();
       table.string('md5', 32).nullable();
       table.string('sha1', 40).nullable();
