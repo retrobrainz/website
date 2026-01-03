@@ -9,7 +9,6 @@ export default class GamesController {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
     return Game.query()
-      .whereLike('name', `%) (%) (%`)
       .preload('title', (query) => query.preload('translations'))
       .preload('platform')
       .preload('regions')
