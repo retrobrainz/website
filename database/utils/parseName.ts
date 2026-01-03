@@ -1,6 +1,14 @@
 const discRegex = /\(Dis[ck] ([0-9]+)\)/;
+
 const revRegex = /\(Rev \w+\)/;
+const verRegex = /\(v[0-9.]+\)/;
+const protoRegex = /\(Proto\s*\d*\)/;
+const betaRegex = /\(Beta\s*\d*\)/;
+const demoRegex = /\(Demo\s*\d*\)/;
+const dateRegex = /\([0-9]{4}-[0-9]{2}-[0-9]{2}\)/;
+
 const langRegex = /\(([A-Z][a-z](?:[,+][A-Z][a-z])*)\)/;
+
 const allRegions = [
   'Argentina',
   'Asia',
@@ -57,30 +65,54 @@ function remapRegion(region: string) {
 
 const tagRegex = /\(([^)]+)\)/g;
 
-const allTags = [
-  'Demo',
-  'Beta',
-  'Proto',
+const knownTags = [
+  '3DS Virtual Console',
   'Aftermarket',
   'Alt',
+  'DLC',
   'DS Broadcast',
+  'EDC',
+  'Evercade',
+  'GB Compatible',
+  'Genteiban',
   'Kiosk',
   'Limited Run Games',
+  'Major Wave',
   'Menu',
+  'minis',
   'NDSi Enhanced',
   'NG',
   'NGen',
+  'NP',
   'Patreon',
+  'PCE',
   'Pirate',
+  'Premium Box',
+  'PSN',
+  'PSP',
   'Retro-Bit',
   'Retro-Bit Generations',
+  'Rumble Version',
   'Sample',
   'Save Data',
+  'Sega Channel',
+  'SGB Enhanced',
+  'Shokai Genteiban',
   'Steam',
   'Switch',
+  'Switch Online',
+  'Trade Demo',
   'Unl',
+  'USA Wii Virtual Console',
+  'Video',
+  'Virtual Console',
   'Wi-Fi Kiosk',
+  'Wii Virtual Console',
+  'Wii U Virtual Console',
+  'Wii and Wii U Virtual Console',
 ];
+
+const knownTagRegex = new RegExp(`\\(((?:${knownTags.join('|')}|, )+)\\)`, 'g');
 
 export interface ParsedResult {
   title: string;
@@ -94,59 +126,41 @@ export interface ParsedResult {
 /**
  * Parse Redump game name and get region, language, disc number and regular game title.
  */
-export default function parseName(rawName: string, serial?: string): ParsedResult {
-  const regionMatch = rawName.match(regionRegex);
+export default function parseName(romName: string, serial?: string): ParsedResult {
+  const regionMatch = romName.match(regionRegex);
 
   if (!regionMatch) {
-    console.warn(`No region found in "${rawName}"`);
+    console.warn(`No region found in "${romName}"`);
   }
 
   const regions = regionMatch?.[1].split(', ').map(remapRegion)?.filter(Boolean) || [];
-  const langMatch = rawName.match(langRegex);
+  const langMatch = romName.match(langRegex);
   const languages = langMatch?.[1];
-  const discMatch = rawName.match(discRegex);
+  const discMatch = romName.match(discRegex);
   const disc = discMatch ? parseInt(discMatch[1], 10) : null;
 
-  const tags = Array.from(rawName.matchAll(tagRegex))
+  const title = romName.substring(0, regionMatch?.index).trim();
+
+  let name = romName
+    .replace(discRegex, '')
+    .replace(revRegex, '')
+    .replace(verRegex, '')
+    .replace(protoRegex, '')
+    .replace(betaRegex, '')
+    .replace(demoRegex, '')
+    .replace(dateRegex, '')
+    .replace(`(${serial})`, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const tags = Array.from(name.matchAll(tagRegex))
     .map((match) => match[1])
     .join(', ')
     .split(', ')
     .map((tag) => tag.trim())
-    .filter(Boolean);
+    .filter((tag) => tag && tag !== languages && !allRegions.includes(tag));
 
-  const title = rawName.substring(0, regionMatch?.index).trim();
-
-  const name = rawName
-    .replace(discRegex, '')
-    .replace(revRegex, '')
-    .replace(/\(v[0-9.]+\)/g, '')
-    .replace(/\(Proto\s*\d*\)/g, '')
-    .replace(/\(Beta\s*\d*\)/g, '')
-    .replace(/\(Demo\s*\d*\)/g, '')
-    .replace(/\([0-9]{4}-[0-9]{2}-[0-9]{2}]\)/g, '') // date
-    .replace(/\([\w\s,]*Virtual Console[\w\s,]*\)/g, '')
-    .replace('(Aftermarket)', '')
-    .replace('(Alt)', '')
-    .replace('(DS Broadcast)', '')
-    .replace('(Kiosk)', '')
-    .replace('(Limited Run Games)', '')
-    .replace('(Menu)', '')
-    .replace('(NDSi Enhanced)', '')
-    .replace('(NG)', '')
-    .replace('(NGen)', '')
-    .replace('(Patreon)', '')
-    .replace('(Pirate)', '')
-    .replace('(Retro-Bit)', '')
-    .replace('(Retro-Bit Generations)', '')
-    .replace('(Sample)', '')
-    .replace('(Save Data)', '')
-    .replace('(Steam)', '')
-    .replace('(Switch)', '')
-    .replace('(Unl)', '')
-    .replace('(Wi-Fi Kiosk)', '')
-    .replace(`(${serial})`, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  name = name.replace(knownTagRegex, '').replace(/\s+/g, ' ').trim();
 
   return {
     title,

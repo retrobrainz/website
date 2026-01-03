@@ -16,73 +16,155 @@ export default class extends BaseSeeder {
     // Nintendo DS
     const nds = await Platform.findBy('code', 'nds');
     if (nds) {
-      await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DS.dat', nds.id);
-      await this.fetchDatFile('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
-      // await this.fetchPatchDatFile('metadat/developer/Nintendo - Nintendo DS.dat');
-      // await this.fetchPatchDatFile('metadat/publisher/Nintendo - Nintendo DS.dat');
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DS.dat', nds.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat', nds.id);
+      // await this.fetchPatchDat('metadat/developer/Nintendo - Nintendo DS.dat');
+      // await this.fetchPatchDat('metadat/publisher/Nintendo - Nintendo DS.dat');
+    }
+
+    // Nintendo 3DS
+    const _3ds = await Platform.findBy('code', '3ds');
+    if (_3ds) {
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 3DS.dat', _3ds.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 3DS (Digital).dat', _3ds.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - New Nintendo 3DS.dat', _3ds.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - New Nintendo 3DS (Digital).dat', _3ds.id);
     }
 
     // Nitendo Game Boy
     const gb = await Platform.findBy('code', 'gb');
     if (gb) {
-      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy.dat', gb.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy.dat', gb.id);
     }
 
     // Nitendo Game Boy Color
     const gbc = await Platform.findBy('code', 'gbc');
     if (gbc) {
-      await this.fetchDatFile('metadat/no-intro/Nintendo - Game Boy Color.dat', gbc.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy Color.dat', gbc.id);
+    }
+
+    // Nitendo Game Boy Advance
+    const gba = await Platform.findBy('code', 'gba');
+    if (gba) {
+      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy Advance.dat', gba.id);
+    }
+
+    // Nintendo Wii
+    const wii = await Platform.findBy('code', 'wii');
+    if (wii) {
+      await this.fetchDat('metadat/redump/Nintendo - Wii.dat', wii.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Wii (Digital).dat', wii.id);
+    }
+
+    // Nintendo Entertainment System
+    const nes = await Platform.findBy('code', 'nes');
+    if (nes) {
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo Entertainment System.dat', nes.id);
+    }
+
+    // Super Nintendo Entertainment System
+    const snes = await Platform.findBy('code', 'snes');
+    if (snes) {
+      await this.fetchDat(
+        'metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat',
+        snes.id,
+      );
+    }
+
+    // Nintendo 64
+    const n64 = await Platform.findBy('code', 'n64');
+    if (n64) {
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 64.dat', n64.id);
+      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 64DD.dat', n64.id);
+    }
+
+    // Nintendo GameCube
+    const ngc = await Platform.findBy('code', 'ngc');
+    if (ngc) {
+      await this.fetchDat('metadat/redump/Nintendo - GameCube.dat', ngc.id);
     }
 
     // PlayStation
     const psx = await Platform.findBy('code', 'psx');
     if (psx) {
-      await this.fetchDatFile('metadat/redump/Sony - PlayStation.dat', psx.id);
+      await this.fetchDat('metadat/redump/Sony - PlayStation.dat', psx.id);
     }
 
     // PlayStation 2
     const ps2 = await Platform.findBy('code', 'ps2');
     if (ps2) {
-      await this.fetchDatFile('metadat/redump/Sony - PlayStation 2.dat', ps2.id);
+      await this.fetchDat('metadat/redump/Sony - PlayStation 2.dat', ps2.id);
     }
 
     // PlayStation 3
     const ps3 = await Platform.findBy('code', 'ps3');
     if (ps3) {
-      await this.fetchDatFile('metadat/redump/Sony - PlayStation 3.dat', ps3.id);
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation 3 (PSN).dat', ps3.id);
+      await this.fetchDat('metadat/redump/Sony - PlayStation 3.dat', ps3.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation 3 (PSN).dat', ps3.id);
     }
 
     // PlayStation Portable
     const psp = await Platform.findBy('code', 'psp');
     if (psp) {
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable.dat', psp.id);
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable (PSN).dat', psp.id);
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Portable (PSX2PSP).dat', psp.id);
-      await this.fetchDatFile('metadat/redump/Sony - PlayStation Portable.dat', psp.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable.dat', psp.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable (PSN).dat', psp.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable (PSX2PSP).dat', psp.id);
+      await this.fetchDat('metadat/redump/Sony - PlayStation Portable.dat', psp.id);
     }
 
     // PlayStation Vita
     const psv = await Platform.findBy('code', 'psv');
     if (psv) {
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Vita.dat', psv.id);
-      await this.fetchDatFile('metadat/no-intro/Sony - PlayStation Vita (PSN).dat', psv.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation Vita.dat', psv.id);
+      await this.fetchDat('metadat/no-intro/Sony - PlayStation Vita (PSN).dat', psv.id);
     }
 
     // Sega Mega Drive/Genesis
     const md = await Platform.findBy('code', 'md');
     if (md) {
-      await this.fetchDatFile('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
+      await this.fetchDat('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
+    }
+
+    // Sega Game Gear
+    const gg = await Platform.findBy('code', 'gg');
+    if (gg) {
+      await this.fetchDat('metadat/no-intro/Sega - Game Gear.dat', gg.id);
+    }
+
+    // Sega Master System
+    const ms = await Platform.findBy('code', 'ms');
+    if (ms) {
+      await this.fetchDat('metadat/no-intro/Sega - Master System - Mark III.dat', ms.id);
+    }
+
+    // Sega Saturn
+    const ss = await Platform.findBy('code', 'ss');
+    if (ss) {
+      await this.fetchDat('metadat/redump/Sega - Saturn.dat', ss.id);
+    }
+
+    // Sega Dreamcast
+    const dc = await Platform.findBy('code', 'dc');
+    if (dc) {
+      await this.fetchDat('metadat/redump/Sega - Dreamcast.dat', dc.id);
+    }
+
+    // Atari 2600
+    const atari2600 = await Platform.findBy('code', 'atari2600');
+    if (atari2600) {
+      await this.fetchDat('metadat/no-intro/Atari - 2600.dat', atari2600.id);
     }
 
     Object.entries(this.tagCounts)
+      .filter(([, count]) => count >= 10)
       .sort((a, b) => b[1] - a[1])
       .forEach(([tag, count]) => {
         console.log(`${tag}: ${count}`);
       });
   }
 
-  async fetchDatFile(file: string, platformId: number): Promise<void> {
+  async fetchDat(file: string, platformId: number): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     console.log(url);
     const data = await xior
@@ -177,7 +259,7 @@ export default class extends BaseSeeder {
     }
   }
 
-  async fetchPatchDatFile(file: string): Promise<void> {
+  async fetchPatchDat(file: string): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     const data = await xior
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
