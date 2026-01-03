@@ -1,6 +1,7 @@
 const discRegex = /\(Dis[ck] ([0-9]+)\)/;
 
 const revRegex = /\(Rev \w+\)/;
+const altRegex = /\(Alt\s*\d*\)/;
 const verRegex = /\(v[0-9.]+\)/;
 const protoRegex = /\(Proto\s*\d*\)/;
 const betaRegex = /\(Beta\s*\d*\)/;
@@ -97,7 +98,8 @@ export default function parseName(romName: string): ParsedResult {
   // These roms are from same game box and share same boxart.
   const name = romName
     .replace(discRegex, '') // multiple discs
-    .replace(revRegex, '') // revisions (minor or no changes)
+    .replace(revRegex, '') // revisions
+    .replace(altRegex, '') // alternate versions
     .replace(verRegex, '') // update versions
     .replace(protoRegex, '') // prototype versions
     .replace(betaRegex, '') // beta versions
