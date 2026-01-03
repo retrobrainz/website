@@ -79,7 +79,7 @@ export interface ParsedResult {
 /**
  * Parse Redump game name and get region, language, disc number and regular game title.
  */
-export default function parseName(romName: string, serial?: string): ParsedResult {
+export default function parseName(romName: string): ParsedResult {
   const regionMatch = romName.match(regionRegex);
 
   if (!regionMatch) {
@@ -93,16 +93,19 @@ export default function parseName(romName: string, serial?: string): ParsedResul
 
   const title = romName.substring(0, regionMatch?.index).trim();
 
+  // Remove some tags from the name to reduce duplication.
+  // These roms are from same game box and share same boxart.
   const name = romName
-    .replace(discRegex, '')
-    .replace(revRegex, '')
-    .replace(verRegex, '')
-    .replace(protoRegex, '')
-    .replace(betaRegex, '')
-    .replace(demoRegex, '')
-    .replace(dateRegex, '')
-    .replace('(Alt)', '')
-    .replace(`(${serial})`, '')
+    .replace(discRegex, '') // multiple discs
+    .replace(revRegex, '') // revisions (minor or no changes)
+    .replace(verRegex, '') // update versions
+    .replace(protoRegex, '') // prototype versions
+    .replace(betaRegex, '') // beta versions
+    .replace(demoRegex, '') // demo versions
+    .replace(dateRegex, '') // prototype/demos with date
+    .replace('(Earlier)', '') // earlier beta versions
+    .replace('(Later)', '') // later beta versions
+    .replace('[b]', '') // bad dump
     .replace(/\s+/g, ' ')
     .trim();
 

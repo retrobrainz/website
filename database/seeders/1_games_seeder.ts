@@ -189,7 +189,7 @@ export default class extends BaseSeeder {
         regions,
         languages = null,
         tags,
-      } = parseName(romName, gameSerial);
+      } = parseName(romName);
 
       tags?.forEach((tag) => {
         this.tagCounts[tag] = (this.tagCounts[tag] || 0) + 1;
