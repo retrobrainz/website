@@ -23,6 +23,8 @@ export default class extends BaseSchema {
         .inTable('regions')
         .onDelete('CASCADE');
 
+      table.unique(['game_id', 'region_id']);
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
