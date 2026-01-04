@@ -25,8 +25,18 @@ export default class extends BaseSeeder {
         nds.id,
         'Nintendo_-_Nintendo_DS',
       );
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat', nds.id);
+      await this.fetchDat(
+        'metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat',
+        nds.id,
+        'Nintendo_-_Nintendo_DS',
+      );
+
+      await this.downloadImage('Nintendo_-_Nintendo_DSi');
+      await this.fetchDat(
+        'metadat/no-intro/Nintendo - Nintendo DSi.dat',
+        nds.id,
+        'Nintendo_-_Nintendo_DSi',
+      );
       // await this.fetchPatchDat('metadat/developer/Nintendo - Nintendo DS.dat');
       // await this.fetchPatchDat('metadat/publisher/Nintendo - Nintendo DS.dat');
     }
@@ -245,16 +255,34 @@ export default class extends BaseSeeder {
       await game.related('regions').sync(regionIds, true);
 
       if (imageRepo) {
+        await game.load('images');
         // special characters in image names are replaced with underscores
         const imageName = romName.replace(/[&*/:`<>?\\|"]/g, '_');
 
-        const screenshotPath = `${process.cwd()}/tmp/${imageRepo}-master/Named_Snaps/${imageName}.png`;
+        const importImage = async (type: string) => {
+          if (!game.images.some((img) => img.type === type)) {
+            const folder = {
+              boxart: 'Named_Boxarts',
+              screenshot: 'Named_Snaps',
+              titlescreen: 'Named_Titles',
+            }[type];
+            const imagePath = `${process.cwd()}/tmp/${imageRepo}-master/${folder}/${imageName}.png`;
 
-        if (existsSync(screenshotPath)) {
-          console.log(screenshotPath);
-          const screenshot = await Image.fromFs(screenshotPath, 'screenshot');
-          await game.related('images').save(screenshot);
-        }
+            if (existsSync(imagePath)) {
+              try {
+                const image = await Image.fromFs(imagePath, type);
+                await game.related('images').save(image);
+              } catch (error) {
+                console.log(`Failed to import image: ${imagePath}`);
+                console.error(error);
+              }
+            }
+          }
+        };
+
+        await importImage('boxart');
+        await importImage('screenshot');
+        await importImage('titlescreen');
       }
 
       await Promise.all(
