@@ -1,12 +1,14 @@
 import parseName from '#database/utils/parseName';
 import Game from '#models/game';
+import Image from '#models/image';
 import Platform from '#models/platform';
 import Region from '#models/region';
 import Rom from '#models/rom';
 import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
+import { download } from '@guoyunhe/downloader';
+import { existsSync } from 'fs';
 import { DateTime } from 'luxon';
-import { tmpdir } from 'os';
 import datfile from 'robloach-datfile';
 import xior from 'xior';
 
@@ -17,7 +19,12 @@ export default class extends BaseSeeder {
     // Nintendo DS
     const nds = await Platform.findBy('code', 'nds');
     if (nds) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DS.dat', nds.id);
+      await this.downloadImage('Nintendo_-_Nintendo_DS');
+      await this.fetchDat(
+        'metadat/no-intro/Nintendo - Nintendo DS.dat',
+        nds.id,
+        'Nintendo_-_Nintendo_DS',
+      );
       await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DSi.dat', nds.id);
       await this.fetchDat('metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat', nds.id);
       // await this.fetchPatchDat('metadat/developer/Nintendo - Nintendo DS.dat');
@@ -165,7 +172,7 @@ export default class extends BaseSeeder {
       });
   }
 
-  async fetchDat(file: string, platformId: number): Promise<void> {
+  async fetchDat(file: string, platformId: number, imageRepo?: string): Promise<void> {
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
     console.log(url);
     const data = await xior
@@ -237,6 +244,19 @@ export default class extends BaseSeeder {
 
       await game.related('regions').sync(regionIds, true);
 
+      if (imageRepo) {
+        // special characters in image names are replaced with underscores
+        const imageName = romName.replace(/[&*/:`<>?\\|"]/g, '_');
+
+        const screenshotPath = `${process.cwd()}/tmp/${imageRepo}-master/Named_Snaps/${imageName}.png`;
+
+        if (existsSync(screenshotPath)) {
+          console.log(screenshotPath);
+          const screenshot = await Image.fromFs(screenshotPath, 'screenshot');
+          await game.related('images').save(screenshot);
+        }
+      }
+
       await Promise.all(
         entries.map(async ({ name: filename, crc, serial: romSerial = null, ...romData }: any) => {
           const rom = await Rom.firstOrNew({
@@ -297,9 +317,17 @@ export default class extends BaseSeeder {
     }
   }
 
-  async fetchImg(repo: string): Promise<void> {
+  async downloadImage(repo: string): Promise<void> {
     const url = `https://github.com/libretro-thumbnails/${repo}/archive/refs/heads/master.zip`;
-    const tmpzip = `${tmpdir()}/${repo.replace('/', '_')}_master.zip`;
     console.log(url);
+
+    if (existsSync(`${process.cwd()}/tmp/${repo}-master`)) {
+      return;
+    }
+
+    const tmp = `${process.cwd()}/tmp/`;
+    await download(url, tmp, {
+      extract: true,
+    });
   }
 }
