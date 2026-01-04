@@ -23,6 +23,8 @@ export default class extends BaseSchema {
         .inTable('genres')
         .onDelete('CASCADE');
 
+      table.unique(['game_id', 'genre_id']);
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
