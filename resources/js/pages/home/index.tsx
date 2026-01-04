@@ -1,4 +1,4 @@
-import { Flex, Table, Tag, Tooltip } from 'antd';
+import { Flex, Image, Table, Tag, Tooltip } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 
@@ -11,6 +11,7 @@ export default function HomePage() {
   return (
     <div>
       <Table
+        tableLayout="fixed"
         dataSource={data?.data}
         pagination={{
           current: page,
@@ -20,8 +21,36 @@ export default function HomePage() {
         }}
         columns={[
           {
+            dataIndex: 'images',
+            title: 'Boxart',
+            width: 80,
+            render: (images: any[]) => {
+              const image = images.find((img) => img.type === 'boxart');
+              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+            },
+          },
+          {
+            dataIndex: 'images',
+            title: 'Title',
+            width: 80,
+            render: (images: any[]) => {
+              const image = images.find((img) => img.type === 'titlescreen');
+              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+            },
+          },
+          {
+            dataIndex: 'images',
+            title: 'Ingame',
+            width: 80,
+            render: (images: any[]) => {
+              const image = images.find((img) => img.type === 'screenshot');
+              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+            },
+          },
+          {
             dataIndex: ['platform', 'name'],
             title: 'Platform',
+            width: 180,
           },
           {
             dataIndex: ['title', 'name'],
@@ -30,6 +59,7 @@ export default function HomePage() {
           {
             dataIndex: 'regions',
             title: 'Regions',
+            width: 120,
             render: (regions: any[]) => (
               <Flex gap={8}>
                 {regions.map((region) => (
@@ -43,10 +73,7 @@ export default function HomePage() {
           {
             dataIndex: 'languages',
             title: 'Languages',
-          },
-          {
-            dataIndex: 'id',
-            title: 'ID',
+            width: 150,
           },
           {
             dataIndex: 'name',

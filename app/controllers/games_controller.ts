@@ -13,6 +13,7 @@ export default class GamesController {
       .preload('platform')
       .preload('regions')
       .preload('roms')
+      .preload('images')
       .paginate(page, pageSize);
   }
 }
