@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.smallint('height').unsigned().notNullable();
       table.integer('size').unsigned().notNullable();
       table.string('md5', 32).notNullable().unique();
+      table.string('type', 16).nullable();
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
