@@ -8,8 +8,14 @@ export default class GamesController {
   async index({ request }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
-    return Game.query()
-      .preload('title', (query) => query.preload('translations'))
+    const query = Game.query();
+
+    if (request.input('platformId')) {
+      query.where('platformId', request.input('platformId'));
+    }
+
+    return query
+      .preload('title', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
       .preload('roms')

@@ -1,15 +1,27 @@
-import { Flex, Image, Table, Tag, Tooltip } from 'antd';
+import { Flex, Image, Radio, Table, Tag, Tooltip } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 
 export default function HomePage() {
   const [page, setPage] = useState(1);
-  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/api/games?page=${page}`, {
-    params: { page },
+  const [platformId, setPlatformId] = useState(1);
+
+  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/api/games`, {
+    params: { page, platformId },
   });
+
+  const { data: platforms } = useFetch<any[]>(`/api/platforms`);
 
   return (
     <div>
+      <Radio.Group
+        value={platformId}
+        onChange={(e) => {
+          setPlatformId(e.target.value);
+        }}
+        options={platforms?.map((platform) => ({ label: platform.name, value: platform.id }))}
+      />
+
       <Table
         tableLayout="fixed"
         dataSource={data?.data}
@@ -26,7 +38,7 @@ export default function HomePage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'boxart');
-              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+              return <Image src={image?.url} width={50} height={50} />;
             },
           },
           {
@@ -35,7 +47,7 @@ export default function HomePage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'titlescreen');
-              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+              return <Image src={image?.url} width={50} height={50} />;
             },
           },
           {
@@ -44,7 +56,7 @@ export default function HomePage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'screenshot');
-              return image && <Image key={image.id} src={image.url} width={50} height={50} />;
+              return <Image src={image?.url} width={50} height={50} />;
             },
           },
           {
