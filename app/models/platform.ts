@@ -9,9 +9,6 @@ export default class Platform extends BaseModel {
   declare name: string;
 
   @column()
-  declare code: string; // e.g., 'nds' for Nintendo DS
-
-  @column()
   declare company: string;
 
   @column.dateTime({ autoCreate: true })

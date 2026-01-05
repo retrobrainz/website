@@ -3,45 +3,43 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
 export default class extends BaseSeeder {
   /**
-   * Exclude platforms that currently cannot be emulated. Sort by sales.
+   * Exclude platforms that currently cannot be emulated.
    *
    * @see https://en.wikipedia.org/wiki/List_of_best-selling_game_consoles
    */
   async run() {
-    await Platform.firstOrCreate({ code: 'ps2' }, { name: 'PlayStation 2', company: 'Sony' });
-    await Platform.firstOrCreate({ code: 'nds' }, { name: 'Nintendo DS', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'ns' }, { name: 'Nintendo Switch', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'gb' }, { name: 'Game Boy', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'gbc' }, { name: 'Game Boy Color', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'psx' }, { name: 'PlayStation', company: 'Sony' });
-    await Platform.firstOrCreate({ code: 'wii' }, { name: 'Wii', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'ps3' }, { name: 'PlayStation 3', company: 'Sony' });
-    await Platform.firstOrCreate(
-      { code: 'gba' },
-      { name: 'Game Boy Advance', company: 'Nintendo' },
-    );
-    await Platform.firstOrCreate(
-      { code: 'psp' },
-      { name: 'PlayStation Portable', company: 'Sony' },
-    );
-    await Platform.firstOrCreate({ code: '3ds' }, { name: 'Nintendo 3DS', company: 'Nintendo' });
-    await Platform.firstOrCreate(
-      { code: 'nes' },
-      { name: 'Nintendo Entertainment System', company: 'Nintendo' },
-    );
-    await Platform.firstOrCreate(
-      { code: 'snes' },
-      { name: 'Super Nintendo Entertainment System', company: 'Nintendo' },
-    );
-    await Platform.firstOrCreate({ code: 'n64' }, { name: 'Nintendo 64', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'md' }, { name: 'Mega Drive/Genesis', company: 'Sega' });
-    await Platform.firstOrCreate({ code: 'atari2600' }, { name: 'Atari 2600', company: 'Atari' });
-    await Platform.firstOrCreate({ code: 'ngc' }, { name: 'GameCube', company: 'Nintendo' });
-    await Platform.firstOrCreate({ code: 'psv' }, { name: 'PlayStation Vita', company: 'Sony' });
-    await Platform.firstOrCreate({ code: 'gg' }, { name: 'Game Gear', company: 'Sega' });
-    await Platform.firstOrCreate({ code: 'ms' }, { name: 'Master System', company: 'Sega' });
-    await Platform.firstOrCreate({ code: 'pce' }, { name: 'PC Engine', company: 'NEC' });
-    await Platform.firstOrCreate({ code: 'ss' }, { name: 'Saturn', company: 'Sega' });
-    await Platform.firstOrCreate({ code: 'dc' }, { name: 'Dreamcast', company: 'Sega' });
+    // Nintendo consoles
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Family Computer Disk System' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy Advance' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy Color' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'GameCube' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo 3DS' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo 64' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo DS' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo DSi' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo Entertainment System' });
+    await Platform.firstOrCreate({
+      company: 'Nintendo',
+      name: 'Super Nintendo Entertainment System',
+    });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Wii' });
+    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Wii U' });
+
+    // Sony consoles
+    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation' });
+    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation 2' });
+    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation 3' });
+    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation Portable' });
+    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation Vita' });
+
+    // Sega consoles
+    await Platform.firstOrCreate({ company: 'Sega', name: '32X' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Dreamcast' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Game Gear' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Master System Mark III' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Mega CD - Sega CD' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Mega Drive - Genesis' });
+    await Platform.firstOrCreate({ company: 'Sega', name: 'Saturn' });
   }
 }

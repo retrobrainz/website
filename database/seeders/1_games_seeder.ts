@@ -8,6 +8,7 @@ import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { download } from '@guoyunhe/downloader';
 import { existsSync } from 'fs';
+import { rm } from 'fs/promises';
 import { DateTime } from 'luxon';
 import datfile from 'robloach-datfile';
 import xior from 'xior';
@@ -16,178 +17,38 @@ export default class extends BaseSeeder {
   tagCounts: Record<string, number> = {};
 
   async run() {
-    // Nintendo DS
-    const nds = await Platform.findBy('code', 'nds');
-    if (nds) {
-      await this.downloadImage('Nintendo_-_Nintendo_DS');
-      await this.fetchDat(
-        'metadat/no-intro/Nintendo - Nintendo DS.dat',
-        nds.id,
-        'Nintendo_-_Nintendo_DS',
-      );
-      await this.fetchDat(
-        'metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat',
-        nds.id,
-        'Nintendo_-_Nintendo_DS',
-      );
+    const platforms = await Platform.all();
 
-      await this.downloadImage('Nintendo_-_Nintendo_DSi');
-      await this.fetchDat(
-        'metadat/no-intro/Nintendo - Nintendo DSi.dat',
-        nds.id,
-        'Nintendo_-_Nintendo_DSi',
-      );
-      // await this.fetchPatchDat('metadat/developer/Nintendo - Nintendo DS.dat');
-      // await this.fetchPatchDat('metadat/publisher/Nintendo - Nintendo DS.dat');
+    for (const platform of platforms) {
+      console.log(`Importing platform: ${platform.company} - ${platform.name}`);
+      await this.importPlatform(platform);
     }
-
-    // Nintendo 3DS
-    const _3ds = await Platform.findBy('code', '3ds');
-    if (_3ds) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 3DS.dat', _3ds.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 3DS (Digital).dat', _3ds.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - New Nintendo 3DS.dat', _3ds.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - New Nintendo 3DS (Digital).dat', _3ds.id);
-    }
-
-    // Nitendo Game Boy
-    const gb = await Platform.findBy('code', 'gb');
-    if (gb) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy.dat', gb.id);
-    }
-
-    // Nitendo Game Boy Color
-    const gbc = await Platform.findBy('code', 'gbc');
-    if (gbc) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy Color.dat', gbc.id);
-    }
-
-    // Nitendo Game Boy Advance
-    const gba = await Platform.findBy('code', 'gba');
-    if (gba) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Game Boy Advance.dat', gba.id);
-    }
-
-    // Nintendo Wii
-    const wii = await Platform.findBy('code', 'wii');
-    if (wii) {
-      await this.fetchDat('metadat/redump/Nintendo - Wii.dat', wii.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - Wii (Digital).dat', wii.id);
-    }
-
-    // Nintendo Entertainment System
-    const nes = await Platform.findBy('code', 'nes');
-    if (nes) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo Entertainment System.dat', nes.id);
-    }
-
-    // Super Nintendo Entertainment System
-    const snes = await Platform.findBy('code', 'snes');
-    if (snes) {
-      await this.fetchDat(
-        'metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat',
-        snes.id,
-      );
-    }
-
-    // Nintendo 64
-    const n64 = await Platform.findBy('code', 'n64');
-    if (n64) {
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 64.dat', n64.id);
-      await this.fetchDat('metadat/no-intro/Nintendo - Nintendo 64DD.dat', n64.id);
-    }
-
-    // Nintendo GameCube
-    const ngc = await Platform.findBy('code', 'ngc');
-    if (ngc) {
-      await this.fetchDat('metadat/redump/Nintendo - GameCube.dat', ngc.id);
-    }
-
-    // PlayStation
-    const psx = await Platform.findBy('code', 'psx');
-    if (psx) {
-      await this.fetchDat('metadat/redump/Sony - PlayStation.dat', psx.id);
-    }
-
-    // PlayStation 2
-    const ps2 = await Platform.findBy('code', 'ps2');
-    if (ps2) {
-      await this.fetchDat('metadat/redump/Sony - PlayStation 2.dat', ps2.id);
-    }
-
-    // PlayStation 3
-    const ps3 = await Platform.findBy('code', 'ps3');
-    if (ps3) {
-      await this.fetchDat('metadat/redump/Sony - PlayStation 3.dat', ps3.id);
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation 3 (PSN).dat', ps3.id);
-    }
-
-    // PlayStation Portable
-    const psp = await Platform.findBy('code', 'psp');
-    if (psp) {
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable.dat', psp.id);
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable (PSN).dat', psp.id);
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation Portable (PSX2PSP).dat', psp.id);
-      await this.fetchDat('metadat/redump/Sony - PlayStation Portable.dat', psp.id);
-    }
-
-    // PlayStation Vita
-    const psv = await Platform.findBy('code', 'psv');
-    if (psv) {
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation Vita.dat', psv.id);
-      await this.fetchDat('metadat/no-intro/Sony - PlayStation Vita (PSN).dat', psv.id);
-    }
-
-    // Sega Mega Drive/Genesis
-    const md = await Platform.findBy('code', 'md');
-    if (md) {
-      await this.fetchDat('metadat/no-intro/Sega - Mega Drive - Genesis.dat', md.id);
-    }
-
-    // Sega Game Gear
-    const gg = await Platform.findBy('code', 'gg');
-    if (gg) {
-      await this.fetchDat('metadat/no-intro/Sega - Game Gear.dat', gg.id);
-    }
-
-    // Sega Master System
-    const ms = await Platform.findBy('code', 'ms');
-    if (ms) {
-      await this.fetchDat('metadat/no-intro/Sega - Master System - Mark III.dat', ms.id);
-    }
-
-    // Sega Saturn
-    const ss = await Platform.findBy('code', 'ss');
-    if (ss) {
-      await this.fetchDat('metadat/redump/Sega - Saturn.dat', ss.id);
-    }
-
-    // Sega Dreamcast
-    const dc = await Platform.findBy('code', 'dc');
-    if (dc) {
-      await this.fetchDat('metadat/redump/Sega - Dreamcast.dat', dc.id);
-    }
-
-    // Atari 2600
-    const atari2600 = await Platform.findBy('code', 'atari2600');
-    if (atari2600) {
-      await this.fetchDat('metadat/no-intro/Atari - 2600.dat', atari2600.id);
-    }
-
-    Object.entries(this.tagCounts)
-      .filter(([, count]) => count >= 10)
-      .sort((a, b) => b[1] - a[1])
-      .forEach(([tag, count]) => {
-        console.log(`${tag}: ${count}`);
-      });
   }
 
-  async fetchDat(file: string, platformId: number, imageRepo?: string): Promise<void> {
+  async importPlatform(platform: Platform): Promise<void> {
+    await this.downloadImage(platform);
+
+    await this.fetchDat(platform, 'metadat/no-intro');
+    await this.fetchDat(platform, 'metadat/redump');
+
+    process.env.NODE_ENV === 'production' && (await this.deleteImage(platform));
+  }
+
+  async fetchDat(platform: Platform, category: string): Promise<void> {
+    const datFile = `${platform.company} - ${platform.name}.dat`;
+    const file = `${category}/${datFile}`;
+    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
     const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
-    console.log(url);
     const data = await xior
       .get(url, { timeout: 300 * 1000, responseType: 'text' })
-      .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
+      .then((res) => datfile.parse(res.data, { ignoreHeader: true }))
+      .catch((e) => {
+        if (e.response && e.response.status === 404) {
+          console.log(`DAT file not found: ${file}`);
+          return [];
+        }
+        throw e;
+      });
 
     for (const {
       name: romName,
@@ -216,7 +77,7 @@ export default class extends BaseSeeder {
       const title = await Title.firstOrCreate({ name: titleName });
 
       const game = await Game.firstOrNew({
-        platformId,
+        platformId: platform.id,
         titleId: title.id,
         name: gameName,
       });
@@ -345,11 +206,11 @@ export default class extends BaseSeeder {
     }
   }
 
-  async downloadImage(repo: string): Promise<void> {
-    const url = `https://github.com/libretro-thumbnails/${repo}/archive/refs/heads/master.zip`;
-    console.log(url);
+  async downloadImage(platform: Platform): Promise<void> {
+    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
+    const url = `https://github.com/libretro-thumbnails/${imageRepo}/archive/refs/heads/master.zip`;
 
-    if (existsSync(`${process.cwd()}/tmp/${repo}-master`)) {
+    if (existsSync(`${process.cwd()}/tmp/${imageRepo}-master`)) {
       return;
     }
 
@@ -357,5 +218,13 @@ export default class extends BaseSeeder {
     await download(url, tmp, {
       extract: true,
     });
+  }
+
+  async deleteImage(platform: Platform): Promise<void> {
+    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
+    const path = `${process.cwd()}/tmp/${imageRepo}-master`;
+    if (existsSync(path)) {
+      await rm(path, { recursive: true, force: true });
+    }
   }
 }
