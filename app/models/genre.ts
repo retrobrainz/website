@@ -10,9 +10,6 @@ export default class Genre extends BaseModel {
   declare name: string;
 
   @column()
-  declare code: string;
-
-  @column()
   declare parentId: number | null;
 
   @column()

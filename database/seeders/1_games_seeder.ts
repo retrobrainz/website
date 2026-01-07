@@ -2,6 +2,7 @@ import parseName from '#database/utils/parseName';
 import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
+import Genre from '#models/genre';
 import Image from '#models/image';
 import Platform from '#models/platform';
 import Region from '#models/region';
@@ -94,8 +95,15 @@ export default class extends BaseSeeder {
       developer,
       publisher,
       franchise,
+      genre,
+      users, // unused
+      comment, // unused
+      esrb_rating, // unused
       ...attrs
     } of gameEntries) {
+      if (!romName) {
+        continue;
+      }
       const {
         title: titleName,
         name: gameName,
@@ -123,12 +131,13 @@ export default class extends BaseSeeder {
 
       game.merge(attrs);
 
-      if (!game.releaseDate && releaseyear && releasemonth && releaseday) {
+      if (!game.releaseDate && releaseyear && releasemonth) {
         game.releaseDate = DateTime.fromObject({
           year: Number(releaseyear),
           month: Number(releasemonth),
-          day: Number(releaseday),
+          day: releaseday ? Number(releaseday) : 1,
         });
+        console.log(releaseyear, releasemonth, releaseday);
       }
 
       if (game.$isDirty) {
@@ -162,6 +171,22 @@ export default class extends BaseSeeder {
         await title
           .related('franchise')
           .associate(await Franchise.firstOrCreate({ name: franchise }));
+      }
+
+      if (genre) {
+        await title.load('genres');
+        if (!title.genres.length) {
+          await title
+            .related('genres')
+            .saveMany(
+              await Promise.all(
+                genre
+                  .split('/')
+                  .map((genreName: string) => Genre.firstOrCreate({ name: genreName.trim() })),
+              ),
+              true,
+            );
+        }
       }
 
       const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');

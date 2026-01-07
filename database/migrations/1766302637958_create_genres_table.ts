@@ -8,7 +8,6 @@ export default class extends BaseSchema {
       table.increments('id');
 
       table.string('name', 32).notNullable().unique();
-      table.string('code', 32).notNullable().unique();
 
       table
         .integer('parent_id')

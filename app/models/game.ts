@@ -47,10 +47,14 @@ export default class Game extends BaseModel {
   @belongsTo(() => Title)
   declare title: BelongsTo<typeof Title>;
 
-  @belongsTo(() => Company, {})
+  @belongsTo(() => Company, {
+    foreignKey: 'developerId',
+  })
   declare developer: BelongsTo<typeof Company>;
 
-  @belongsTo(() => Company, {})
+  @belongsTo(() => Company, {
+    foreignKey: 'publisherId',
+  })
   declare publisher: BelongsTo<typeof Company>;
 
   @hasMany(() => Rom)
