@@ -2,7 +2,6 @@ import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/luc
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
-import Genre from './genre.js';
 import Image from './image.js';
 import Platform from './platform.js';
 import Region from './region.js';
@@ -18,6 +17,12 @@ export default class Game extends BaseModel {
 
   @column()
   declare titleId: number;
+
+  @column()
+  declare developerId: number | null;
+
+  @column()
+  declare publisherId: number | null;
 
   @column()
   declare name: string;
@@ -42,6 +47,12 @@ export default class Game extends BaseModel {
   @belongsTo(() => Title)
   declare title: BelongsTo<typeof Title>;
 
+  @belongsTo(() => Company, {})
+  declare developer: BelongsTo<typeof Company>;
+
+  @belongsTo(() => Company, {})
+  declare publisher: BelongsTo<typeof Company>;
+
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
 
@@ -50,23 +61,8 @@ export default class Game extends BaseModel {
   })
   declare regions: ManyToMany<typeof Region>;
 
-  @manyToMany(() => Genre, {
-    pivotTable: 'game_genre',
-  })
-  declare genres: ManyToMany<typeof Genre>;
-
   @manyToMany(() => Image, {
     pivotTable: 'game_image',
   })
   declare images: ManyToMany<typeof Image>;
-
-  @manyToMany(() => Company, {
-    pivotTable: 'game_developer',
-  })
-  declare developers: ManyToMany<typeof Company>;
-
-  @manyToMany(() => Company, {
-    pivotTable: 'game_publisher',
-  })
-  declare publishers: ManyToMany<typeof Company>;
 }

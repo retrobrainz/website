@@ -13,14 +13,30 @@ export default class extends BaseSchema {
         .notNullable()
         .references('id')
         .inTable('platforms')
-        .onDelete('SET NULL');
+        .onDelete('CASCADE');
 
       table
         .integer('title_id')
         .unsigned()
-        .notNullable()
+        .nullable()
         .references('id')
         .inTable('titles')
+        .onDelete('SET NULL');
+
+      table
+        .integer('developer_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('companies')
+        .onDelete('SET NULL');
+
+      table
+        .integer('publisher_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('companies')
         .onDelete('SET NULL');
 
       table.string('name', 256).notNullable();

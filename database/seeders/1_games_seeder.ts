@@ -1,5 +1,6 @@
 import parseName from '#database/utils/parseName';
 import Company from '#models/company';
+import Franchise from '#models/franchise';
 import Game from '#models/game';
 import Image from '#models/image';
 import Platform from '#models/platform';
@@ -92,6 +93,7 @@ export default class extends BaseSeeder {
       serial: gameSerial = null,
       developer,
       publisher,
+      franchise,
       ...attrs
     } of gameEntries) {
       const {
@@ -148,12 +150,18 @@ export default class extends BaseSeeder {
           true,
         );
 
-      if (developer) {
-        await game.related('developers').save(await Company.firstOrCreate({ name: developer }));
+      if (developer && !game.developerId) {
+        await game.related('developer').associate(await Company.firstOrCreate({ name: developer }));
       }
 
-      if (publisher) {
-        await game.related('publishers').save(await Company.firstOrCreate({ name: publisher }));
+      if (publisher && !game.publisherId) {
+        await game.related('publisher').associate(await Company.firstOrCreate({ name: publisher }));
+      }
+
+      if (franchise && !title.franchiseId) {
+        await title
+          .related('franchise')
+          .associate(await Franchise.firstOrCreate({ name: franchise }));
       }
 
       const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
