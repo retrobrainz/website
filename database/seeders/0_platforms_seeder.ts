@@ -1,3 +1,4 @@
+import Company from '#models/company';
 import Platform from '#models/platform';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
@@ -9,37 +10,49 @@ export default class extends BaseSeeder {
    */
   async run() {
     // Nintendo consoles
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Family Computer Disk System' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy Advance' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Game Boy Color' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'GameCube' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo 3DS' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo 64' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo DS' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo DSi' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Nintendo Entertainment System' });
-    await Platform.firstOrCreate({
-      company: 'Nintendo',
-      name: 'Super Nintendo Entertainment System',
-    });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Wii' });
-    await Platform.firstOrCreate({ company: 'Nintendo', name: 'Wii U' });
+    const nintendo = await Company.firstOrCreate({ name: 'Nintendo' });
+    await Promise.all(
+      [
+        'Family Computer Disk System',
+        'Game Boy',
+        'Game Boy Advance',
+        'Game Boy Color',
+        'GameCube',
+        'Nintendo 3DS',
+        'Nintendo 64',
+        'Nintendo DS',
+        'Nintendo DSi',
+        'Nintendo Entertainment System',
+        'Super Nintendo Entertainment System',
+        'Wii',
+        'Wii U',
+      ].map((name) => Platform.firstOrCreate({ companyId: nintendo.id, name })),
+    );
 
     // Sony consoles
-    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation' });
-    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation 2' });
-    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation 3' });
-    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation Portable' });
-    await Platform.firstOrCreate({ company: 'Sony', name: 'PlayStation Vita' });
+    const sony = await Company.firstOrCreate({ name: 'Sony' });
+    await Promise.all(
+      [
+        'PlayStation',
+        'PlayStation 2',
+        'PlayStation 3',
+        'PlayStation Portable',
+        'PlayStation Vita',
+      ].map((name) => Platform.firstOrCreate({ companyId: sony.id, name })),
+    );
 
     // Sega consoles
-    await Platform.firstOrCreate({ company: 'Sega', name: '32X' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Dreamcast' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Game Gear' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Master System Mark III' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Mega CD - Sega CD' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Mega Drive - Genesis' });
-    await Platform.firstOrCreate({ company: 'Sega', name: 'Saturn' });
+    const sega = await Company.firstOrCreate({ name: 'Sega' });
+    await Promise.all(
+      [
+        '32X',
+        'Dreamcast',
+        'Game Gear',
+        'Master System - Mark III',
+        'Mega-CD - Sega CD',
+        'Mega Drive - Genesis',
+        'Saturn',
+      ].map((name) => Platform.firstOrCreate({ companyId: sega.id, name })),
+    );
   }
 }

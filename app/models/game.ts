@@ -1,6 +1,7 @@
 import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import Company from './company.js';
 import Genre from './genre.js';
 import Image from './image.js';
 import Platform from './platform.js';
@@ -58,4 +59,14 @@ export default class Game extends BaseModel {
     pivotTable: 'game_image',
   })
   declare images: ManyToMany<typeof Image>;
+
+  @manyToMany(() => Company, {
+    pivotTable: 'game_developer',
+  })
+  declare developers: ManyToMany<typeof Company>;
+
+  @manyToMany(() => Company, {
+    pivotTable: 'game_publisher',
+  })
+  declare publishers: ManyToMany<typeof Company>;
 }

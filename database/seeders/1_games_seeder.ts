@@ -1,4 +1,5 @@
 import parseName from '#database/utils/parseName';
+import Company from '#models/company';
 import Game from '#models/game';
 import Image from '#models/image';
 import Platform from '#models/platform';
@@ -7,11 +8,10 @@ import Rom from '#models/rom';
 import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { download } from '@guoyunhe/downloader';
+import { parse } from '@retrobrainz/dat';
 import { existsSync } from 'fs';
-import { rm } from 'fs/promises';
+import { readFile, rm } from 'fs/promises';
 import { DateTime } from 'luxon';
-import datfile from 'robloach-datfile';
-import xior from 'xior';
 
 export default class extends BaseSeeder {
   tagCounts: Record<string, number> = {};
@@ -19,8 +19,11 @@ export default class extends BaseSeeder {
   async run() {
     const platforms = await Platform.all();
 
+    await this.downloadGithubRepo('libretro', 'libretro-database');
+
     for (const platform of platforms) {
-      console.log(`Importing platform: ${platform.company} - ${platform.name}`);
+      await platform.load('company');
+      console.log(`Importing platform: ${platform.company.name} - ${platform.name}`);
       await this.importPlatform(platform);
     }
   }
@@ -28,39 +31,69 @@ export default class extends BaseSeeder {
   async importPlatform(platform: Platform): Promise<void> {
     await this.downloadImage(platform);
 
-    await this.fetchDat(platform, 'metadat/no-intro');
-    await this.fetchDat(platform, 'metadat/redump');
+    await this.fetchDat(platform);
 
     process.env.NODE_ENV === 'production' && (await this.deleteImage(platform));
   }
 
-  async fetchDat(platform: Platform, category: string): Promise<void> {
-    const datFile = `${platform.company} - ${platform.name}.dat`;
-    const file = `${category}/${datFile}`;
-    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
-    const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
-    const data = await xior
-      .get(url, { timeout: 300 * 1000, responseType: 'text' })
-      .then((res) => datfile.parse(res.data, { ignoreHeader: true }))
-      .catch((e) => {
-        if (e.response && e.response.status === 404) {
+  async fetchDat(platform: Platform): Promise<void> {
+    const gameEntries: any[] = [];
+
+    for (const folder of [
+      'metadat/no-intro',
+      'metadat/redump',
+      'metadat/developer',
+      'metadat/esrb',
+      'metadat/franchise',
+      'metadat/genre',
+      'metadat/maxusers',
+      'metadat/publisher',
+      'metadat/releaseyear',
+      'metadat/releasemonth',
+      'metadat/serial',
+      'metadat/tosec',
+    ]) {
+      const file = `${folder}/${platform.company.name} - ${platform.name}.dat`;
+      const data = await readFile(`${process.cwd()}/tmp/libretro-database-master/${file}`, 'utf-8')
+        .then((text) => parse(text))
+        .catch(() => {
           console.log(`DAT file not found: ${file}`);
-          return [];
+          return [] as any[];
+        });
+
+      data.forEach((entry) => {
+        if (entry.$class !== 'game' || !entry.$entries?.length) {
+          return;
         }
-        throw e;
+        const { crc, serial } = entry.$entries[0];
+        const existing = gameEntries.find(
+          (e) =>
+            (!crc || e.$entries?.[0]?.crc === crc) &&
+            (!serial || e.$entries?.[0]?.serial === serial),
+        );
+        if (existing) {
+          const { name, description, comment, $entries, ...attrs } = entry;
+          Object.assign(existing, attrs);
+        } else {
+          gameEntries.push(entry);
+        }
       });
+    }
 
     for (const {
+      $class, // unused
       name: romName,
-      entries,
+      $entries,
       releaseyear,
       releasemonth,
       releaseday,
       description, // unused
       region, // unused
-      serial: gameSerial = null, // unused
+      serial: gameSerial = null,
+      developer,
+      publisher,
       ...attrs
-    } of data) {
+    } of gameEntries) {
       const {
         title: titleName,
         name: gameName,
@@ -106,15 +139,24 @@ export default class extends BaseSeeder {
         await game.save();
       }
 
-      const regionIds: number[] = await Promise.all(
-        regions.map(async (regionName) => {
-          const regionObj = await Region.firstOrCreate({ name: regionName });
-          return regionObj.id;
-        }),
-      );
+      await game
+        .related('regions')
+        .saveMany(
+          await Promise.all(
+            regions.map((regionName) => Region.firstOrCreate({ name: regionName })),
+          ),
+          true,
+        );
 
-      await game.related('regions').sync(regionIds, true);
+      if (developer) {
+        await game.related('developers').save(await Company.firstOrCreate({ name: developer }));
+      }
 
+      if (publisher) {
+        await game.related('publishers').save(await Company.firstOrCreate({ name: publisher }));
+      }
+
+      const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
       if (imageRepo) {
         await game.load('images');
         // special characters in image names are replaced with underscores
@@ -147,81 +189,54 @@ export default class extends BaseSeeder {
       }
 
       await Promise.all(
-        entries.map(async ({ name: filename, crc, serial: romSerial = null, ...romData }: any) => {
-          const rom = await Rom.firstOrNew({
-            name: romName,
-            filename,
+        $entries.map(
+          async ({
+            $class: $class_,
+            name: filename,
             crc,
-            serial: romSerial || gameSerial,
-          });
-          rom.merge({ gameId: game.id, disc, ...romData });
-          if (rom.$isDirty) {
-            if (rom.$isNew) {
-              console.log(`  Create rom: ${filename}`);
-            } else {
-              console.log(`  Update rom: ${filename}`);
-              console.log(rom.$dirty);
+            serial: romSerial = null,
+            ...romData
+          }: any) => {
+            const rom = await Rom.firstOrNew({
+              name: romName,
+              filename,
+              crc,
+              serial: romSerial || gameSerial,
+            });
+            rom.merge({ gameId: game.id, disc, ...romData });
+            if (rom.$isDirty) {
+              if (rom.$isNew) {
+                console.log(`  Create rom: ${filename}`);
+              } else {
+                console.log(`  Update rom: ${filename}`);
+                console.log(rom.$dirty);
+              }
+              await rom.save();
             }
-            await rom.save();
-          }
-        }),
+          },
+        ),
       );
     }
   }
 
-  async fetchPatchDat(file: string): Promise<void> {
-    const url = `https://raw.githubusercontent.com/libretro/libretro-database/refs/heads/master/${encodeURIComponent(file)}`;
-    const data = await xior
-      .get(url, { timeout: 300 * 1000, responseType: 'text' })
-      .then((res) => datfile.parse(res.data, { ignoreHeader: true }));
-
-    for (const { entries, releaseyear, releasemonth, releaseday, ...attrs } of data) {
-      const rom = await Rom.findBy('crc', entries[0].crc);
-      if (!rom) continue;
-
-      const game = await Game.find(rom.gameId);
-      if (!game) continue;
-
-      game.merge(attrs);
-
-      if (releaseyear || releasemonth || releaseday) {
-        game.releaseDate ||= DateTime.fromISO('1970-01-01');
-
-        if (releaseyear && game.releaseDate.year !== Number(releaseyear)) {
-          game.releaseDate = game.releaseDate.set({ year: Number(releaseyear) });
-        }
-        if (releasemonth && game.releaseDate.month !== Number(releasemonth)) {
-          game.releaseDate = game.releaseDate.set({ month: Number(releasemonth) });
-        }
-        if (releaseday && game.releaseDate.day !== Number(releaseday)) {
-          game.releaseDate = game.releaseDate.set({ day: Number(releaseday) });
-        }
-      }
-
-      if (game.$isDirty) {
-        console.log(`Update game: ${game.name}`);
-
-        await game.save();
-      }
-    }
-  }
-
-  async downloadImage(platform: Platform): Promise<void> {
-    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
-    const url = `https://github.com/libretro-thumbnails/${imageRepo}/archive/refs/heads/master.zip`;
-
-    if (existsSync(`${process.cwd()}/tmp/${imageRepo}-master`)) {
+  async downloadGithubRepo(org: string, repo: string): Promise<void> {
+    const url = `https://github.com/${org}/${repo}/archive/refs/heads/master.tar.gz`;
+    if (existsSync(`${process.cwd()}/tmp/${repo}-master`)) {
       return;
     }
-
     const tmp = `${process.cwd()}/tmp/`;
     await download(url, tmp, {
       extract: true,
     });
   }
 
+  async downloadImage(platform: Platform): Promise<void> {
+    const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+    await this.downloadGithubRepo('libretro-thumbnails', imageRepo);
+  }
+
   async deleteImage(platform: Platform): Promise<void> {
-    const imageRepo = `${platform.company} - ${platform.name}`.replaceAll(' ', '_');
+    const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
     const path = `${process.cwd()}/tmp/${imageRepo}-master`;
     if (existsSync(path)) {
       await rm(path, { recursive: true, force: true });

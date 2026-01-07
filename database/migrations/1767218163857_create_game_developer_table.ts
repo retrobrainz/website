@@ -1,13 +1,19 @@
 import { BaseSchema } from '@adonisjs/lucid/schema';
 
 export default class extends BaseSchema {
-  protected tableName = 'platforms';
+  protected tableName = 'game_developer';
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.string('name', 64).notNullable().unique();
+      table
+        .integer('game_id')
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('games')
+        .onDelete('CASCADE');
 
       table
         .integer('company_id')
@@ -15,7 +21,9 @@ export default class extends BaseSchema {
         .unsigned()
         .references('id')
         .inTable('companies')
-        .onDelete('SET NULL');
+        .onDelete('CASCADE');
+
+      table.unique(['game_id', 'company_id']);
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
