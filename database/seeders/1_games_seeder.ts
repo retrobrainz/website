@@ -1,4 +1,3 @@
-import parseName from '#database/utils/parseName';
 import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
@@ -10,7 +9,8 @@ import Rom from '#models/rom';
 import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { download } from '@guoyunhe/downloader';
-import { parse } from '@retrobrainz/dat';
+import { parse as parseDat } from '@retrobrainz/dat';
+import { parse as parseName } from '@retrobrainz/name';
 import { existsSync } from 'fs';
 import { readFile, rm } from 'fs/promises';
 import { DateTime } from 'luxon';
@@ -53,11 +53,10 @@ export default class extends BaseSeeder {
       'metadat/releaseyear',
       'metadat/releasemonth',
       'metadat/serial',
-      'metadat/tosec',
     ]) {
       const file = `${folder}/${platform.company.name} - ${platform.name}.dat`;
       const data = await readFile(`${process.cwd()}/tmp/libretro-database-master/${file}`, 'utf-8')
-        .then((text) => parse(text))
+        .then((text) => parseDat(text))
         .catch(() => {
           console.log(`DAT file not found: ${file}`);
           return [] as any[];
@@ -68,14 +67,18 @@ export default class extends BaseSeeder {
           return;
         }
         const { crc, serial } = entry.$entries[0];
-        const existing = gameEntries.find(
+
+        const existings = gameEntries.filter(
           (e) =>
             (!crc || e.$entries?.[0]?.crc === crc) &&
             (!serial || e.$entries?.[0]?.serial === serial),
         );
-        if (existing) {
-          const { name, description, comment, $entries, ...attrs } = entry;
-          Object.assign(existing, attrs);
+        if (existings.length > 0) {
+          existings.forEach((existing) => {
+            // add missing fields to existing entry
+            Object.assign(entry, existing);
+            Object.assign(existing, entry);
+          });
         } else {
           gameEntries.push(entry);
         }
@@ -160,11 +163,15 @@ export default class extends BaseSeeder {
         );
 
       if (developer && !game.developerId) {
-        await game.related('developer').associate(await Company.firstOrCreate({ name: developer }));
+        await game
+          .related('developer')
+          .associate(await Company.firstOrCreate({ name: developer.split('/')[0].trim() }));
       }
 
       if (publisher && !game.publisherId) {
-        await game.related('publisher').associate(await Company.firstOrCreate({ name: publisher }));
+        await game
+          .related('publisher')
+          .associate(await Company.firstOrCreate({ name: publisher.split('/')[0].trim() }));
       }
 
       if (franchise && !title.franchiseId) {
@@ -226,10 +233,14 @@ export default class extends BaseSeeder {
           async ({
             $class: $class_,
             name: filename,
-            crc,
+            crc = null,
             serial: romSerial = null,
             ...romData
           }: any) => {
+            if (!filename || (!crc && !romSerial)) {
+              console.log(`  Skipping rom with empty filename in game: ${game.name}`);
+              throw new Error('Empty filename');
+            }
             const rom = await Rom.firstOrNew({
               name: romName,
               filename,

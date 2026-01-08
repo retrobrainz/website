@@ -38,6 +38,9 @@ importers:
       '@retrobrainz/dat':
         specifier: ^1.0.1
         version: 1.0.1
+      '@retrobrainz/name':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@vinejs/vine':
         specifier: ^3.0.1
         version: 3.0.1
@@ -1999,6 +2002,9 @@ packages:
 
   '@retrobrainz/dat@1.0.1':
     resolution: {integrity: sha512-IhwYP0IB7OlDklHYhDkT4A1jfaALLuc/BdcmMzroP6Hj8OB8PLxUD+wddPsm7L0fXJh15xk7v8w6/f+buXDm4w==}
+
+  '@retrobrainz/name@1.0.0':
+    resolution: {integrity: sha512-FvKyH0XoMEdURFRvaeolP/eHWZ/rOm0mpT07POVFv64qNrC/GAirfSDWeyaNXFgh8dr0JAK8jpvrtlBGylt9jg==}
 
   '@rolldown/pluginutils@1.0.0-beta.47':
     resolution: {integrity: sha512-8QagwMH3kNCuzD8EWL8R2YPW5e4OrHNSAHRFDdmFqEwEaD/KcNKjVoumo+gP2vW5eKB2UPbM6vTYiGZX0ixLnw==}
@@ -7387,6 +7393,8 @@ snapshots:
       react-dom: 19.2.3(react@19.2.3)
 
   '@retrobrainz/dat@1.0.1': {}
+
+  '@retrobrainz/name@1.0.0': {}
 
   '@rolldown/pluginutils@1.0.0-beta.47': {}
 
