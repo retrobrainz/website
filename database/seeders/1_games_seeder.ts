@@ -202,13 +202,8 @@ export default class extends BaseSeeder {
         // special characters in image names are replaced with underscores
         const imageName = romName.replace(/[&*/:`<>?\\|"]/g, '_');
 
-        const importImage = async (type: string) => {
+        const importImage = async (type: string, folder: string) => {
           if (!game.images.some((img) => img.type === type)) {
-            const folder = {
-              boxart: 'Named_Boxarts',
-              screenshot: 'Named_Snaps',
-              titlescreen: 'Named_Titles',
-            }[type];
             const imagePath = `${process.cwd()}/tmp/${imageRepo}-master/${folder}/${imageName}.png`;
 
             if (existsSync(imagePath)) {
@@ -223,9 +218,10 @@ export default class extends BaseSeeder {
           }
         };
 
-        await importImage('boxart');
-        await importImage('screenshot');
-        await importImage('titlescreen');
+        await importImage('boxart', 'Named_Boxarts');
+        await importImage('logo', 'Named_Logos');
+        await importImage('screenshot', 'Named_Snaps');
+        await importImage('titlescreen', 'Named_Titles');
       }
 
       await Promise.all(
