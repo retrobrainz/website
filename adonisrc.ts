@@ -98,14 +98,6 @@ export default defineConfig({
       pattern: 'public/**',
       reloadServer: false,
     },
-    {
-      pattern: 'storage/**',
-      reloadServer: false,
-    },
-    {
-      pattern: 'tmp/**',
-      reloadServer: false,
-    },
   ],
 
   assetsBundler: false,
