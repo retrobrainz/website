@@ -196,33 +196,11 @@ export default class extends BaseSeeder {
         }
       }
 
-      const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
-      if (imageRepo) {
-        await game.load('images');
-        // special characters in image names are replaced with underscores
-        const imageName = romName.replace(/[&*/:`<>?\\|"]/g, '_');
-
-        const importImage = async (type: string, folder: string) => {
-          if (!game.images.some((img) => img.type === type)) {
-            const imagePath = `${process.cwd()}/tmp/${imageRepo}-master/${folder}/${imageName}.png`;
-
-            if (existsSync(imagePath)) {
-              try {
-                const image = await Image.fromFs(imagePath, type);
-                await game.related('images').save(image);
-              } catch (error) {
-                console.log(`Failed to import image: ${imagePath}`);
-                console.error(error);
-              }
-            }
-          }
-        };
-
-        await importImage('boxart', 'Named_Boxarts');
-        await importImage('logo', 'Named_Logos');
-        await importImage('screenshot', 'Named_Snaps');
-        await importImage('titlescreen', 'Named_Titles');
-      }
+      await game.load('images');
+      await this.importImage(platform, game, romName, 'boxart', 'Named_Boxarts');
+      await this.importImage(platform, game, romName, 'logo', 'Named_Logos');
+      await this.importImage(platform, game, romName, 'screenshot', 'Named_Snaps');
+      await this.importImage(platform, game, romName, 'titlescreen', 'Named_Titles');
 
       await Promise.all(
         $entries.map(
@@ -271,13 +249,39 @@ export default class extends BaseSeeder {
   }
 
   async downloadImage(platform: Platform): Promise<void> {
-    const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
-    await this.downloadGithubRepo('libretro-thumbnails', imageRepo);
+    const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+    await this.downloadGithubRepo('libretro-thumbnails', repo);
+  }
+
+  async importImage(
+    platform: Platform,
+    game: Game,
+    romName: string,
+    type: string,
+    folder: string,
+  ): Promise<void> {
+    if (!game.images.some((img) => img.type === type)) {
+      const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+      // special characters in image names are replaced with underscores
+      const filename = `${romName.replace(/[&*/:`<>?\\|"]/g, '_')}.png`;
+
+      const imagePath = `${process.cwd()}/tmp/${repo}-master/${folder}/${filename}`;
+
+      if (existsSync(imagePath)) {
+        try {
+          const image = await Image.fromFs(imagePath, type);
+          await game.related('images').save(image);
+        } catch (error) {
+          console.log(`Failed to import image: ${imagePath}`);
+          console.error(error);
+        }
+      }
+    }
   }
 
   async deleteImage(platform: Platform): Promise<void> {
-    const imageRepo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
-    const path = `${process.cwd()}/tmp/${imageRepo}-master`;
+    const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+    const path = `${process.cwd()}/tmp/${repo}-master`;
     if (existsSync(path)) {
       await rm(path, { recursive: true, force: true });
     }
