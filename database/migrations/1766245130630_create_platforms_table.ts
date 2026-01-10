@@ -17,6 +17,9 @@ export default class extends BaseSchema {
         .inTable('companies')
         .onDelete('SET NULL');
 
+      table.smallint('screen_width').unsigned().notNullable();
+      table.smallint('screen_height').unsigned().notNullable();
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });

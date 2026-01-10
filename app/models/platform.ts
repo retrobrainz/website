@@ -13,6 +13,12 @@ export default class Platform extends BaseModel {
   @column()
   declare companyId: number | null;
 
+  @column()
+  declare screenWidth: number;
+
+  @column()
+  declare screenHeight: number;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
