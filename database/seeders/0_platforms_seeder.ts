@@ -25,7 +25,6 @@ export default class extends BaseSeeder {
         'Nintendo Entertainment System',
         'Super Nintendo Entertainment System',
         'Wii',
-        'Wii U',
       ].map((name) => Platform.firstOrCreate({ companyId: nintendo.id, name })),
     );
 
