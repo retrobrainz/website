@@ -20,6 +20,8 @@ export default class extends BaseSchema {
       table.smallint('screen_width').unsigned().notNullable();
       table.smallint('screen_height').unsigned().notNullable();
 
+      table.date('release_date').nullable();
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
