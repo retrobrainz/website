@@ -58,7 +58,6 @@ export default class extends BaseSeeder {
       const data = await readFile(`${process.cwd()}/tmp/libretro-database-master/${file}`, 'utf-8')
         .then((text) => parseDat(text))
         .catch(() => {
-          console.log(`DAT file not found: ${file}`);
           return [] as any[];
         });
 
@@ -85,6 +84,8 @@ export default class extends BaseSeeder {
       });
     }
 
+    const deduplicatedGameEntries = this.deduplicate(gameEntries);
+
     for (const {
       $class, // unused
       name: romName,
@@ -103,7 +104,7 @@ export default class extends BaseSeeder {
       comment, // unused
       esrb_rating, // unused
       ...attrs
-    } of gameEntries) {
+    } of deduplicatedGameEntries) {
       if (!romName) {
         continue;
       }
@@ -140,7 +141,6 @@ export default class extends BaseSeeder {
           month: Number(releasemonth),
           day: releaseday ? Number(releaseday) : 1,
         });
-        console.log(releaseyear, releasemonth, releaseday);
       }
 
       if (game.$isDirty) {
@@ -271,9 +271,8 @@ export default class extends BaseSeeder {
         try {
           const image = await Image.fromFs(imagePath, type);
           await game.related('images').save(image);
-        } catch (error) {
-          console.log(`Failed to import image: ${imagePath}`);
-          console.error(error);
+        } catch {
+          //
         }
       }
     }
@@ -285,5 +284,21 @@ export default class extends BaseSeeder {
     if (existsSync(path)) {
       await rm(path, { recursive: true, force: true });
     }
+  }
+
+  deduplicate(games: any[]): any[] {
+    const gamesMap: Record<string, any> = {};
+    games.forEach((game) => {
+      const { crc } = game.$entries[0];
+      const serial = game.$entries[0].serial || game.serial;
+      const key = `${crc}-${serial}`;
+      if (!gamesMap[key]) {
+        gamesMap[key] = game;
+      } else {
+        console.log(`Deduplicating game: ${game.name} (${crc}/${serial})`);
+        gamesMap[key].$entries = [...gamesMap[key].$entries, ...game.$entries];
+      }
+    });
+    return Object.values(gamesMap);
   }
 }
