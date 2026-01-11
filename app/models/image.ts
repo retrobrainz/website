@@ -55,7 +55,7 @@ export default class Image extends BaseModel {
     // Otherwise AdonisJS mistakes column name to md_5
     columnName: 'md5',
   })
-  declare md5: string | null;
+  declare md5: string;
 
   @column()
   declare type: string | null;
