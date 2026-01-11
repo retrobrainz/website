@@ -135,7 +135,7 @@ export default class extends BaseSeeder {
 
       game.merge(attrs);
 
-      if (!game.releaseDate && releaseyear && releasemonth) {
+      if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
         game.releaseDate = DateTime.fromObject({
           year: Number(releaseyear),
           month: Number(releasemonth),
