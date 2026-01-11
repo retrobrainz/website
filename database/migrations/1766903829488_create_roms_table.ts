@@ -17,15 +17,17 @@ export default class extends BaseSchema {
 
       table.string('name', 256).notNullable();
       table.string('filename', 256).notNullable();
-      table.bigint('size').unsigned().nullable();
-      table.string('crc', 8).nullable();
-      table.string('md5', 32).nullable();
-      table.string('sha1', 40).nullable();
+      table.bigint('size').unsigned().notNullable();
+      table.string('crc', 8).notNullable();
+      table.string('md5', 32).notNullable();
+      table.string('sha1', 40).notNullable();
       table.string('serial', 32).nullable();
       table.tinyint('disc').unsigned().nullable();
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
+
+      table.unique(['crc', 'serial']);
     });
   }
 

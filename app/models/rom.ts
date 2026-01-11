@@ -15,22 +15,22 @@ export default class Rom extends BaseModel {
   declare filename: string;
 
   @column()
-  declare size: number | null;
+  declare size: number;
 
   @column()
-  declare crc: string | null;
+  declare crc: string;
 
   @column({
     // Otherwise AdonisJS mistakes column name to md_5
     columnName: 'md5',
   })
-  declare md5: string | null;
+  declare md5: string;
 
   @column({
     // Otherwise AdonisJS mistakes column name to sha_1
     columnName: 'sha1',
   })
-  declare sha1: string | null;
+  declare sha1: string;
 
   @column()
   declare serial: string | null;

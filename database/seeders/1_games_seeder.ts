@@ -142,12 +142,6 @@ export default class extends BaseSeeder {
       }
 
       if (game.$isDirty) {
-        if (game.$isNew) {
-          console.log(`Create game: ${gameName}`);
-        } else {
-          console.log(`Update game: ${gameName}`);
-          console.log(game.$dirty);
-        }
         await game.save();
       }
 
@@ -204,31 +198,27 @@ export default class extends BaseSeeder {
 
       await Promise.all(
         $entries.map(
-          async ({
-            $class: $class_,
-            name: filename,
-            crc = null,
-            serial: romSerial = null,
-            ...romData
-          }: any) => {
-            if (!filename || (!crc && !romSerial)) {
-              console.log(`  Skipping rom with empty filename in game: ${game.name}`);
-              throw new Error('Empty filename');
-            }
-            const rom = await Rom.firstOrNew({
+          async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
+            const extra = {
+              gameId: game.id,
               name: romName,
               filename,
-              crc,
-              serial: romSerial || gameSerial,
-            });
-            rom.merge({ gameId: game.id, disc, ...romData });
+              size,
+              md5,
+              sha1,
+              disc,
+            };
+
+            const rom = await Rom.firstOrCreate(
+              {
+                crc,
+                serial: romSerial || gameSerial,
+              },
+              extra,
+            );
+            rom.merge(extra);
+
             if (rom.$isDirty) {
-              if (rom.$isNew) {
-                console.log(`  Create rom: ${filename}`);
-              } else {
-                console.log(`  Update rom: ${filename}`);
-                console.log(rom.$dirty);
-              }
               await rom.save();
             }
           },
