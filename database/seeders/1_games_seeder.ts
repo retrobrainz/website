@@ -87,23 +87,17 @@ export default class extends BaseSeeder {
     const deduplicatedGameEntries = this.deduplicate(gameEntries);
 
     for (const {
-      $class, // unused
       name: romName,
       $entries,
       releaseyear,
       releasemonth,
       releaseday,
-      description, // unused
-      region, // unused
       serial: gameSerial = null,
       developer,
       publisher,
       franchise,
       genre,
-      users, // unused
-      comment, // unused
       esrb_rating,
-      ...attrs
     } of deduplicatedGameEntries) {
       if (!romName) {
         continue;
@@ -114,31 +108,26 @@ export default class extends BaseSeeder {
         disc = null,
         regions,
         languages = null,
-        tags,
       } = parseName(romName);
 
-      tags?.forEach((tag) => {
-        this.tagCounts[tag] = (this.tagCounts[tag] || 0) + 1;
-      });
-
-      let title = await Title.firstOrCreate({ name: titleName });
-      await title.refresh();
-      await title.load('duplicate');
-      title = title.duplicate || title;
-
-      const game = await Game.firstOrNew({
+      let game = await Game.firstOrNew({
         platformId: platform.id,
-        titleId: title.id,
         name: gameName,
       });
 
       await game.refresh();
+      await game.load('duplicate');
+      game = game.duplicate || game;
+
+      await game.load('title');
+      let title = game.title || (await Title.firstOrCreate({ name: titleName }));
+      await title.refresh();
+      await title.load('duplicate');
+      title = title.duplicate || title;
 
       if (languages) {
         game.languages = languages;
       }
-
-      game.merge(attrs);
 
       if (!game.esrbRating && esrb_rating) {
         game.esrbRating = esrb_rating;
