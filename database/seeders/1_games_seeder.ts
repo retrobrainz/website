@@ -61,10 +61,13 @@ export default class extends BaseSeeder {
           return [] as any[];
         });
 
-      data.forEach((entry) => {
+      for (const entry of data) {
         if (entry.$class !== 'game' || !entry.$entries?.length) {
-          return;
+          continue;
         }
+
+        entry.serial = this.fixSerial(entry.serial);
+        entry.$entries[0].serial = this.fixSerial(entry.$entries[0].serial);
         const { crc, serial } = entry.$entries[0];
 
         const existings = gameEntries.filter(
@@ -81,7 +84,7 @@ export default class extends BaseSeeder {
         } else {
           gameEntries.push(entry);
         }
-      });
+      }
     }
 
     const deduplicatedGameEntries = this.deduplicate(gameEntries);
@@ -209,6 +212,10 @@ export default class extends BaseSeeder {
               disc,
             };
 
+            if (!crc) {
+              throw new Error(`ROM without CRC: ${extra}`);
+            }
+
             const rom = await Rom.firstOrCreate(
               {
                 crc,
@@ -290,5 +297,10 @@ export default class extends BaseSeeder {
       }
     });
     return Object.values(gamesMap);
+  }
+
+  fixSerial(serial: string): string {
+    if (serial === 'SLUS21568') return 'SLUS-21569';
+    return serial;
   }
 }
