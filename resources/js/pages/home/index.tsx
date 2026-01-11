@@ -69,6 +69,19 @@ export default function HomePage() {
             title: 'Title',
           },
           {
+            dataIndex: ['title', 'franchises'],
+            title: 'Franchises',
+            render: (regions?: any[]) => (
+              <Flex gap={8}>
+                {regions?.map((region) => (
+                  <Tag key={region.id} color="blue">
+                    {region.name}
+                  </Tag>
+                ))}
+              </Flex>
+            ),
+          },
+          {
             dataIndex: 'regions',
             title: 'Regions',
             width: 120,

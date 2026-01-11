@@ -14,7 +14,7 @@ export default class extends BaseSchema {
         .unsigned()
         .nullable()
         .references('id')
-        .inTable('franchises')
+        .inTable(this.tableName)
         .onDelete('SET NULL');
 
       table.timestamp('created_at');

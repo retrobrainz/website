@@ -11,10 +11,13 @@ export default class Title extends BaseModel {
   declare id: number;
 
   @column()
-  declare franchiseId: number | null;
+  declare name: string;
 
   @column()
-  declare name: string;
+  declare note: string | null;
+
+  @column()
+  declare duplicateId: number | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
@@ -24,8 +27,8 @@ export default class Title extends BaseModel {
 
   // Relationships
 
-  @belongsTo(() => Franchise)
-  declare franchise: BelongsTo<typeof Franchise>;
+  @belongsTo(() => Title, { foreignKey: 'duplicateId' })
+  declare duplicate: BelongsTo<typeof Title>;
 
   @hasMany(() => TitleTranslation)
   declare translations: HasMany<typeof TitleTranslation>;
@@ -37,4 +40,9 @@ export default class Title extends BaseModel {
     pivotTable: 'title_genre',
   })
   declare genres: ManyToMany<typeof Genre>;
+
+  @manyToMany(() => Franchise, {
+    pivotTable: 'title_franchise',
+  })
+  declare franchises: ManyToMany<typeof Franchise>;
 }

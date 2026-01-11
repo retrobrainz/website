@@ -15,9 +15,10 @@ export default class GamesController {
     }
 
     return query
-      .preload('title', (q) => q.preload('translations'))
+      .preload('title', (q) => q.preload('translations').preload('franchises'))
       .preload('platform')
       .preload('regions')
+      .preload('developer')
       .preload('roms')
       .preload('images')
       .paginate(page, pageSize);

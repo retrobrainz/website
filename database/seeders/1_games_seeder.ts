@@ -174,10 +174,13 @@ export default class extends BaseSeeder {
           .associate(await Company.firstOrCreate({ name: publisher.split('/')[0].trim() }));
       }
 
-      if (franchise && !title.franchiseId) {
-        await title
-          .related('franchise')
-          .associate(await Franchise.firstOrCreate({ name: franchise }));
+      if (franchise) {
+        for (const franchiseName of (franchise as string).split('/')) {
+          const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
+          await franchiseModel.refresh();
+          await franchiseModel.load('duplicate');
+          await title.related('franchises').save(franchiseModel.duplicate || franchiseModel);
+        }
       }
 
       if (genre) {
