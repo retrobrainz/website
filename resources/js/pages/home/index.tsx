@@ -60,11 +60,6 @@ export default function HomePage() {
             },
           },
           {
-            dataIndex: ['platform', 'name'],
-            title: 'Platform',
-            width: 180,
-          },
-          {
             dataIndex: ['title', 'name'],
             title: 'Title',
           },
