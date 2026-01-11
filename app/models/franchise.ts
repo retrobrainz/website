@@ -1,5 +1,5 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
-import type { HasMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import FranchiseTranslation from './franchise_translation.js';
 import Title from './title.js';
@@ -11,6 +11,9 @@ export default class Franchise extends BaseModel {
   @column()
   declare name: string;
 
+  @column()
+  declare duplicateId: number | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
@@ -18,6 +21,9 @@ export default class Franchise extends BaseModel {
   declare updatedAt: DateTime;
 
   // Relationships
+
+  @belongsTo(() => Franchise, { foreignKey: 'duplicateId' })
+  declare duplicate: BelongsTo<typeof Franchise>;
 
   @hasMany(() => FranchiseTranslation)
   declare translations: HasMany<typeof FranchiseTranslation>;

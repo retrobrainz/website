@@ -9,6 +9,14 @@ export default class extends BaseSchema {
 
       table.string('name', 256).notNullable();
 
+      table
+        .integer('duplicate_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('franchises')
+        .onDelete('SET NULL');
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
