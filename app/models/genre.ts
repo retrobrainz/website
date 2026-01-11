@@ -1,6 +1,7 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm';
-import type { BelongsTo } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import GenreTranslation from './genre_translation.js';
 
 export default class Genre extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +26,7 @@ export default class Genre extends BaseModel {
 
   @belongsTo(() => Genre, { foreignKey: 'duplicateId' })
   declare duplicate: BelongsTo<typeof Genre>;
+
+  @hasMany(() => GenreTranslation)
+  declare translations: HasMany<typeof GenreTranslation>;
 }
