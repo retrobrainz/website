@@ -202,6 +202,11 @@ export default class extends BaseSeeder {
       await Promise.all(
         $entries.map(
           async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
+            if (!crc) {
+              console.log(`ROM without CRC: ${filename}`);
+              return;
+            }
+
             const extra = {
               gameId: game.id,
               name: romName,
@@ -211,10 +216,6 @@ export default class extends BaseSeeder {
               sha1,
               disc,
             };
-
-            if (!crc) {
-              throw new Error(`ROM without CRC: ${filename}`);
-            }
 
             const rom = await Rom.firstOrCreate(
               {
