@@ -162,16 +162,22 @@ export default class extends BaseSeeder {
           true,
         );
 
-      if (developer && !game.developerId) {
-        await game
-          .related('developer')
-          .associate(await Company.firstOrCreate({ name: developer.split('/')[0].trim() }));
+      if (developer) {
+        for (const developerName of (developer as string).split('/')) {
+          const developerModel = await Company.firstOrCreate({ name: developerName.trim() });
+          await developerModel.refresh();
+          await developerModel.load('duplicate');
+          await game.related('developers').save(developerModel.duplicate || developerModel);
+        }
       }
 
-      if (publisher && !game.publisherId) {
-        await game
-          .related('publisher')
-          .associate(await Company.firstOrCreate({ name: publisher.split('/')[0].trim() }));
+      if (publisher) {
+        for (const publisherName of (publisher as string).split('/')) {
+          const publisherModel = await Company.firstOrCreate({ name: publisherName.trim() });
+          await publisherModel.refresh();
+          await publisherModel.load('duplicate');
+          await game.related('publishers').save(publisherModel.duplicate || publisherModel);
+        }
       }
 
       if (franchise) {

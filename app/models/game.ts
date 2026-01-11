@@ -19,12 +19,6 @@ export default class Game extends BaseModel {
   declare titleId: number;
 
   @column()
-  declare developerId: number | null;
-
-  @column()
-  declare publisherId: number | null;
-
-  @column()
   declare name: string;
 
   @column()
@@ -47,18 +41,18 @@ export default class Game extends BaseModel {
   @belongsTo(() => Title)
   declare title: BelongsTo<typeof Title>;
 
-  @belongsTo(() => Company, {
-    foreignKey: 'developerId',
-  })
-  declare developer: BelongsTo<typeof Company>;
-
-  @belongsTo(() => Company, {
-    foreignKey: 'publisherId',
-  })
-  declare publisher: BelongsTo<typeof Company>;
-
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
+
+  @manyToMany(() => Company, {
+    pivotTable: 'game_developer',
+  })
+  declare developers: ManyToMany<typeof Company>;
+
+  @manyToMany(() => Company, {
+    pivotTable: 'game_publisher',
+  })
+  declare publishers: ManyToMany<typeof Company>;
 
   @manyToMany(() => Region, {
     pivotTable: 'game_region',

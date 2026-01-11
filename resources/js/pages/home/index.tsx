@@ -105,6 +105,32 @@ export default function HomePage() {
             title: 'Name',
           },
           {
+            dataIndex: 'developers',
+            title: 'Developers',
+            render: (regions: any[]) => (
+              <Flex gap={8}>
+                {regions.map((region) => (
+                  <Tag key={region.id} color="blue">
+                    {region.name}
+                  </Tag>
+                ))}
+              </Flex>
+            ),
+          },
+          {
+            dataIndex: 'publishers',
+            title: 'Publishers',
+            render: (regions: any[]) => (
+              <Flex gap={8}>
+                {regions.map((region) => (
+                  <Tag key={region.id} color="blue">
+                    {region.name}
+                  </Tag>
+                ))}
+              </Flex>
+            ),
+          },
+          {
             dataIndex: 'releaseDate',
             title: 'Release Date',
           },
