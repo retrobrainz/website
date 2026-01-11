@@ -132,7 +132,7 @@ export default class extends BaseSeeder {
         game.languages = languages;
       }
 
-      if (!game.esrbRating && esrb_rating) {
+      if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
         game.esrbRating = esrb_rating;
       }
 
