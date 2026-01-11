@@ -23,25 +23,12 @@ export default class extends BaseSchema {
         .inTable('titles')
         .onDelete('SET NULL');
 
-      table
-        .integer('developer_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('companies')
-        .onDelete('SET NULL');
-
-      table
-        .integer('publisher_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('companies')
-        .onDelete('SET NULL');
-
       table.string('name', 256).notNullable();
       table.string('languages', 64).nullable();
       table.date('release_date').nullable();
+
+      table.string('esrb_rating', 4).nullable();
+      table.string('pegi_rating', 2).nullable();
 
       table
         .integer('duplicate_id')
@@ -54,7 +41,7 @@ export default class extends BaseSchema {
       table.timestamp('created_at');
       table.timestamp('updated_at');
 
-      table.unique(['platform_id', 'title_id', 'name']);
+      table.unique(['platform_id', 'name']);
     });
   }
 

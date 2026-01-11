@@ -102,7 +102,7 @@ export default class extends BaseSeeder {
       genre,
       users, // unused
       comment, // unused
-      esrb_rating, // unused
+      esrb_rating,
       ...attrs
     } of deduplicatedGameEntries) {
       if (!romName) {
@@ -121,7 +121,10 @@ export default class extends BaseSeeder {
         this.tagCounts[tag] = (this.tagCounts[tag] || 0) + 1;
       });
 
-      const title = await Title.firstOrCreate({ name: titleName });
+      let title = await Title.firstOrCreate({ name: titleName });
+      await title.refresh();
+      await title.load('duplicate');
+      title = title.duplicate || title;
 
       const game = await Game.firstOrNew({
         platformId: platform.id,
@@ -129,11 +132,17 @@ export default class extends BaseSeeder {
         name: gameName,
       });
 
+      await game.refresh();
+
       if (languages) {
         game.languages = languages;
       }
 
       game.merge(attrs);
+
+      if (!game.esrbRating && esrb_rating) {
+        game.esrbRating = esrb_rating;
+      }
 
       if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
         game.releaseDate = DateTime.fromObject({

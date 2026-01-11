@@ -27,6 +27,15 @@ export default class Game extends BaseModel {
   @column.date()
   declare releaseDate: DateTime | null;
 
+  @column()
+  declare esrbRating: string | null;
+
+  @column()
+  declare pegiRating: string | null;
+
+  @column()
+  declare duplicateId: number | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
@@ -40,6 +49,9 @@ export default class Game extends BaseModel {
 
   @belongsTo(() => Title)
   declare title: BelongsTo<typeof Title>;
+
+  @belongsTo(() => Game, { foreignKey: 'duplicateId' })
+  declare duplicate: BelongsTo<typeof Game>;
 
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
