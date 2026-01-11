@@ -110,7 +110,7 @@ export default class extends BaseSeeder {
         languages = null,
       } = parseName(romName);
 
-      let game = await Game.firstOrNew({
+      let game = await Game.firstOrCreate({
         platformId: platform.id,
         name: gameName,
       });
