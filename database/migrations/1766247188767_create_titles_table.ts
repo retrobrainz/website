@@ -17,14 +17,6 @@ export default class extends BaseSchema {
         .inTable('titles')
         .onDelete('SET NULL');
 
-      table
-        .integer('franchise_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('franchises')
-        .onDelete('SET NULL');
-
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
