@@ -184,18 +184,11 @@ export default class extends BaseSeeder {
       }
 
       if (genre) {
-        await title.load('genres');
-        if (!title.genres.length) {
-          await title
-            .related('genres')
-            .saveMany(
-              await Promise.all(
-                genre
-                  .split('/')
-                  .map((genreName: string) => Genre.firstOrCreate({ name: genreName.trim() })),
-              ),
-              true,
-            );
+        for (const genreName of (genre as string).split('/')) {
+          const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
+          await genreModel.refresh();
+          await genreModel.load('duplicate');
+          await title.related('genres').save(genreModel.duplicate || genreModel);
         }
       }
 
