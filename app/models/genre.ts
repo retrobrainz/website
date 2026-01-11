@@ -23,9 +23,6 @@ export default class Genre extends BaseModel {
 
   // Relationships
 
-  @belongsTo(() => Genre, { foreignKey: 'parentId' })
-  declare parent: BelongsTo<typeof Genre>;
-
   @belongsTo(() => Genre, { foreignKey: 'duplicateId' })
   declare duplicate: BelongsTo<typeof Genre>;
 }
