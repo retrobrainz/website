@@ -1,5 +1,7 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm';
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
+import type { HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import RegionTranslation from './region_translation.js';
 
 export default class Region extends BaseModel {
   @column({ isPrimary: true })
@@ -13,4 +15,9 @@ export default class Region extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime;
+
+  // Relationships
+
+  @hasMany(() => RegionTranslation)
+  declare translations: HasMany<typeof RegionTranslation>;
 }
