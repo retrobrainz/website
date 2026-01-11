@@ -213,7 +213,7 @@ export default class extends BaseSeeder {
             };
 
             if (!crc) {
-              throw new Error(`ROM without CRC: ${extra}`);
+              throw new Error(`ROM without CRC: ${filename}`);
             }
 
             const rom = await Rom.firstOrCreate(
@@ -300,7 +300,7 @@ export default class extends BaseSeeder {
   }
 
   fixSerial(serial: string): string {
-    if (serial === 'SLUS21568') return 'SLUS-21569';
+    if (serial === 'SLUS21568') return 'SLUS-21568';
     return serial;
   }
 }
