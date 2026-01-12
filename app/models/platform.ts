@@ -38,6 +38,7 @@ export default class Platform extends BaseModel {
   declare games: HasMany<typeof Game>;
 
   // Virtuals
+
   @computed()
   get gamesCount(): number | null {
     return this.$extras.games_count ?? null;
