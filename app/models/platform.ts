@@ -1,7 +1,8 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm';
-import type { BelongsTo } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, computed, hasMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
+import Game from './game.js';
 
 export default class Platform extends BaseModel {
   @column({ isPrimary: true })
@@ -32,4 +33,13 @@ export default class Platform extends BaseModel {
 
   @belongsTo(() => Company)
   declare company: BelongsTo<typeof Company>;
+
+  @hasMany(() => Game)
+  declare games: HasMany<typeof Game>;
+
+  // Virtuals
+  @computed()
+  get gamesCount(): number | null {
+    return this.$extras.games_count ?? null;
+  }
 }
