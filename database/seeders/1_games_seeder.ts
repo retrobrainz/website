@@ -128,6 +128,8 @@ export default class extends BaseSeeder {
       await title.load('duplicate');
       title = title.duplicate || title;
 
+      game.titleId = title.id;
+
       if (languages) {
         game.languages = languages;
       }
