@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, Image, Table, Tag, Tooltip } from 'antd';
+import { Breadcrumb, Flex, Image, Table, Tag } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
@@ -100,6 +100,9 @@ export default function PlatformPage() {
           {
             dataIndex: 'name',
             title: 'Name',
+            render: (name: string, { id }: any) => (
+              <a href={`/platforms/${platformId}/games/${id}`}>{name}</a>
+            ),
           },
           {
             dataIndex: 'developers',
@@ -130,19 +133,6 @@ export default function PlatformPage() {
           {
             dataIndex: 'releaseDate',
             title: 'Release Date',
-          },
-          {
-            dataIndex: 'roms',
-            title: 'ROMs',
-            render: (roms: any[]) => (
-              <Tooltip
-                title={roms.map((rom) => (
-                  <div key={rom.filename}>{rom.filename}</div>
-                ))}
-              >
-                {roms.length}
-              </Tooltip>
-            ),
           },
         ]}
       />

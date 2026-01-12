@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Route } from 'wouter';
+import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import PlatformPage from './pages/platform/index.js';
 import PlatformsPage from './pages/platforms/index.js';
@@ -18,6 +19,10 @@ function App() {
 
         <Route path="/platforms/:platformId">
           <PlatformPage />
+        </Route>
+
+        <Route path="/platforms/:platformId/games/:gameId">
+          <GamePage />
         </Route>
 
         <Route path="/platforms">
