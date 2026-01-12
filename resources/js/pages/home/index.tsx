@@ -1,27 +1,18 @@
-import { Flex, Image, Radio, Table, Tag, Tooltip } from 'antd';
+import { Flex, Image, Table, Tag, Tooltip } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
+import { useParams } from 'wouter';
 
 export default function HomePage() {
+  const { platformId } = useParams();
   const [page, setPage] = useState(1);
-  const [platformId, setPlatformId] = useState(1);
 
   const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/api/games`, {
     params: { page, platformId },
   });
 
-  const { data: platforms } = useFetch<any[]>(`/api/platforms`);
-
   return (
     <div>
-      <Radio.Group
-        value={platformId}
-        onChange={(e) => {
-          setPlatformId(e.target.value);
-        }}
-        options={platforms?.map((platform) => ({ label: platform.name, value: platform.id }))}
-      />
-
       <Table
         tableLayout="fixed"
         dataSource={data?.data}
