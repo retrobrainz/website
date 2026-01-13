@@ -1,5 +1,17 @@
 # RetroBrainz Website
 
+## Development
+
+```bash
+# use podman or docker
+podman compose up
+cp .env.example .env
+pnpm i
+node ace migration:run
+node ace db:seed
+pnpm dev
+```
+
 ## Deployment
 
 ### Prepare openSUSE/SLE server
