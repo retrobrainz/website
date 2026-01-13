@@ -73,7 +73,6 @@
     "@adonisjs/shield": "^8.2.0",
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^4.0.0",
-    "@ant-design/pro-components": "^2.8.10",
     "@guoyunhe/downloader": "^1.3.0",
     "@retrobrainz/dat": "^1.0.1",
     "@retrobrainz/name": "^1.1.0",
