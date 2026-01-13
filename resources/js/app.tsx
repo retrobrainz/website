@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Route } from 'wouter';
+import AppLayout from './layouts/app/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import PlatformPage from './pages/platform/index.js';
@@ -12,7 +13,7 @@ import TitlesPage from './pages/titles/index.js';
 function App() {
   return (
     <ConfigProvider>
-      <div>
+      <AppLayout>
         <Route path="/">
           <HomePage />
         </Route>
@@ -36,7 +37,7 @@ function App() {
         <Route path="/titles">
           <TitlesPage />
         </Route>
-      </div>
+      </AppLayout>
     </ConfigProvider>
   );
 }
