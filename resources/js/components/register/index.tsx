@@ -19,14 +19,26 @@ export default function Register() {
         onOk={() => {
           form.validateFields().then((values) => {
             xior
-              .post('/api/register', values)
+              .post('/register', values)
               .then((res) => {
-                console.log(res.data);
-                setOpen(false);
-                message.success('Registration succeeded');
+                if (res.status === 200) {
+                  message.success('Registration succeeded');
+                  setOpen(false);
+                  return res.data;
+                } else {
+                  res.data?.errors?.forEach((err: any) => {
+                    message.error(err.message);
+                  });
+                }
               })
               .catch((error) => {
-                message.error(error.response?.data?.message || error.message);
+                if (error.response?.data?.errors) {
+                  error.response.data.errors.forEach((err: any) => {
+                    message.error(err.message);
+                  });
+                } else {
+                  message.error(error.response?.data?.message || error.message);
+                }
               });
           });
         }}

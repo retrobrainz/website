@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Route } from 'wouter';
+import xior from 'xior';
 import AppLayout from './layouts/app/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
@@ -9,6 +10,9 @@ import PlatformPage from './pages/platform/index.js';
 import PlatformsPage from './pages/platforms/index.js';
 import RegionsPage from './pages/regions/index.js';
 import TitlesPage from './pages/titles/index.js';
+
+xior.defaults.baseURL = '/api';
+xior.defaults.headers.Accept = 'application/json';
 
 function App() {
   return (
