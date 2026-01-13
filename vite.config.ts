@@ -19,6 +19,7 @@ export default defineConfig({
     react(),
   ],
   server: {
+    open: 'http://localhost:3333',
     watch: {
       ignored: ['**/storage/**', '**/tmp/**'],
     },
