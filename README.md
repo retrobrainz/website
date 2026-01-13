@@ -50,7 +50,7 @@ pm2 save
 
 ## Acknowledge
 
-RetroBrainz Website is built using the following free & open source technologies:
+RetroBrainz website is built using the following free & open source technologies:
 
 - [Git](https://git-scm.com/) as the version control system.
 - [Node.js](https://nodejs.org/) as the runtime environment.
@@ -64,3 +64,5 @@ RetroBrainz Website is built using the following free & open source technologies
 - [PM2](https://pm2.keymetrics.io/) as the process manager.
 - [Nginx](https://www.nginx.com/) as the web server.
 - [Certbot](https://certbot.eff.org/) as the SSL certificate manager.
+
+RetroBrainz logo is created by [Wikmoz](https://commons.wikimedia.org/wiki/User:Wikmoz) and licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en) license. ([Source](https://commons.wikimedia.org/wiki/File:Video_Game_Book.svg))
