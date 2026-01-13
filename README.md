@@ -50,6 +50,8 @@ pm2 save
 
 ## Acknowledge
 
+RetroBrainz initial data is imported from [Libretro](https://github.com/libretro/) project, which itself is a collaboration effort of various projects and individual contributors.
+
 RetroBrainz website is built using the following free & open source technologies:
 
 - [Git](https://git-scm.com/) as the version control system.
