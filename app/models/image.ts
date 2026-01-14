@@ -7,17 +7,39 @@ import { readFile } from 'node:fs/promises';
 import sharp from 'sharp';
 import User from './user.js';
 
+interface ImageCreateOptions {
+  userId?: number;
+  width?: number;
+  height?: number;
+  fit?: keyof sharp.FitEnum;
+  format?: keyof sharp.FormatEnum;
+}
+
 export default class Image extends BaseModel {
-  static async fromFs(path: string, { userId }: Partial<Image>): Promise<Image> {
+  static async fromFs(path: string, options: ImageCreateOptions): Promise<Image> {
     const buffer = await readFile(path);
-    return this.fromBuffer(buffer, { userId });
+    return this.fromBuffer(buffer, options);
   }
 
-  static async fromBuffer(buffer: Buffer, { userId }: Partial<Image>): Promise<Image> {
-    const hash = createHash('md5');
-    const md5 = hash.update(buffer).digest('hex');
+  static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
+    let sharpInstance = sharp(buffer);
+    if (options.width || options.height) {
+      sharpInstance = sharpInstance.resize({
+        width: options.width,
+        height: options.height,
+        fit: options.fit,
+        withoutEnlargement: true,
+      });
+    }
+    if (options.format) {
+      sharpInstance = sharpInstance.toFormat(options.format);
+    }
+    const newBuffer = await sharpInstance.toBuffer();
 
-    const { width, height, format, size } = await sharp(buffer).metadata();
+    const { width, height, format, size } = await sharp(newBuffer).metadata();
+
+    const hash = createHash('md5');
+    const md5 = hash.update(newBuffer).digest('hex');
 
     const disk = drive.use();
     const image = await Image.firstOrCreate(
@@ -28,11 +50,11 @@ export default class Image extends BaseModel {
         size,
         md5,
       },
-      { userId },
+      { userId: options.userId },
     );
 
     if (!(await disk.exists(image.path))) {
-      await disk.put(image.path, buffer);
+      await disk.put(image.path, newBuffer);
     }
 
     return image;

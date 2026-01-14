@@ -1,6 +1,7 @@
 import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
+import GameImage from '#models/game_image';
 import Genre from '#models/genre';
 import Image from '#models/image';
 import Platform from '#models/platform';
@@ -269,8 +270,16 @@ export default class extends BaseSeeder {
 
       if (existsSync(imagePath)) {
         try {
-          const image = await Image.fromFs(imagePath, type);
-          await game.related('images').save(image);
+          const image = await Image.fromFs(imagePath, {});
+          await GameImage.firstOrCreate(
+            {
+              gameId: game.id,
+              imageId: image.id,
+            },
+            {
+              type,
+            },
+          );
         } catch {
           //
         }

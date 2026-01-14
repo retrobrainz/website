@@ -1,9 +1,11 @@
 import { App, Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
 import xior from 'xior';
+import { useAuth } from '../../contexts/auth/index.js';
 
 export default function Register() {
   const { message } = App.useApp();
+  const { setIsAuthenticated, setUser } = useAuth();
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   return (
@@ -24,6 +26,8 @@ export default function Register() {
                 if (res.status === 200) {
                   localStorage.setItem('authToken', res.data.token.token);
                   xior.defaults.headers.Authorization = `Bearer ${res.data.token.token}`;
+                  setIsAuthenticated(true);
+                  setUser(res.data.user);
                   message.success('Registration succeeded');
                   setOpen(false);
                 } else {

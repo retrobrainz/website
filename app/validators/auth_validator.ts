@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine';
 
-export const registerValidator = vine.compile(
+export const registerValidator = vine.create(
   vine.object({
     username: vine.string().trim().minLength(3).maxLength(32).unique({
       table: 'users',
@@ -14,7 +14,7 @@ export const registerValidator = vine.compile(
   }),
 );
 
-export const loginValidator = vine.compile(
+export const loginValidator = vine.create(
   vine.object({
     email: vine.string().trim().email(),
     password: vine.string().trim(),

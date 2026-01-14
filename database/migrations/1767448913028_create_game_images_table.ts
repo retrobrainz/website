@@ -23,6 +23,8 @@ export default class extends BaseSchema {
         .inTable('images')
         .onDelete('CASCADE');
 
+      table.string('type', 16).nullable();
+
       table.unique(['game_id', 'image_id']);
 
       table.timestamp('created_at');
