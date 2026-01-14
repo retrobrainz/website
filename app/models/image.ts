@@ -1,17 +1,19 @@
 import drive from '@adonisjs/drive/services/main';
-import { BaseModel, column, computed } from '@adonisjs/lucid/orm';
+import { BaseModel, belongsTo, column, computed } from '@adonisjs/lucid/orm';
+import type { BelongsTo } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import sharp from 'sharp';
+import User from './user.js';
 
 export default class Image extends BaseModel {
-  static async fromFs(path: string, type?: string): Promise<Image> {
+  static async fromFs(path: string, { userId }: Partial<Image>): Promise<Image> {
     const buffer = await readFile(path);
-    return this.fromBuffer(buffer, type);
+    return this.fromBuffer(buffer, { userId });
   }
 
-  static async fromBuffer(buffer: Buffer, type?: string): Promise<Image> {
+  static async fromBuffer(buffer: Buffer, { userId }: Partial<Image>): Promise<Image> {
     const hash = createHash('md5');
     const md5 = hash.update(buffer).digest('hex');
 
@@ -26,7 +28,7 @@ export default class Image extends BaseModel {
         size,
         md5,
       },
-      { type },
+      { userId },
     );
 
     if (!(await disk.exists(image.path))) {
@@ -58,13 +60,20 @@ export default class Image extends BaseModel {
   declare md5: string;
 
   @column()
-  declare type: string | null;
+  declare userId: number | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime;
+
+  // Relationships
+
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>;
+
+  // Virtuals
 
   get path() {
     return `images/${this.md5}.${this.format}`;
