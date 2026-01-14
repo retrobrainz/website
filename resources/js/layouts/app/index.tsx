@@ -1,5 +1,6 @@
-import { App, Button, Flex } from 'antd';
+import { App, Flex } from 'antd';
 import Login from '../../components/login/index.js';
+import Logout from '../../components/logout/index.js';
 import Register from '../../components/register/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
 
@@ -12,7 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {isAuthenticated ? (
             <>
               <span>Welcome, {user?.username}</span>
-              <Button>Logout</Button>
+              <Logout />
             </>
           ) : (
             <>
