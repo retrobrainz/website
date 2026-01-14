@@ -22,9 +22,10 @@ export default function Register() {
               .post('/register', values)
               .then((res) => {
                 if (res.status === 200) {
+                  localStorage.setItem('authToken', res.data.token.token);
+                  xior.defaults.headers.Authorization = `Bearer ${res.data.token.token}`;
                   message.success('Registration succeeded');
                   setOpen(false);
-                  return res.data;
                 } else {
                   res.data?.errors?.forEach((err: any) => {
                     message.error(err.message);
