@@ -10,9 +10,7 @@ export default function Login() {
   const [form] = Form.useForm();
   return (
     <>
-      <Button type="primary" onClick={() => setOpen(true)}>
-        Login
-      </Button>
+      <Button onClick={() => setOpen(true)}>Login</Button>
 
       <Modal
         title="Login"
