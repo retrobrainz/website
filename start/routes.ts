@@ -13,6 +13,7 @@ import FranchisesController from '#controllers/franchises_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
 import PlatformsController from '#controllers/platforms_controller';
+import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
 import TitlesController from '#controllers/titles_controller';
 import { middleware } from '#start/kernel';
@@ -31,7 +32,9 @@ router
     router.post('register', [AuthController, 'register']);
     router.post('login', [AuthController, 'login']);
     router.post('logout', [AuthController, 'logout']).use(middleware.auth({ guards: ['api'] }));
-    router.get('me', [AuthController, 'me']).use(middleware.auth({ guards: ['api'] }));
+
+    router.get('me', [ProfileController, 'show']).use(middleware.auth({ guards: ['api'] }));
+    router.put('me', [ProfileController, 'update']).use(middleware.auth({ guards: ['api'] }));
   })
   .prefix('/api');
 

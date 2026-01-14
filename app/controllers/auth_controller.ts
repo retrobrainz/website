@@ -20,9 +20,4 @@ export default class AuthController {
   async logout({ auth }: HttpContext) {
     await auth.use('api').invalidateToken();
   }
-
-  async me({ auth }: HttpContext) {
-    const user = auth.user!;
-    return user;
-  }
 }
