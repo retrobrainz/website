@@ -1,15 +1,14 @@
 import Image from '#models/image';
-import { imageStoreValidator } from '#validators/image_validator';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class ImagesController {
   async store({ auth, request }: HttpContext) {
-    const { image, width, height, fit } = await imageStoreValidator.validate(request);
-    return await Image.fromFs(image.tmpPath!, {
-      width,
-      height,
+    return await Image.fromFs(request.file('image')!.tmpPath!, {
+      width: request.input('width') ? Number(request.input('width')) : undefined,
+      height: request.input('height') ? Number(request.input('height')) : undefined,
       userId: auth.user?.id,
-      fit,
+      fit: request.input('fit'),
+      format: request.input('format'),
     });
   }
 }

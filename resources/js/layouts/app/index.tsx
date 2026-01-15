@@ -1,4 +1,5 @@
-import { App } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
+import { App, Avatar, Button, Tooltip } from 'antd';
 import { Link } from 'wouter';
 import Login from '../../components/login/index.js';
 import Logout from '../../components/logout/index.js';
@@ -38,9 +39,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {isAuthenticated ? (
           <>
-            <span>
-              Welcome, <Link href={`/users/${user?.id}`}>{user?.username}</Link>
-            </span>
+            <Link href={`/users/${user?.id}`}>
+              <Avatar src={user?.avatar?.url} style={{ marginRight: 4 }} />
+              {user?.username}
+            </Link>
+            <Link href="/settings">
+              <Tooltip title="Settings">
+                <Button icon={<SettingOutlined />} />
+              </Tooltip>
+            </Link>
             <Logout />
           </>
         ) : (
