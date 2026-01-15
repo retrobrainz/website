@@ -40,7 +40,7 @@ export default function PlatformPage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'boxart');
-              return <Image src={image?.url} width={50} height={50} />;
+              return <Image src={image?.image?.url} width={50} height={50} />;
             },
           },
           {
@@ -49,7 +49,7 @@ export default function PlatformPage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'titlescreen');
-              return <Image src={image?.url} width={50} height={50} />;
+              return <Image src={image?.image?.url} width={50} height={50} />;
             },
           },
           {
@@ -58,7 +58,7 @@ export default function PlatformPage() {
             width: 80,
             render: (images: any[]) => {
               const image = images.find((img) => img.type === 'screenshot');
-              return <Image src={image?.url} width={50} height={50} />;
+              return <Image src={image?.image?.url} width={50} height={50} />;
             },
           },
           {

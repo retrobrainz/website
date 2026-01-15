@@ -21,7 +21,7 @@ export default class GamesController {
       .preload('developers')
       .preload('publishers')
       .preload('roms')
-      .preload('images')
+      .preload('images', (q) => q.preload('image'))
       .paginate(page, pageSize);
   }
 
@@ -34,7 +34,7 @@ export default class GamesController {
       .preload('developers')
       .preload('publishers')
       .preload('roms')
-      .preload('images')
+      .preload('images', (q) => q.preload('image'))
       .firstOrFail();
 
     return game;
