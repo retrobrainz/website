@@ -19,8 +19,8 @@ export default function SettingsPage() {
           customRequest={({ file, onSuccess, onError }) => {
             const formData = new FormData();
             formData.append('image', file);
-            formData.append('width', '64');
-            formData.append('height', '64');
+            formData.append('width', '128');
+            formData.append('height', '128');
             formData.append('format', 'jpeg');
             xior
               .post('/images', formData)
