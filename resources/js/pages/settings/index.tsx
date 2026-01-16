@@ -1,4 +1,5 @@
-import { App, Card, Upload } from 'antd';
+import { App, Breadcrumb, Card, Typography, Upload } from 'antd';
+import { Container } from 'antd-moe';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
@@ -7,8 +8,12 @@ export default function SettingsPage() {
   const { user, setUser } = useAuth();
 
   return (
-    <div>
-      <h1>Settings</h1>
+    <Container maxWidth="md">
+      <Breadcrumb
+        items={[{ title: <a href="/">Home</a> }, { title: 'Settings' }]}
+        style={{ marginTop: 32 }}
+      />
+      <Typography.Title level={1}>Settings</Typography.Title>
 
       <Card title="Avatar">
         <Upload
@@ -53,6 +58,6 @@ export default function SettingsPage() {
           )}
         </Upload>
       </Card>
-    </div>
+    </Container>
   );
 }

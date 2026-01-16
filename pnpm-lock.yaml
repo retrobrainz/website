@@ -44,6 +44,9 @@ importers:
       antd:
         specifier: ^6.2.0
         version: 6.2.0(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      antd-moe:
+        specifier: ^1.0.0
+        version: 1.0.0(antd@6.2.0(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
       edge.js:
         specifier: ^6.4.0
         version: 6.4.0
@@ -2524,6 +2527,12 @@ packages:
   ansi-styles@6.2.3:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
     engines: {node: '>=12'}
+
+  antd-moe@1.0.0:
+    resolution: {integrity: sha512-u/+N8r0J1dBEEYWl/8SSd3lPGceu0GqraLUBWxS9UxdHwsyIu2WaK2lCaTUOB1yTZzSoi/ZGAfjAU3p0uVNh5w==}
+    peerDependencies:
+      antd: ^5.29.0 || ^6.2.0
+      react: '>=16.8.0'
 
   antd@6.2.0:
     resolution: {integrity: sha512-fwETatwHYExjfzKcV41fBtgPo4kp+g+9gp5YOSSGxwnJHljps8TbXef8WP7ZnaOn5dkcA9xIC0TyUecIybBG7w==}
@@ -7991,6 +8000,12 @@ snapshots:
   ansi-styles@5.2.0: {}
 
   ansi-styles@6.2.3: {}
+
+  antd-moe@1.0.0(antd@6.2.0(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3):
+    dependencies:
+      antd: 6.2.0(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      clsx: 2.1.1
+      react: 19.2.3
 
   antd@6.2.0(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:

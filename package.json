@@ -77,6 +77,7 @@
     "@retrobrainz/name": "^1.1.0",
     "@vinejs/vine": "^4.2.0",
     "antd": "^6.2.0",
+    "antd-moe": "^1.0.0",
     "edge.js": "^6.4.0",
     "image-dimensions": "^2.5.0",
     "image-type": "^6.0.0",
