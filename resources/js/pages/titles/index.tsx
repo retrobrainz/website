@@ -4,7 +4,7 @@ import { useFetch } from 'react-fast-fetch';
 
 export default function TitlesPage() {
   const [page, setPage] = useState(1);
-  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/api/titles?page=${page}`, {
+  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/titles?page=${page}`, {
     params: { page },
   });
 

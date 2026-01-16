@@ -5,9 +5,9 @@ import { Link, useParams } from 'wouter';
 export default function GamePage() {
   const { gameId, platformId } = useParams();
 
-  const { data: platform } = useFetch<any>(`/api/platforms/${platformId}`);
+  const { data: platform } = useFetch<any>(`/platforms/${platformId}`);
 
-  const { data: game } = useFetch<any>(`/api/games/${gameId}`);
+  const { data: game } = useFetch<any>(`/games/${gameId}`);
 
   return (
     <div>

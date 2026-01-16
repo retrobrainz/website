@@ -17,6 +17,7 @@ import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
 import TitlesController from '#controllers/titles_controller';
+import UsersController from '#controllers/users_controller';
 import { middleware } from '#start/kernel';
 import router from '@adonisjs/core/services/router';
 
@@ -33,6 +34,7 @@ router
     router.resource('platforms', PlatformsController).apiOnly();
     router.resource('regions', RegionsController).apiOnly();
     router.resource('titles', TitlesController).apiOnly();
+    router.resource('users', UsersController).apiOnly();
 
     router.post('register', [AuthController, 'register']);
     router.post('login', [AuthController, 'login']);

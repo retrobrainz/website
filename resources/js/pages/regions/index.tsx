@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 
 export default function RegionsPage() {
-  const { data } = useFetch<any[]>(`/api/regions`);
+  const { data } = useFetch<any[]>(`/regions`);
   return (
     <Table
       dataSource={data}

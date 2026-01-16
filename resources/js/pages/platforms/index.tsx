@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 
 export default function PlatformsPage() {
-  const { data } = useFetch<any[]>(`/api/platforms`);
+  const { data } = useFetch<any[]>(`/platforms`);
   return (
     <Table
       dataSource={data}

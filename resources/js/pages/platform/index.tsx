@@ -6,11 +6,11 @@ import { Link, useParams } from 'wouter';
 export default function PlatformPage() {
   const { platformId } = useParams();
 
-  const { data: platform } = useFetch<any>(`/api/platforms/${platformId}`);
+  const { data: platform } = useFetch<any>(`/platforms/${platformId}`);
 
   const [page, setPage] = useState(1);
 
-  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/api/games`, {
+  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/games`, {
     params: { page, platformId },
   });
 
