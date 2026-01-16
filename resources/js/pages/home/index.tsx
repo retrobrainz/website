@@ -7,8 +7,8 @@ export default function HomePage() {
   const { data } = useFetch<any[]>('/platforms');
 
   return (
-    <Container>
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+    <Container style={{ paddingTop: 24 }}>
+      <Row gutter={[24, 24]}>
         {data
           ?.sort((a, b) => b.gamesCount - a.gamesCount)
           ?.map((platform) => (
