@@ -46,7 +46,7 @@ export default function SettingsPage() {
             }
           }}
         >
-          {user.avatar ? (
+          {user?.avatar ? (
             <img
               draggable={false}
               src={user.avatar.url}

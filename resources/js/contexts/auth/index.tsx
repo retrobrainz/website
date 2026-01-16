@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import xior from 'xior';
+import User from '../../types/User.js';
 
 interface AuthContextValue {
   isAuthenticated: boolean;
   setIsAuthenticated: (value: boolean) => void;
-  user: any;
-  setUser: (user: any) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue>({
@@ -16,8 +17,8 @@ const AuthContext = React.createContext<AuthContextValue>({
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
-  const [user, setUser] = React.useState<any>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     xior
