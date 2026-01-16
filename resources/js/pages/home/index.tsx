@@ -18,10 +18,10 @@ export default function HomePage() {
                   cover={
                     <img
                       alt={platform.name}
-                      src={`https://github.com/libretro/retroarch-assets/blob/master/xmb/systematic/png/${encodeURIComponent(`${platform.company.name} - ${platform.name}`)}.png?raw=true`}
+                      src={`/static/${encodeURIComponent(`${platform.company.name} - ${platform.name}`)}.png`}
                       width={256}
                       height={256}
-                      style={{ height: 'auto', background: '#bbb' }}
+                      style={{ height: 'auto', background: '#442c5d' }}
                     />
                   }
                 >
