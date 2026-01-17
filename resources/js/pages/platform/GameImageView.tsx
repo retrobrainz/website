@@ -32,17 +32,14 @@ export default function GameImageView({ game, type, onUpload }: GameImageViewPro
       customRequest={({ file }) => {
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('type', 'jpeg');
+        formData.append('fit', 'inside');
         if (type === 'boxart') {
-          formData.append('type', 'jpeg');
           formData.append('width', '1024');
           formData.append('height', '1024');
-          formData.append('fit', 'inside');
-        } else {
-          formData.append('type', 'png');
-          if (game.platform) {
-            formData.append('width', game.platform.screenWidth.toString());
-            formData.append('height', game.platform.screenHeight.toString());
-          }
+        } else if (game.platform) {
+          formData.append('width', game.platform.screenWidth.toString());
+          formData.append('height', game.platform.screenHeight.toString());
         }
         setUploadLoading(true);
         xior
