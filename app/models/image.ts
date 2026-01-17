@@ -16,7 +16,7 @@ interface ImageCreateOptions {
 }
 
 export default class Image extends BaseModel {
-  static async fromFs(path: string, options: ImageCreateOptions): Promise<Image> {
+  static async fromFs(path: string, options: ImageCreateOptions = {}): Promise<Image> {
     const buffer = await readFile(path);
     return this.fromBuffer(buffer, options);
   }

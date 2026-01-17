@@ -252,7 +252,7 @@ export default class extends BaseSeeder {
 
     if (!game[type] && existsSync(imagePath)) {
       try {
-        const image = await Image.fromFs(imagePath, { format: 'jpeg' });
+        const image = await Image.fromFs(imagePath);
         game[type] = image.id;
         await game.save();
       } catch {
