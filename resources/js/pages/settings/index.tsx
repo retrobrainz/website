@@ -17,9 +17,8 @@ export default function SettingsPage() {
 
       <Card title="Avatar">
         <Upload
-          name="avatar"
+          accept="image/*"
           listType="picture-card"
-          className="avatar-uploader"
           showUploadList={false}
           customRequest={({ file, onSuccess, onError }) => {
             const formData = new FormData();
