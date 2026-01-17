@@ -22,6 +22,7 @@ export default class GamesController {
       .preload('publishers')
       .preload('roms')
       .preload('images', (q) => q.preload('image'))
+      .orderBy('name', 'asc')
       .paginate(page, pageSize);
   }
 
