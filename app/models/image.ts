@@ -55,7 +55,8 @@ export default class Image extends BaseModel {
       {
         width,
         height,
-        format,
+        // sharp uses 'heif' but we want 'avif' to be more specific
+        format: format === 'heif' ? 'avif' : format,
         size,
         md5,
       },
@@ -107,7 +108,7 @@ export default class Image extends BaseModel {
   // Virtuals
 
   get path() {
-    return `images/${this.md5}.${this.format}`;
+    return `images/${this.md5}`;
   }
 
   @computed()
