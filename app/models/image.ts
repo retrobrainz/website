@@ -22,8 +22,12 @@ export default class Image extends BaseModel {
   }
 
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
+    const metadata = await sharp(buffer).metadata();
     let sharpInstance = sharp(buffer);
-    if (options.width || options.height) {
+    if (
+      (options.width && options.width !== metadata.width) ||
+      (options.height && options.height !== metadata.height)
+    ) {
       sharpInstance = sharpInstance.resize({
         width: options.width,
         height: options.height,
@@ -31,15 +35,17 @@ export default class Image extends BaseModel {
         withoutEnlargement: true,
       });
     }
-    if (options.format) {
+    if (options.format && options.format !== metadata.format) {
       sharpInstance = sharpInstance.toFormat(options.format);
     }
-    const newBuffer = await sharpInstance.toBuffer();
 
-    const { width, height, format, size } = await sharp(newBuffer).metadata();
+    const outputBuffer = await sharpInstance.toBuffer();
+    const outputMetadata = await sharp(outputBuffer).metadata();
+
+    const { width, height, format, size } = outputMetadata;
 
     const hash = createHash('md5');
-    const md5 = hash.update(newBuffer).digest('hex');
+    const md5 = hash.update(outputBuffer).digest('hex');
 
     const disk = drive.use();
     const image = await Image.firstOrCreate(
@@ -54,7 +60,7 @@ export default class Image extends BaseModel {
     );
 
     if (!(await disk.exists(image.path))) {
-      await disk.put(image.path, newBuffer);
+      await disk.put(image.path, outputBuffer);
     }
 
     return image;
