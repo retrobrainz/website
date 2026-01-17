@@ -10,6 +10,7 @@
 import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
 import FranchisesController from '#controllers/franchises_controller';
+import GameImagesController from '#controllers/game_images_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
 import ImagesController from '#controllers/images_controller';
@@ -26,6 +27,7 @@ router
     router.resource('companies', CompaniesController).apiOnly();
     router.resource('franchises', FranchisesController).apiOnly();
     router.resource('games', GamesController).apiOnly();
+    router.resource('games.images', GameImagesController).apiOnly();
     router.resource('genres', GenresController).apiOnly();
     router
       .resource('images', ImagesController)
