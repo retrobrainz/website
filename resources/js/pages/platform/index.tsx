@@ -1,4 +1,5 @@
 import { Breadcrumb, Flex, Image, Table, Tag } from 'antd';
+import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
@@ -15,7 +16,7 @@ export default function PlatformPage() {
   });
 
   return (
-    <div>
+    <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
         items={[
           { title: <Link href="/">Home</Link> },
@@ -136,6 +137,6 @@ export default function PlatformPage() {
           },
         ]}
       />
-    </div>
+    </Container>
   );
 }
