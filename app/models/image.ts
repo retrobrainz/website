@@ -24,10 +24,7 @@ export default class Image extends BaseModel {
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
     const metadata = await sharp(buffer).metadata();
     let sharpInstance = sharp(buffer);
-    if (
-      (options.width && options.width !== metadata.width) ||
-      (options.height && options.height !== metadata.height)
-    ) {
+    if (options.width || options.height) {
       sharpInstance = sharpInstance.resize({
         width: options.width,
         height: options.height,
@@ -39,8 +36,14 @@ export default class Image extends BaseModel {
       sharpInstance = sharpInstance.toFormat(options.format);
     }
 
-    const outputBuffer = await sharpInstance.toBuffer();
-    const outputMetadata = await sharp(outputBuffer).metadata();
+    let outputBuffer = await sharpInstance.toBuffer();
+    let outputMetadata = await sharp(outputBuffer).metadata();
+
+    // Choose the smaller one between original and processed
+    if (outputMetadata.size! >= metadata.size!) {
+      outputMetadata = metadata;
+      outputBuffer = buffer;
+    }
 
     const { width, height, format, size } = outputMetadata;
 
