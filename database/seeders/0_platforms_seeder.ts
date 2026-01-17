@@ -65,7 +65,7 @@ export default class extends BaseSeeder {
         {
           name: 'Nintendo DS',
           screenWidth: 256,
-          screenHeight: 192,
+          screenHeight: 384,
           releaseDate: DateTime.fromISO('2004-11-21'),
         },
         {
@@ -77,7 +77,7 @@ export default class extends BaseSeeder {
         {
           name: 'Nintendo DSi',
           screenWidth: 256,
-          screenHeight: 192,
+          screenHeight: 384,
           releaseDate: DateTime.fromISO('2008-11-01'),
         },
         {

@@ -1,8 +1,9 @@
-import { Breadcrumb, Flex, Image, Table, Tag } from 'antd';
+import { Breadcrumb, Flex, Table, Tag } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
+import GameImageView from './GameImageView.js';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
@@ -11,17 +12,14 @@ export default function PlatformPage() {
 
   const [page, setPage] = useState(1);
 
-  const { data } = useFetch<{ data: any[]; meta: { total: number } }>(`/games`, {
+  const { data, reload } = useFetch<{ data: any[]; meta: { total: number } }>(`/games`, {
     params: { page, platformId },
   });
 
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
-        items={[
-          { title: <Link href="/">Home</Link> },
-          { title: `${platform?.company?.name} - ${platform?.name}` },
-        ]}
+        items={[{ title: <Link href="/">Home</Link> }, { title: platform?.name || '...' }]}
         style={{ marginBottom: 16 }}
       />
 
@@ -36,31 +34,21 @@ export default function PlatformPage() {
         }}
         columns={[
           {
-            dataIndex: 'images',
             title: 'Boxart',
             width: 80,
-            render: (images: any[]) => {
-              const image = images.find((img) => img.type === 'boxart');
-              return <Image src={image?.image?.url} width={50} height={50} />;
-            },
+            render: (_, game) => <GameImageView game={game} type="boxart" onUpload={reload} />,
           },
           {
             dataIndex: 'images',
             title: 'Title',
             width: 80,
-            render: (images: any[]) => {
-              const image = images.find((img) => img.type === 'titlescreen');
-              return <Image src={image?.image?.url} width={50} height={50} />;
-            },
+            render: (_, game) => <GameImageView game={game} type="titlescreen" onUpload={reload} />,
           },
           {
             dataIndex: 'images',
-            title: 'Ingame',
+            title: 'Snap',
             width: 80,
-            render: (images: any[]) => {
-              const image = images.find((img) => img.type === 'screenshot');
-              return <Image src={image?.image?.url} width={50} height={50} />;
-            },
+            render: (_, game) => <GameImageView game={game} type="screenshot" onUpload={reload} />,
           },
           {
             dataIndex: ['title', 'name'],
