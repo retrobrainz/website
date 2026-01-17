@@ -34,8 +34,8 @@ export default function GameImageView({ game, type, onUpload }: GameImageViewPro
         formData.append('image', file);
         if (type === 'boxart') {
           formData.append('type', 'jpeg');
-          formData.append('width', '2048');
-          formData.append('height', '2048');
+          formData.append('width', '1024');
+          formData.append('height', '1024');
           formData.append('fit', 'inside');
         } else {
           formData.append('type', 'png');
