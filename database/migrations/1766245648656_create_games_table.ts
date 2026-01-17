@@ -30,6 +30,38 @@ export default class extends BaseSchema {
         .inTable('games')
         .onDelete('SET NULL');
 
+      table
+        .integer('boxart_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
+      table
+        .integer('logo_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
+      table
+        .integer('snap_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
+      table
+        .integer('title_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
 

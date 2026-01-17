@@ -1,7 +1,6 @@
 import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
-import GameImage from '#models/game_image';
 import Genre from '#models/genre';
 import Image from '#models/image';
 import Platform from '#models/platform';
@@ -181,11 +180,10 @@ export default class extends BaseSeeder {
         }
       }
 
-      await game.load('images');
-      await this.importImage(platform, game, romName, 'boxart', 'Named_Boxarts');
-      await this.importImage(platform, game, romName, 'logo', 'Named_Logos');
-      await this.importImage(platform, game, romName, 'screenshot', 'Named_Snaps');
-      await this.importImage(platform, game, romName, 'titlescreen', 'Named_Titles');
+      await this.importImage(platform, game, romName, 'boxartId', 'Named_Boxarts');
+      await this.importImage(platform, game, romName, 'logoId', 'Named_Logos');
+      await this.importImage(platform, game, romName, 'snapId', 'Named_Snaps');
+      await this.importImage(platform, game, romName, 'titleId', 'Named_Titles');
 
       await Promise.all(
         $entries.map(
@@ -243,31 +241,22 @@ export default class extends BaseSeeder {
     platform: Platform,
     game: Game,
     romName: string,
-    type: string,
+    type: 'boxartId' | 'logoId' | 'snapId' | 'titleId',
     folder: string,
   ): Promise<void> {
-    if (!game.images.some((img) => img.type === type)) {
-      const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
-      // special characters in image names are replaced with underscores
-      const filename = `${romName.replace(/[&*/:`<>?\\|"]/g, '_')}.png`;
+    const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+    // special characters in image names are replaced with underscores
+    const filename = `${romName.replace(/[&*/:`<>?\\|"]/g, '_')}.png`;
 
-      const imagePath = `${process.cwd()}/tmp/${repo}-master/${folder}/${filename}`;
+    const imagePath = `${process.cwd()}/tmp/${repo}-master/${folder}/${filename}`;
 
-      if (existsSync(imagePath)) {
-        try {
-          const image = await Image.fromFs(imagePath, {});
-          await GameImage.firstOrCreate(
-            {
-              gameId: game.id,
-              imageId: image.id,
-            },
-            {
-              type,
-            },
-          );
-        } catch {
-          //
-        }
+    if (!game[type] && existsSync(imagePath)) {
+      try {
+        const image = await Image.fromFs(imagePath, { format: 'jpeg' });
+        game[type] = image.id;
+        await game.save();
+      } catch {
+        //
       }
     }
   }

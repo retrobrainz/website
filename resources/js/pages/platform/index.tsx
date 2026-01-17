@@ -1,18 +1,20 @@
-import { Breadcrumb, Flex, Table, Tag } from 'antd';
+import { Breadcrumb, Flex, Image, Table, Tag } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
-import GameImageView from './GameImageView.js';
+import Game from '../../types/Game.js';
+import Platform from '../../types/Platform.js';
+import ImageUpload from './ImageUpload.js';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
 
-  const { data: platform } = useFetch<any>(`/platforms/${platformId}`);
+  const { data: platform } = useFetch<Platform>(`/platforms/${platformId}`);
 
   const [page, setPage] = useState(1);
 
-  const { data, reload } = useFetch<{ data: any[]; meta: { total: number } }>(`/games`, {
+  const { data, reload } = useFetch<{ data: Game[]; meta: { total: number } }>(`/games`, {
     params: { page, platformId },
   });
 
@@ -34,40 +36,44 @@ export default function PlatformPage() {
         }}
         columns={[
           {
+            dataIndex: 'boxart',
             title: 'Boxart',
             width: 80,
-            render: (_, game) => <GameImageView game={game} type="boxart" onUpload={reload} />,
+            render: (boxart, game) =>
+              boxart ? (
+                <Image src={boxart.url} width="auto" height={48} />
+              ) : (
+                <ImageUpload game={game} type="boxart" onUpload={reload} />
+              ),
           },
           {
-            dataIndex: 'images',
+            dataIndex: 'title',
             title: 'Title',
             width: 80,
-            render: (_, game) => <GameImageView game={game} type="titlescreen" onUpload={reload} />,
+            render: (title, game) =>
+              title ? (
+                <Image src={title.url} width="auto" height={48} />
+              ) : (
+                <ImageUpload game={game} type="title" onUpload={reload} />
+              ),
           },
           {
-            dataIndex: 'images',
+            dataIndex: 'snap',
             title: 'Snap',
             width: 80,
-            render: (_, game) => <GameImageView game={game} type="screenshot" onUpload={reload} />,
+            render: (snap, game) =>
+              snap ? (
+                <Image src={snap.url} width="auto" height={48} />
+              ) : (
+                <ImageUpload game={game} type="snap" onUpload={reload} />
+              ),
           },
           {
             dataIndex: 'name',
             title: 'Name',
+            width: 500,
             render: (name: string, { id }: any) => (
               <Link href={`/platforms/${platformId}/games/${id}`}>{name}</Link>
-            ),
-          },
-          {
-            dataIndex: ['title', 'franchises'],
-            title: 'Franchises',
-            render: (regions?: any[]) => (
-              <Flex gap={8}>
-                {regions?.map((region) => (
-                  <Tag key={region.id} color="blue">
-                    {region.name}
-                  </Tag>
-                ))}
-              </Flex>
             ),
           },
           {
@@ -92,11 +98,11 @@ export default function PlatformPage() {
           {
             dataIndex: 'developers',
             title: 'Developers',
-            render: (regions: any[]) => (
+            render: (developers: any[]) => (
               <Flex gap={8}>
-                {regions.map((region) => (
-                  <Tag key={region.id} color="blue">
-                    {region.name}
+                {developers.map((developer) => (
+                  <Tag key={developer.id} color="blue">
+                    {developer.name}
                   </Tag>
                 ))}
               </Flex>
@@ -105,11 +111,11 @@ export default function PlatformPage() {
           {
             dataIndex: 'publishers',
             title: 'Publishers',
-            render: (regions: any[]) => (
+            render: (publishers: any[]) => (
               <Flex gap={8}>
-                {regions.map((region) => (
-                  <Tag key={region.id} color="blue">
-                    {region.name}
+                {publishers.map((publisher) => (
+                  <Tag key={publisher.id} color="blue">
+                    {publisher.name}
                   </Tag>
                 ))}
               </Flex>
@@ -118,6 +124,32 @@ export default function PlatformPage() {
           {
             dataIndex: 'releaseDate',
             title: 'Release Date',
+          },
+          {
+            dataIndex: 'franchises',
+            title: 'Franchises',
+            render: (franchises?: any[]) => (
+              <Flex gap={8}>
+                {franchises?.map((franchise) => (
+                  <Tag key={franchise.id} color="blue">
+                    {franchise.name}
+                  </Tag>
+                ))}
+              </Flex>
+            ),
+          },
+          {
+            dataIndex: 'genres',
+            title: 'Genres',
+            render: (genres?: any[]) => (
+              <Flex gap={8}>
+                {genres?.map((genre) => (
+                  <Tag key={genre.id} color="blue">
+                    {genre.name}
+                  </Tag>
+                ))}
+              </Flex>
+            ),
           },
         ]}
       />

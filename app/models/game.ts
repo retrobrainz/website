@@ -3,8 +3,8 @@ import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relat
 import { DateTime } from 'luxon';
 import Company from './company.js';
 import Franchise from './franchise.js';
-import GameImage from './game_image.js';
 import Genre from './genre.js';
+import Image from './image.js';
 import Platform from './platform.js';
 import Region from './region.js';
 import Rom from './rom.js';
@@ -34,6 +34,18 @@ export default class Game extends BaseModel {
   @column()
   declare duplicateId: number | null;
 
+  @column()
+  declare boxartId: number | null;
+
+  @column()
+  declare logoId: number | null;
+
+  @column()
+  declare snapId: number | null;
+
+  @column()
+  declare titleId: number | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
@@ -48,11 +60,20 @@ export default class Game extends BaseModel {
   @belongsTo(() => Game, { foreignKey: 'duplicateId' })
   declare duplicate: BelongsTo<typeof Game>;
 
+  @belongsTo(() => Image, { foreignKey: 'boxartId' })
+  declare boxart: BelongsTo<typeof Image>;
+
+  @belongsTo(() => Image, { foreignKey: 'logoId' })
+  declare logo: BelongsTo<typeof Image>;
+
+  @belongsTo(() => Image, { foreignKey: 'snapId' })
+  declare snap: BelongsTo<typeof Image>;
+
+  @belongsTo(() => Image, { foreignKey: 'titleId' })
+  declare title: BelongsTo<typeof Image>;
+
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
-
-  @hasMany(() => GameImage)
-  declare images: HasMany<typeof GameImage>;
 
   @manyToMany(() => Company, {
     pivotTable: 'game_developer',
