@@ -20,11 +20,14 @@ export default function GameImageView({ game, type, onUpload }: GameImageViewPro
   if (image) {
     return <Image src={image.url} alt={type} height={48} />;
   }
+
   if (!isAuthenticated) {
     return null;
   }
+
   return (
     <Upload
+      accept="image/jpeg, image/png"
       showUploadList={false}
       customRequest={({ file }) => {
         const formData = new FormData();
