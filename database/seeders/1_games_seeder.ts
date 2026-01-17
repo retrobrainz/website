@@ -300,7 +300,7 @@ export default class extends BaseSeeder {
     games.forEach((game) => {
       const { crc } = game.$entries[0];
       const serial = game.$entries[0].serial || game.serial;
-      const key = `${crc}-${serial}`;
+      const key = JSON.stringify({ crc, serial });
       if (!gamesMap[key]) {
         gamesMap[key] = game;
       } else {
