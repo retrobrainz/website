@@ -10,7 +10,6 @@ import AppLayout from './layouts/app/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import PlatformPage from './pages/platform/index.js';
-import PlatformsPage from './pages/platforms/index.js';
 import RegionsPage from './pages/regions/index.js';
 import SettingsPage from './pages/settings/index.js';
 import TitlesPage from './pages/titles/index.js';
@@ -38,10 +37,6 @@ function App() {
 
             <Route path="/platforms/:platformId/games/:gameId">
               <GamePage />
-            </Route>
-
-            <Route path="/platforms">
-              <PlatformsPage />
             </Route>
 
             <Route path="/regions">
