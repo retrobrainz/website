@@ -1,4 +1,5 @@
 import { Breadcrumb } from 'antd';
+import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
 
@@ -10,19 +11,15 @@ export default function GamePage() {
   const { data: game } = useFetch<any>(`/games/${gameId}`);
 
   return (
-    <div>
+    <Container maxWidth="lg" style={{ paddingTop: 16 }}>
       <Breadcrumb
         items={[
           { title: <Link href="/">Home</Link> },
           {
-            title: (
-              <Link
-                href={`/platforms/${platformId}`}
-              >{`${platform?.company?.name} - ${platform?.name}`}</Link>
-            ),
+            title: <Link href={`/platforms/${platformId}`}>{platform?.name || '...'}</Link>,
           },
           {
-            title: game?.name,
+            title: game?.name || '...',
           },
         ]}
         style={{ marginBottom: 16 }}
@@ -31,6 +28,6 @@ export default function GamePage() {
       <h1>{game?.name}</h1>
 
       <p>Details about the game will go here.</p>
-    </div>
+    </Container>
   );
 }

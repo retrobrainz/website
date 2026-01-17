@@ -51,8 +51,11 @@ export default function PlatformPage() {
             render: (_, game) => <GameImageView game={game} type="screenshot" onUpload={reload} />,
           },
           {
-            dataIndex: ['title', 'name'],
-            title: 'Title',
+            dataIndex: 'name',
+            title: 'Name',
+            render: (name: string, { id }: any) => (
+              <Link href={`/platforms/${platformId}/games/${id}`}>{name}</Link>
+            ),
           },
           {
             dataIndex: ['title', 'franchises'],
@@ -85,13 +88,6 @@ export default function PlatformPage() {
             dataIndex: 'languages',
             title: 'Languages',
             width: 150,
-          },
-          {
-            dataIndex: 'name',
-            title: 'Name',
-            render: (name: string, { id }: any) => (
-              <a href={`/platforms/${platformId}/games/${id}`}>{name}</a>
-            ),
           },
           {
             dataIndex: 'developers',
