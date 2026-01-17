@@ -2,11 +2,12 @@ import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/luc
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
+import Franchise from './franchise.js';
 import GameImage from './game_image.js';
+import Genre from './genre.js';
 import Platform from './platform.js';
 import Region from './region.js';
 import Rom from './rom.js';
-import Title from './title.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -14,9 +15,6 @@ export default class Game extends BaseModel {
 
   @column()
   declare platformId: number;
-
-  @column()
-  declare titleId: number;
 
   @column()
   declare name: string;
@@ -47,9 +45,6 @@ export default class Game extends BaseModel {
   @belongsTo(() => Platform)
   declare platform: BelongsTo<typeof Platform>;
 
-  @belongsTo(() => Title)
-  declare title: BelongsTo<typeof Title>;
-
   @belongsTo(() => Game, { foreignKey: 'duplicateId' })
   declare duplicate: BelongsTo<typeof Game>;
 
@@ -73,4 +68,14 @@ export default class Game extends BaseModel {
     pivotTable: 'game_region',
   })
   declare regions: ManyToMany<typeof Region>;
+
+  @manyToMany(() => Genre, {
+    pivotTable: 'game_genre',
+  })
+  declare genres: ManyToMany<typeof Genre>;
+
+  @manyToMany(() => Franchise, {
+    pivotTable: 'game_franchise',
+  })
+  declare franchises: ManyToMany<typeof Franchise>;
 }

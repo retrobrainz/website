@@ -15,14 +15,6 @@ export default class extends BaseSchema {
         .inTable('platforms')
         .onDelete('CASCADE');
 
-      table
-        .integer('title_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('titles')
-        .onDelete('SET NULL');
-
       table.string('name', 256).notNullable();
       table.string('languages', 64).nullable();
       table.date('release_date').nullable();

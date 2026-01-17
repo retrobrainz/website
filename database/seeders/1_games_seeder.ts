@@ -7,7 +7,6 @@ import Image from '#models/image';
 import Platform from '#models/platform';
 import Region from '#models/region';
 import Rom from '#models/rom';
-import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { download } from '@guoyunhe/downloader';
 import { parse as parseDat } from '@retrobrainz/dat';
@@ -106,13 +105,7 @@ export default class extends BaseSeeder {
       if (!romName) {
         continue;
       }
-      const {
-        title: titleName,
-        name: gameName,
-        disc = null,
-        regions,
-        languages = null,
-      } = parseName(romName);
+      const { name: gameName, disc = null, regions, languages = null } = parseName(romName);
 
       let game = await Game.firstOrCreate({
         platformId: platform.id,
@@ -122,14 +115,6 @@ export default class extends BaseSeeder {
       await game.refresh();
       await game.load('duplicate');
       game = game.duplicate || game;
-
-      await game.load('title');
-      let title = game.title || (await Title.firstOrCreate({ name: titleName }));
-      await title.refresh();
-      await title.load('duplicate');
-      title = title.duplicate || title;
-
-      game.titleId = title.id;
 
       if (languages) {
         game.languages = languages;
@@ -183,7 +168,7 @@ export default class extends BaseSeeder {
           const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
           await franchiseModel.refresh();
           await franchiseModel.load('duplicate');
-          await title.related('franchises').save(franchiseModel.duplicate || franchiseModel);
+          await game.related('franchises').save(franchiseModel.duplicate || franchiseModel);
         }
       }
 
@@ -192,7 +177,7 @@ export default class extends BaseSeeder {
           const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
           await genreModel.refresh();
           await genreModel.load('duplicate');
-          await title.related('genres').save(genreModel.duplicate || genreModel);
+          await game.related('genres').save(genreModel.duplicate || genreModel);
         }
       }
 

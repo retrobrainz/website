@@ -1,27 +1,32 @@
 import { BaseSchema } from '@adonisjs/lucid/schema';
 
 export default class extends BaseSchema {
-  protected tableName = 'titles';
+  protected tableName = 'game_genre';
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.string('name', 256).notNullable();
-      table.string('note', 32).nullable();
+      table
+        .integer('game_id')
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('games')
+        .onDelete('CASCADE');
 
       table
-        .integer('duplicate_id')
+        .integer('genre_id')
+        .notNullable()
         .unsigned()
-        .nullable()
         .references('id')
-        .inTable('titles')
-        .onDelete('SET NULL');
+        .inTable('genres')
+        .onDelete('CASCADE');
+
+      table.unique(['game_id', 'genre_id']);
 
       table.timestamp('created_at');
       table.timestamp('updated_at');
-
-      table.unique(['name', 'note']);
     });
   }
 

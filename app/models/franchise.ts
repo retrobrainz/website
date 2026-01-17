@@ -2,7 +2,7 @@ import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import FranchiseTranslation from './franchise_translation.js';
-import Title from './title.js';
+import Game from './game.js';
 
 export default class Franchise extends BaseModel {
   @column({ isPrimary: true })
@@ -28,6 +28,6 @@ export default class Franchise extends BaseModel {
   @hasMany(() => FranchiseTranslation)
   declare translations: HasMany<typeof FranchiseTranslation>;
 
-  @hasMany(() => Title)
-  declare titles: HasMany<typeof Title>;
+  @hasMany(() => Game)
+  declare games: HasMany<typeof Game>;
 }

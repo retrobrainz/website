@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { App as AntApp, ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { FetchProvider } from 'react-fast-fetch';
@@ -23,31 +23,33 @@ function App() {
   return (
     <FetchProvider fetcher={(url) => xior.get(url).then((res) => res.data)}>
       <ConfigProvider>
-        <AuthProvider>
-          <AppLayout>
-            <Route path="/">
-              <HomePage />
-            </Route>
+        <AntApp>
+          <AuthProvider>
+            <AppLayout>
+              <Route path="/">
+                <HomePage />
+              </Route>
 
-            <Route path="/platforms/:platformId">
-              <PlatformPage />
-            </Route>
+              <Route path="/platforms/:platformId">
+                <PlatformPage />
+              </Route>
 
-            <Route path="/platforms/:platformId/games/:gameId">
-              <GamePage />
-            </Route>
+              <Route path="/platforms/:platformId/games/:gameId">
+                <GamePage />
+              </Route>
 
-            <Route path="/users/:userId">
-              <UserPage />
-            </Route>
+              <Route path="/users/:userId">
+                <UserPage />
+              </Route>
 
-            <Route path="/settings">
-              <RequireAuth>
-                <SettingsPage />
-              </RequireAuth>
-            </Route>
-          </AppLayout>
-        </AuthProvider>
+              <Route path="/settings">
+                <RequireAuth>
+                  <SettingsPage />
+                </RequireAuth>
+              </Route>
+            </AppLayout>
+          </AuthProvider>
+        </AntApp>
       </ConfigProvider>
     </FetchProvider>
   );
