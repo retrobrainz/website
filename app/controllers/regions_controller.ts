@@ -5,6 +5,6 @@ export default class RegionsController {
    * Display a list of resource
    */
   async index() {
-    return Region.all();
+    return Region.query().orderBy('name', 'asc').exec();
   }
 }
