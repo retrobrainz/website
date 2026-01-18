@@ -23,6 +23,7 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
       platformId: game.platformId,
       search: game.name.substring(0, game.name.indexOf('(')).trim(),
     },
+    disabled: !open,
   });
 
   if (!isAuthenticated) {
