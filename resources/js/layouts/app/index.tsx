@@ -74,7 +74,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <Layout.Content>{children}</Layout.Content>
       <Layout.Footer>
         <Flex gap={16}>
-          <span>&copy;{new Date().getFullYear()} RetroBrainz and contributors</span>
+          <span>&copy;{new Date().getFullYear()} RetroBrainz, Libretro and contributors</span>
           <span style={{ flex: 1 }} />
           <a href="https://github.com/retrobrainz/website">GitHub</a>
           <a href="https://t.me/retrobrainz">Telegram</a>
