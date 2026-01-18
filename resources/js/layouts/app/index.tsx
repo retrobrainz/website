@@ -12,11 +12,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
-    modal.warning({
+    const instance = modal.warning({
       title: 'Alpha Notice',
       content: <div>The site is currently under alpha testing. Data may be lost at any time!</div>,
       okText: 'Got it',
     });
+    return () => {
+      instance.destroy();
+    };
   }, [modal]);
 
   return (
