@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, Form, Image, Table, Tag } from 'antd';
+import { Breadcrumb, Flex, Form, Image, Table, Tag, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -29,6 +29,8 @@ export default function PlatformPage() {
         items={[{ title: <Link href="/">Home</Link> }, { title: platform?.name || '...' }]}
         style={{ marginBottom: 16 }}
       />
+
+      <Typography.Title level={1}>{platform?.name || '...'}</Typography.Title>
 
       <Form form={form}>
         <Form.Item label="Region" name="regionId">
