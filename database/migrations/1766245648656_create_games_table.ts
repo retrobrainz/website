@@ -16,7 +16,6 @@ export default class extends BaseSchema {
         .onDelete('CASCADE');
 
       table.string('name', 256).notNullable();
-      table.string('languages', 64).nullable();
       table.date('release_date').nullable();
 
       table.string('esrb_rating', 4).nullable();

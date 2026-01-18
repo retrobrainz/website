@@ -106,7 +106,7 @@ export default class extends BaseSeeder {
       if (!romName) {
         continue;
       }
-      const { name: gameName, disc = null, regions, languages = null } = parseName(romName);
+      const { name: gameName, disc = null, regions } = parseName(romName);
 
       let game = await Game.firstOrCreate({
         platformId: platform.id,
@@ -116,10 +116,6 @@ export default class extends BaseSeeder {
       await game.refresh();
       await game.load('duplicate');
       game = game.duplicate || game;
-
-      if (languages) {
-        game.languages = languages;
-      }
 
       if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
         game.esrbRating = esrb_rating;

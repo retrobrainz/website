@@ -91,11 +91,6 @@ export default function PlatformPage() {
             ),
           },
           {
-            dataIndex: 'languages',
-            title: 'Languages',
-            width: 150,
-          },
-          {
             dataIndex: 'developers',
             title: 'Developers',
             render: (developers: any[]) => (

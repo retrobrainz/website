@@ -19,9 +19,6 @@ export default class Game extends BaseModel {
   @column()
   declare name: string;
 
-  @column()
-  declare languages: string | null;
-
   @column.date()
   declare releaseDate: DateTime | null;
 
