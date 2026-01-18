@@ -27,6 +27,8 @@ export default class extends BaseSeeder {
       console.log(`Importing platform: ${platform.company.name} - ${platform.name}`);
       await this.importPlatform(platform);
     }
+
+    process.env.NODE_ENV === 'production' && (await this.deletedGithubRepo('libretro-database'));
   }
 
   async importPlatform(platform: Platform): Promise<void> {
@@ -261,12 +263,16 @@ export default class extends BaseSeeder {
     }
   }
 
-  async deleteImage(platform: Platform): Promise<void> {
-    const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+  async deletedGithubRepo(repo: string): Promise<void> {
     const path = `${process.cwd()}/tmp/${repo}-master`;
     if (existsSync(path)) {
       await rm(path, { recursive: true, force: true });
     }
+  }
+
+  async deleteImage(platform: Platform): Promise<void> {
+    const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+    await this.deletedGithubRepo(repo);
   }
 
   deduplicate(games: any[]): any[] {
