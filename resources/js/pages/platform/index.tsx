@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, Image, Table, Tag } from 'antd';
+import { Breadcrumb, Flex, Form, Image, Table, Tag } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -12,10 +12,15 @@ export default function PlatformPage() {
 
   const { data: platform } = useFetch<Platform>(`/platforms/${platformId}`);
 
+  const { data: regions } = useFetch<any[]>(`/regions`);
+
   const [page, setPage] = useState(1);
 
+  const [form] = Form.useForm();
+  const regionId = Form.useWatch('regionId', form);
+
   const { data, reload } = useFetch<{ data: Game[]; meta: { total: number } }>(`/games`, {
-    params: { page, platformId },
+    params: { page, platformId, regionId },
   });
 
   return (
@@ -24,6 +29,14 @@ export default function PlatformPage() {
         items={[{ title: <Link href="/">Home</Link> }, { title: platform?.name || '...' }]}
         style={{ marginBottom: 16 }}
       />
+
+      <Form form={form}>
+        <Form.Item label="Region" name="regionId">
+          <Tag.CheckableTagGroup
+            options={regions?.map((region) => ({ value: region.id, label: region.name }))}
+          />
+        </Form.Item>
+      </Form>
 
       <Table
         tableLayout="fixed"
@@ -80,9 +93,9 @@ export default function PlatformPage() {
             dataIndex: 'regions',
             title: 'Regions',
             width: 120,
-            render: (regions: any[]) => (
+            render: (regions_: any[]) => (
               <Flex gap={8}>
-                {regions.map((region) => (
+                {regions_.map((region) => (
                   <Tag key={region.id} color="blue">
                     {region.name}
                   </Tag>

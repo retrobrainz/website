@@ -15,14 +15,14 @@ export default class GamesController {
     }
 
     if (request.input('regionId')) {
-      query.where('regionId', request.input('regionId'));
+      query.whereHas('regions', (q) => {
+        q.where('regions.id', request.input('regionId'));
+      });
     }
 
     if (request.input('search')) {
       const search = request.input('search');
-      query.where((q) => {
-        q.where('name', 'like', `%${search}%`);
-      });
+      query.where('name', 'like', `%${search}%`);
     }
 
     return query
