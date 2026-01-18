@@ -253,9 +253,13 @@ export default class extends BaseSeeder {
     const imagePath = `${process.cwd()}/tmp/${repo}-master/${folder}/${filename}`;
 
     if (!game[type] && existsSync(imagePath)) {
-      const image = await Image.fromFs(imagePath);
-      game[type] = image.id;
-      await game.save();
+      try {
+        const image = await Image.fromFs(imagePath);
+        game[type] = image.id;
+        await game.save();
+      } catch {
+        //
+      }
     }
   }
 
