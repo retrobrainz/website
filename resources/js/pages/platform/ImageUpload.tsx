@@ -1,6 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Upload } from 'antd';
+import { Button, Divider, Image, Modal, Table, Upload } from 'antd';
 import { useState } from 'react';
+import { useFetch } from 'react-fast-fetch';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 import Game from '../../types/Game.js';
@@ -9,46 +10,102 @@ import ImageModel from '../../types/Image.js';
 export interface ImageUploadProps {
   game: Game;
   type: 'boxart' | 'title' | 'snap' | string;
-  onUpload?: () => void;
+  onFinish?: () => void;
 }
 
-export default function ImageUpload({ game, type, onUpload }: ImageUploadProps) {
+export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) {
   const { isAuthenticated } = useAuth();
-  const [uploadLoading, setUploadLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState<number>(-1);
+
+  const { data: games } = useFetch<{ data: Game[] }>('/games', {
+    params: {
+      platformId: game.platformId,
+      search: game.name.substring(0, game.name.indexOf('(')).trim(),
+    },
+  });
 
   if (!isAuthenticated) {
     return null;
   }
 
   return (
-    <Upload
-      accept="image/jpeg, image/png"
-      showUploadList={false}
-      customRequest={({ file }) => {
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('type', 'jpeg');
-        formData.append('fit', 'inside');
-        if (type === 'boxart') {
-          formData.append('width', '1024');
-          formData.append('height', '1024');
-        } else if (game.platform) {
-          formData.append('width', game.platform.screenWidth.toString());
-          formData.append('height', game.platform.screenHeight.toString());
-        }
-        setUploadLoading(true);
-        xior
-          .post<ImageModel>(`/images`, formData)
-          .then((res) => xior.put(`/games/${game.id}`, { [`${type}Id`]: res.data.id }))
-          .then(() => {
-            onUpload?.();
-          })
-          .finally(() => {
-            setUploadLoading(false);
-          });
-      }}
-    >
-      <Button icon={<UploadOutlined />} loading={uploadLoading} />
-    </Upload>
+    <>
+      <Button icon={<UploadOutlined />} onClick={() => setOpen(true)} />
+
+      <Modal title="Upload Image" open={open} footer={null} onCancel={() => setOpen(false)}>
+        <Upload
+          accept="image/jpeg, image/png"
+          showUploadList={false}
+          customRequest={({ file }) => {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('type', 'jpeg');
+            formData.append('fit', 'inside');
+            if (type === 'boxart') {
+              formData.append('width', '1024');
+              formData.append('height', '1024');
+            } else if (game.platform) {
+              formData.append('width', game.platform.screenWidth.toString());
+              formData.append('height', game.platform.screenHeight.toString());
+            }
+            setSubmitLoading(0);
+            xior
+              .post<ImageModel>(`/images`, formData)
+              .then((res) => xior.put(`/games/${game.id}`, { [`${type}Id`]: res.data.id }))
+              .then(() => {
+                onFinish?.();
+              })
+              .finally(() => {
+                setSubmitLoading(-1);
+              });
+          }}
+        >
+          <Button icon={<UploadOutlined />} loading={submitLoading === 0}>
+            Upload
+          </Button>
+        </Upload>
+
+        <Divider />
+
+        <Table
+          dataSource={games?.data?.filter((g) => !!g[type as keyof Game]) || []}
+          rowKey="id"
+          columns={[
+            {
+              dataIndex: type,
+              title: 'Image',
+              render: (image) => <Image src={image.url} alt="img" style={{ maxHeight: 48 }} />,
+            },
+            {
+              dataIndex: 'name',
+              title: 'Game',
+            },
+            {
+              dataIndex: type,
+              title: 'Action',
+              render: (image, record) => (
+                <Button
+                  onClick={() => {
+                    setSubmitLoading(record.id);
+                    xior
+                      .put(`/games/${game.id}`, { [`${type}Id`]: image.id })
+                      .then(() => {
+                        onFinish?.();
+                      })
+                      .finally(() => {
+                        setSubmitLoading(-1);
+                      });
+                  }}
+                  loading={submitLoading === record.id}
+                >
+                  Reuse
+                </Button>
+              ),
+            },
+          ]}
+        />
+      </Modal>
+    </>
   );
 }

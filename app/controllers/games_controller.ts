@@ -14,6 +14,17 @@ export default class GamesController {
       query.where('platformId', request.input('platformId'));
     }
 
+    if (request.input('regionId')) {
+      query.where('regionId', request.input('regionId'));
+    }
+
+    if (request.input('search')) {
+      const search = request.input('search');
+      query.where((q) => {
+        q.where('name', 'like', `%${search}%`);
+      });
+    }
+
     return query
       .preload('franchises')
       .preload('genres')

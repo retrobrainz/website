@@ -43,7 +43,7 @@ export default function PlatformPage() {
               boxart ? (
                 <Image src={boxart.url} width="auto" height={48} />
               ) : (
-                <ImageUpload game={game} type="boxart" onUpload={reload} />
+                <ImageUpload game={game} type="boxart" onFinish={reload} />
               ),
           },
           {
@@ -54,7 +54,7 @@ export default function PlatformPage() {
               title ? (
                 <Image src={title.url} width="auto" height={48} />
               ) : (
-                <ImageUpload game={game} type="title" onUpload={reload} />
+                <ImageUpload game={game} type="title" onFinish={reload} />
               ),
           },
           {
@@ -65,7 +65,7 @@ export default function PlatformPage() {
               snap ? (
                 <Image src={snap.url} width="auto" height={48} />
               ) : (
-                <ImageUpload game={game} type="snap" onUpload={reload} />
+                <ImageUpload game={game} type="snap" onFinish={reload} />
               ),
           },
           {
