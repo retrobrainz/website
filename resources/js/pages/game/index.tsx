@@ -1,4 +1,4 @@
-import { Breadcrumb, Descriptions, Typography } from 'antd';
+import { Breadcrumb, Card, Descriptions, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
@@ -28,30 +28,45 @@ export default function GamePage() {
 
       <Typography.Title level={1}>{game?.name}</Typography.Title>
 
-      <Descriptions
-        items={[
-          {
-            label: 'Name',
-            children: game?.name || '...',
-          },
-          {
-            label: 'Region(s)',
-            children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
-          },
-          {
-            label: 'Release Date',
-            children: game?.releaseDate || 'N/A',
-          },
-          {
-            label: 'ESRB Rating',
-            children: game?.esrbRating || 'N/A',
-          },
-          {
-            label: 'PEGI Rating',
-            children: game?.pegiRating || 'N/A',
-          },
-        ]}
-      />
+      <Card style={{ marginBottom: 24 }}>
+        <Descriptions
+          column={2}
+          items={[
+            {
+              label: 'Region(s)',
+              children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
+            },
+            {
+              label: 'Release Date',
+              children: game?.releaseDate || 'N/A',
+            },
+            {
+              label: 'Developer(s)',
+              children: game?.developers?.map((developer) => developer.name).join(', ') || 'N/A',
+            },
+            {
+              label: 'Publisher(s)',
+              children: game?.publishers?.map((publisher) => publisher.name).join(', ') || 'N/A',
+            },
+            {
+              label: 'Franchise',
+              children: game?.franchises?.map((franchise) => franchise.name).join(', ') || 'N/A',
+            },
+            {
+              label: 'Genre(s)',
+              children: game?.genres?.map((genre) => genre.name).join(', ') || 'N/A',
+            },
+            {
+              label: 'ESRB Rating',
+              children: game?.esrbRating || 'N/A',
+            },
+            {
+              label: 'PEGI Rating',
+              children: game?.pegiRating || 'N/A',
+            },
+          ]}
+        />
+      </Card>
 
       <p>Details about the game will go here.</p>
     </Container>

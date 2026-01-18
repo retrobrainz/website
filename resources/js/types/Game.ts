@@ -1,5 +1,9 @@
-import Platform from '#models/platform';
+import Company from './Company.js';
+import Franchise from './Franchise.js';
+import Genre from './Genre.js';
 import Image from './Image.js';
+import Platform from './Platform.js';
+import Region from './Region.js';
 
 export default interface Game {
   id: number;
@@ -7,12 +11,15 @@ export default interface Game {
   platform: Platform | null;
   name: string;
   releaseDate: string | null;
+  esrbRating: string | null;
+  pegiRating: string | null;
   boxart: Image | null;
   logo: Image | null;
   snap: Image | null;
   title: Image | null;
-  region: {
-    id: number;
-    name: string;
-  };
+  regions?: Region[];
+  developers?: Company[];
+  publishers?: Company[];
+  franchises?: Franchise[];
+  genres?: Genre[];
 }

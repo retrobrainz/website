@@ -1,10 +1,9 @@
+import Company from './Company.js';
+
 export default interface Platform {
   id: number;
   name: string;
-  company: {
-    id: number;
-    name: string;
-  } | null;
+  company: Company | null;
   screenWidth: number;
   screenHeight: number;
   releaseDate: string;
