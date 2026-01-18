@@ -1,13 +1,14 @@
-import { Breadcrumb, Card, Descriptions, Typography } from 'antd';
+import { Badge, Breadcrumb, Card, Descriptions, Flex, Image, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'wouter';
 import Game from '../../types/Game.js';
+import ImageUpload from '../platform/ImageUpload.js';
 
 export default function GamePage() {
   const { gameId } = useParams();
 
-  const { data: game } = useFetch<Game>(`/games/${gameId}`);
+  const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
 
   return (
     <Container maxWidth="lg" style={{ paddingTop: 16 }}>
@@ -27,6 +28,38 @@ export default function GamePage() {
       />
 
       <Typography.Title level={1}>{game?.name}</Typography.Title>
+
+      <Image.PreviewGroup>
+        <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
+          <Badge.Ribbon text="Boxart" color="green" styles={{ root: { flex: '1 1 33%' } }}>
+            {game?.boxartId === null ? (
+              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
+                <ImageUpload game={game} type="boxart" onFinish={reload} />
+              </Flex>
+            ) : (
+              <Image src={game?.boxart?.url} alt={`${game?.name} Boxart`} />
+            )}
+          </Badge.Ribbon>
+          <Badge.Ribbon text="Title" color="orange" styles={{ root: { flex: '1 1 33%' } }}>
+            {game?.titleId === null ? (
+              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
+                <ImageUpload game={game} type="title" onFinish={reload} />
+              </Flex>
+            ) : (
+              <Image src={game?.title?.url} alt={`${game?.name} Title`} />
+            )}
+          </Badge.Ribbon>
+          <Badge.Ribbon text="Snap" color="blue" styles={{ root: { flex: '1 1 33%' } }}>
+            {game?.snapId === null ? (
+              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
+                <ImageUpload game={game} type="snap" onFinish={reload} />
+              </Flex>
+            ) : (
+              <Image src={game?.snap?.url} alt={`${game?.name} Snap`} />
+            )}
+          </Badge.Ribbon>
+        </Flex>
+      </Image.PreviewGroup>
 
       <Card style={{ marginBottom: 24 }}>
         <Descriptions

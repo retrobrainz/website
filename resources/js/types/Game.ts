@@ -13,6 +13,12 @@ export default interface Game {
   releaseDate: string | null;
   esrbRating: string | null;
   pegiRating: string | null;
+  boxartId: number | null;
+  logoId: number | null;
+  snapId: number | null;
+  titleId: number | null;
+  createdAt: string;
+  updatedAt: string | null;
   boxart: Image | null;
   logo: Image | null;
   snap: Image | null;

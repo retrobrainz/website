@@ -1,5 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Divider, Image, Modal, Table, Upload } from 'antd';
+import { Button, Image, Modal, Table, Upload } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import xior from 'xior';
@@ -30,18 +30,20 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
     return null;
   }
 
+  const filteredGames = games?.data?.filter((g) => !!g[type as keyof Game]) || [];
+
   return (
     <>
       <Button icon={<UploadOutlined />} onClick={() => setOpen(true)} />
 
       <Modal title="Upload Image" open={open} footer={null} onCancel={() => setOpen(false)}>
         <Upload
-          accept="image/jpeg, image/png"
+          accept="image/*"
           showUploadList={false}
           customRequest={({ file }) => {
             const formData = new FormData();
             formData.append('image', file);
-            formData.append('type', 'jpeg');
+            formData.append('type', 'avif');
             formData.append('fit', 'inside');
             if (type === 'boxart') {
               formData.append('width', '1024');
@@ -62,15 +64,19 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
               });
           }}
         >
-          <Button icon={<UploadOutlined />} loading={submitLoading === 0}>
+          <Button
+            icon={<UploadOutlined />}
+            loading={submitLoading === 0}
+            style={{ marginRight: 12 }}
+          >
             Upload
           </Button>
         </Upload>
 
-        <Divider />
+        <span>or reuse from existing:</span>
 
         <Table
-          dataSource={games?.data?.filter((g) => !!g[type as keyof Game]) || []}
+          dataSource={filteredGames}
           rowKey="id"
           columns={[
             {
@@ -105,6 +111,8 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
               ),
             },
           ]}
+          pagination={false}
+          style={{ marginTop: 16 }}
         />
       </Modal>
     </>
