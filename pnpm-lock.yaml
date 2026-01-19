@@ -36,8 +36,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@retrobrainz/name':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.2.1
+        version: 1.2.1
       '@vinejs/vine':
         specifier: ^4.2.0
         version: 4.2.0
@@ -2006,8 +2006,8 @@ packages:
   '@retrobrainz/dat@1.1.0':
     resolution: {integrity: sha512-RzwX9vSKWR7mZPwMNZofYao8CJ7rBBdhnpjmMcxAiFWWzdvRg/6blwMY743ItVls6Fka8wg/+29+xffoO2be2w==}
 
-  '@retrobrainz/name@1.2.0':
-    resolution: {integrity: sha512-VmMNi1EQ6O5aCZ2z2Ph/mUsNcJGJQKG0OO8xJRo8YF+uUSbYdfd4C201S+9hSHqGr5c9tEBhEY+U12SUM6HD0g==}
+  '@retrobrainz/name@1.2.1':
+    resolution: {integrity: sha512-Sr9h9Cjdj87MluSReMof26GwBRpDnlitZIlzk2YAoDOSMA7QhVopIEtRbHswvtScECzj+zQcO09VUKYv4xBJPA==}
 
   '@rolldown/pluginutils@1.0.0-beta.47':
     resolution: {integrity: sha512-8QagwMH3kNCuzD8EWL8R2YPW5e4OrHNSAHRFDdmFqEwEaD/KcNKjVoumo+gP2vW5eKB2UPbM6vTYiGZX0ixLnw==}
@@ -7460,7 +7460,7 @@ snapshots:
 
   '@retrobrainz/dat@1.1.0': {}
 
-  '@retrobrainz/name@1.2.0': {}
+  '@retrobrainz/name@1.2.1': {}
 
   '@rolldown/pluginutils@1.0.0-beta.47': {}
 
