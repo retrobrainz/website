@@ -12,15 +12,17 @@ export default function PlatformPage() {
 
   const { data: platform } = useFetch<Platform>(`/platforms/${platformId}`);
 
-  const { data: regions } = useFetch<any[]>(`/regions`);
+  const { data: regions } = useFetch<any[]>(`/regions`, { params: { platformId } });
+  const { data: languages } = useFetch<any[]>(`/languages`, { params: { platformId } });
 
   const [page, setPage] = useState(1);
 
   const [form] = Form.useForm();
   const regionId = Form.useWatch('regionId', form);
+  const languageId = Form.useWatch('languageId', form);
 
   const { data, reload } = useFetch<{ data: Game[]; meta: { total: number } }>(`/games`, {
-    params: { page, platformId, regionId },
+    params: { page, platformId, regionId, languageId },
   });
 
   return (
@@ -36,6 +38,11 @@ export default function PlatformPage() {
         <Form.Item label="Region" name="regionId">
           <Tag.CheckableTagGroup
             options={regions?.map((region) => ({ value: region.id, label: region.name }))}
+          />
+        </Form.Item>
+        <Form.Item label="Language" name="languageId">
+          <Tag.CheckableTagGroup
+            options={languages?.map((language) => ({ value: language.id, label: language.name }))}
           />
         </Form.Item>
       </Form>

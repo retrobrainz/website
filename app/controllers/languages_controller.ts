@@ -1,4 +1,4 @@
-import Region from '#models/region';
+import Language from '#models/language';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class RegionsController {
@@ -6,7 +6,7 @@ export default class RegionsController {
    * Display a list of resource
    */
   async index({ request }: HttpContext) {
-    const query = Region.query();
+    const query = Language.query();
     if (request.input('platformId')) {
       query.whereHas('games', (gameQuery) => {
         gameQuery.where('platformId', request.input('platformId'));

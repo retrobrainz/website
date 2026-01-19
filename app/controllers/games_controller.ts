@@ -20,6 +20,12 @@ export default class GamesController {
       });
     }
 
+    if (request.input('languageId')) {
+      query.whereHas('languages', (q) => {
+        q.where('languages.id', request.input('languageId'));
+      });
+    }
+
     if (request.input('search')) {
       const search = request.input('search');
       query.where('name', 'like', `%${search}%`);

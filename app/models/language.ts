@@ -1,6 +1,7 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
-import type { HasMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import Game from './game.js';
 import LanguageTranslation from './language_translation.js';
 
 export default class Language extends BaseModel {
@@ -23,4 +24,7 @@ export default class Language extends BaseModel {
 
   @hasMany(() => LanguageTranslation)
   declare translations: HasMany<typeof LanguageTranslation>;
+
+  @manyToMany(() => Game, { pivotTable: 'game_language' })
+  declare games: ManyToMany<typeof Game>;
 }
