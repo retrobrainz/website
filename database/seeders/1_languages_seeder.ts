@@ -19,6 +19,7 @@ export default class extends BaseSeeder {
         { code: 'fi', name: 'Finnish' },
         { code: 'fr', name: 'French' },
         { code: 'gd', name: 'Gaelic' },
+        { code: 'ge', name: 'Georgian' },
         { code: 'hi', name: 'Hindi' },
         { code: 'hr', name: 'Croatian' },
         { code: 'hu', name: 'Hungarian' },
