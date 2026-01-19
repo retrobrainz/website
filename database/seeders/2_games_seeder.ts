@@ -3,6 +3,7 @@ import Franchise from '#models/franchise';
 import Game from '#models/game';
 import Genre from '#models/genre';
 import Image from '#models/image';
+import Language from '#models/language';
 import Platform from '#models/platform';
 import Region from '#models/region';
 import Rom from '#models/rom';
@@ -106,7 +107,7 @@ export default class extends BaseSeeder {
       if (!romName) {
         continue;
       }
-      const { name: gameName, disc = null, regions } = parseName(romName);
+      const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
 
       let game = await Game.firstOrCreate({
         platformId: platform.id,
@@ -141,6 +142,16 @@ export default class extends BaseSeeder {
           ),
           true,
         );
+
+      for (const language of languages) {
+        try {
+          const languageModel = await Language.findByOrFail('code', language.toLocaleLowerCase());
+          await game.related('languages').save(languageModel);
+        } catch (error) {
+          console.log(`Unknown language code: ${language}`);
+          throw error;
+        }
+      }
 
       if (developer) {
         for (const developerName of (developer as string).split('/')) {
