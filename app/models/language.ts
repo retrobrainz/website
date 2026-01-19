@@ -1,5 +1,7 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm';
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm';
+import type { HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import LanguageTranslation from './language_translation.js';
 
 export default class Language extends BaseModel {
   @column({ isPrimary: true })
@@ -16,4 +18,9 @@ export default class Language extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime;
+
+  // Relationships
+
+  @hasMany(() => LanguageTranslation)
+  declare translations: HasMany<typeof LanguageTranslation>;
 }
