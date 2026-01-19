@@ -5,6 +5,7 @@ import Company from './company.js';
 import Franchise from './franchise.js';
 import Genre from './genre.js';
 import Image from './image.js';
+import Language from './language.js';
 import Platform from './platform.js';
 import Region from './region.js';
 import Rom from './rom.js';
@@ -96,4 +97,9 @@ export default class Game extends BaseModel {
     pivotTable: 'game_franchise',
   })
   declare franchises: ManyToMany<typeof Franchise>;
+
+  @manyToMany(() => Language, {
+    pivotTable: 'game_language',
+  })
+  declare languages: ManyToMany<typeof Language>;
 }
