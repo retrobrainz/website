@@ -25,7 +25,7 @@ export default class extends BaseSeeder {
         { code: 'hu', name: 'Hungarian' },
         { code: 'tr', name: 'Turkish' },
         { code: 'ar', name: 'Arabic' },
-      ].map(({ code, name }) => Language.firstOrCreate({ code }, { name })),
+      ].map(({ code, name }) => Language.firstOrCreate({ code }, { code, name })),
     );
   }
 }
