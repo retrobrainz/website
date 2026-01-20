@@ -38,12 +38,12 @@ export default class FavoritesController {
   /**
    * Add a favorite
    */
-  async store({ request, auth }: HttpContext) {
-    const userId = request.input('user_id') || auth.user?.id;
+  async store({ request, auth, response }: HttpContext) {
+    const userId = auth.user?.id;
     const gameId = request.input('game_id');
 
     if (!userId || !gameId) {
-      return { error: 'user_id and game_id are required' };
+      return response.badRequest({ error: 'game_id is required' });
     }
 
     const user = await User.findOrFail(userId);
@@ -55,12 +55,12 @@ export default class FavoritesController {
   /**
    * Remove a favorite
    */
-  async destroy({ params, auth }: HttpContext) {
-    const userId = params.user_id || auth.user?.id;
+  async destroy({ params, auth, response }: HttpContext) {
+    const userId = auth.user?.id;
     const gameId = params.game_id;
 
     if (!userId || !gameId) {
-      return { error: 'user_id and game_id are required' };
+      return response.badRequest({ error: 'game_id is required' });
     }
 
     const user = await User.findOrFail(userId);
