@@ -1,5 +1,5 @@
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
-import { Badge, Button } from 'antd';
+import { Button } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import xior from 'xior';
@@ -51,8 +51,7 @@ export default function FavoriteButton({ gameId, favoritesCount, onToggle }: Fav
         }
       }}
     >
-      Favorite
-      <Badge count={favoritesCount} />
+      {favoritesCount}
     </Button>
   );
 }
