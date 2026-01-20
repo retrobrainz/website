@@ -7,7 +7,7 @@ export default class FavoritesController {
    * Get favorites for a user
    */
   async userFavorites({ params, request }: HttpContext) {
-    const userId = params.user_id || params.id;
+    const userId = params.id;
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
 
@@ -27,7 +27,7 @@ export default class FavoritesController {
    * Get users who favorited a game
    */
   async gameFavorites({ params, request }: HttpContext) {
-    const gameId = params.game_id || params.id;
+    const gameId = params.id;
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
 
