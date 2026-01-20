@@ -1,4 +1,4 @@
-import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
@@ -106,4 +106,11 @@ export default class Game extends BaseModel {
 
   @hasMany(() => Favorite)
   declare favorites: HasMany<typeof Favorite>;
+
+  // Virtuals
+
+  @computed()
+  get favoritesCount(): number | null {
+    return this.$extras.favorites_count ?? null;
+  }
 }

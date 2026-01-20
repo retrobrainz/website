@@ -29,7 +29,8 @@ router
     router
       .resource('games', GamesController)
       .apiOnly()
-      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }))
+      .use(['index', 'show'], middleware.auth({ optional: true, guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
     router
       .resource('images', ImagesController)

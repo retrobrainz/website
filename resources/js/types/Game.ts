@@ -1,3 +1,4 @@
+import Favorite from '#models/favorite';
 import Company from './Company.js';
 import Franchise from './Franchise.js';
 import Genre from './Genre.js';
@@ -28,4 +29,6 @@ export default interface Game {
   publishers?: Company[];
   franchises?: Franchise[];
   genres?: Genre[];
+  favoritesCount?: number;
+  myFavorite?: Favorite | null;
 }

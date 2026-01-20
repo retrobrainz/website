@@ -43,6 +43,7 @@ export default class GamesController {
       .preload('logo')
       .preload('snap')
       .preload('title')
+      .withCount('favorites')
       .orderBy('name', 'asc')
       .paginate(page, pageSize);
   }
@@ -61,6 +62,7 @@ export default class GamesController {
       .preload('logo')
       .preload('snap')
       .preload('title')
+      .withCount('favorites')
       .firstOrFail();
 
     return game;
