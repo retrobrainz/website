@@ -2,6 +2,7 @@ import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/luc
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
+import Favorite from './favorite.js';
 import Franchise from './franchise.js';
 import Genre from './genre.js';
 import Image from './image.js';
@@ -102,4 +103,7 @@ export default class Game extends BaseModel {
     pivotTable: 'game_language',
   })
   declare languages: ManyToMany<typeof Language>;
+
+  @hasMany(() => Favorite)
+  declare favorites: HasMany<typeof Favorite>;
 }

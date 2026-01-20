@@ -2,9 +2,10 @@ import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens';
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid';
 import { compose } from '@adonisjs/core/helpers';
 import hash from '@adonisjs/core/services/hash';
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm';
-import type { BelongsTo } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import Favorite from './favorite.js';
 import Image from './image.js';
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -43,4 +44,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @belongsTo(() => Image, { foreignKey: 'avatarId' })
   declare avatar: BelongsTo<typeof Image>;
+
+  @hasMany(() => Favorite)
+  declare favorites: HasMany<typeof Favorite>;
 }

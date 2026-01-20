@@ -9,6 +9,7 @@
 
 import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
+import FavoritesController from '#controllers/favorites_controller';
 import FranchisesController from '#controllers/franchises_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
@@ -38,6 +39,12 @@ router
     router.resource('platforms', PlatformsController).apiOnly();
     router.resource('regions', RegionsController).apiOnly();
     router.resource('users', UsersController).apiOnly();
+
+    // Favorites routes
+    router
+      .resource('favorites', FavoritesController)
+      .apiOnly()
+      .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
 
     router.post('register', [AuthController, 'register']);
     router.post('login', [AuthController, 'login']);
