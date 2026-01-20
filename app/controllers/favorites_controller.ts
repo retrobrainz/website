@@ -8,8 +8,8 @@ export default class FavoritesController {
    */
   async userFavorites({ params, request }: HttpContext) {
     const userId = params.id;
-    const page = request.input('page', 1);
-    const pageSize = request.input('pageSize', 10);
+    const page = Math.max(1, request.input('page', 1));
+    const pageSize = Math.min(100, Math.max(1, request.input('pageSize', 10)));
 
     const user = await User.findOrFail(userId);
     return await user
@@ -28,8 +28,8 @@ export default class FavoritesController {
    */
   async gameFavorites({ params, request }: HttpContext) {
     const gameId = params.id;
-    const page = request.input('page', 1);
-    const pageSize = request.input('pageSize', 10);
+    const page = Math.max(1, request.input('page', 1));
+    const pageSize = Math.min(100, Math.max(1, request.input('pageSize', 10)));
 
     const game = await Game.findOrFail(gameId);
     return await game.related('favoritedBy').query().paginate(page, pageSize);
@@ -48,6 +48,12 @@ export default class FavoritesController {
 
     if (!gameId) {
       return response.badRequest({ error: 'game_id is required' });
+    }
+
+    // Validate game exists
+    const game = await Game.find(gameId);
+    if (!game) {
+      return response.notFound({ error: 'Game not found' });
     }
 
     const user = await User.findOrFail(userId);
