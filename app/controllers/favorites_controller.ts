@@ -23,7 +23,12 @@ export default class FavoritesController {
       query.where('gameId', gameId);
     }
 
-    return await query.preload('game').preload('user').paginate(page, pageSize);
+    return await query
+      .preload('game', (q) => {
+        q.preload('boxart');
+      })
+      .preload('user')
+      .paginate(page, pageSize);
   }
 
   /**

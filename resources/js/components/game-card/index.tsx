@@ -1,4 +1,5 @@
 import { Card } from 'antd';
+import { Link } from 'wouter';
 import Game from '../../types/Game.js';
 
 export interface GameCardProps {
@@ -7,8 +8,10 @@ export interface GameCardProps {
 
 export default function GameCard({ game }: GameCardProps) {
   return (
-    <Card>
-      <Card.Meta title={game.name} description={`Favorites: ${game.favoritesCount ?? 0}`} />
-    </Card>
+    <Link href={`/platforms/${game.platformId}/games/${game.id}`}>
+      <Card cover={<img src={game.boxart?.url} />}>
+        <Card.Meta title={game.name} description={`Favorites: ${game.favoritesCount ?? 0}`} />
+      </Card>
+    </Link>
   );
 }
