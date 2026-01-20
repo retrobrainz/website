@@ -42,11 +42,27 @@ export default class FavoritesController {
     const userId = auth.user?.id;
     const gameId = request.input('game_id');
 
-    if (!userId || !gameId) {
+    if (!userId) {
+      return response.unauthorized({ error: 'User must be authenticated' });
+    }
+
+    if (!gameId) {
       return response.badRequest({ error: 'game_id is required' });
     }
 
     const user = await User.findOrFail(userId);
+
+    // Check if already favorited
+    const existingFavorite = await user
+      .related('favorites')
+      .query()
+      .where('games.id', gameId)
+      .first();
+
+    if (existingFavorite) {
+      return response.badRequest({ error: 'Game is already favorited' });
+    }
+
     await user.related('favorites').attach([gameId]);
 
     return { message: 'Favorite added successfully' };
@@ -59,7 +75,11 @@ export default class FavoritesController {
     const userId = auth.user?.id;
     const gameId = params.game_id;
 
-    if (!userId || !gameId) {
+    if (!userId) {
+      return response.unauthorized({ error: 'User must be authenticated' });
+    }
+
+    if (!gameId) {
       return response.badRequest({ error: 'game_id is required' });
     }
 
