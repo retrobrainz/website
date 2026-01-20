@@ -41,14 +41,10 @@ router
     router.resource('users', UsersController).apiOnly();
 
     // Favorites routes
-    router.get('users/:id/favorites', [FavoritesController, 'userFavorites']);
-    router.get('games/:id/favorites', [FavoritesController, 'gameFavorites']);
     router
-      .post('favorites', [FavoritesController, 'store'])
-      .use(middleware.auth({ guards: ['api'] }));
-    router
-      .delete('favorites/:game_id', [FavoritesController, 'destroy'])
-      .use(middleware.auth({ guards: ['api'] }));
+      .resource('favorites', FavoritesController)
+      .apiOnly()
+      .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
 
     router.post('register', [AuthController, 'register']);
     router.post('login', [AuthController, 'login']);
