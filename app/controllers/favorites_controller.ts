@@ -75,8 +75,9 @@ export default class FavoritesController {
       gameId,
     });
 
-    await favorite.load('game');
-    await favorite.load('user');
+    await favorite.load((loader) => {
+      loader.load('game').load('user');
+    });
 
     return favorite;
   }
