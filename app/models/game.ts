@@ -9,6 +9,7 @@ import Language from './language.js';
 import Platform from './platform.js';
 import Region from './region.js';
 import Rom from './rom.js';
+import User from './user.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -102,4 +103,9 @@ export default class Game extends BaseModel {
     pivotTable: 'game_language',
   })
   declare languages: ManyToMany<typeof Language>;
+
+  @manyToMany(() => User, {
+    pivotTable: 'favorites',
+  })
+  declare favoritedBy: ManyToMany<typeof User>;
 }
