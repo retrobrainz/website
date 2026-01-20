@@ -10,8 +10,8 @@ export default class FavoritesController {
   async index({ request }: HttpContext) {
     const page = Math.max(1, request.input('page', 1));
     const pageSize = Math.min(100, Math.max(1, request.input('pageSize', 10)));
-    const userId = request.input('user_id');
-    const gameId = request.input('game_id');
+    const userId = request.input('userId');
+    const gameId = request.input('gameId');
 
     const query = Favorite.query();
 
@@ -44,14 +44,14 @@ export default class FavoritesController {
    */
   async store({ request, auth, response }: HttpContext) {
     const userId = auth.user?.id;
-    const gameId = request.input('game_id');
+    const gameId = request.input('gameId');
 
     if (!userId) {
       return response.unauthorized({ error: 'User must be authenticated' });
     }
 
     if (!gameId) {
-      return response.badRequest({ error: 'game_id is required' });
+      return response.badRequest({ error: 'gameId is required' });
     }
 
     // Validate game exists
@@ -60,20 +60,17 @@ export default class FavoritesController {
       return response.notFound({ error: 'Game not found' });
     }
 
-    // Check if already favorited
-    const existingFavorite = await Favorite.query()
-      .where('user_id', userId)
-      .where('game_id', gameId)
-      .first();
-
-    if (existingFavorite) {
-      return response.badRequest({ error: 'Game is already favorited' });
-    }
-
-    const favorite = await Favorite.create({
-      userId,
-      gameId,
-    });
+    // Use firstOrCreate to get existing or create new favorite
+    const favorite = await Favorite.firstOrCreate(
+      {
+        userId,
+        gameId,
+      },
+      {
+        userId,
+        gameId,
+      }
+    );
 
     await favorite.load((loader) => {
       loader.load('game').load('user');
