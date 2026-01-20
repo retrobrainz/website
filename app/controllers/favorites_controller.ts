@@ -1,4 +1,5 @@
 import Favorite from '#models/favorite';
+import Game from '#models/game';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class FavoritesController {
@@ -51,6 +52,12 @@ export default class FavoritesController {
 
     if (!gameId) {
       return response.badRequest({ error: 'game_id is required' });
+    }
+
+    // Validate game exists
+    const game = await Game.find(gameId);
+    if (!game) {
+      return response.notFound({ error: 'Game not found' });
     }
 
     // Check if already favorited
