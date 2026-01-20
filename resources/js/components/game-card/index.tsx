@@ -9,7 +9,16 @@ export interface GameCardProps {
 export default function GameCard({ game }: GameCardProps) {
   return (
     <Link href={`/platforms/${game.platformId}/games/${game.id}`}>
-      <Card cover={<img src={game.boxart?.url} />}>
+      <Card
+        cover={
+          <img
+            src={game.boxart?.url}
+            width={game.boxart?.width}
+            height={game.boxart?.height}
+            style={{ width: '100%', height: 'auto' }}
+          />
+        }
+      >
         <Card.Meta title={game.name} description={`Favorites: ${game.favoritesCount ?? 0}`} />
       </Card>
     </Link>
