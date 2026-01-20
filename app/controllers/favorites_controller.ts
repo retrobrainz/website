@@ -61,16 +61,8 @@ export default class FavoritesController {
     }
 
     // Use firstOrCreate to get existing or create new favorite
-    const favorite = await Favorite.firstOrCreate(
-      {
-        userId,
-        gameId,
-      },
-      {
-        userId,
-        gameId,
-      }
-    );
+    const searchPayload = { userId, gameId };
+    const favorite = await Favorite.firstOrCreate(searchPayload, searchPayload);
 
     await favorite.load((loader) => {
       loader.load('game').load('user');
