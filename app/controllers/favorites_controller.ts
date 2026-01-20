@@ -16,11 +16,11 @@ export default class FavoritesController {
     const query = Favorite.query();
 
     if (userId) {
-      query.where('user_id', userId);
+      query.where('userId', userId);
     }
 
     if (gameId) {
-      query.where('game_id', gameId);
+      query.where('gameId', gameId);
     }
 
     return await query.preload('game').preload('user').paginate(page, pageSize);
@@ -62,7 +62,7 @@ export default class FavoritesController {
 
     // Use firstOrCreate to get existing or create new favorite
     const searchPayload = { userId, gameId };
-    const favorite = await Favorite.firstOrCreate(searchPayload, searchPayload);
+    const favorite = await Favorite.firstOrCreate(searchPayload);
 
     await favorite.load((loader) => {
       loader.load('game').load('user');
