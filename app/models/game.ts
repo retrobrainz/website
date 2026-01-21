@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import Company from './company.js';
 import Favorite from './favorite.js';
 import Franchise from './franchise.js';
+import GameTranslation from './game_translation.js';
 import Genre from './genre.js';
 import Image from './image.js';
 import Language from './language.js';
@@ -73,6 +74,9 @@ export default class Game extends BaseModel {
 
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;
+
+  @hasMany(() => GameTranslation)
+  declare translations: HasMany<typeof GameTranslation>;
 
   @manyToMany(() => Company, {
     pivotTable: 'game_developer',

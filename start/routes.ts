@@ -11,6 +11,7 @@ import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
 import FavoritesController from '#controllers/favorites_controller';
 import FranchisesController from '#controllers/franchises_controller';
+import GameTranslationsController from '#controllers/game_translations_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
 import ImagesController from '#controllers/images_controller';
@@ -31,6 +32,11 @@ router
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }))
       .use(['index', 'show'], middleware.auth({ optional: true, guards: ['api'] }));
+
+    router
+      .resource('games.translations', GameTranslationsController)
+      .only(['store', 'update'])
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
     router
       .resource('images', ImagesController)
