@@ -28,7 +28,7 @@ export default class GameTranslationsController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) {
+  async update({ params, request, response }: HttpContext) {
     // Verify the game exists
     await Game.findOrFail(params.game_id);
 
@@ -36,7 +36,7 @@ export default class GameTranslationsController {
 
     // Verify the translation belongs to the specified game
     if (translation.gameId !== Number(params.game_id)) {
-      throw new Error('Translation does not belong to the specified game');
+      return response.badRequest({ error: 'Translation does not belong to the specified game' });
     }
 
     const data = await request.validateUsing(gameTranslationUpdateValidator);
