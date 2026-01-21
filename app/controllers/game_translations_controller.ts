@@ -34,6 +34,11 @@ export default class GameTranslationsController {
 
     const translation = await GameTranslation.findOrFail(params.id);
 
+    // Verify the translation belongs to the specified game
+    if (translation.gameId !== Number(params.game_id)) {
+      throw new Error('Translation does not belong to the specified game');
+    }
+
     const data = await request.validateUsing(gameTranslationUpdateValidator);
 
     translation.merge(data);
