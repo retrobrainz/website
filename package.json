@@ -68,6 +68,7 @@
     "@adonisjs/auth": "^9.5.1",
     "@adonisjs/core": "^6.19.3",
     "@adonisjs/drive": "^3.4.1",
+    "@adonisjs/i18n": "^2.2.3",
     "@adonisjs/lucid": "^21.8.2",
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^4.0.0",
