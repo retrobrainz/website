@@ -39,6 +39,7 @@ export default class GamesController {
       .preload('developers')
       .preload('publishers')
       .preload('roms')
+      .preload('translations')
       .preload('boxart')
       .preload('logo')
       .preload('snap')
@@ -62,6 +63,7 @@ export default class GamesController {
       .preload('logo')
       .preload('snap')
       .preload('title')
+      .preload('translations')
       .withCount('favorites')
       .firstOrFail();
 
