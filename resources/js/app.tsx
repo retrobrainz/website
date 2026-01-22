@@ -2,9 +2,12 @@ import { App as AntApp, ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { FetchProvider } from 'react-fast-fetch';
+import { useTranslation } from 'react-i18next';
 import { Route } from 'wouter';
 import xior from 'xior';
 import RequireAuth from './components/require-auth/index.js';
+import './config/fetch.js';
+import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
 import GamePage from './pages/game/index.js';
@@ -13,13 +16,11 @@ import PlatformPage from './pages/platform/index.js';
 import SettingsPage from './pages/settings/index.js';
 import UserPage from './pages/user/index.js';
 
-const authToken = localStorage.getItem('authToken');
-
-xior.defaults.baseURL = '/api';
-xior.defaults.headers.Accept = 'application/json';
-xior.defaults.headers.Authorization = `Bearer ${authToken}`;
-
 function App() {
+  const { i18n } = useTranslation();
+
+  xior.defaults.headers['Accept-Language'] = i18n.language;
+
   return (
     <FetchProvider fetcher={(url) => xior.get(url).then((res) => res.data)}>
       <ConfigProvider>
