@@ -18,7 +18,7 @@ export default function HomePage() {
                   cover={
                     <img
                       alt={platform.name}
-                      src={`/static/${encodeURIComponent(`${platform.company.name} - ${platform.name}`)}.png`}
+                      src={`/static/img/${encodeURIComponent(`${platform.company.name} - ${platform.name}`)}.png`}
                       width={256}
                       height={256}
                       style={{ height: 'auto', background: '#442c5d' }}
