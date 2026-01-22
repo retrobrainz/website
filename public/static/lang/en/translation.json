@@ -1,1 +1,10 @@
-{}
+{
+  "email": "Email",
+  "login": "Login",
+  "login-success": "Login successful",
+  "logout": "Logout",
+  "register": "Register",
+  "register-success": "Registration successful",
+  "username": "Username",
+  "password": "Password"
+}

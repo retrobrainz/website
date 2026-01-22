@@ -1,4 +1,11 @@
 import { App as AntApp, ConfigProvider } from 'antd';
+import de from 'antd/es/locale/de_DE.js';
+import en from 'antd/es/locale/en_US.js';
+import es from 'antd/es/locale/es_ES.js';
+import fr from 'antd/es/locale/fr_FR.js';
+import it from 'antd/es/locale/it_IT.js';
+import ja from 'antd/es/locale/ja_JP.js';
+import zh from 'antd/es/locale/zh_CN.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { FetchProvider } from 'react-fast-fetch';
@@ -16,6 +23,16 @@ import PlatformPage from './pages/platform/index.js';
 import SettingsPage from './pages/settings/index.js';
 import UserPage from './pages/user/index.js';
 
+const localeMap: Record<string, any> = {
+  de,
+  en,
+  es,
+  fr,
+  it,
+  ja,
+  zh,
+};
+
 function App() {
   const { i18n } = useTranslation();
 
@@ -23,7 +40,7 @@ function App() {
 
   return (
     <FetchProvider fetcher={(url) => xior.get(url).then((res) => res.data)}>
-      <ConfigProvider>
+      <ConfigProvider locale={localeMap[i18n.language]}>
         <AntApp>
           <AuthProvider>
             <AppLayout>

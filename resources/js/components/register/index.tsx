@@ -1,21 +1,23 @@
 import { App, Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
 export default function Register() {
   const { message } = App.useApp();
+  const { t } = useTranslation();
   const { setIsAuthenticated, setUser } = useAuth();
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   return (
     <>
       <Button type="primary" onClick={() => setOpen(true)}>
-        Register
+        {t('register')}
       </Button>
 
       <Modal
-        title="Register"
+        title={t('register')}
         open={open}
         onCancel={() => setOpen(false)}
         onOk={() => {
@@ -28,7 +30,7 @@ export default function Register() {
                   xior.defaults.headers.Authorization = `Bearer ${res.data.token.token}`;
                   setIsAuthenticated(true);
                   setUser(res.data.user);
-                  message.success('Registration succeeded');
+                  message.success(t('register-success'));
                   setOpen(false);
                 } else {
                   res.data?.errors?.forEach((err: any) => {
@@ -49,13 +51,13 @@ export default function Register() {
         }}
       >
         <Form form={form}>
-          <Form.Item label="Username" name="username" rules={[{ required: true }]}>
+          <Form.Item label={t('username')} name="username" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Email" name="email" rules={[{ required: true }]}>
+          <Form.Item label={t('email')} name="email" rules={[{ required: true }]}>
             <Input type="email" />
           </Form.Item>
-          <Form.Item label="Password" name="password" rules={[{ required: true }]}>
+          <Form.Item label={t('password')} name="password" rules={[{ required: true }]}>
             <Input.Password />
           </Form.Item>
         </Form>
