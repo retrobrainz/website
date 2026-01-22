@@ -3,6 +3,7 @@
   "login": "登录",
   "login-success": "登录成功",
   "logout": "登出",
+  "logout-success": "登出成功",
   "register": "注册",
   "register-success": "注册成功",
   "password": "密码",

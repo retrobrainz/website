@@ -3,6 +3,7 @@
   "login": "Login",
   "login-success": "Login successful",
   "logout": "Logout",
+  "logout-success": "Logout successful",
   "register": "Register",
   "register-success": "Registration successful",
   "username": "Username",
