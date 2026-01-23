@@ -3,6 +3,7 @@ import { App, Avatar, Button, Flex, Layout, Tooltip } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
+import LanguageMenu from '../../components/language-menu/index.js';
 import Login from '../../components/login/index.js';
 import Logout from '../../components/logout/index.js';
 import Register from '../../components/register/index.js';
@@ -52,6 +53,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </Link>
 
         <div style={{ flex: 1 }} />
+
+        <LanguageMenu />
 
         {isAuthenticated ? (
           <>
