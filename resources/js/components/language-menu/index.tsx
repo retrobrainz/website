@@ -24,13 +24,13 @@ export default function LanguageMenu() {
     },
   }));
 
-  // Extract language code without region (e.g., 'en' from 'en-US')
-  const currentLangCode = i18n.language.split('-')[0];
-  const currentLanguage = languages.find((lang) => lang.code === currentLangCode);
+  const currentLanguage = languages.find((lang) => lang.code === i18n.language);
 
   return (
     <Dropdown menu={{ items }} placement="bottomRight">
-      <Button icon={<GlobalOutlined />}>{currentLanguage?.name || 'English'}</Button>
+      <Button type="text" icon={<GlobalOutlined />}>
+        {currentLanguage?.name || 'English'}
+      </Button>
     </Dropdown>
   );
 }
