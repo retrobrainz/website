@@ -2,6 +2,7 @@ import { Breadcrumb, Flex, Form, Image, Table, Tag, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
+import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import Game from '../../types/Game.js';
 import Platform from '../../types/Platform.js';
@@ -9,6 +10,7 @@ import ImageUpload from './ImageUpload.js';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
+  const { t } = useTranslation();
 
   const { data: platform } = useFetch<Platform>(`/platforms/${platformId}`);
 
@@ -28,19 +30,19 @@ export default function PlatformPage() {
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
-        items={[{ title: <Link href="/">Home</Link> }, { title: platform?.name || '...' }]}
+        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: platform?.name || '...' }]}
         style={{ marginBottom: 16 }}
       />
 
       <Typography.Title level={1}>{platform?.name || '...'}</Typography.Title>
 
       <Form form={form}>
-        <Form.Item label="Region" name="regionId">
+        <Form.Item label={t('region')} name="regionId">
           <Tag.CheckableTagGroup
             options={regions?.map((region) => ({ value: region.id, label: region.name }))}
           />
         </Form.Item>
-        <Form.Item label="Language" name="languageId">
+        <Form.Item label={t('language')} name="languageId">
           <Tag.CheckableTagGroup
             options={languages?.map((language) => ({ value: language.id, label: language.name }))}
           />
@@ -54,12 +56,12 @@ export default function PlatformPage() {
           current: page,
           onChange: setPage,
           total: data?.meta?.total,
-          showTotal: (total) => `Total ${total} games`,
+          showTotal: (total) => t('total-games', { total }),
         }}
         columns={[
           {
             dataIndex: 'boxart',
-            title: 'Boxart',
+            title: t('boxart'),
             width: 80,
             render: (boxart, game) =>
               boxart ? (
@@ -70,7 +72,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'title',
-            title: 'Title',
+            title: t('title'),
             width: 80,
             render: (title, game) =>
               title ? (
@@ -81,7 +83,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'snap',
-            title: 'Snap',
+            title: t('snap'),
             width: 80,
             render: (snap, game) =>
               snap ? (
@@ -92,7 +94,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'name',
-            title: 'Name',
+            title: t('name'),
             width: 500,
             render: (name: string, { id }: any) => (
               <Link href={`/platforms/${platformId}/games/${id}`}>{name}</Link>
@@ -100,7 +102,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'regions',
-            title: 'Regions',
+            title: t('regions'),
             width: 120,
             render: (regions_: any[]) => (
               <Flex gap={8}>
@@ -114,7 +116,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'developers',
-            title: 'Developers',
+            title: t('developers'),
             render: (developers: any[]) => (
               <Flex gap={8}>
                 {developers.map((developer) => (
@@ -127,7 +129,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'publishers',
-            title: 'Publishers',
+            title: t('publishers'),
             render: (publishers: any[]) => (
               <Flex gap={8}>
                 {publishers.map((publisher) => (
@@ -140,11 +142,11 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'releaseDate',
-            title: 'Release Date',
+            title: t('release-date'),
           },
           {
             dataIndex: 'franchises',
-            title: 'Franchises',
+            title: t('franchises'),
             render: (franchises?: any[]) => (
               <Flex gap={8}>
                 {franchises?.map((franchise) => (
@@ -157,7 +159,7 @@ export default function PlatformPage() {
           },
           {
             dataIndex: 'genres',
-            title: 'Genres',
+            title: t('genres'),
             render: (genres?: any[]) => (
               <Flex gap={8}>
                 {genres?.map((genre) => (

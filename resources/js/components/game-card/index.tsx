@@ -1,4 +1,5 @@
 import { Card } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import Game from '../../types/Game.js';
 
@@ -7,6 +8,8 @@ export interface GameCardProps {
 }
 
 export default function GameCard({ game }: GameCardProps) {
+  const { t } = useTranslation();
+
   return (
     <Link href={`/platforms/${game.platformId}/games/${game.id}`}>
       <Card
@@ -19,7 +22,7 @@ export default function GameCard({ game }: GameCardProps) {
           />
         }
       >
-        <Card.Meta title={game.name} description={`Favorites: ${game.favoritesCount ?? 0}`} />
+        <Card.Meta title={game.name} description={`${t('favorites')}: ${game.favoritesCount ?? 0}`} />
       </Card>
     </Link>
   );
