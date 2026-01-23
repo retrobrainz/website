@@ -24,7 +24,9 @@ export default function LanguageMenu() {
     },
   }));
 
-  const currentLanguage = languages.find((lang) => lang.code === i18n.language);
+  // Extract language code without region (e.g., 'en' from 'en-US')
+  const currentLangCode = i18n.language.split('-')[0];
+  const currentLanguage = languages.find((lang) => lang.code === currentLangCode);
 
   return (
     <Dropdown menu={{ items }} placement="bottomRight">
