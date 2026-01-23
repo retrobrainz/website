@@ -1,6 +1,7 @@
 import { SettingOutlined } from '@ant-design/icons';
 import { App, Avatar, Button, Flex, Layout, Tooltip } from 'antd';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import Login from '../../components/login/index.js';
 import Logout from '../../components/logout/index.js';
@@ -9,18 +10,19 @@ import { useAuth } from '../../contexts/auth/index.js';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { modal } = App.useApp();
+  const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const instance = modal.warning({
-      title: 'Alpha Notice',
-      content: <div>The site is currently under alpha testing. Data may be lost at any time!</div>,
-      okText: 'Got it',
+      title: t('alpha-notice'),
+      content: <div>{t('alpha-notice-message')}</div>,
+      okText: t('got-it'),
     });
     return () => {
       instance.destroy();
     };
-  }, [modal]);
+  }, [modal, t]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -41,7 +43,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Link href="/" style={{ display: 'flex', alignItems: 'center', color: 'inherit' }}>
           <img
             src="/logo.svg"
-            alt="Logo"
+            alt={t('logo')}
             width={512}
             height={512}
             style={{ height: 40, width: 40, marginRight: 8 }}
@@ -58,7 +60,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               {user?.username}
             </Link>
             <Link href="/settings">
-              <Tooltip title="Settings">
+              <Tooltip title={t('settings')}>
                 <Button icon={<SettingOutlined />} />
               </Tooltip>
             </Link>
@@ -74,10 +76,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <Layout.Content>{children}</Layout.Content>
       <Layout.Footer>
         <Flex gap={16}>
-          <span>&copy;{new Date().getFullYear()} RetroBrainz, Libretro and contributors</span>
+          <span>{t('copyright', { year: new Date().getFullYear() })}</span>
           <span style={{ flex: 1 }} />
-          <a href="https://github.com/retrobrainz/website">GitHub</a>
-          <a href="https://t.me/retrobrainz">Telegram</a>
+          <a href="https://github.com/retrobrainz/website">{t('github')}</a>
+          <a href="https://t.me/retrobrainz">{t('telegram')}</a>
         </Flex>
       </Layout.Footer>
     </Layout>

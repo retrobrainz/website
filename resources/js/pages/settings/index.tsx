@@ -1,21 +1,23 @@
 import { App, Breadcrumb, Card, Typography, Upload } from 'antd';
 import { Container } from 'antd-moe';
+import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
 export default function SettingsPage() {
   const { message } = App.useApp();
+  const { t } = useTranslation();
   const { user, setUser } = useAuth();
 
   return (
     <Container maxWidth="md">
       <Breadcrumb
-        items={[{ title: <a href="/">Home</a> }, { title: 'Settings' }]}
+        items={[{ title: <a href="/">{t('home')}</a> }, { title: t('settings') }]}
         style={{ marginTop: 32 }}
       />
-      <Typography.Title level={1}>Settings</Typography.Title>
+      <Typography.Title level={1}>{t('settings')}</Typography.Title>
 
-      <Card title="Avatar">
+      <Card title={t('avatar')}>
         <Upload
           accept="image/*"
           listType="picture-card"
@@ -37,7 +39,7 @@ export default function SettingsPage() {
                 .put('/me', { avatarId: info.file.response.id })
                 .then((res) => {
                   setUser(res.data);
-                  message.success('Avatar updated successfully');
+                  message.success(t('avatar-updated-successfully'));
                 })
                 .catch((e) => {
                   message.error(e.response?.data?.errors?.[0]?.message || e.message);
@@ -49,11 +51,11 @@ export default function SettingsPage() {
             <img
               draggable={false}
               src={user.avatar.url}
-              alt="Avatar"
+              alt={t('avatar')}
               style={{ width: '100%', borderRadius: 8 }}
             />
           ) : (
-            <span>Upload</span>
+            <span>{t('upload')}</span>
           )}
         </Upload>
       </Card>

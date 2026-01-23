@@ -1,12 +1,14 @@
 import { Avatar, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'wouter';
 import User from '../../types/User.js';
 import FavoriteList from './FavoriteList.js';
 
 export default function UserPage() {
   const { userId } = useParams();
+  const { t } = useTranslation();
   const { data } = useFetch<User>(`/users/${userId}`);
   return (
     <Container>
@@ -18,8 +20,8 @@ export default function UserPage() {
       <Tabs
         centered
         items={[
-          { key: 'favorites', label: 'Favorites', children: <FavoriteList /> },
-          { key: 'reviews', label: 'Reviews' },
+          { key: 'favorites', label: t('favorites'), children: <FavoriteList /> },
+          { key: 'reviews', label: t('reviews') },
         ]}
       />
     </Container>

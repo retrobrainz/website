@@ -2,6 +2,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Button, Image, Modal, Table, Upload } from 'antd';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
+import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 import Game from '../../types/Game.js';
@@ -15,6 +16,7 @@ export interface ImageUploadProps {
 
 export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) {
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [submitLoading, setSubmitLoading] = useState<number>(-1);
 
@@ -36,7 +38,7 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
     <>
       <Button icon={<UploadOutlined />} onClick={() => setOpen(true)} />
 
-      <Modal title="Upload Image" open={open} footer={null} onCancel={() => setOpen(false)}>
+      <Modal title={t('upload-image')} open={open} footer={null} onCancel={() => setOpen(false)}>
         <Upload
           accept="image/*"
           showUploadList={false}
@@ -69,11 +71,11 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
             loading={submitLoading === 0}
             style={{ marginRight: 12 }}
           >
-            Upload
+            {t('upload')}
           </Button>
         </Upload>
 
-        <span>or reuse from existing:</span>
+        <span>{t('or-reuse-from-existing')}</span>
 
         <Table
           dataSource={filteredGames}
@@ -81,16 +83,16 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
           columns={[
             {
               dataIndex: type,
-              title: 'Image',
+              title: t('image'),
               render: (image) => <Image src={image.url} alt="img" style={{ maxHeight: 48 }} />,
             },
             {
               dataIndex: 'name',
-              title: 'Game',
+              title: t('game'),
             },
             {
               dataIndex: type,
-              title: 'Action',
+              title: t('action'),
               render: (image, record) => (
                 <Button
                   onClick={() => {
@@ -106,7 +108,7 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
                   }}
                   loading={submitLoading === record.id}
                 >
-                  Reuse
+                  {t('reuse')}
                 </Button>
               ),
             },
