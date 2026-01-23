@@ -22,7 +22,10 @@ export default function GameCard({ game }: GameCardProps) {
           />
         }
       >
-        <Card.Meta title={game.name} description={`${t('favorites')}: ${game.favoritesCount ?? 0}`} />
+        <Card.Meta
+          title={game.name}
+          description={`${t('favorites')}: ${game.favoritesCount ?? 0}`}
+        />
       </Card>
     </Link>
   );
