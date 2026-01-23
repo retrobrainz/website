@@ -74,6 +74,7 @@ RetroBrainz website is built using the following free & open source technologies
 - [React](https://reactjs.org/) as the frontend framework.
 - [Ant Design](https://ant.design/) as the UI component library.
 - [Wouter](https://github.com/molefrog/wouter) as the routing library.
+- [Sharp](https://sharp.pixelplumbing.com/) as the image processing library.
 - [PostgreSQL](https://www.postgresql.org/) as the database.
 - [PM2](https://pm2.keymetrics.io/) as the process manager.
 - [Nginx](https://www.nginx.com/) as the web server.
