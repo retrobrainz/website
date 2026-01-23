@@ -59,8 +59,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {isAuthenticated ? (
           <>
             <Link href={`/users/${user?.id}`}>
-              <Avatar src={user?.avatar?.url} style={{ marginRight: 4 }} />
-              {user?.username}
+              <Button type="text" icon={<Avatar src={user?.avatar?.url} alt={user?.username} />}>
+                {user?.username}
+              </Button>
             </Link>
             <Link href="/settings">
               <Tooltip title={t('settings')}>
