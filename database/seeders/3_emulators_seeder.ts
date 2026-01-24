@@ -56,7 +56,7 @@ export default class extends BaseSeeder {
         website: null,
         state: 'experimental',
         releaseDate: null,
-        platforms: ['Switch'], // Switch platform not yet in platforms seeder
+        platforms: ['Switch'],
       },
       {
         name: 'Citra',
@@ -71,6 +71,13 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2003-09-22'),
         platforms: ['GameCube', 'Wii'],
+      },
+      {
+        name: 'Cemu',
+        website: 'https://cemu.info',
+        state: 'stable',
+        releaseDate: DateTime.fromISO('2015-10-13'),
+        platforms: ['Wii U'],
       },
     ];
 
