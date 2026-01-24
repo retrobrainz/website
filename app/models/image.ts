@@ -49,7 +49,7 @@ export default class Image extends BaseModel {
         width: options.width,
         height: options.height,
         fit: options.fit,
-        withoutEnlargement: true,
+        withoutEnlargement: metadata.format !== 'svg',
       });
     }
     if (options.format && options.format !== metadata.format) {
