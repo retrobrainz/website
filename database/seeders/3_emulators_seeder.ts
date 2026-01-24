@@ -66,6 +66,7 @@ export default class extends BaseSeeder {
       {
         name: 'Dolphin',
         website: 'https://dolphin-emu.org',
+        icon: 'https://github.com/dolphin-emu/dolphin/blob/master/Data/dolphin-emu.svg?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2003-09-22'),
         platforms: ['GameCube', 'Wii'],
