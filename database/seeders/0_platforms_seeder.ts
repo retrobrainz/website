@@ -86,6 +86,18 @@ export default class extends BaseSeeder {
           screenHeight: 240,
           releaseDate: DateTime.fromISO('2011-02-26'),
         },
+        {
+          name: 'Wii U',
+          screenWidth: 1280,
+          screenHeight: 720,
+          releaseDate: DateTime.fromISO('2012-11-18'),
+        },
+        {
+          name: 'Switch',
+          screenWidth: 1280,
+          screenHeight: 720,
+          releaseDate: DateTime.fromISO('2017-03-03'),
+        },
       ].map(({ name, ...props }) =>
         Platform.firstOrCreate({ companyId: nintendo.id, name }, props),
       ),
@@ -124,6 +136,12 @@ export default class extends BaseSeeder {
           screenWidth: 960,
           screenHeight: 544,
           releaseDate: DateTime.fromISO('2011-12-17'),
+        },
+        {
+          name: 'PlayStation 4',
+          screenWidth: 1920,
+          screenHeight: 1080,
+          releaseDate: DateTime.fromISO('2013-11-15'),
         },
       ].map(({ name, ...props }) => Platform.firstOrCreate({ companyId: sony.id, name }, props)),
     );
