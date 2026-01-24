@@ -1,6 +1,7 @@
-import { Spin } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useParams } from 'wouter';
+import EmulatorCard from '../../components/emulator-card/index.js';
 import Emulator from '../../types/Emulator.js';
 
 export default function EmulatorList() {
@@ -13,18 +14,13 @@ export default function EmulatorList() {
   return (
     <div>
       <Spin spinning={loading}>
-        {data?.map((emulator) => (
-          <div key={emulator.id} style={{ marginBottom: 16 }}>
-            <h3>{emulator.name}</h3>
-            {emulator.website && (
-              <p>
-                <a href={emulator.website} target="_blank" rel="noopener noreferrer">
-                  {emulator.website}
-                </a>
-              </p>
-            )}
-          </div>
-        ))}
+        <Row>
+          {data?.map((emulator) => (
+            <Col key={emulator.id} span={6} style={{ padding: 8 }}>
+              <EmulatorCard emulator={emulator} />
+            </Col>
+          ))}
+        </Row>
       </Spin>
     </div>
   );

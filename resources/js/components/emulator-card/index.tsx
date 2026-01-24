@@ -7,15 +7,20 @@ export interface EmulatorProps {
 
 export default function EmulatorCard({ emulator }: EmulatorProps) {
   return (
-    <Card title={emulator.name}>
-      <Card.Meta avatar={<Avatar src={emulator.icon} />} />
-      {emulator.website && (
-        <p>
-          <a href={emulator.website} target="_blank" rel="noopener noreferrer">
-            {emulator.website}
-          </a>
-        </p>
-      )}
+    <Card>
+      <Card.Meta
+        avatar={<Avatar src={emulator.icon?.url} />}
+        title={emulator.name}
+        description={
+          emulator.website && (
+            <p>
+              <a href={emulator.website} target="_blank" rel="noopener noreferrer">
+                {emulator.website}
+              </a>
+            </p>
+          )
+        }
+      />
     </Card>
   );
 }
