@@ -5,6 +5,8 @@ export default interface Emulator {
   name: string;
   website: string | null;
   icon: Image | null;
+  state: string | null;
+  releaseDate: string | null;
   createdAt: string;
   updatedAt: string | null;
 }
