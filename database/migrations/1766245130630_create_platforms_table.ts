@@ -17,6 +17,14 @@ export default class extends BaseSchema {
         .inTable('companies')
         .onDelete('SET NULL');
 
+      table
+        .integer('logo_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
       table.smallint('screen_width').unsigned().notNullable();
       table.smallint('screen_height').unsigned().notNullable();
 
