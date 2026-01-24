@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import Company from './company.js';
 import Emulator from './emulator.js';
 import Game from './game.js';
+import Image from './image.js';
 
 export default class Platform extends BaseModel {
   @column({ isPrimary: true })
@@ -21,6 +22,9 @@ export default class Platform extends BaseModel {
   @column()
   declare screenHeight: number;
 
+  @column()
+  declare logoId: number | null;
+
   @column.date()
   declare releaseDate: DateTime | null;
 
@@ -34,6 +38,9 @@ export default class Platform extends BaseModel {
 
   @belongsTo(() => Company)
   declare company: BelongsTo<typeof Company>;
+
+  @belongsTo(() => Image, { foreignKey: 'logoId' })
+  declare logo: BelongsTo<typeof Image>;
 
   @hasMany(() => Game)
   declare games: HasMany<typeof Game>;
