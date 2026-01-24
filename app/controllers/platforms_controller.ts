@@ -8,6 +8,8 @@ export default class PlatformsController {
     return Platform.query()
       .orderBy('releaseDate', 'desc')
       .preload('company')
+      .preload('logo')
+      .preload('photo')
       .withCount('games')
       .exec();
   }
@@ -17,6 +19,8 @@ export default class PlatformsController {
       .where('id', params.id)
       .preload('company')
       .preload('emulators')
+      .preload('logo')
+      .preload('photo')
       .firstOrFail();
 
     return platform;

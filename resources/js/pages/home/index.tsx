@@ -12,20 +12,20 @@ export default function HomePage() {
         {data
           ?.sort((a, b) => b.gamesCount - a.gamesCount)
           ?.map((platform) => (
-            <Col key={platform.id} xs={24} sm={12} md={8} lg={6} xl={4}>
+            <Col key={platform.id} xs={24} sm={12} md={8} lg={6}>
               <Link href={`/platforms/${platform.id}`}>
-                <Card
-                  cover={
-                    <img
-                      alt={platform.name}
-                      src={`/static/img/${encodeURIComponent(`${platform.company.name} - ${platform.name}`)}.png`}
-                      width={256}
-                      height={256}
-                      style={{ height: 'auto', background: '#442c5d' }}
-                    />
-                  }
-                >
-                  <Card.Meta title={platform.name} description={platform.company.name} />
+                <Card cover={<img alt={platform.name} src={platform.photo?.url} />}>
+                  <Card.Meta
+                    avatar={
+                      <img
+                        alt={platform.name}
+                        src={platform.logo?.url}
+                        style={{ width: 'auto', height: 32 }}
+                      />
+                    }
+                    title={platform.name}
+                    description={platform.company.name}
+                  />
                 </Card>
               </Link>
             </Col>
