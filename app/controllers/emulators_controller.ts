@@ -2,7 +2,7 @@ import Emulator from '#models/emulator';
 
 export default class EmulatorsController {
   /**
-   * Display a list of resource
+   * Display a list of resources
    */
   async index() {
     return Emulator.query().orderBy('name', 'asc').exec();
