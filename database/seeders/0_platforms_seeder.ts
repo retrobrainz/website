@@ -276,7 +276,7 @@ export default class extends BaseSeeder {
     await sleep(5000); // To avoid hitting request limits
 
     const photo = photoUrl
-      ? await Image.fromHttp(photoUrl, { width: 1024, height: 768, format: 'avif', fit: 'inside' })
+      ? await Image.fromHttp(photoUrl, { width: 1024, height: 768, format: 'avif', fit: 'contain' })
       : null;
     const photoId = photo ? photo.id : null;
 
