@@ -74,6 +74,7 @@ export default class extends BaseSeeder {
       {
         name: 'Cemu',
         website: 'https://cemu.info',
+        icon: 'https://github.com/cemu-project/Cemu/blob/main/src/resource/logo_icon.png?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2015-10-13'),
         platforms: ['Wii U'],
