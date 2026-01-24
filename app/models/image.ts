@@ -21,6 +21,26 @@ export default class Image extends BaseModel {
     return this.fromBuffer(buffer, options);
   }
 
+  static async fromHttp(url: string, options: ImageCreateOptions = {}): Promise<Image> {
+    // Validate URL
+    const parsedUrl = new URL(url);
+    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+      throw new Error(
+        `Invalid URL protocol: ${parsedUrl.protocol}. Only HTTP and HTTPS are supported.`,
+      );
+    }
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch image from ${url}: ${response.status} ${response.statusText}`,
+      );
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    return this.fromBuffer(buffer, options);
+  }
+
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
     const metadata = await sharp(buffer).metadata();
     let sharpInstance = sharp(buffer);
