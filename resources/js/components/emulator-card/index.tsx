@@ -1,4 +1,4 @@
-import { Avatar, Card, Flex, Tag } from 'antd';
+import { Card, Flex, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 import Emulator from '../../types/Emulator.js';
 
@@ -12,12 +12,7 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
     <Card>
       <Card.Meta
         avatar={
-          <Avatar
-            src={emulator.icon?.url}
-            shape="square"
-            size={56}
-            style={{ border: '1px solid #ccc' }}
-          />
+          <img src={emulator.icon?.url} width={56} height={56} style={{ display: 'block' }} />
         }
         title={
           <Flex align="center" gap={8}>
