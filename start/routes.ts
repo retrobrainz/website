@@ -9,6 +9,7 @@
 
 import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
+import EmulatorsController from '#controllers/emulators_controller';
 import FavoritesController from '#controllers/favorites_controller';
 import FranchisesController from '#controllers/franchises_controller';
 import GameTranslationsController from '#controllers/game_translations_controller';
@@ -26,6 +27,7 @@ import router from '@adonisjs/core/services/router';
 router
   .group(() => {
     router.resource('companies', CompaniesController).apiOnly();
+    router.resource('emulators', EmulatorsController).apiOnly();
     router.resource('franchises', FranchisesController).apiOnly();
     router
       .resource('games', GamesController)
