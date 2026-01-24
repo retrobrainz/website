@@ -45,5 +45,7 @@
   "image": "图片",
   "game": "游戏",
   "action": "操作",
-  "franchises": "系列"
+  "franchises": "系列",
+  "games": "游戏",
+  "emulators": "模拟器"
 }

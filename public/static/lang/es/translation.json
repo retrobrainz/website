@@ -45,5 +45,7 @@
   "image": "Imagen",
   "game": "Juego",
   "action": "Acción",
-  "franchises": "Franquicias"
+  "franchises": "Franquicias",
+  "games": "Juegos",
+  "emulators": "Emuladores"
 }
