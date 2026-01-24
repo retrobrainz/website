@@ -8,6 +8,36 @@ export default class extends BaseSeeder {
     // Define emulators with their metadata
     const emulators = [
       {
+        name: 'RetroArch',
+        website: 'https://www.retroarch.com',
+        state: 'stable',
+        releaseDate: DateTime.fromISO('2010-05-23'),
+        platforms: [
+          'Nintendo Entertainment System',
+          'Family Computer Disk System',
+          'Game Boy',
+          'Super Nintendo Entertainment System',
+          'Nintendo 64',
+          'Game Boy Color',
+          'Game Boy Advance',
+          'GameCube',
+          'Nintendo DS',
+          'Wii',
+          'Nintendo DSi',
+          'Nintendo 3DS',
+          'PlayStation',
+          'PlayStation Portable',
+          'PlayStation 2',
+          'Master System - Mark III',
+          'Mega Drive - Genesis',
+          'Game Gear',
+          'Sega CD - Mega-CD',
+          '32X',
+          'Saturn',
+          'Dreamcast',
+        ],
+      },
+      {
         name: 'PCSX2',
         website: 'https://pcsx2.net',
         state: 'stable',
@@ -26,7 +56,7 @@ export default class extends BaseSeeder {
         website: null,
         state: 'experimental',
         releaseDate: null,
-        platforms: [], // Switch platform not yet in platforms seeder
+        platforms: ['Switch'], // Switch platform not yet in platforms seeder
       },
       {
         name: 'Citra',
