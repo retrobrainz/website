@@ -4,7 +4,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import sharp from 'sharp';
+import sharp, { Color } from 'sharp';
 import User from './user.js';
 
 interface ImageCreateOptions {
@@ -13,6 +13,7 @@ interface ImageCreateOptions {
   height?: number;
   fit?: keyof sharp.FitEnum;
   format?: keyof sharp.FormatEnum;
+  background?: Color;
 }
 
 export default class Image extends BaseModel {
@@ -53,6 +54,7 @@ export default class Image extends BaseModel {
         height: options.height,
         fit: options.fit,
         withoutEnlargement: metadata.format !== 'svg',
+        background: options.background,
       });
     }
 
