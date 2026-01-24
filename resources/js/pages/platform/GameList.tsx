@@ -24,7 +24,7 @@ export default function GameList() {
   });
 
   return (
-    <div style={{ paddingTop: 24 }}>
+    <div>
       <Form form={form}>
         <Form.Item label={t('region')} name="regionId">
           <Tag.CheckableTagGroup
