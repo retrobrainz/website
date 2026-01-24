@@ -58,7 +58,7 @@ export default class extends BaseSeeder {
       {
         name: 'Eden',
         website: 'https://eden-emu.dev/',
-        icon: 'https://git.eden-emu.dev/eden-emu/eden/src/branch/master/dist/dev.eden_emu.eden.svg',
+        icon: 'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/dev.eden_emu.eden.svg',
         state: 'stable',
         releaseDate: DateTime.fromISO('2025-05-10'),
         platforms: ['Switch'],
@@ -86,10 +86,10 @@ export default class extends BaseSeeder {
       const icon = iconUrl
         ? await Image.fromHttp(iconUrl, { width: 256, height: 256, format: 'avif' })
         : null;
-      const emulator = await Emulator.firstOrCreate(
-        { name },
-        { name, iconId: icon?.id ?? null, ...emulatorData },
-      );
+      const params = { iconId: icon?.id ?? null, ...emulatorData };
+      const emulator = await Emulator.firstOrCreate({ name }, params);
+      emulator.merge(params);
+      await emulator.save();
 
       if (platformNames.length > 0) {
         const platforms = await Platform.query().whereIn('name', platformNames);
