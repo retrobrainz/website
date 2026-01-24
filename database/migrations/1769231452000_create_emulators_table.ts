@@ -15,6 +15,14 @@ export default class extends BaseSchema {
 
       table.date('release_date').nullable();
 
+      table
+        .integer('icon_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });

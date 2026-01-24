@@ -14,7 +14,7 @@ export default class EmulatorsController {
       });
     }
 
-    return query.orderBy('name', 'asc').exec();
+    return query.preload('icon').orderBy('name', 'asc').exec();
   }
 
   async store({ request, auth }: HttpContext) {
@@ -34,6 +34,7 @@ export default class EmulatorsController {
     const emulator = await Emulator.query()
       .where('id', params.id)
       .preload('platforms')
+      .preload('icon')
       .firstOrFail();
 
     return emulator;
