@@ -268,21 +268,31 @@ export default class extends BaseSeeder {
   }
 
   async createPlatform({ companyId, name, logoUrl, photoUrl, ...rest }: any) {
-    const logo = logoUrl
-      ? await Image.fromHttp(logoUrl, { width: 512, height: 512, format: 'avif', fit: 'inside' })
-      : null;
-    const logoId = logo ? logo.id : null;
+    const platform = await Platform.firstOrCreate({ companyId, name }, rest);
 
-    await sleep(5000); // To avoid hitting request limits
+    if (!platform.logoId) {
+      const logo = logoUrl
+        ? await Image.fromHttp(logoUrl, { width: 512, height: 512, format: 'avif', fit: 'inside' })
+        : null;
+      platform.logoId = logo ? logo.id : null;
 
-    const photo = photoUrl
-      ? await Image.fromHttp(photoUrl, { width: 1024, height: 768, format: 'avif', fit: 'contain' })
-      : null;
-    const photoId = photo ? photo.id : null;
+      await sleep(5000); // To avoid hitting request limits
+    }
 
-    await sleep(5000); // To avoid hitting request limits
+    if (!platform.photoId) {
+      const photo = photoUrl
+        ? await Image.fromHttp(photoUrl, {
+            width: 1024,
+            height: 768,
+            format: 'avif',
+            fit: 'contain',
+          })
+        : null;
+      platform.photoId = photo ? photo.id : null;
 
-    const props = { logoId, photoId, ...rest };
-    await Platform.firstOrCreate({ companyId, name }, props);
+      await sleep(5000); // To avoid hitting request limits
+    }
+
+    await platform.save();
   }
 }
