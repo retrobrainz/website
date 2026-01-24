@@ -45,5 +45,7 @@
   "image": "画像",
   "game": "ゲーム",
   "action": "アクション",
-  "franchises": "フランチャイズ"
+  "franchises": "フランチャイズ",
+  "games": "ゲーム",
+  "emulators": "エミュレータ"
 }
