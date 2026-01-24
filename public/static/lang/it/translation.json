@@ -47,5 +47,8 @@
   "action": "Azione",
   "franchises": "Franchise",
   "games": "Giochi",
-  "emulators": "Emulatori"
+  "emulators": "Emulatori",
+  "stable": "Stabile",
+  "experimental": "Sperimentale",
+  "discontinued": "Dismesso"
 }

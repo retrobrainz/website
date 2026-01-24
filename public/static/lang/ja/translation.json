@@ -47,5 +47,8 @@
   "action": "アクション",
   "franchises": "フランチャイズ",
   "games": "ゲーム",
-  "emulators": "エミュレータ"
+  "emulators": "エミュレータ",
+  "stable": "安定版",
+  "experimental": "実験版",
+  "discontinued": "開発終了"
 }

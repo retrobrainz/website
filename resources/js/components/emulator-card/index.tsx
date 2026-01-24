@@ -1,4 +1,5 @@
 import { Avatar, Card, Flex, Tag } from 'antd';
+import { useTranslation } from 'react-i18next';
 import Emulator from '../../types/Emulator.js';
 
 export interface EmulatorProps {
@@ -6,6 +7,7 @@ export interface EmulatorProps {
 }
 
 export default function EmulatorCard({ emulator }: EmulatorProps) {
+  const { t } = useTranslation();
   return (
     <Card>
       <Card.Meta
@@ -20,9 +22,9 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
         title={
           <Flex align="center" gap={8}>
             <span>{emulator.name}</span>
-            {emulator.state === 'stable' && <Tag color="green">Stable</Tag>}
-            {emulator.state === 'experimental' && <Tag color="orange">Experimental</Tag>}
-            {emulator.state === 'discontinued' && <Tag color="red">Discontinued</Tag>}
+            {emulator.state === 'stable' && <Tag color="green">{t('stable')}</Tag>}
+            {emulator.state === 'experimental' && <Tag color="orange">{t('experimental')}</Tag>}
+            {emulator.state === 'discontinued' && <Tag color="red">{t('discontinued')}</Tag>}
           </Flex>
         }
         description={
