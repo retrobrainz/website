@@ -27,7 +27,10 @@ import router from '@adonisjs/core/services/router';
 router
   .group(() => {
     router.resource('companies', CompaniesController).apiOnly();
-    router.resource('emulators', EmulatorsController).apiOnly();
+    router
+      .resource('emulators', EmulatorsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('franchises', FranchisesController).apiOnly();
     router
       .resource('games', GamesController)

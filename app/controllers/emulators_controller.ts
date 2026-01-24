@@ -19,6 +19,19 @@ export default class EmulatorsController {
     return query.orderBy('name', 'asc').paginate(page, pageSize);
   }
 
+  async store({ request, auth }: HttpContext) {
+    // Only editors and admins can create emulators
+    if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
+      return { error: 'Unauthorized' };
+    }
+
+    // TODO validate input
+    const { name, website, state, releaseDate } = request.all();
+    const emulator = await Emulator.create({ name, website, state, releaseDate });
+
+    return emulator;
+  }
+
   async show({ params }: HttpContext) {
     const emulator = await Emulator.query()
       .where('id', params.id)
@@ -26,5 +39,19 @@ export default class EmulatorsController {
       .firstOrFail();
 
     return emulator;
+  }
+
+  async update({ params, request, auth }: HttpContext) {
+    // Only editors and admins can update emulators
+    if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
+      return { error: 'Unauthorized' };
+    }
+
+    // TODO validate input
+    const { name, website, state, releaseDate } = request.all();
+    const emulator = await Emulator.findOrFail(params.id);
+
+    emulator.merge({ name, website, state, releaseDate });
+    return await emulator.save();
   }
 }
