@@ -25,6 +25,9 @@ export default class Platform extends BaseModel {
   @column()
   declare logoId: number | null;
 
+  @column()
+  declare photoId: number | null;
+
   @column.date()
   declare releaseDate: DateTime | null;
 
@@ -41,6 +44,9 @@ export default class Platform extends BaseModel {
 
   @belongsTo(() => Image, { foreignKey: 'logoId' })
   declare logo: BelongsTo<typeof Image>;
+
+  @belongsTo(() => Image, { foreignKey: 'photoId' })
+  declare photo: BelongsTo<typeof Image>;
 
   @hasMany(() => Game)
   declare games: HasMany<typeof Game>;
