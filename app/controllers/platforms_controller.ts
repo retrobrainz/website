@@ -16,7 +16,7 @@ export default class PlatformsController {
     const platform = await Platform.query()
       .where('id', params.id)
       .preload('company')
-      .withCount('games')
+      .preload('emulators')
       .firstOrFail();
 
     return platform;

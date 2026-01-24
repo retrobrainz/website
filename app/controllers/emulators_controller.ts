@@ -6,8 +6,6 @@ export default class EmulatorsController {
    * Display a list of resources
    */
   async index({ request }: HttpContext) {
-    const page = request.input('page', 1);
-    const pageSize = request.input('pageSize', 10);
     const query = Emulator.query();
 
     if (request.input('platformId')) {
@@ -16,7 +14,7 @@ export default class EmulatorsController {
       });
     }
 
-    return query.orderBy('name', 'asc').paginate(page, pageSize);
+    return query.orderBy('name', 'asc').exec();
   }
 
   async store({ request, auth }: HttpContext) {
