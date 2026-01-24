@@ -22,7 +22,7 @@ export default class Emulator extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime;
 
-  // Relations
+  // Relationships
 
   @manyToMany(() => Platform, {
     pivotTable: 'platform_emulator',
