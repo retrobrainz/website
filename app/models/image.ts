@@ -43,6 +43,9 @@ export default class Image extends BaseModel {
 
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
     const metadata = await sharp(buffer).metadata();
+    let outputMetadata = metadata;
+    let outputBuffer = buffer;
+
     let sharpInstance = sharp(buffer);
     if (options.width || options.height) {
       sharpInstance = sharpInstance.resize({
@@ -52,15 +55,16 @@ export default class Image extends BaseModel {
         withoutEnlargement: metadata.format !== 'svg',
       });
     }
-    if (options.format && options.format !== metadata.format) {
-      sharpInstance = sharpInstance.toFormat(options.format);
+
+    if (metadata.format === 'svg' || (options.format && options.format !== metadata.format)) {
+      sharpInstance = sharpInstance.toFormat(options.format || 'avif');
     }
 
-    let outputBuffer = await sharpInstance.toBuffer();
-    let outputMetadata = await sharp(outputBuffer).metadata();
+    outputBuffer = await sharpInstance.toBuffer();
+    outputMetadata = await sharp(outputBuffer).metadata();
 
     // Choose the smaller one between original and processed
-    if (outputMetadata.size! >= metadata.size!) {
+    if (metadata.format !== 'svg' && outputMetadata.size! >= metadata.size!) {
       outputMetadata = metadata;
       outputBuffer = buffer;
     }
