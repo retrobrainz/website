@@ -58,7 +58,7 @@ export default class extends BaseSeeder {
       {
         name: 'Eden',
         website: 'https://eden-emu.dev/',
-        icon: 'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/eden.bmp',
+        icon: 'https://git.eden-emu.dev/eden-emu/eden/src/branch/master/dist/dev.eden_emu.eden.svg',
         state: 'stable',
         releaseDate: DateTime.fromISO('2025-05-10'),
         platforms: ['Switch'],
