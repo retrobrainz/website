@@ -35,8 +35,7 @@ router
     router
       .resource('games', GamesController)
       .apiOnly()
-      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }))
-      .use(['index', 'show'], middleware.auth({ optional: true, guards: ['api'] }));
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
 
     router
       .resource('games.translations', GameTranslationsController)

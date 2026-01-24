@@ -2,6 +2,7 @@ import Company from '#models/company';
 import Image from '#models/image';
 import Platform from '#models/platform';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
+import { sleep } from '@guoyunhe/sleep';
 import { DateTime } from 'luxon';
 
 export default class extends BaseSeeder {
@@ -145,36 +146,55 @@ export default class extends BaseSeeder {
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-12-03'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Playstation_logo_colour.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/en/9/9e/PlayStation-SCPH-1000-with-Controller.png',
       },
       {
         name: 'PlayStation 2',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('2000-03-04'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/76/PlayStation_2_logo.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/c/c3/Sony-PlayStation-2-30001-wController-L.jpg',
       },
       {
         name: 'PlayStation Portable',
         screenWidth: 480,
         screenHeight: 272,
         releaseDate: DateTime.fromISO('2004-12-12'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/PSP_Logo.svg',
+        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/46/Psp-1000.jpg',
       },
       {
         name: 'PlayStation 3',
         screenWidth: 1280,
         screenHeight: 720,
         releaseDate: DateTime.fromISO('2006-11-11'),
+        logoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/0/05/PlayStation_3_logo_%282009%29.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/d/d3/Sony-PlayStation-3-2001A-wController-L.jpg',
       },
       {
         name: 'PlayStation Vita',
         screenWidth: 960,
         screenHeight: 544,
         releaseDate: DateTime.fromISO('2011-12-17'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/PlayStation_Vita_logo.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/b/b4/PlayStation-Vita-1101-FL.jpg',
       },
       {
         name: 'PlayStation 4',
         screenWidth: 1920,
         screenHeight: 1080,
         releaseDate: DateTime.fromISO('2013-11-15'),
+        logoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/8/87/PlayStation_4_logo_and_wordmark.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/a6/Sony-PlayStation-4-wController.jpg',
       },
     ]) {
       await this.createPlatform({ companyId: sony.id, ...props });
@@ -188,42 +208,59 @@ export default class extends BaseSeeder {
         screenWidth: 256,
         screenHeight: 192,
         releaseDate: DateTime.fromISO('1985-10-20'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Sega-master-system-logo.png',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/f/f1/Sega-Master-System-MkII-wController.jpg',
       },
       {
         name: 'Mega Drive - Genesis',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1988-10-29'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/en/1/12/GenesisLogo.png',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/6/6a/Sega-Genesis-Mk2-6button.jpg',
       },
       {
         name: 'Game Gear',
         screenWidth: 160,
         screenHeight: 144,
         releaseDate: DateTime.fromISO('1990-10-06'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Game_Gear_logo_Sega.png',
+        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Sega-Game-Gear-WB.png',
       },
       {
         name: 'Mega-CD - Sega CD',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1991-12-17'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Sega_CD_Logo.svg',
+        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Sega-CD-Model2-Set.jpg',
       },
       {
         name: '32X',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-11-21'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Sega_32X_logo.svg',
+        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Sega-Genesis-Model2-32X.jpg',
       },
       {
         name: 'Saturn',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-11-22'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Sega_Saturn_USA_logo.svg',
+        photoUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/c/cb/Sega-Saturn-Console-Set-Mk2.png',
       },
       {
         name: 'Dreamcast',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('1999-11-27'),
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Dreamcast_logo_Japan.svg',
+        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Dreamcast-Console-Set.png',
       },
     ]) {
       await this.createPlatform({ companyId: sega.id, ...props });
@@ -236,10 +273,14 @@ export default class extends BaseSeeder {
       : null;
     const logoId = logo ? logo.id : null;
 
+    await sleep(5000); // To avoid hitting request limits
+
     const photo = photoUrl
       ? await Image.fromHttp(photoUrl, { width: 1024, height: 768, format: 'avif', fit: 'inside' })
       : null;
     const photoId = photo ? photo.id : null;
+
+    await sleep(5000); // To avoid hitting request limits
 
     const props = { logoId, photoId, ...rest };
     await Platform.firstOrCreate({ companyId, name }, props);
