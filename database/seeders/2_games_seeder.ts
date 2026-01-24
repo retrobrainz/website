@@ -236,9 +236,13 @@ export default class extends BaseSeeder {
       return;
     }
     const tmp = `${process.cwd()}/tmp/`;
-    await download(url, tmp, {
-      extract: true,
-    });
+    try {
+      await download(url, tmp, {
+        extract: true,
+      });
+    } catch {
+      console.error(`Failed to download ${url}`);
+    }
   }
 
   async downloadImage(platform: Platform): Promise<void> {
