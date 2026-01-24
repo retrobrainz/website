@@ -13,6 +13,8 @@ export default class extends BaseSchema {
 
       table.string('state', 32).notNullable();
 
+      table.date('release_date').nullable();
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
