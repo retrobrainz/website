@@ -26,7 +26,7 @@ export default class extends BaseSeeder {
         website: null,
         state: 'experimental',
         releaseDate: null,
-        platforms: ['PlayStation Vita'],
+        platforms: [], // Switch platform not yet in platforms seeder
       },
       {
         name: 'Citra',
