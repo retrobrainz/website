@@ -6,6 +6,6 @@ export default interface Platform {
   company: Company | null;
   screenWidth: number;
   screenHeight: number;
-  releaseDate: string;
+  releaseDate: string | null;
   gamesCount?: number | null;
 }

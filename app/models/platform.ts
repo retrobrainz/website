@@ -20,8 +20,8 @@ export default class Platform extends BaseModel {
   @column()
   declare screenHeight: number;
 
-  @column()
-  declare releaseDate: DateTime;
+  @column.date()
+  declare releaseDate: DateTime | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
