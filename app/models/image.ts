@@ -21,6 +21,16 @@ export default class Image extends BaseModel {
     return this.fromBuffer(buffer, options);
   }
 
+  static async fromHttp(url: string, options: ImageCreateOptions = {}): Promise<Image> {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    return this.fromBuffer(buffer, options);
+  }
+
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
     const metadata = await sharp(buffer).metadata();
     let sharpInstance = sharp(buffer);
