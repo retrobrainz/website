@@ -31,7 +31,9 @@ export default class Emulator extends BaseModel {
 
   // Relationships
 
-  @belongsTo(() => Image)
+  @belongsTo(() => Image, {
+    foreignKey: 'iconId',
+  })
   declare icon: BelongsTo<typeof Image>;
 
   @manyToMany(() => Platform, {
