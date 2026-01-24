@@ -16,7 +16,7 @@ export default class Emulator extends BaseModel {
   @column()
   declare state: string;
 
-  @column()
+  @column.date()
   declare releaseDate: DateTime | null;
 
   @column.dateTime({ autoCreate: true })
