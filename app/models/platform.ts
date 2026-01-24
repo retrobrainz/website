@@ -1,7 +1,8 @@
-import { BaseModel, belongsTo, column, computed, hasMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
+import Emulator from './emulator.js';
 import Game from './game.js';
 
 export default class Platform extends BaseModel {
@@ -36,6 +37,11 @@ export default class Platform extends BaseModel {
 
   @hasMany(() => Game)
   declare games: HasMany<typeof Game>;
+
+  @manyToMany(() => Emulator, {
+    pivotTable: 'platform_emulator',
+  })
+  declare emulators: ManyToMany<typeof Emulator>;
 
   // Virtuals
 
