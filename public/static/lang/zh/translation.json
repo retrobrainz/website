@@ -47,5 +47,8 @@
   "action": "操作",
   "franchises": "系列",
   "games": "游戏",
-  "emulators": "模拟器"
+  "emulators": "模拟器",
+  "stable": "稳定版",
+  "experimental": "实验版",
+  "discontinued": "已停止维护"
 }
