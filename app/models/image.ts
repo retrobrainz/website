@@ -22,9 +22,19 @@ export default class Image extends BaseModel {
   }
 
   static async fromHttp(url: string, options: ImageCreateOptions = {}): Promise<Image> {
+    // Validate URL
+    const parsedUrl = new URL(url);
+    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+      throw new Error(
+        `Invalid URL protocol: ${parsedUrl.protocol}. Only HTTP and HTTPS are supported.`,
+      );
+    }
+
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        `Failed to fetch image from ${url}: ${response.status} ${response.statusText}`,
+      );
     }
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
