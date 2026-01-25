@@ -114,12 +114,32 @@ export default class extends BaseSeeder {
       return;
     }
 
+    const existingGame = await Game.query()
+      .where('platformId', platform.id)
+      .whereHas('roms', (q) => {
+        for (const { crc, serial } of $entries) {
+          q.orWhere((subBuilder) => {
+            if (crc) {
+              subBuilder.andWhere('crc', crc);
+            }
+            if (serial) {
+              subBuilder.andWhere('serial', serial);
+            }
+          });
+        }
+      })
+      .first();
+
     const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
 
-    let game = await Game.firstOrCreate({
-      platformId: platform.id,
-      name: gameName,
-    });
+    let game =
+      existingGame ||
+      (await Game.firstOrCreate({
+        platformId: platform.id,
+        name: gameName,
+      }));
+
+    game.name = gameName;
 
     await game.refresh();
     await game.load('duplicate');
