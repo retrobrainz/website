@@ -17,6 +17,7 @@ import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
 import ImagesController from '#controllers/images_controller';
 import LanguagesController from '#controllers/languages_controller';
+import OperatingSystemsController from '#controllers/operating_systems_controller';
 import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
@@ -47,6 +48,10 @@ router
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
     router.resource('languages', LanguagesController).apiOnly();
+    router
+      .resource('operating_systems', OperatingSystemsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('platforms', PlatformsController).apiOnly();
     router.resource('regions', RegionsController).apiOnly();
     router.resource('users', UsersController).apiOnly();
