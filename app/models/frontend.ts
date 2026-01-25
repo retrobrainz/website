@@ -2,9 +2,9 @@ import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm';
 import type { ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Emulator from './emulator.js';
-import Frontend from './frontend.js';
+import OperatingSystem from './operating_system.js';
 
-export default class OperatingSystem extends BaseModel {
+export default class Frontend extends BaseModel {
   @column({ isPrimary: true })
   declare id: number;
 
@@ -12,7 +12,7 @@ export default class OperatingSystem extends BaseModel {
   declare name: string;
 
   @column()
-  declare arch: string;
+  declare website: string | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
@@ -23,12 +23,12 @@ export default class OperatingSystem extends BaseModel {
   // Relationships
 
   @manyToMany(() => Emulator, {
-    pivotTable: 'emulator_operating_system',
+    pivotTable: 'emulator_frontend',
   })
   declare emulators: ManyToMany<typeof Emulator>;
 
-  @manyToMany(() => Frontend, {
+  @manyToMany(() => OperatingSystem, {
     pivotTable: 'frontend_operating_system',
   })
-  declare frontends: ManyToMany<typeof Frontend>;
+  declare operatingSystems: ManyToMany<typeof OperatingSystem>;
 }

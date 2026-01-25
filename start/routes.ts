@@ -12,6 +12,7 @@ import CompaniesController from '#controllers/companies_controller';
 import EmulatorsController from '#controllers/emulators_controller';
 import FavoritesController from '#controllers/favorites_controller';
 import FranchisesController from '#controllers/franchises_controller';
+import FrontendsController from '#controllers/frontends_controller';
 import GameTranslationsController from '#controllers/game_translations_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
@@ -33,6 +34,10 @@ router
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('franchises', FranchisesController).apiOnly();
+    router
+      .resource('frontends', FrontendsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
       .resource('games', GamesController)
       .apiOnly()
