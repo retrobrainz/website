@@ -49,7 +49,7 @@ export default class Emulator extends BaseModel {
   declare operatingSystems: ManyToMany<typeof OperatingSystem>;
 
   @manyToMany(() => Frontend, {
-    pivotTable: 'emulator_frontend',
+    pivotTable: 'frontend_emulator',
   })
   declare frontends: ManyToMany<typeof Frontend>;
 }

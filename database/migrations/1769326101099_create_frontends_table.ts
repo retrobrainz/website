@@ -9,6 +9,22 @@ export default class extends BaseSchema {
 
       table.string('name', 64).notNullable().unique();
 
+      table
+        .integer('icon_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
+      table
+        .integer('screenshot_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
       table.string('website', 255).nullable();
 
       table.timestamp('created_at');

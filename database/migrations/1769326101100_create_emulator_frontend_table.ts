@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema';
 
 export default class extends BaseSchema {
-  protected tableName = 'emulator_frontend';
+  protected tableName = 'frontend_emulator';
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
