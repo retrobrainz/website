@@ -16,8 +16,6 @@ import { readFile, rm } from 'fs/promises';
 import { DateTime } from 'luxon';
 
 export default class extends BaseSeeder {
-  tagCounts: Record<string, number> = {};
-
   async run() {
     const platforms = await Platform.all();
 
@@ -25,8 +23,9 @@ export default class extends BaseSeeder {
 
     for (const platform of platforms) {
       await platform.load('company');
-      console.log(`Importing platform: ${platform.company.name} - ${platform.name}`);
+      console.log(`start import: ${platform.name}`);
       await this.importPlatform(platform);
+      console.log('done');
     }
 
     process.env.NODE_ENV === 'production' && (await this.deletedGithubRepo('libretro-database'));
