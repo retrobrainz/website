@@ -12,7 +12,17 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
 
   return (
     <Link href={`/platforms/${platform.id}`}>
-      <Card cover={<img alt={platform.name} src={platform.photo?.url} />}>
+      <Card
+        cover={
+          <img
+            alt={platform.name}
+            src={platform.photo?.url}
+            width={platform.photo?.width}
+            height={platform.photo?.height}
+            style={{ height: 'auto' }}
+          />
+        }
+      >
         <Flex align="center">
           <Card.Meta
             title={platform.name}
@@ -27,7 +37,15 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
           <img
             alt={platform.name}
             src={platform.logo?.url}
-            style={{ maxWidth: 128, maxHeight: 48, display: 'block' }}
+            width={platform.logo?.width}
+            height={platform.logo?.height}
+            style={{
+              maxWidth: 128,
+              maxHeight: 48,
+              display: 'block',
+              width: 'auto',
+              height: 'auto',
+            }}
           />
         </Flex>
       </Card>
