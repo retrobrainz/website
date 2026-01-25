@@ -62,7 +62,10 @@ export default class extends BaseSeeder {
 
       // Link to operating systems
       for (const osData of os) {
-        const osModel = await OperatingSystem.findByOrFail(osData);
+        const osModel = await OperatingSystem.query()
+          .where('name', osData.name)
+          .where('arch', osData.arch)
+          .firstOrFail();
         await frontend.related('operatingSystems').save(osModel);
       }
     }
