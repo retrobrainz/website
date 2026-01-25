@@ -49,7 +49,7 @@ router
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
     router.resource('languages', LanguagesController).apiOnly();
     router
-      .resource('operating_systems', OperatingSystemsController)
+      .resource('operatingSystems', OperatingSystemsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('platforms', PlatformsController).apiOnly();

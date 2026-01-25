@@ -14,9 +14,18 @@ export default class EmulatorsController {
       });
     }
 
-    query.preload('operatingSystems');
+    if (request.input('operatingSystemId')) {
+      query.whereHas('operatingSystems', (q) => {
+        q.where('operating_systems.id', request.input('operatingSystemId'));
+      });
+    }
 
-    return query.preload('icon').orderBy('name', 'asc').exec();
+    return query
+      .preload('icon')
+      .preload('operatingSystems')
+      .preload('platforms')
+      .orderBy('name', 'asc')
+      .exec();
   }
 
   async store({ request, auth }: HttpContext) {
@@ -36,6 +45,7 @@ export default class EmulatorsController {
     const emulator = await Emulator.query()
       .where('id', params.id)
       .preload('platforms')
+      .preload('operatingSystems')
       .preload('icon')
       .firstOrFail();
 

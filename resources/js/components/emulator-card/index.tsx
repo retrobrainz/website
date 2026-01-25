@@ -1,6 +1,7 @@
 import { Card, Flex, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 import Emulator from '../../types/Emulator.js';
+import OperatingSystemIcon from '../operating-system-icon/index.js';
 
 export interface EmulatorProps {
   emulator: Emulator;
@@ -30,6 +31,13 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
           )
         }
       />
+      <Flex wrap="wrap" gap={8} style={{ marginTop: 16 }}>
+        {emulator.operatingSystems?.map((item) => (
+          <Tag key={item.id} icon={<OperatingSystemIcon name={item.name} />}>
+            {item.name} ({item.arch})
+          </Tag>
+        ))}
+      </Flex>
     </Card>
   );
 }
