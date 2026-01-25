@@ -10,7 +10,7 @@ export default class extends BaseSeeder {
       {
         name: 'RetroArch',
         website: 'https://www.retroarch.com',
-        emulators: ['RetroArch'],
+        emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
           { name: 'Linux', arch: 'x86_64' },
@@ -23,7 +23,7 @@ export default class extends BaseSeeder {
       {
         name: 'ES-DE',
         website: 'https://es-de.org',
-        emulators: ['RetroArch', 'PCSX2', 'RPCS3', 'Eden', 'Dolphin', 'Cemu'],
+        emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
           { name: 'Linux', arch: 'x86_64' },
@@ -34,7 +34,7 @@ export default class extends BaseSeeder {
       {
         name: 'Pegasus',
         website: 'https://pegasus-frontend.org',
-        emulators: ['RetroArch', 'PCSX2', 'RPCS3', 'Eden', 'Dolphin', 'Cemu'],
+        emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
           { name: 'Linux', arch: 'x86_64' },
