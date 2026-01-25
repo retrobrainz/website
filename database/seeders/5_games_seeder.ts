@@ -91,7 +91,13 @@ export default class extends BaseSeeder {
 
     const deduplicatedGameEntries = this.deduplicate(gameEntries);
 
-    for (const {
+    for (const rawGame of deduplicatedGameEntries) {
+      await this.importGame(rawGame, platform);
+    }
+  }
+
+  async importGame(rawGame: any, platform: Platform): Promise<void> {
+    const {
       name: romName,
       $entries,
       releaseyear,
@@ -103,131 +109,130 @@ export default class extends BaseSeeder {
       franchise,
       genre,
       esrb_rating,
-    } of deduplicatedGameEntries) {
-      if (!romName) {
-        continue;
-      }
-      const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
+    } = rawGame;
 
-      let game = await Game.firstOrCreate({
-        platformId: platform.id,
-        name: gameName,
-      });
-
-      await game.refresh();
-      await game.load('duplicate');
-      game = game.duplicate || game;
-
-      if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
-        game.esrbRating = esrb_rating;
-      }
-
-      if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
-        game.releaseDate = DateTime.fromObject({
-          year: Number(releaseyear),
-          month: Number(releasemonth),
-          day: releaseday ? Number(releaseday) : 1,
-        });
-      }
-
-      if (game.$isDirty) {
-        await game.save();
-      }
-
-      await game
-        .related('regions')
-        .saveMany(
-          await Promise.all(
-            regions.map((regionName) => Region.firstOrCreate({ name: regionName })),
-          ),
-          true,
-        );
-
-      for (const language of languages) {
-        try {
-          const languageModel = await Language.findByOrFail('code', language.toLocaleLowerCase());
-          await game.related('languages').save(languageModel);
-        } catch (error) {
-          console.log(`Unknown language code: ${language}`);
-          throw error;
-        }
-      }
-
-      if (developer) {
-        for (const developerName of (developer as string).split('/')) {
-          const developerModel = await Company.firstOrCreate({ name: developerName.trim() });
-          await developerModel.refresh();
-          await developerModel.load('duplicate');
-          await game.related('developers').save(developerModel.duplicate || developerModel);
-        }
-      }
-
-      if (publisher) {
-        for (const publisherName of (publisher as string).split('/')) {
-          const publisherModel = await Company.firstOrCreate({ name: publisherName.trim() });
-          await publisherModel.refresh();
-          await publisherModel.load('duplicate');
-          await game.related('publishers').save(publisherModel.duplicate || publisherModel);
-        }
-      }
-
-      if (franchise) {
-        for (const franchiseName of (franchise as string).split('/')) {
-          const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
-          await franchiseModel.refresh();
-          await franchiseModel.load('duplicate');
-          await game.related('franchises').save(franchiseModel.duplicate || franchiseModel);
-        }
-      }
-
-      if (genre) {
-        for (const genreName of (genre as string).split('/')) {
-          const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
-          await genreModel.refresh();
-          await genreModel.load('duplicate');
-          await game.related('genres').save(genreModel.duplicate || genreModel);
-        }
-      }
-
-      await this.importImage(platform, game, romName, 'boxartId', 'Named_Boxarts');
-      await this.importImage(platform, game, romName, 'logoId', 'Named_Logos');
-      await this.importImage(platform, game, romName, 'snapId', 'Named_Snaps');
-      await this.importImage(platform, game, romName, 'titleId', 'Named_Titles');
-
-      await Promise.all(
-        $entries.map(
-          async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
-            if (!crc) {
-              console.log(`ROM without CRC: ${filename}`);
-              return;
-            }
-
-            const extra = {
-              gameId: game.id,
-              name: romName,
-              filename,
-              size,
-              md5,
-              sha1,
-              disc,
-            };
-
-            const rom = await Rom.firstOrCreate(
-              {
-                crc,
-                serial: romSerial || gameSerial,
-              },
-              extra,
-            );
-            rom.merge(extra);
-
-            if (rom.$isDirty) {
-              await rom.save();
-            }
-          },
-        ),
-      );
+    if (!romName) {
+      return;
     }
+
+    const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
+
+    let game = await Game.firstOrCreate({
+      platformId: platform.id,
+      name: gameName,
+    });
+
+    await game.refresh();
+    await game.load('duplicate');
+    game = game.duplicate || game;
+
+    if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
+      game.esrbRating = esrb_rating;
+    }
+
+    if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
+      game.releaseDate = DateTime.fromObject({
+        year: Number(releaseyear),
+        month: Number(releasemonth),
+        day: releaseday ? Number(releaseday) : 1,
+      });
+    }
+
+    if (game.$isDirty) {
+      await game.save();
+    }
+
+    await game
+      .related('regions')
+      .saveMany(
+        await Promise.all(regions.map((regionName) => Region.firstOrCreate({ name: regionName }))),
+        true,
+      );
+
+    for (const language of languages) {
+      try {
+        const languageModel = await Language.findByOrFail('code', language.toLocaleLowerCase());
+        await game.related('languages').save(languageModel);
+      } catch (error) {
+        console.log(`Unknown language code: ${language}`);
+        throw error;
+      }
+    }
+
+    if (developer) {
+      for (const developerName of (developer as string).split('/')) {
+        const developerModel = await Company.firstOrCreate({ name: developerName.trim() });
+        await developerModel.refresh();
+        await developerModel.load('duplicate');
+        await game.related('developers').save(developerModel.duplicate || developerModel);
+      }
+    }
+
+    if (publisher) {
+      for (const publisherName of (publisher as string).split('/')) {
+        const publisherModel = await Company.firstOrCreate({ name: publisherName.trim() });
+        await publisherModel.refresh();
+        await publisherModel.load('duplicate');
+        await game.related('publishers').save(publisherModel.duplicate || publisherModel);
+      }
+    }
+
+    if (franchise) {
+      for (const franchiseName of (franchise as string).split('/')) {
+        const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
+        await franchiseModel.refresh();
+        await franchiseModel.load('duplicate');
+        await game.related('franchises').save(franchiseModel.duplicate || franchiseModel);
+      }
+    }
+
+    if (genre) {
+      for (const genreName of (genre as string).split('/')) {
+        const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
+        await genreModel.refresh();
+        await genreModel.load('duplicate');
+        await game.related('genres').save(genreModel.duplicate || genreModel);
+      }
+    }
+
+    await this.importImage(platform, game, romName, 'boxartId', 'Named_Boxarts');
+    await this.importImage(platform, game, romName, 'logoId', 'Named_Logos');
+    await this.importImage(platform, game, romName, 'snapId', 'Named_Snaps');
+    await this.importImage(platform, game, romName, 'titleId', 'Named_Titles');
+
+    await Promise.all(
+      $entries.map(
+        async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
+          if (!crc) {
+            console.log(`ROM without CRC: ${filename}`);
+            return;
+          }
+
+          const extra = {
+            gameId: game.id,
+            name: romName,
+            filename,
+            size,
+            md5,
+            sha1,
+            disc,
+          };
+
+          const rom = await Rom.firstOrCreate(
+            {
+              crc,
+              serial: romSerial || gameSerial,
+            },
+            extra,
+          );
+          rom.merge(extra);
+
+          if (rom.$isDirty) {
+            await rom.save();
+          }
+        },
+      ),
+    );
   }
 
   async downloadGithubRepo(org: string, repo: string): Promise<void> {
