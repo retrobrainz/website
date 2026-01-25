@@ -2,6 +2,7 @@ import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm';
 import type { ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Emulator from './emulator.js';
+import Frontend from './frontend.js';
 
 export default class OperatingSystem extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +26,9 @@ export default class OperatingSystem extends BaseModel {
     pivotTable: 'emulator_operating_system',
   })
   declare emulators: ManyToMany<typeof Emulator>;
+
+  @manyToMany(() => Frontend, {
+    pivotTable: 'frontend_operating_system',
+  })
+  declare frontends: ManyToMany<typeof Frontend>;
 }

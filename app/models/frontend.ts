@@ -1,12 +1,11 @@
 import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
-import Frontend from './frontend.js';
+import Emulator from './emulator.js';
 import Image from './image.js';
 import OperatingSystem from './operating_system.js';
-import Platform from './platform.js';
 
-export default class Emulator extends BaseModel {
+export default class Frontend extends BaseModel {
   @column({ isPrimary: true })
   declare id: number;
 
@@ -17,13 +16,10 @@ export default class Emulator extends BaseModel {
   declare iconId: number | null;
 
   @column()
-  declare website: string | null;
+  declare screenshotId: number | null;
 
   @column()
-  declare state: string | null;
-
-  @column.date()
-  declare releaseDate: DateTime | null;
+  declare website: string | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
@@ -38,18 +34,18 @@ export default class Emulator extends BaseModel {
   })
   declare icon: BelongsTo<typeof Image>;
 
-  @manyToMany(() => Platform, {
-    pivotTable: 'platform_emulator',
+  @belongsTo(() => Image, {
+    foreignKey: 'screenshotId',
   })
-  declare platforms: ManyToMany<typeof Platform>;
+  declare screenshot: BelongsTo<typeof Image>;
 
-  @manyToMany(() => OperatingSystem, {
-    pivotTable: 'emulator_operating_system',
-  })
-  declare operatingSystems: ManyToMany<typeof OperatingSystem>;
-
-  @manyToMany(() => Frontend, {
+  @manyToMany(() => Emulator, {
     pivotTable: 'frontend_emulator',
   })
-  declare frontends: ManyToMany<typeof Frontend>;
+  declare emulators: ManyToMany<typeof Emulator>;
+
+  @manyToMany(() => OperatingSystem, {
+    pivotTable: 'frontend_operating_system',
+  })
+  declare operatingSystems: ManyToMany<typeof OperatingSystem>;
 }
