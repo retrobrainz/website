@@ -10,5 +10,6 @@ export default interface Platform {
   logoId: number | null;
   releaseDate: string | null;
   logo: Image | null;
+  photo: Image | null;
   gamesCount?: number | null;
 }

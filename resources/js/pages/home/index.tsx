@@ -12,7 +12,7 @@ export default function HomePage() {
         {data
           ?.sort((a, b) => b.gamesCount - a.gamesCount)
           ?.map((platform) => (
-            <Col key={platform.id} xs={24} sm={12} md={8} lg={6}>
+            <Col key={platform.id} xs={24} md={12} xl={8} xxl={6}>
               <PlatformCard platform={platform} />
             </Col>
           ))}
