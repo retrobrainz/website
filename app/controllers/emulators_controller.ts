@@ -14,6 +14,8 @@ export default class EmulatorsController {
       });
     }
 
+    query.preload('operatingSystems');
+
     return query.preload('icon').orderBy('name', 'asc').exec();
   }
 

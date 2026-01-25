@@ -1,5 +1,6 @@
 import Emulator from '#models/emulator';
 import Image from '#models/image';
+import OperatingSystem from '#models/operating_system';
 import Platform from '#models/platform';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { DateTime } from 'luxon';
@@ -38,6 +39,12 @@ export default class extends BaseSeeder {
           'Saturn',
           'Dreamcast',
         ],
+        os: [
+          { name: 'Windows', arch: 'x86_64' },
+          { name: 'Linux', arch: 'x86_64' },
+          { name: 'Linux', arch: 'aarch64' },
+          { name: 'Android', arch: 'aarch64' },
+        ],
       },
       {
         name: 'PCSX2',
@@ -46,6 +53,10 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2002-09-22'),
         platforms: ['PlayStation 2'],
+        os: [
+          { name: 'Windows', arch: 'x86_64' },
+          { name: 'Linux', arch: 'x86_64' },
+        ],
       },
       {
         name: 'RPCS3',
@@ -54,6 +65,10 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2011-05-23'),
         platforms: ['PlayStation 3'],
+        os: [
+          { name: 'Windows', arch: 'x86_64' },
+          { name: 'Linux', arch: 'x86_64' },
+        ],
       },
       {
         name: 'Eden',
@@ -62,6 +77,11 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2025-05-10'),
         platforms: ['Switch'],
+        os: [
+          { name: 'Windows', arch: 'x86_64' },
+          { name: 'Linux', arch: 'x86_64' },
+          { name: 'Android', arch: 'aarch64' },
+        ],
       },
       {
         name: 'Dolphin',
@@ -70,6 +90,15 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2003-09-22'),
         platforms: ['GameCube', 'Wii'],
+        os: [
+          { name: 'Windows', arch: 'x86_64' },
+          { name: 'Windows', arch: 'aarch64' },
+          { name: 'Linux', arch: 'x86_64' },
+          { name: 'Linux', arch: 'aarch64' },
+          { name: 'macOS', arch: 'x86_64' },
+          { name: 'macOS', arch: 'aarch64' },
+          { name: 'Android', arch: 'aarch64' },
+        ],
       },
       {
         name: 'Cemu',
@@ -78,11 +107,22 @@ export default class extends BaseSeeder {
         state: 'stable',
         releaseDate: DateTime.fromISO('2015-10-13'),
         platforms: ['Wii U'],
+        os: [
+          { name: 'Linux', arch: 'x86_64' },
+          { name: 'macOS', arch: 'x86_64' },
+          { name: 'Windows', arch: 'x86_64' },
+        ],
       },
     ];
 
     // Create emulators and link them to platforms
-    for (const { name, icon: iconUrl, platforms: platformNames, ...emulatorData } of emulators) {
+    for (const {
+      name,
+      icon: iconUrl,
+      platforms: platformNames,
+      os,
+      ...emulatorData
+    } of emulators) {
       const icon = iconUrl
         ? await Image.fromHttp(iconUrl, { width: 256, height: 256, format: 'avif' })
         : null;
@@ -97,6 +137,11 @@ export default class extends BaseSeeder {
         if (platformIds.length > 0) {
           await emulator.related('platforms').sync(platformIds);
         }
+      }
+
+      for (const osData of os) {
+        const osModel = await OperatingSystem.findByOrFail(osData);
+        await emulator.related('operatingSystems').save(osModel);
       }
     }
   }
