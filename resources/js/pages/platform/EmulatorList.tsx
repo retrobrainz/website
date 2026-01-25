@@ -14,9 +14,9 @@ export default function EmulatorList() {
   return (
     <div>
       <Spin spinning={loading}>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[24, 24]}>
           {data?.map((emulator) => (
-            <Col key={emulator.id} xs={24} sm={12} md={8} lg={6}>
+            <Col key={emulator.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
               <EmulatorCard emulator={emulator} />
             </Col>
           ))}

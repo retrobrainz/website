@@ -16,7 +16,7 @@ export default function FavoriteList() {
 
   return (
     <div>
-      <Row gutter={[16, 16]} justify="center" style={{ marginBottom: 24 }}>
+      <Row gutter={[24, 24]} justify="center" style={{ marginBottom: 24 }}>
         {data?.data.map((favorite) => (
           <Col key={favorite.id} xs={24} sm={12} md={8} lg={6} xl={4} xxl={3}>
             <GameCard game={favorite.game!} />
