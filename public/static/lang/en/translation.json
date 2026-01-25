@@ -16,6 +16,7 @@
   "snap": "Snap",
   "region": "Region",
   "language": "Language",
+  "operating-system": "Operating System",
   "regions": "Region(s)",
   "release-date": "Release Date",
   "developers": "Developer(s)",
