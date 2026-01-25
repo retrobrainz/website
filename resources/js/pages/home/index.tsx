@@ -1,7 +1,7 @@
-import { Card, Col, Flex, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
-import { Link } from 'wouter';
+import PlatformCard from '../../components/platform-card/index.js';
 
 export default function HomePage() {
   const { data } = useFetch<any[]>('/platforms');
@@ -13,22 +13,7 @@ export default function HomePage() {
           ?.sort((a, b) => b.gamesCount - a.gamesCount)
           ?.map((platform) => (
             <Col key={platform.id} xs={24} sm={12} md={8} lg={6}>
-              <Link href={`/platforms/${platform.id}`}>
-                <Card cover={<img alt={platform.name} src={platform.photo?.url} />}>
-                  <Flex align="center">
-                    <Card.Meta
-                      title={platform.name}
-                      description={platform.company.name}
-                      style={{ flex: 1 }}
-                    />
-                    <img
-                      alt={platform.name}
-                      src={platform.logo?.url}
-                      style={{ width: 'auto', height: 48, display: 'block' }}
-                    />
-                  </Flex>
-                </Card>
-              </Link>
+              <PlatformCard platform={platform} />
             </Col>
           ))}
       </Row>
