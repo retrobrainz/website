@@ -139,8 +139,6 @@ export default class extends BaseSeeder {
         name: gameName,
       }));
 
-    game.name = gameName;
-
     await game.refresh();
     await game.load('duplicate');
     game = game.duplicate || game;
