@@ -6,6 +6,7 @@ export default class extends BaseSeeder {
     await Promise.all(
       [
         { name: 'Android', arch: 'aarch64' },
+        { name: 'iOS', arch: 'aarch64' },
         { name: 'Linux', arch: 'aarch64' },
         { name: 'Linux', arch: 'x86_64' },
         { name: 'macOS', arch: 'aarch64' },
