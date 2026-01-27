@@ -43,7 +43,7 @@ export default class GamesController {
       .preload('boxart')
       .preload('logo')
       .preload('snap')
-      .preload('title')
+      .preload('titlescreen')
       .withCount('favorites')
       .orderBy('name', 'asc')
       .paginate(page, pageSize);
@@ -62,7 +62,7 @@ export default class GamesController {
       .preload('boxart')
       .preload('logo')
       .preload('snap')
-      .preload('title')
+      .preload('titlescreen')
       .preload('translations')
       .withCount('favorites')
       .firstOrFail();
@@ -72,7 +72,7 @@ export default class GamesController {
 
   async update({ params, request, auth }: HttpContext) {
     // TODO validate input
-    const { boxartId, logoId, snapId, titleId } = request.all();
+    const { boxartId, logoId, snapId, titlescreenId } = request.all();
     const game = await Game.findOrFail(params.id);
 
     if (auth.user!.role === 'user') {
@@ -86,12 +86,12 @@ export default class GamesController {
       if (snapId && !game.snapId) {
         game.snapId = snapId;
       }
-      if (titleId && !game.titleId) {
-        game.titleId = titleId;
+      if (titlescreenId && !game.titlescreenId) {
+        game.titlescreenId = titlescreenId;
       }
     } else if (auth.user!.role === 'admin' || auth.user!.role === 'editor') {
       // admins and editors can update all properties
-      game.merge({ boxartId, logoId, snapId, titleId });
+      game.merge({ boxartId, logoId, snapId, titlescreenId });
     }
     return await game.save();
   }

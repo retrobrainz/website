@@ -54,7 +54,7 @@ export default class extends BaseSchema {
         .onDelete('SET NULL');
 
       table
-        .integer('title_id')
+        .integer('titlescreen_id')
         .unsigned()
         .nullable()
         .references('id')

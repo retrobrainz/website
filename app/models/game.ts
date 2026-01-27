@@ -44,7 +44,7 @@ export default class Game extends BaseModel {
   declare snapId: number | null;
 
   @column()
-  declare titleId: number | null;
+  declare titlescreenId: number | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
@@ -69,8 +69,8 @@ export default class Game extends BaseModel {
   @belongsTo(() => Image, { foreignKey: 'snapId' })
   declare snap: BelongsTo<typeof Image>;
 
-  @belongsTo(() => Image, { foreignKey: 'titleId' })
-  declare title: BelongsTo<typeof Image>;
+  @belongsTo(() => Image, { foreignKey: 'titlescreenId' })
+  declare titlescreen: BelongsTo<typeof Image>;
 
   @hasMany(() => Rom)
   declare roms: HasMany<typeof Rom>;

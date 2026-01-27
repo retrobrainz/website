@@ -17,13 +17,13 @@ export default interface Game {
   boxartId: number | null;
   logoId: number | null;
   snapId: number | null;
-  titleId: number | null;
+  titlescreenId: number | null;
   createdAt: string;
   updatedAt: string | null;
   boxart: Image | null;
   logo: Image | null;
   snap: Image | null;
-  title: Image | null;
+  titlescreen: Image | null;
   regions?: Region[];
   developers?: Company[];
   publishers?: Company[];
