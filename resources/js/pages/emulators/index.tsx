@@ -27,10 +27,12 @@ export default function EmulatorsPage() {
       <Form layout="vertical">
         <Form.Item label={t('platform')}>
           <Tag.CheckableTagGroup
-            options={platforms?.map((item) => ({
-              value: item.id,
-              label: item.name,
-            }))}
+            options={
+              platforms?.map((item) => ({
+                value: item.id,
+                label: item.name,
+              })) ?? []
+            }
             value={platformId}
             onChange={setPlatformId}
           />
@@ -38,14 +40,16 @@ export default function EmulatorsPage() {
 
         <Form.Item label={t('operating-system')}>
           <Tag.CheckableTagGroup
-            options={operatingSystems?.map((item) => ({
-              value: item.id,
-              label: (
-                <span>
-                  <OperatingSystemIcon name={item.name} /> {item.name} ({item.arch})
-                </span>
-              ),
-            }))}
+            options={
+              operatingSystems?.map((item) => ({
+                value: item.id,
+                label: (
+                  <span>
+                    <OperatingSystemIcon name={item.name} /> {item.name} ({item.arch})
+                  </span>
+                ),
+              })) ?? []
+            }
             value={operatingSystemId}
             onChange={setOperatingSystemId}
           />
@@ -60,6 +64,11 @@ export default function EmulatorsPage() {
             </Col>
           ))}
         </Row>
+        {!loading && emulators?.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
+            {t('no-emulators-found')}
+          </div>
+        )}
       </Spin>
     </Container>
   );
