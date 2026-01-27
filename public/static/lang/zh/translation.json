@@ -50,6 +50,6 @@
   "stable": "稳定版",
   "experimental": "实验版",
   "discontinued": "已停止维护",
-  "platforms": "Platforms",
-  "frontends": "Frontends"
+  "platforms": "平台",
+  "frontends": "前端"
 }
