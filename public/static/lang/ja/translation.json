@@ -50,6 +50,6 @@
   "stable": "安定版",
   "experimental": "実験版",
   "discontinued": "開発終了",
-  "platforms": "Platforms",
-  "frontends": "Frontends"
+  "platforms": "プラットフォーム",
+  "frontends": "フロントエンド"
 }

@@ -50,6 +50,6 @@
   "stable": "Stabile",
   "experimental": "Sperimentale",
   "discontinued": "Dismesso",
-  "platforms": "Platforms",
-  "frontends": "Frontends"
+  "platforms": "Piattaforme",
+  "frontends": "Interfacce"
 }
