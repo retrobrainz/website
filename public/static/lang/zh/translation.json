@@ -49,5 +49,7 @@
   "emulators": "模拟器",
   "stable": "稳定版",
   "experimental": "实验版",
-  "discontinued": "已停止维护"
+  "discontinued": "已停止维护",
+  "platforms": "Platforms",
+  "frontends": "Frontends"
 }

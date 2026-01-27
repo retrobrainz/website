@@ -20,7 +20,13 @@ export default class FrontendsController {
       });
     }
 
-    return query.preload('emulators').preload('operatingSystems').orderBy('name', 'asc').exec();
+    return query
+      .preload('icon')
+      .preload('screenshot')
+      .preload('emulators')
+      .preload('operatingSystems')
+      .orderBy('name', 'asc')
+      .exec();
   }
 
   async store({ request, auth }: HttpContext) {
@@ -39,6 +45,8 @@ export default class FrontendsController {
   async show({ params }: HttpContext) {
     const frontend = await Frontend.query()
       .where('id', params.id)
+      .preload('icon')
+      .preload('screenshot')
       .preload('emulators')
       .preload('operatingSystems')
       .firstOrFail();
