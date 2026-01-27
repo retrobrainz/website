@@ -18,6 +18,7 @@ import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
 import FrontendsPage from './pages/frontends/index.js';
+import EmulatorsPage from './pages/emulators/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import PlatformPage from './pages/platform/index.js';
@@ -60,6 +61,10 @@ function App() {
 
               <Route path="/platforms/:platformId">
                 <PlatformPage />
+              </Route>
+
+              <Route path="/emulators">
+                <EmulatorsPage />
               </Route>
 
               <Route path="/platforms/:platformId/games/:gameId">
