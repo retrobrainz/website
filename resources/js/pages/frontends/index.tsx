@@ -1,4 +1,3 @@
-import OperatingSystem from '#models/operating_system';
 import { Col, Form, Row, Spin, Tag } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
@@ -7,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import FrontendCard from '../../components/frontend-card/index.js';
 import OperatingSystemIcon from '../../components/operating-system-icon/index.js';
 import Frontend from '../../types/Frontend.js';
+import OperatingSystem from '../../types/OperatingSystem.js';
 
 export default function FrontendsPage() {
   const { t } = useTranslation();

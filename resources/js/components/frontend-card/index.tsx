@@ -22,7 +22,13 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
       <Card.Meta
         avatar={
           frontend.icon && (
-            <img src={frontend.icon.url} width={56} height={56} style={{ display: 'block' }} />
+            <img
+              src={frontend.icon.url}
+              alt={`${frontend.name} icon`}
+              width={56}
+              height={56}
+              style={{ display: 'block' }}
+            />
           )
         }
         title={frontend.name}
