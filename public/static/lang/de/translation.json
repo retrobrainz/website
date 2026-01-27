@@ -49,5 +49,7 @@
   "emulators": "Emulatoren",
   "stable": "Stabil",
   "experimental": "Experimentell",
-  "discontinued": "Eingestellt"
+  "discontinued": "Eingestellt",
+  "platforms": "Platforms",
+  "frontends": "Frontends"
 }
