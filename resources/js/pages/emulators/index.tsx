@@ -24,7 +24,7 @@ export default function EmulatorsPage() {
 
   return (
     <Container style={{ paddingTop: 24 }}>
-      <Form layout="vertical">
+      <Form>
         <Form.Item label={t('platform')}>
           <Tag.CheckableTagGroup
             options={
