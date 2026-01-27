@@ -10,7 +10,7 @@ import ImageModel from '../../types/Image.js';
 
 export interface ImageUploadProps {
   game: Game;
-  type: 'boxart' | 'titlescreen' | 'snap' | 'logo' | string;
+  type: 'boxart' | 'titlescreen' | 'screenshot' | 'logo' | string;
   onFinish?: () => void;
 }
 

@@ -60,13 +60,13 @@ export default function GamePage() {
               <Image src={game?.titlescreen?.url} alt={`${game?.name} ${t('titlescreen')}`} />
             )}
           </Badge.Ribbon>
-          <Badge.Ribbon text={t('snap')} color="blue" styles={{ root: { flex: '1 1 33%' } }}>
-            {game?.snapId === null ? (
+          <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 33%' } }}>
+            {game?.screenshotId === null ? (
               <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
-                <ImageUpload game={game} type="snap" onFinish={reload} />
+                <ImageUpload game={game} type="screenshot" onFinish={reload} />
               </Flex>
             ) : (
-              <Image src={game?.snap?.url} alt={`${game?.name} ${t('snap')}`} />
+              <Image src={game?.screenshot?.url} alt={`${game?.name} ${t('screenshot')}`} />
             )}
           </Badge.Ribbon>
         </Flex>

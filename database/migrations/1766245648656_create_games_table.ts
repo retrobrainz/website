@@ -46,7 +46,7 @@ export default class extends BaseSchema {
         .onDelete('SET NULL');
 
       table
-        .integer('snap_id')
+        .integer('screenshot_id')
         .unsigned()
         .nullable()
         .references('id')

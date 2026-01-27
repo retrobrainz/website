@@ -41,7 +41,7 @@ export default class Game extends BaseModel {
   declare logoId: number | null;
 
   @column()
-  declare snapId: number | null;
+  declare screenshotId: number | null;
 
   @column()
   declare titlescreenId: number | null;
@@ -66,8 +66,8 @@ export default class Game extends BaseModel {
   @belongsTo(() => Image, { foreignKey: 'logoId' })
   declare logo: BelongsTo<typeof Image>;
 
-  @belongsTo(() => Image, { foreignKey: 'snapId' })
-  declare snap: BelongsTo<typeof Image>;
+  @belongsTo(() => Image, { foreignKey: 'screenshotId' })
+  declare screenshot: BelongsTo<typeof Image>;
 
   @belongsTo(() => Image, { foreignKey: 'titlescreenId' })
   declare titlescreen: BelongsTo<typeof Image>;

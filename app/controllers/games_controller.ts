@@ -42,7 +42,7 @@ export default class GamesController {
       .preload('translations')
       .preload('boxart')
       .preload('logo')
-      .preload('snap')
+      .preload('screenshot')
       .preload('titlescreen')
       .withCount('favorites')
       .orderBy('name', 'asc')
@@ -61,7 +61,7 @@ export default class GamesController {
       .preload('roms')
       .preload('boxart')
       .preload('logo')
-      .preload('snap')
+      .preload('screenshot')
       .preload('titlescreen')
       .preload('translations')
       .withCount('favorites')
@@ -72,7 +72,7 @@ export default class GamesController {
 
   async update({ params, request, auth }: HttpContext) {
     // TODO validate input
-    const { boxartId, logoId, snapId, titlescreenId } = request.all();
+    const { boxartId, logoId, screenshotId, titlescreenId } = request.all();
     const game = await Game.findOrFail(params.id);
 
     if (auth.user!.role === 'user') {
@@ -83,15 +83,15 @@ export default class GamesController {
       if (logoId && !game.logoId) {
         game.logoId = logoId;
       }
-      if (snapId && !game.snapId) {
-        game.snapId = snapId;
+      if (screenshotId && !game.screenshotId) {
+        game.screenshotId = screenshotId;
       }
       if (titlescreenId && !game.titlescreenId) {
         game.titlescreenId = titlescreenId;
       }
     } else if (auth.user!.role === 'admin' || auth.user!.role === 'editor') {
       // admins and editors can update all properties
-      game.merge({ boxartId, logoId, snapId, titlescreenId });
+      game.merge({ boxartId, logoId, screenshotId, titlescreenId });
     }
     return await game.save();
   }

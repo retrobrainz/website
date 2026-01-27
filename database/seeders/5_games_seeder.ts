@@ -214,7 +214,7 @@ export default class extends BaseSeeder {
 
     await this.importImage(platform, game, romName, 'boxartId', 'Named_Boxarts');
     await this.importImage(platform, game, romName, 'logoId', 'Named_Logos');
-    await this.importImage(platform, game, romName, 'snapId', 'Named_Snaps');
+    await this.importImage(platform, game, romName, 'screenshotId', 'Named_Snaps');
     await this.importImage(platform, game, romName, 'titlescreenId', 'Named_Titles');
 
     await Promise.all(
@@ -276,7 +276,7 @@ export default class extends BaseSeeder {
     platform: Platform,
     game: Game,
     romName: string,
-    type: 'boxartId' | 'logoId' | 'snapId' | 'titlescreenId',
+    type: 'boxartId' | 'logoId' | 'screenshotId' | 'titlescreenId',
     folder: string,
   ): Promise<void> {
     const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
