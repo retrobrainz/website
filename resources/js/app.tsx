@@ -17,6 +17,7 @@ import './config/fetch.js';
 import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
+import FrontendsPage from './pages/frontends/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import PlatformPage from './pages/platform/index.js';
@@ -51,6 +52,10 @@ function App() {
 
               <Route path="/platforms">
                 <PlatformsPage />
+              </Route>
+
+              <Route path="/frontends">
+                <FrontendsPage />
               </Route>
 
               <Route path="/platforms/:platformId">
