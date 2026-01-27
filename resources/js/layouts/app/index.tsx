@@ -52,6 +52,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div style={{ fontSize: 18, fontWeight: 500 }}>RetroBrainz</div>
         </Link>
 
+        <Link href="/platforms">
+          <Button type="text">{t('platforms')}</Button>
+        </Link>
+
         <div style={{ flex: 1 }} />
 
         <LanguageMenu />
