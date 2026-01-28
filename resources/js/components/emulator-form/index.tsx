@@ -6,7 +6,6 @@ import ImageUpload from '../image-upload/index.js';
 import OperatingSystemSelect from '../operating-system-select/index.js';
 import PlatformSelect from '../platform-select/index.js';
 import type Emulator from '../../types/Emulator.js';
-import type Image from '../../types/Image.js';
 
 interface EmulatorFormProps {
   emulator?: Emulator;
@@ -19,8 +18,6 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [icon, setIcon] = useState<Image | null>(emulator?.icon || null);
-  const [screenshot, setScreenshot] = useState<Image | null>(emulator?.screenshot || null);
 
   useEffect(() => {
     if (emulator) {
@@ -31,6 +28,8 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
         releaseDate: emulator.releaseDate ? dayjs(emulator.releaseDate) : null,
         platformIds: emulator.platforms?.map((p) => p.id) || [],
         operatingSystemIds: emulator.operatingSystems?.map((os) => os.id) || [],
+        icon: emulator.icon || null,
+        screenshot: emulator.screenshot || null,
       });
     }
   }, [emulator, form]);
@@ -41,9 +40,12 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       const payload = {
         ...values,
         releaseDate: values.releaseDate ? values.releaseDate.format('YYYY-MM-DD') : null,
-        iconId: icon?.id || null,
-        screenshotId: screenshot?.id || null,
+        iconId: values.icon?.id || null,
+        screenshotId: values.screenshot?.id || null,
       };
+      // Remove icon and screenshot from payload as we only need the IDs
+      delete payload.icon;
+      delete payload.screenshot;
       await onSubmit(payload);
     } catch (error: any) {
       if (error.response?.data?.errors) {
@@ -84,12 +86,12 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
         <OperatingSystemSelect mode="multiple" />
       </Form.Item>
 
-      <Form.Item label={t('icon')}>
-        <ImageUpload value={icon} onChange={setIcon} width="256" height="256" />
+      <Form.Item label={t('icon')} name="icon">
+        <ImageUpload width="256" height="256" />
       </Form.Item>
 
-      <Form.Item label={t('screenshot')}>
-        <ImageUpload value={screenshot} onChange={setScreenshot} width="1280" height="720" />
+      <Form.Item label={t('screenshot')} name="screenshot">
+        <ImageUpload width="1280" height="720" />
       </Form.Item>
 
       <Form.Item>
