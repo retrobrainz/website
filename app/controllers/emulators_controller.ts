@@ -36,14 +36,30 @@ export default class EmulatorsController {
     }
 
     // TODO validate input
-    const { name, website, state, releaseDate, iconId, screenshotId, platformIds, operatingSystemIds } = request.all();
-    const emulator = await Emulator.create({ name, website, state, releaseDate, iconId, screenshotId });
+    const {
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+      platformIds,
+      operatingSystemIds,
+    } = request.all();
+    const emulator = await Emulator.create({
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+    });
 
     // Attach relationships if provided
-    if (platformIds && Array.isArray(platformIds)) {
+    if (Array.isArray(platformIds)) {
       await emulator.related('platforms').attach(platformIds);
     }
-    if (operatingSystemIds && Array.isArray(operatingSystemIds)) {
+    if (Array.isArray(operatingSystemIds)) {
       await emulator.related('operatingSystems').attach(operatingSystemIds);
     }
 
@@ -75,17 +91,26 @@ export default class EmulatorsController {
     }
 
     // TODO validate input
-    const { name, website, state, releaseDate, iconId, screenshotId, platformIds, operatingSystemIds } = request.all();
+    const {
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+      platformIds,
+      operatingSystemIds,
+    } = request.all();
     const emulator = await Emulator.findOrFail(params.id);
 
     emulator.merge({ name, website, state, releaseDate, iconId, screenshotId });
     await emulator.save();
 
     // Sync relationships if provided
-    if (platformIds && Array.isArray(platformIds)) {
+    if (Array.isArray(platformIds)) {
       await emulator.related('platforms').sync(platformIds);
     }
-    if (operatingSystemIds && Array.isArray(operatingSystemIds)) {
+    if (Array.isArray(operatingSystemIds)) {
       await emulator.related('operatingSystems').sync(operatingSystemIds);
     }
 

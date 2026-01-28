@@ -152,7 +152,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
             emulator?.screenshot
               ? [
                   {
-                    uid: String(emulator.screenshotId),
+                    uid: String(emulator.screenshot.id),
                     name: 'screenshot',
                     status: 'done',
                     url: emulator.screenshot.url,
