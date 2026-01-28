@@ -1,3 +1,4 @@
+import Frontend from './Frontend.js';
 import Image from './Image.js';
 import OperatingSystem from './OperatingSystem.js';
 import Platform from './Platform.js';
@@ -14,6 +15,7 @@ export default interface Emulator {
   releaseDate: string | null;
   operatingSystems?: OperatingSystem[] | null;
   platforms?: Platform[] | null;
+  frontends?: Frontend[] | null;
   createdAt: string;
   updatedAt: string | null;
 }

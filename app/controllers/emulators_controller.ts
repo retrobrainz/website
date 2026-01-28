@@ -78,6 +78,7 @@ export default class EmulatorsController {
       .preload('icon')
       .preload('platforms')
       .preload('operatingSystems')
+      .preload('frontends')
       .preload('screenshot')
       .firstOrFail();
 
