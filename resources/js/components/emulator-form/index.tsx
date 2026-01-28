@@ -2,6 +2,7 @@ import { App, Button, DatePicker, Form, Input, Select, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import type Emulator from '../../types/Emulator.js';
@@ -19,20 +20,10 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [platforms, setPlatforms] = useState<Platform[]>([]);
-  const [operatingSystems, setOperatingSystems] = useState<OperatingSystem[]>([]);
+  const { data: platforms } = useFetch<Platform[]>('/api/platforms');
+  const { data: operatingSystems } = useFetch<OperatingSystem[]>('/api/operatingSystems');
   const [iconId, setIconId] = useState<number | null>(emulator?.iconId || null);
   const [screenshotId, setScreenshotId] = useState<number | null>(emulator?.screenshotId || null);
-
-  useEffect(() => {
-    // Fetch platforms and operating systems for the dropdowns
-    Promise.all([
-      xior.get('/api/platforms').then((res) => setPlatforms(res.data)),
-      xior.get('/api/operatingSystems').then((res) => setOperatingSystems(res.data)),
-    ]).catch((error) => {
-      message.error(error.response?.data?.message || error.message);
-    });
-  }, [message]);
 
   useEffect(() => {
     if (emulator) {
@@ -92,7 +83,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
         <Select
           mode="multiple"
           placeholder={t('select-platforms')}
-          options={platforms.map((p) => ({ label: p.name, value: p.id }))}
+          options={platforms?.map((p) => ({ label: p.name, value: p.id })) || []}
         />
       </Form.Item>
 
@@ -100,7 +91,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
         <Select
           mode="multiple"
           placeholder={t('select-operating-systems')}
-          options={operatingSystems.map((os) => ({ label: os.name, value: os.id }))}
+          options={operatingSystems?.map((os) => ({ label: os.name, value: os.id })) || []}
         />
       </Form.Item>
 
