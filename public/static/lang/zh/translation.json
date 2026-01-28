@@ -54,5 +54,21 @@
   "frontends": "前端",
   "search": "搜索",
   "search-games": "搜索游戏...",
-  "platform": "平台"
+  "platform": "平台",
+  "new": "新建",
+  "edit": "编辑",
+  "save": "保存",
+  "create": "创建",
+  "name": "名称",
+  "website": "网站",
+  "state": "状态",
+  "icon": "图标",
+  "operating-systems": "操作系统",
+  "new-emulator": "新模拟器",
+  "edit-emulator": "编辑模拟器",
+  "emulator-created-successfully": "模拟器创建成功",
+  "emulator-updated-successfully": "模拟器更新成功",
+  "emulator-not-found": "未找到模拟器",
+  "select-platforms": "选择平台",
+  "select-operating-systems": "选择操作系统"
 }
