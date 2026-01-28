@@ -17,6 +17,9 @@ export default class Emulator extends BaseModel {
   declare iconId: number | null;
 
   @column()
+  declare screenshotId: number | null;
+
+  @column()
   declare website: string | null;
 
   @column()
@@ -37,6 +40,11 @@ export default class Emulator extends BaseModel {
     foreignKey: 'iconId',
   })
   declare icon: BelongsTo<typeof Image>;
+
+  @belongsTo(() => Image, {
+    foreignKey: 'screenshotId',
+  })
+  declare screenshot: BelongsTo<typeof Image>;
 
   @manyToMany(() => Platform, {
     pivotTable: 'platform_emulator',

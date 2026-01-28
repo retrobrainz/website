@@ -24,6 +24,7 @@ export default class EmulatorsController {
       .preload('icon')
       .preload('operatingSystems')
       .preload('platforms')
+      .preload('screenshot')
       .orderBy('name', 'asc')
       .exec();
   }
@@ -44,9 +45,10 @@ export default class EmulatorsController {
   async show({ params }: HttpContext) {
     const emulator = await Emulator.query()
       .where('id', params.id)
+      .preload('icon')
       .preload('platforms')
       .preload('operatingSystems')
-      .preload('icon')
+      .preload('screenshot')
       .firstOrFail();
 
     return emulator;

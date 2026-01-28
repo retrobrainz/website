@@ -25,6 +25,14 @@ export default class extends BaseSchema {
         .inTable('images')
         .onDelete('SET NULL');
 
+      table
+        .integer('photo_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('images')
+        .onDelete('SET NULL');
+
       table.smallint('screen_width').unsigned().notNullable();
       table.smallint('screen_height').unsigned().notNullable();
 
