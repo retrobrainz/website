@@ -82,6 +82,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           onPressEnter={handleSearch}
           style={{ width: 200 }}
           allowClear
+          aria-label={t('search-games')}
         />
 
         <div style={{ flex: 1 }} />

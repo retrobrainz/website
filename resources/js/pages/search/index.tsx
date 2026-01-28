@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Col, Form, Input, Pagination, Row, Tag } from 'antd';
 import { Container } from 'antd-moe';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'wouter';
@@ -20,7 +20,7 @@ export default function SearchPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
 
-  const search = Form.useWatch('search', form) || initialSearch;
+  const search = Form.useWatch('search', form);
   const platformId = Form.useWatch('platformId', form);
   const regionId = Form.useWatch('regionId', form);
   const languageId = Form.useWatch('languageId', form);
@@ -36,9 +36,16 @@ export default function SearchPage() {
   });
 
   // Set initial search value when component mounts
-  if (initialSearch && !form.getFieldValue('search')) {
-    form.setFieldValue('search', initialSearch);
-  }
+  useEffect(() => {
+    if (initialSearch) {
+      form.setFieldValue('search', initialSearch);
+    }
+  }, [initialSearch, form]);
+
+  // Reset page to 1 when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [search, platformId, regionId, languageId]);
 
   return (
     <Container style={{ paddingTop: 24 }}>
@@ -86,12 +93,14 @@ export default function SearchPage() {
       {data?.meta?.total ? (
         <Pagination
           current={page}
+          pageSize={pageSize}
           onChange={(p, pSize) => {
             setPage(p);
             setPageSize(pSize);
           }}
           total={data?.meta?.total}
           showTotal={(total) => t('total-games', { total })}
+          showSizeChanger
           style={{ marginTop: 24, textAlign: 'center' }}
         />
       ) : null}
