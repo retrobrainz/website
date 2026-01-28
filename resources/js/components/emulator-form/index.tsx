@@ -1,13 +1,12 @@
-import { App, Button, DatePicker, Form, Input, Select, Upload } from 'antd';
+import { App, Button, DatePicker, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
+import OperatingSystemSelect from '../operating-system-select/index.js';
+import PlatformSelect from '../platform-select/index.js';
 import type Emulator from '../../types/Emulator.js';
-import type OperatingSystem from '../../types/OperatingSystem.js';
-import type Platform from '../../types/Platform.js';
 
 interface EmulatorFormProps {
   emulator?: Emulator;
@@ -20,8 +19,6 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { data: platforms } = useFetch<Platform[]>('/platforms');
-  const { data: operatingSystems } = useFetch<OperatingSystem[]>('/operatingSystems');
   const [iconId, setIconId] = useState<number | null>(emulator?.iconId || null);
   const [screenshotId, setScreenshotId] = useState<number | null>(emulator?.screenshotId || null);
 
@@ -80,19 +77,11 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       </Form.Item>
 
       <Form.Item label={t('platforms')} name="platformIds">
-        <Select
-          mode="multiple"
-          placeholder={t('select-platforms')}
-          options={platforms?.map((p) => ({ label: p.name, value: p.id })) || []}
-        />
+        <PlatformSelect mode="multiple" />
       </Form.Item>
 
       <Form.Item label={t('operating-systems')} name="operatingSystemIds">
-        <Select
-          mode="multiple"
-          placeholder={t('select-operating-systems')}
-          options={operatingSystems?.map((os) => ({ label: os.name, value: os.id })) || []}
-        />
+        <OperatingSystemSelect mode="multiple" />
       </Form.Item>
 
       <Form.Item label={t('icon')}>
