@@ -11,7 +11,7 @@ export default function EmulatorNewPage() {
   const [, setLocation] = useLocation();
 
   const handleSubmit = async (values: any) => {
-    const response = await xior.post('/api/emulators', values);
+    const response = await xior.post('/emulators', values);
     message.success(t('emulator-created-successfully'));
     setLocation(`/emulators`);
     return response.data;

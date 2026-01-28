@@ -12,10 +12,10 @@ export default function EmulatorEditPage() {
   const { t } = useTranslation();
   const { emulatorId } = useParams<{ emulatorId: string }>();
   const [, setLocation] = useLocation();
-  const { data: emulator, loading } = useFetch<Emulator>(`/api/emulators/${emulatorId}`);
+  const { data: emulator, loading } = useFetch<Emulator>(`/emulators/${emulatorId}`);
 
   const handleSubmit = async (values: any) => {
-    const response = await xior.put(`/api/emulators/${emulatorId}`, values);
+    const response = await xior.put(`/emulators/${emulatorId}`, values);
     message.success(t('emulator-updated-successfully'));
     setLocation(`/emulators`);
     return response.data;

@@ -20,8 +20,8 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { data: platforms } = useFetch<Platform[]>('/api/platforms');
-  const { data: operatingSystems } = useFetch<OperatingSystem[]>('/api/operatingSystems');
+  const { data: platforms } = useFetch<Platform[]>('/platforms');
+  const { data: operatingSystems } = useFetch<OperatingSystem[]>('/operatingSystems');
   const [iconId, setIconId] = useState<number | null>(emulator?.iconId || null);
   const [screenshotId, setScreenshotId] = useState<number | null>(emulator?.screenshotId || null);
 
@@ -119,7 +119,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
             formData.append('height', '256');
             formData.append('format', 'avif');
             xior
-              .post('/api/images', formData)
+              .post('/images', formData)
               .then((res) => {
                 setIconId(res.data.id);
                 onSuccess?.(res.data);
@@ -156,7 +156,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
             formData.append('image', file);
             formData.append('format', 'avif');
             xior
-              .post('/api/images', formData)
+              .post('/images', formData)
               .then((res) => {
                 setScreenshotId(res.data.id);
                 onSuccess?.(res.data);
