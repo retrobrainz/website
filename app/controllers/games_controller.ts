@@ -2,6 +2,10 @@ import Game from '#models/game';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class GamesController {
+  // Pattern for non-word characters to ignore in search
+  private static readonly NON_WORD_CHARS = /[,.\-:"';&!]/g;
+  private static readonly NON_WORD_CHARS_SQL = '[,.\\-:\\"\';&!]';
+
   /**
    * Display a list of resource
    */
@@ -26,22 +30,26 @@ export default class GamesController {
       });
     }
 
-    if (request.input('search')) {
+    if (request.input('search') && typeof request.input('search') === 'string') {
       const search = request.input('search');
       // Remove non-word characters and split into words
       const searchWords = search
-        .replace(/[,.\-:"';&!]/g, ' ')
+        .replace(GamesController.NON_WORD_CHARS, ' ')
         .split(/\s+/)
         .filter((word) => word.length > 0);
 
-      // Search for each word in the game name (case insensitive, ignoring non-word characters)
-      query.where((subQuery) => {
-        searchWords.forEach((word) => {
-          subQuery.whereRaw("REGEXP_REPLACE(LOWER(name), '[,.\\-:\"'';&!]', '', 'g') LIKE ?", [
-            `%${word.toLowerCase()}%`,
-          ]);
+      // Only apply search if we have valid words
+      if (searchWords.length > 0) {
+        // Search for each word in the game name (case insensitive, ignoring non-word characters)
+        query.where((subQuery) => {
+          searchWords.forEach((word) => {
+            subQuery.whereRaw(
+              `REGEXP_REPLACE(LOWER(name), '${GamesController.NON_WORD_CHARS_SQL}', '', 'g') LIKE ?`,
+              [`%${word.toLowerCase()}%`],
+            );
+          });
         });
-      });
+      }
     }
 
     return query
