@@ -28,7 +28,24 @@ export default class GamesController {
 
     if (request.input('search')) {
       const search = request.input('search');
-      query.where('name', 'like', `%${search}%`);
+      // Full-text search using PostgreSQL's built-in capabilities
+      // Search across game name and translations using both full-text search and ILIKE for partial matches
+      query.where((builder) => {
+        // Full-text search in the main game name
+        builder
+          .whereRaw("to_tsvector('simple', games.name) @@ plainto_tsquery('simple', ?)", [search])
+          // Also support partial text search with ILIKE for better UX
+          .orWhereILike('name', `%${search}%`)
+          // Search in game translations
+          .orWhereHas('translations', (translationQuery) => {
+            translationQuery
+              .whereRaw(
+                "to_tsvector('simple', game_translations.name) @@ plainto_tsquery('simple', ?)",
+                [search],
+              )
+              .orWhereILike('name', `%${search}%`);
+          });
+      });
     }
 
     return query
