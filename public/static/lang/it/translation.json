@@ -51,5 +51,8 @@
   "experimental": "Sperimentale",
   "discontinued": "Dismesso",
   "platforms": "Piattaforme",
-  "frontends": "Interfacce"
+  "frontends": "Interfacce",
+  "search": "Cerca",
+  "search-games": "Cerca giochi...",
+  "platform": "Piattaforma"
 }

@@ -51,5 +51,8 @@
   "experimental": "实验版",
   "discontinued": "已停止维护",
   "platforms": "平台",
-  "frontends": "前端"
+  "frontends": "前端",
+  "search": "搜索",
+  "search-games": "搜索游戏...",
+  "platform": "平台"
 }

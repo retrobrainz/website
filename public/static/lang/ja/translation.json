@@ -51,5 +51,8 @@
   "experimental": "実験版",
   "discontinued": "開発終了",
   "platforms": "プラットフォーム",
-  "frontends": "フロントエンド"
+  "frontends": "フロントエンド",
+  "search": "検索",
+  "search-games": "ゲームを検索...",
+  "platform": "プラットフォーム"
 }
