@@ -154,6 +154,8 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
           customRequest={({ file, onSuccess, onError }) => {
             const formData = new FormData();
             formData.append('image', file);
+            formData.append('width', '1280');
+            formData.append('height', '720');
             formData.append('format', 'avif');
             xior
               .post('/images', formData)
