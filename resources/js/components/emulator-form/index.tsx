@@ -6,6 +6,7 @@ import ImageUpload from '../image-upload/index.js';
 import OperatingSystemSelect from '../operating-system-select/index.js';
 import PlatformSelect from '../platform-select/index.js';
 import type Emulator from '../../types/Emulator.js';
+import type Image from '../../types/Image.js';
 
 interface EmulatorFormProps {
   emulator?: Emulator;
@@ -18,8 +19,8 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [iconId, setIconId] = useState<number | null>(emulator?.iconId || null);
-  const [screenshotId, setScreenshotId] = useState<number | null>(emulator?.screenshotId || null);
+  const [icon, setIcon] = useState<Image | null>(emulator?.icon || null);
+  const [screenshot, setScreenshot] = useState<Image | null>(emulator?.screenshot || null);
 
   useEffect(() => {
     if (emulator) {
@@ -40,8 +41,8 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       const payload = {
         ...values,
         releaseDate: values.releaseDate ? values.releaseDate.format('YYYY-MM-DD') : null,
-        iconId,
-        screenshotId,
+        iconId: icon?.id || null,
+        screenshotId: screenshot?.id || null,
       };
       await onSubmit(payload);
     } catch (error: any) {
@@ -84,16 +85,11 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       </Form.Item>
 
       <Form.Item label={t('icon')}>
-        <ImageUpload value={emulator?.icon} onChange={setIconId} width="256" height="256" />
+        <ImageUpload value={icon} onChange={setIcon} width="256" height="256" />
       </Form.Item>
 
       <Form.Item label={t('screenshot')}>
-        <ImageUpload
-          value={emulator?.screenshot}
-          onChange={setScreenshotId}
-          width="1280"
-          height="720"
-        />
+        <ImageUpload value={screenshot} onChange={setScreenshot} width="1280" height="720" />
       </Form.Item>
 
       <Form.Item>

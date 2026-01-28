@@ -7,13 +7,10 @@ import type Image from '../../types/Image.js';
 
 interface ImageUploadProps {
   value?: Image | null;
-  onChange?: (imageId: number | null) => void;
+  onChange?: (image: Image | null) => void;
   width?: string;
   height?: string;
   format?: string;
-  listType?: 'text' | 'picture' | 'picture-card' | 'picture-circle';
-  accept?: string;
-  maxCount?: number;
 }
 
 export default function ImageUpload({
@@ -22,9 +19,6 @@ export default function ImageUpload({
   width,
   height,
   format = 'avif',
-  listType = 'picture',
-  accept = 'image/*',
-  maxCount = 1,
 }: ImageUploadProps) {
   const { t } = useTranslation();
 
@@ -41,9 +35,9 @@ export default function ImageUpload({
 
   return (
     <Upload
-      accept={accept}
-      listType={listType}
-      maxCount={maxCount}
+      accept="image/*"
+      listType="picture-card"
+      maxCount={1}
       fileList={fileList}
       customRequest={({ file, onSuccess, onError }) => {
         const formData = new FormData();
@@ -58,7 +52,7 @@ export default function ImageUpload({
         xior
           .post('/images', formData)
           .then((res) => {
-            onChange?.(res.data.id);
+            onChange?.(res.data);
             onSuccess?.(res.data);
           })
           .catch((e) => onError?.(e, e.response?.data));
