@@ -39,11 +39,7 @@ export default function EmulatorPage() {
               </Flex>
             )}
           </Badge.Ribbon>
-          <Badge.Ribbon
-            text={t('screenshot')}
-            color="blue"
-            styles={{ root: { flex: '1 1 50%' } }}
-          >
+          <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 50%' } }}>
             {emulator?.screenshot ? (
               <Image src={emulator.screenshot.url} alt={`${emulator.name} ${t('screenshot')}`} />
             ) : (
@@ -87,8 +83,7 @@ export default function EmulatorPage() {
             },
             {
               label: t('operating-systems'),
-              children:
-                emulator?.operatingSystems?.map((os) => os.name).join(', ') || 'N/A',
+              children: emulator?.operatingSystems?.map((os) => os.name).join(', ') || 'N/A',
             },
             {
               label: t('frontends'),
