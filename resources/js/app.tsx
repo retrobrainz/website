@@ -19,6 +19,7 @@ import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
 import FrontendsPage from './pages/frontends/index.js';
 import EmulatorsPage from './pages/emulators/index.js';
+import EmulatorPage from './pages/emulator/index.js';
 import EmulatorNewPage from './pages/emulator-new/index.js';
 import EmulatorEditPage from './pages/emulator-edit/index.js';
 import GamePage from './pages/game/index.js';
@@ -84,6 +85,10 @@ function App() {
                 <RequireAuth>
                   <EmulatorEditPage />
                 </RequireAuth>
+              </Route>
+
+              <Route path="/emulators/:emulatorId">
+                <EmulatorPage />
               </Route>
 
               <Route path="/platforms/:platformId/games/:gameId">
