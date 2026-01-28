@@ -51,8 +51,8 @@ export default class GamesController {
         // Search for each word in the game name (case insensitive, ignoring non-word characters)
         query.where((subQuery) => {
           searchWords.forEach((word) => {
-            // Escape SQL LIKE wildcards (% and _) in user input
-            const escapedWord = word.toLowerCase().replace(/[%_]/g, '\\$&');
+            // Escape SQL LIKE special characters (backslash, % and _) in user input
+            const escapedWord = word.toLowerCase().replace(/\\/g, '\\\\').replace(/[%_]/g, '\\$&');
             subQuery.whereRaw(
               `REGEXP_REPLACE(LOWER(name), '${GamesController.NON_WORD_CHARS_SQL}', '', 'g') LIKE ?`,
               [`%${escapedWord}%`],
