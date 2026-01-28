@@ -28,7 +28,12 @@ export default class GamesController {
 
     if (request.input('search')) {
       const search = request.input('search');
-      query.where('name', 'like', `%${search}%`);
+      search
+        .split(' ')
+        .filter(Boolean)
+        .forEach((term: string) => {
+          query.where('name', 'ilike', `%${term}%`);
+        });
     }
 
     return query

@@ -1,26 +1,22 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Col, Form, Input, Pagination, Row, Tag } from 'antd';
+import { Col, Form, Pagination, Row, Tag } from 'antd';
 import { Container } from 'antd-moe';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'wouter';
+import { useSearchParams } from 'wouter';
 import GameCard from '../../components/game-card/index.js';
 import Game from '../../types/Game.js';
 
 export default function SearchPage() {
   const { t } = useTranslation();
-  const [location] = useLocation();
 
-  // Parse query params from URL
-  const searchParams = new URLSearchParams(location.split('?')[1] || '');
-  const initialSearch = searchParams.get('q') || '';
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get('q') || '';
 
   const [form] = Form.useForm();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
 
-  const search = Form.useWatch('search', form);
   const platformId = Form.useWatch('platformId', form);
   const regionId = Form.useWatch('regionId', form);
   const languageId = Form.useWatch('languageId', form);
@@ -37,10 +33,10 @@ export default function SearchPage() {
 
   // Set initial search value when component mounts
   useEffect(() => {
-    if (initialSearch) {
-      form.setFieldValue('search', initialSearch);
+    if (search) {
+      form.setFieldValue('search', search);
     }
-  }, [initialSearch, form]);
+  }, [search, form]);
 
   // Reset page to 1 when filters change
   useEffect(() => {
@@ -49,18 +45,7 @@ export default function SearchPage() {
 
   return (
     <Container style={{ paddingTop: 24 }}>
-      <h1>{t('search')}</h1>
-
-      <Form form={form} layout="vertical">
-        <Form.Item label={t('search')} name="search">
-          <Input
-            placeholder={t('search-games')}
-            prefix={<SearchOutlined />}
-            size="large"
-            allowClear
-          />
-        </Form.Item>
-
+      <Form form={form}>
         <Form.Item label={t('platform')} name="platformId">
           <Tag.CheckableTagGroup
             options={platforms

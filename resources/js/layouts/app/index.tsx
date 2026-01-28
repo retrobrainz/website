@@ -1,4 +1,4 @@
-import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 import { App, Avatar, Button, Flex, Input, Layout, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
   const [, setLocation] = useLocation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q') || '';
+  });
 
   useEffect(() => {
     const instance = modal.warning({
@@ -62,6 +65,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div style={{ fontSize: 18, fontWeight: 500 }}>RetroBrainz</div>
         </Link>
 
+        <Input.Search
+          placeholder={t('search-games')}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onSearch={handleSearch}
+          style={{ width: 200 }}
+          allowClear
+          aria-label={t('search-games')}
+        />
+
         <Link href="/platforms">
           <Button type="text">{t('platforms')}</Button>
         </Link>
@@ -73,17 +86,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Link href="/frontends">
           <Button type="text">{t('frontends')}</Button>
         </Link>
-
-        <Input
-          placeholder={t('search-games')}
-          prefix={<SearchOutlined />}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onPressEnter={handleSearch}
-          style={{ width: 200 }}
-          allowClear
-          aria-label={t('search-games')}
-        />
 
         <div style={{ flex: 1 }} />
 
