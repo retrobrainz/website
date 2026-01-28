@@ -34,6 +34,7 @@ export default function EmulatorPage() {
                 justify="center"
                 align="center"
                 style={{ height: 150, background: '#ccc', color: '#666' }}
+                aria-label="No icon available"
               >
                 {t('icon')}
               </Flex>
@@ -47,6 +48,7 @@ export default function EmulatorPage() {
                 justify="center"
                 align="center"
                 style={{ height: 150, background: '#ccc', color: '#666' }}
+                aria-label="No screenshot available"
               >
                 {t('screenshot')}
               </Flex>
