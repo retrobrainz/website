@@ -1,4 +1,5 @@
 import { Button, Upload } from 'antd';
+import type { UploadFile } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
@@ -27,23 +28,23 @@ export default function ImageUpload({
 }: ImageUploadProps) {
   const { t } = useTranslation();
 
+  const fileList: UploadFile[] = value
+    ? [
+        {
+          uid: String(value.id),
+          name: 'image',
+          status: 'done',
+          url: value.url,
+        },
+      ]
+    : [];
+
   return (
     <Upload
       accept={accept}
       listType={listType}
       maxCount={maxCount}
-      defaultFileList={
-        value
-          ? [
-              {
-                uid: String(value.id),
-                name: 'image',
-                status: 'done',
-                url: value.url,
-              },
-            ]
-          : []
-      }
+      fileList={fileList}
       customRequest={({ file, onSuccess, onError }) => {
         const formData = new FormData();
         formData.append('image', file);
