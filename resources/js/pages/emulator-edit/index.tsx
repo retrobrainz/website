@@ -12,7 +12,7 @@ export default function EmulatorEditPage() {
   const { t } = useTranslation();
   const { emulatorId } = useParams<{ emulatorId: string }>();
   const [, setLocation] = useLocation();
-  const { data: emulator, isLoading } = useFetch<Emulator>(`/api/emulators/${emulatorId}`);
+  const { data: emulator, loading } = useFetch<Emulator>(`/api/emulators/${emulatorId}`);
 
   const handleSubmit = async (values: any) => {
     const response = await xior.put(`/api/emulators/${emulatorId}`, values);
@@ -21,7 +21,7 @@ export default function EmulatorEditPage() {
     return response.data;
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <Container maxWidth="md">
         <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />
