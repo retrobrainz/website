@@ -54,5 +54,21 @@
   "frontends": "フロントエンド",
   "search": "検索",
   "search-games": "ゲームを検索...",
-  "platform": "プラットフォーム"
+  "platform": "プラットフォーム",
+  "new": "新規",
+  "edit": "編集",
+  "save": "保存",
+  "create": "作成",
+  "name": "名前",
+  "website": "ウェブサイト",
+  "state": "状態",
+  "icon": "アイコン",
+  "operating-systems": "オペレーティングシステム",
+  "new-emulator": "新しいエミュレータ",
+  "edit-emulator": "エミュレータを編集",
+  "emulator-created-successfully": "エミュレータが正常に作成されました",
+  "emulator-updated-successfully": "エミュレータが正常に更新されました",
+  "emulator-not-found": "エミュレータが見つかりません",
+  "select-platforms": "プラットフォームを選択",
+  "select-operating-systems": "オペレーティングシステムを選択"
 }

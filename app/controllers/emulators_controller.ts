@@ -29,15 +29,45 @@ export default class EmulatorsController {
       .exec();
   }
 
-  async store({ request, auth }: HttpContext) {
+  async store({ request, auth, response }: HttpContext) {
     // Only editors and admins can create emulators
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     // TODO validate input
-    const { name, website, state, releaseDate } = request.all();
-    const emulator = await Emulator.create({ name, website, state, releaseDate });
+    const {
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+      platformIds,
+      operatingSystemIds,
+    } = request.all();
+    const emulator = await Emulator.create({
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+    });
+
+    // Attach relationships if provided
+    if (Array.isArray(platformIds)) {
+      await emulator.related('platforms').attach(platformIds);
+    }
+    if (Array.isArray(operatingSystemIds)) {
+      await emulator.related('operatingSystems').attach(operatingSystemIds);
+    }
+
+    // Load relationships before returning
+    await emulator.load('icon');
+    await emulator.load('screenshot');
+    await emulator.load('platforms');
+    await emulator.load('operatingSystems');
 
     return emulator;
   }
@@ -54,17 +84,42 @@ export default class EmulatorsController {
     return emulator;
   }
 
-  async update({ params, request, auth }: HttpContext) {
+  async update({ params, request, auth, response }: HttpContext) {
     // Only editors and admins can update emulators
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     // TODO validate input
-    const { name, website, state, releaseDate } = request.all();
+    const {
+      name,
+      website,
+      state,
+      releaseDate,
+      iconId,
+      screenshotId,
+      platformIds,
+      operatingSystemIds,
+    } = request.all();
     const emulator = await Emulator.findOrFail(params.id);
 
-    emulator.merge({ name, website, state, releaseDate });
-    return await emulator.save();
+    emulator.merge({ name, website, state, releaseDate, iconId, screenshotId });
+    await emulator.save();
+
+    // Sync relationships if provided
+    if (Array.isArray(platformIds)) {
+      await emulator.related('platforms').sync(platformIds);
+    }
+    if (Array.isArray(operatingSystemIds)) {
+      await emulator.related('operatingSystems').sync(operatingSystemIds);
+    }
+
+    // Load relationships before returning
+    await emulator.load('icon');
+    await emulator.load('screenshot');
+    await emulator.load('platforms');
+    await emulator.load('operatingSystems');
+
+    return emulator;
   }
 }
