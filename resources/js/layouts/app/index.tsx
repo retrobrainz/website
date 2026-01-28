@@ -1,23 +1,19 @@
 import { SettingOutlined } from '@ant-design/icons';
-import { App, Avatar, Button, Flex, Input, Layout, Tooltip } from 'antd';
-import { useEffect, useState } from 'react';
+import { App, Avatar, Button, Flex, Layout, Tooltip } from 'antd';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import LanguageMenu from '../../components/language-menu/index.js';
 import Login from '../../components/login/index.js';
 import Logout from '../../components/logout/index.js';
 import Register from '../../components/register/index.js';
+import SearchBar from '../../components/search-bar/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { modal } = App.useApp();
   const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
-  const [, setLocation] = useLocation();
-  const [searchQuery, setSearchQuery] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('q') || '';
-  });
 
   useEffect(() => {
     const instance = modal.warning({
@@ -29,14 +25,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       instance.destroy();
     };
   }, [modal, t]);
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    } else {
-      setLocation('/search');
-    }
-  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -65,15 +53,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div style={{ fontSize: 18, fontWeight: 500 }}>RetroBrainz</div>
         </Link>
 
-        <Input.Search
-          placeholder={t('search-games')}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onSearch={handleSearch}
-          style={{ width: 200 }}
-          allowClear
-          aria-label={t('search-games')}
-        />
+        <SearchBar />
 
         <Link href="/platforms">
           <Button type="text">{t('platforms')}</Button>
