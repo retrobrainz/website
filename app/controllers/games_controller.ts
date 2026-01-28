@@ -2,9 +2,13 @@ import Game from '#models/game';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class GamesController {
-  // Pattern for non-word characters to ignore in search
+  // Regex pattern for non-word characters to ignore in search (JavaScript)
   private static readonly NON_WORD_CHARS = /[,.\-:"';&!]/g;
+  // SQL character class for non-word characters (used in REGEXP_REPLACE)
+  // Note: This is a hardcoded constant, not derived from user input
   private static readonly NON_WORD_CHARS_SQL = '[,.\\-:\\"\';&!]';
+  // Maximum length for search query to prevent DoS
+  private static readonly MAX_SEARCH_LENGTH = 200;
 
   /**
    * Display a list of resource
@@ -30,7 +34,11 @@ export default class GamesController {
       });
     }
 
-    if (request.input('search') && typeof request.input('search') === 'string') {
+    if (
+      request.input('search') &&
+      typeof request.input('search') === 'string' &&
+      request.input('search').length <= GamesController.MAX_SEARCH_LENGTH
+    ) {
       const search = request.input('search');
       // Remove non-word characters and split into words
       const searchWords = search
@@ -43,9 +51,11 @@ export default class GamesController {
         // Search for each word in the game name (case insensitive, ignoring non-word characters)
         query.where((subQuery) => {
           searchWords.forEach((word) => {
+            // Escape SQL LIKE wildcards (% and _) in user input
+            const escapedWord = word.toLowerCase().replace(/[%_]/g, '\\$&');
             subQuery.whereRaw(
               `REGEXP_REPLACE(LOWER(name), '${GamesController.NON_WORD_CHARS_SQL}', '', 'g') LIKE ?`,
-              [`%${word.toLowerCase()}%`],
+              [`%${escapedWord}%`],
             );
           });
         });
