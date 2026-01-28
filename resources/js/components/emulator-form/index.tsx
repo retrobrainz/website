@@ -1,9 +1,8 @@
-import { App, Button, DatePicker, Form, Input, Upload } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { App, Button, DatePicker, Form, Input } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import xior from 'xior';
+import ImageUpload from '../image-upload/index.js';
 import OperatingSystemSelect from '../operating-system-select/index.js';
 import PlatformSelect from '../platform-select/index.js';
 import type Emulator from '../../types/Emulator.js';
@@ -85,81 +84,16 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       </Form.Item>
 
       <Form.Item label={t('icon')}>
-        <Upload
-          accept="image/*"
-          listType="picture"
-          maxCount={1}
-          defaultFileList={
-            emulator?.icon
-              ? [
-                  {
-                    uid: String(emulator.icon.id),
-                    name: 'icon',
-                    status: 'done',
-                    url: emulator.icon.url,
-                  },
-                ]
-              : []
-          }
-          customRequest={({ file, onSuccess, onError }) => {
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('width', '256');
-            formData.append('height', '256');
-            formData.append('format', 'avif');
-            xior
-              .post('/images', formData)
-              .then((res) => {
-                setIconId(res.data.id);
-                onSuccess?.(res.data);
-              })
-              .catch((e) => onError?.(e, e.response?.data));
-          }}
-          onRemove={() => {
-            setIconId(null);
-          }}
-        >
-          <Button icon={<UploadOutlined />}>{t('upload')}</Button>
-        </Upload>
+        <ImageUpload value={emulator?.icon} onChange={setIconId} width="256" height="256" />
       </Form.Item>
 
       <Form.Item label={t('screenshot')}>
-        <Upload
-          accept="image/*"
-          listType="picture"
-          maxCount={1}
-          defaultFileList={
-            emulator?.screenshot
-              ? [
-                  {
-                    uid: String(emulator.screenshot.id),
-                    name: 'screenshot',
-                    status: 'done',
-                    url: emulator.screenshot.url,
-                  },
-                ]
-              : []
-          }
-          customRequest={({ file, onSuccess, onError }) => {
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('width', '1280');
-            formData.append('height', '720');
-            formData.append('format', 'avif');
-            xior
-              .post('/images', formData)
-              .then((res) => {
-                setScreenshotId(res.data.id);
-                onSuccess?.(res.data);
-              })
-              .catch((e) => onError?.(e, e.response?.data));
-          }}
-          onRemove={() => {
-            setScreenshotId(null);
-          }}
-        >
-          <Button icon={<UploadOutlined />}>{t('upload')}</Button>
-        </Upload>
+        <ImageUpload
+          value={emulator?.screenshot}
+          onChange={setScreenshotId}
+          width="1280"
+          height="720"
+        />
       </Form.Item>
 
       <Form.Item>
