@@ -28,7 +28,20 @@ export default class GamesController {
 
     if (request.input('search')) {
       const search = request.input('search');
-      query.where('name', 'like', `%${search}%`);
+      // Remove non-word characters and split into words
+      const searchWords = search
+        .replace(/[,.\-:"';&!]/g, ' ')
+        .split(/\s+/)
+        .filter((word) => word.length > 0);
+
+      // Search for each word in the game name (case insensitive, ignoring non-word characters)
+      query.where((subQuery) => {
+        searchWords.forEach((word) => {
+          subQuery.whereRaw("REGEXP_REPLACE(LOWER(name), '[,.\\-:\"'';&!]', '', 'g') LIKE ?", [
+            `%${word.toLowerCase()}%`,
+          ]);
+        });
+      });
     }
 
     return query
