@@ -29,10 +29,10 @@ export default class EmulatorsController {
       .exec();
   }
 
-  async store({ request, auth }: HttpContext) {
+  async store({ request, auth, response }: HttpContext) {
     // Only editors and admins can create emulators
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ error: 'Unauthorized' });
     }
 
     // TODO validate input
@@ -84,10 +84,10 @@ export default class EmulatorsController {
     return emulator;
   }
 
-  async update({ params, request, auth }: HttpContext) {
+  async update({ params, request, auth, response }: HttpContext) {
     // Only editors and admins can update emulators
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ error: 'Unauthorized' });
     }
 
     // TODO validate input
