@@ -8,6 +8,8 @@ export default interface Emulator {
   website: string | null;
   iconId: number | null;
   icon: Image | null;
+  screenshotId: number | null;
+  screenshot: Image | null;
   state: string | null;
   releaseDate: string | null;
   operatingSystems?: OperatingSystem[] | null;

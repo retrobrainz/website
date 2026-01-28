@@ -54,5 +54,21 @@
   "frontends": "Frontends",
   "search": "Search",
   "search-games": "Search games...",
-  "platform": "Platform"
+  "platform": "Platform",
+  "new": "New",
+  "edit": "Edit",
+  "save": "Save",
+  "create": "Create",
+  "name": "Name",
+  "website": "Website",
+  "state": "State",
+  "icon": "Icon",
+  "operating-systems": "Operating Systems",
+  "new-emulator": "New Emulator",
+  "edit-emulator": "Edit Emulator",
+  "emulator-created-successfully": "Emulator created successfully",
+  "emulator-updated-successfully": "Emulator updated successfully",
+  "emulator-not-found": "Emulator not found",
+  "select-platforms": "Select platforms",
+  "select-operating-systems": "Select operating systems"
 }
