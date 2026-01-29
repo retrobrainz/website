@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import { EditOutlined } from '@ant-design/icons';
 import { useAuth } from '../../contexts/auth/index.js';
+import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import Frontend from '../../types/Frontend.js';
 
 export default function FrontendPage() {
@@ -57,18 +58,10 @@ export default function FrontendPage() {
             )}
           </Badge.Ribbon>
           <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 50%' } }}>
-            {frontend?.screenshot ? (
-              <Image src={frontend.screenshot.url} alt={`${frontend.name} ${t('screenshot')}`} />
-            ) : (
-              <Flex
-                justify="center"
-                align="center"
-                style={{ height: 150, background: '#ccc', color: '#666' }}
-                aria-label="No screenshot available"
-              >
-                {t('screenshot')}
-              </Flex>
-            )}
+            <Image
+              src={frontend?.screenshot?.url || fallbackScreenshot}
+              alt={`${frontend?.name} ${t('screenshot')}`}
+            />
           </Badge.Ribbon>
         </Flex>
       </Image.PreviewGroup>
