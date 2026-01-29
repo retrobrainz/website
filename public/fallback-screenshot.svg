@@ -1,0 +1,9 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#f0f0f0"/>
+  <g opacity="0.3">
+    <path d="M300 200h200v200h-200z" stroke="#d0d0d0" stroke-width="2" fill="none"/>
+    <circle cx="350" cy="280" r="30" fill="#d0d0d0"/>
+    <path d="M320 350l60-60 40 40 80-80" stroke="#d0d0d0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="400" y="440" font-family="Arial, sans-serif" font-size="18" fill="#999" text-anchor="middle">No Screenshot Available</text>
+</svg>

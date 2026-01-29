@@ -14,15 +14,13 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
     <Link href={`/emulators/${emulator.id}`}>
       <Card
         cover={
-          emulator.screenshot && (
-            <img
-              src={emulator.screenshot.url}
-              alt={`${emulator.name} screenshot`}
-              width={emulator.screenshot.width}
-              height={emulator.screenshot.height}
-              style={{ width: '100%', height: 'auto' }}
-            />
-          )
+          <img
+            src={emulator.screenshot?.url || '/fallback-screenshot.svg'}
+            alt={`${emulator.name} screenshot`}
+            width={emulator.screenshot?.width}
+            height={emulator.screenshot?.height}
+            style={{ width: '100%', height: 'auto' }}
+          />
         }
       >
         <Card.Meta
