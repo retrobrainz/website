@@ -1,5 +1,6 @@
 import { Card, Flex, Tooltip } from 'antd';
 import { useMemo } from 'react';
+import { Link } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import Frontend from '../../types/Frontend.js';
 import OperatingSystemIcon from '../operating-system-icon/index.js';
@@ -18,6 +19,7 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
   }, [frontend.operatingSystems]);
 
   return (
+    <Link href={`/frontends/${frontend.id}`}>
     <Card
       cover={
         <img
@@ -51,7 +53,8 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
             </Flex>
           )
         }
-      />
-    </Card>
+      >
+      </Card>
+    </Link>
   );
 }

@@ -18,6 +18,7 @@ import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
 import FrontendsPage from './pages/frontends/index.js';
+import FrontendPage from './pages/frontend/index.js';
 import EmulatorsPage from './pages/emulators/index.js';
 import EmulatorPage from './pages/emulator/index.js';
 import EmulatorNewPage from './pages/emulator-new/index.js';
@@ -65,6 +66,10 @@ function App() {
 
               <Route path="/frontends">
                 <FrontendsPage />
+              </Route>
+
+              <Route path="/frontends/:frontendId">
+                <FrontendPage />
               </Route>
 
               <Route path="/platforms/:platformId">
