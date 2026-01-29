@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 const iconMap: Record<string, ReactElement> = {
   Android: <AndroidFilled style={{ color: 'var(--ant-green)' }} />,
+  iOS: <AppleFilled style={{ color: 'var(--ant-gray)' }} />,
   Linux: <LinuxOutlined style={{ color: 'var(--ant-orange)' }} />,
   macOS: <AppleFilled style={{ color: 'var(--ant-gray)' }} />,
   Windows: <WindowsFilled style={{ color: 'var(--ant-blue)' }} />,

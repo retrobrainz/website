@@ -1,5 +1,6 @@
 import Emulator from '#models/emulator';
 import Frontend from '#models/frontend';
+import Image from '#models/image';
 import OperatingSystem from '#models/operating_system';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
@@ -10,6 +11,7 @@ export default class extends BaseSeeder {
       {
         name: 'RetroArch',
         website: 'https://www.retroarch.com',
+        icon: 'https://github.com/libretro/RetroArch/blob/master/media/com.libretro.RetroArch.svg?raw=true',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -18,11 +20,13 @@ export default class extends BaseSeeder {
           { name: 'macOS', arch: 'x86_64' },
           { name: 'macOS', arch: 'aarch64' },
           { name: 'Android', arch: 'aarch64' },
+          { name: 'iOS', arch: 'aarch64' },
         ],
       },
       {
         name: 'ES-DE',
         website: 'https://es-de.org',
+        icon: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/org.es_de.frontend.svg?ref_type=heads',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -34,6 +38,7 @@ export default class extends BaseSeeder {
       {
         name: 'Pegasus',
         website: 'https://pegasus-frontend.org',
+        icon: 'https://github.com/mmatyas/pegasus-frontend/blob/master/assets/icon.png?raw=true',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -46,9 +51,15 @@ export default class extends BaseSeeder {
     ];
 
     // Create frontends and link them to emulators and operating systems
-    for (const { name, website, emulators: emulatorNames, os } of frontends) {
+    for (const { name, website, icon, emulators: emulatorNames, os } of frontends) {
       const frontend = await Frontend.firstOrCreate({ name }, { name, website });
       frontend.merge({ website });
+
+      if (icon) {
+        const image = await Image.fromHttp(icon, { width: 256, height: 256 });
+        frontend.iconId = image.id;
+      }
+
       await frontend.save();
 
       // Link to emulators
