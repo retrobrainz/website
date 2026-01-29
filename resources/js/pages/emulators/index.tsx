@@ -1,4 +1,4 @@
-import { Col, Form, Row, Spin, Tag, Button, Flex } from 'antd';
+import { Breadcrumb, Col, Form, Row, Spin, Tag, Button, Flex, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -30,6 +30,12 @@ export default function EmulatorsPage() {
 
   return (
     <Container style={{ paddingTop: 24 }}>
+      <Breadcrumb
+        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: t('emulators') }]}
+        style={{ marginBottom: 16 }}
+      />
+
+      <Typography.Title level={1}>{t('emulators')}</Typography.Title>
       <Flex justify="flex-end" align="center" style={{ marginBottom: 16 }}>
         {canCreateEmulator && (
           <Link href="/emulators/new">
