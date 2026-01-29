@@ -69,6 +69,7 @@
   "emulator-created-successfully": "Emulator created successfully",
   "emulator-updated-successfully": "Emulator updated successfully",
   "emulator-not-found": "Emulator not found",
+  "no-emulators-found": "No emulators found",
   "select-platforms": "Select platforms",
   "select-operating-systems": "Select operating systems"
 }
