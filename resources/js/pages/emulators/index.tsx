@@ -35,8 +35,10 @@ export default function EmulatorsPage() {
         style={{ marginBottom: 16 }}
       />
 
-      <Typography.Title level={1}>{t('emulators')}</Typography.Title>
-      <Flex justify="flex-end" align="center" style={{ marginBottom: 16 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+        <Typography.Title level={1} style={{ margin: 0 }}>
+          {t('emulators')}
+        </Typography.Title>
         {canCreateEmulator && (
           <Link href="/emulators/new">
             <Button type="primary" icon={<PlusOutlined />}>
