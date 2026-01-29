@@ -46,14 +46,16 @@ export default function FrontendsPage() {
       <Form>
         <Form.Item label={t('operating-system')}>
           <Tag.CheckableTagGroup
-            options={operatingSystems?.map((item) => ({
-              value: item.id,
-              label: (
-                <span>
-                  <OperatingSystemIcon name={item.name} /> {item.name} ({item.arch})
-                </span>
-              ),
-            }))}
+            options={
+              operatingSystems?.map((item) => ({
+                value: item.id,
+                label: (
+                  <span>
+                    <OperatingSystemIcon name={item.name} /> {item.name} ({item.arch})
+                  </span>
+                ),
+              })) ?? []
+            }
             value={operatingSystemId}
             onChange={setOperatingSystemId}
           />
