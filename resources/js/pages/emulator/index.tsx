@@ -3,6 +3,7 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import Emulator from '../../types/Emulator.js';
 
 export default function EmulatorPage() {
@@ -41,18 +42,10 @@ export default function EmulatorPage() {
             )}
           </Badge.Ribbon>
           <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 50%' } }}>
-            {emulator?.screenshot ? (
-              <Image src={emulator.screenshot.url} alt={`${emulator.name} ${t('screenshot')}`} />
-            ) : (
-              <Flex
-                justify="center"
-                align="center"
-                style={{ height: 150, background: '#ccc', color: '#666' }}
-                aria-label="No screenshot available"
-              >
-                {t('screenshot')}
-              </Flex>
-            )}
+            <Image
+              src={emulator?.screenshot?.url || fallbackScreenshot}
+              alt={`${emulator?.name} ${t('screenshot')}`}
+            />
           </Badge.Ribbon>
         </Flex>
       </Image.PreviewGroup>
