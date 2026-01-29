@@ -1,4 +1,6 @@
-import { Card, Flex, Tag } from 'antd';
+import { Card, Flex, Tooltip } from 'antd';
+import { useMemo } from 'react';
+import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import Frontend from '../../types/Frontend.js';
 import OperatingSystemIcon from '../operating-system-icon/index.js';
 
@@ -7,16 +9,24 @@ export interface FrontendCardProps {
 }
 
 export default function FrontendCard({ frontend }: FrontendCardProps) {
+  const osNames = useMemo(() => {
+    const names = new Set<string>();
+    frontend.operatingSystems?.forEach((os) => {
+      names.add(os.name);
+    });
+    return Array.from(names);
+  }, [frontend.operatingSystems]);
+
   return (
     <Card
       cover={
-        frontend.screenshot && (
-          <img
-            src={frontend.screenshot.url}
-            alt={frontend.name}
-            style={{ height: 200, objectFit: 'cover' }}
-          />
-        )
+        <img
+          src={frontend.screenshot?.url || fallbackScreenshot}
+          alt={`${frontend.name} screenshot`}
+          width={frontend.screenshot?.width || 1280}
+          height={frontend.screenshot?.height || 720}
+          style={{ width: '100%', height: 'auto' }}
+        />
       }
     >
       <Card.Meta
@@ -33,20 +43,17 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
         }
         title={frontend.name}
         description={
-          frontend.website && (
-            <a href={frontend.website} target="_blank" rel="noopener noreferrer">
-              {frontend.website}
-            </a>
+          osNames.length > 0 && (
+            <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
+              {osNames.map((name) => (
+                <Tooltip key={name} title={name}>
+                  <OperatingSystemIcon name={name} />
+                </Tooltip>
+              ))}
+            </Flex>
           )
         }
       />
-      <Flex wrap="wrap" gap={8} style={{ marginTop: 16 }}>
-        {frontend.operatingSystems?.map((item) => (
-          <Tag key={item.id} icon={<OperatingSystemIcon name={item.name} />}>
-            {item.name} ({item.arch})
-          </Tag>
-        ))}
-      </Flex>
     </Card>
   );
 }
