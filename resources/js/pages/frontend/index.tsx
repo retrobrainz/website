@@ -35,7 +35,7 @@ export default function FrontendPage() {
             width={56}
             height={56}
             alt={`${frontend.name} icon`}
-            style={{ marginRight: 16 }}
+            style={{ marginRight: 12 }}
           />
         )}
         <Typography.Title level={1} style={{ margin: 0 }}>

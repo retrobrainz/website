@@ -35,7 +35,7 @@ export default function EmulatorPage() {
             width={56}
             height={56}
             alt={`${emulator.name} icon`}
-            style={{ marginRight: 16 }}
+            style={{ marginRight: 12 }}
           />
         )}
         <Typography.Title level={1} style={{ margin: 0 }}>
