@@ -30,8 +30,7 @@ export default function EmulatorsPage() {
 
   return (
     <Container style={{ paddingTop: 24 }}>
-      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
-        <div />
+      <Flex justify="flex-end" align="center" style={{ marginBottom: 16 }}>
         {canCreateEmulator && (
           <Link href="/emulators/new">
             <Button type="primary" icon={<PlusOutlined />}>

@@ -17,6 +17,7 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
           emulator.screenshot && (
             <img
               src={emulator.screenshot.url}
+              alt={`${emulator.name} screenshot`}
               width={emulator.screenshot.width}
               height={emulator.screenshot.height}
               style={{ width: '100%', height: 'auto' }}
@@ -26,7 +27,13 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
       >
         <Card.Meta
           avatar={
-            <img src={emulator.icon?.url} width={56} height={56} style={{ display: 'block' }} />
+            <img
+              src={emulator.icon?.url}
+              alt={`${emulator.name} icon`}
+              width={56}
+              height={56}
+              style={{ display: 'block' }}
+            />
           }
           title={
             <Flex align="center" gap={8}>
@@ -38,7 +45,12 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
           }
           description={
             emulator.website && (
-              <a href={emulator.website} target="_blank" rel="noopener noreferrer">
+              <a
+                href={emulator.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {emulator.website}
               </a>
             )
