@@ -18,8 +18,8 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
           <img
             src={emulator.screenshot?.url || fallbackScreenshot}
             alt={`${emulator.name} screenshot`}
-            width={emulator.screenshot?.width || 800}
-            height={emulator.screenshot?.height || 600}
+            width={emulator.screenshot?.width || 1280}
+            height={emulator.screenshot?.height || 720}
             style={{ width: '100%', height: 'auto' }}
           />
         }
