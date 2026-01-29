@@ -1,16 +1,20 @@
-import { Col, Form, Row, Spin, Tag } from 'antd';
+import { Col, Form, Row, Spin, Tag, Button, Flex } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'wouter';
+import { PlusOutlined } from '@ant-design/icons';
 import EmulatorCard from '../../components/emulator-card/index.js';
 import OperatingSystemIcon from '../../components/operating-system-icon/index.js';
+import { useAuth } from '../../contexts/auth/index.js';
 import Emulator from '../../types/Emulator.js';
 import OperatingSystem from '../../types/OperatingSystem.js';
 import Platform from '../../types/Platform.js';
 
 export default function EmulatorsPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   const { data: platforms } = useFetch<Platform[]>('/platforms');
   const { data: operatingSystems } = useFetch<OperatingSystem[]>('/operatingSystems');
@@ -22,8 +26,21 @@ export default function EmulatorsPage() {
     params: { platformId, operatingSystemId },
   });
 
+  const canCreateEmulator = user?.role === 'admin' || user?.role === 'editor';
+
   return (
     <Container style={{ paddingTop: 24 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+        <div />
+        {canCreateEmulator && (
+          <Link href="/emulators/new">
+            <Button type="primary" icon={<PlusOutlined />}>
+              {t('new-emulator')}
+            </Button>
+          </Link>
+        )}
+      </Flex>
+
       <Form>
         <Form.Item label={t('platform')}>
           <Tag.CheckableTagGroup
