@@ -44,6 +44,12 @@ export default class Image extends BaseModel {
 
   static async fromBuffer(buffer: Buffer, options: ImageCreateOptions = {}): Promise<Image> {
     const metadata = await sharp(buffer).metadata();
+
+    if (metadata.format === 'heif') {
+      // sharp uses 'heif' but we want 'avif' to be more specific
+      metadata.format = 'avif';
+    }
+
     let outputMetadata = metadata;
     let outputBuffer = buffer;
 
