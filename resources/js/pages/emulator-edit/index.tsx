@@ -1,10 +1,10 @@
 import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
+import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useParams, useLocation } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import EmulatorForm from '../../components/emulator-form/index.js';
-import { useFetch } from 'react-fast-fetch';
 import type Emulator from '../../types/Emulator.js';
 
 export default function EmulatorEditPage() {
@@ -15,10 +15,9 @@ export default function EmulatorEditPage() {
   const { data: emulator, loading } = useFetch<Emulator>(`/emulators/${emulatorId}`);
 
   const handleSubmit = async (values: any) => {
-    const response = await xior.put(`/emulators/${emulatorId}`, values);
+    await xior.put(`/emulators/${emulatorId}`, values);
     message.success(t('emulator-updated-successfully'));
-    setLocation(`/emulators`);
-    return response.data;
+    setLocation(`/emulators/${emulatorId}`);
   };
 
   if (loading) {

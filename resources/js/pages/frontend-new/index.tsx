@@ -13,8 +13,7 @@ export default function FrontendNewPage() {
   const handleSubmit = async (values: any) => {
     const response = await xior.post('/frontends', values);
     message.success(t('frontend-created-successfully'));
-    setLocation(`/frontends`);
-    return response.data;
+    setLocation(`/frontends/${response.data.id}`);
   };
 
   return (

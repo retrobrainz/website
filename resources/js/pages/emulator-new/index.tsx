@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'wouter';
 import xior from 'xior';
 import EmulatorForm from '../../components/emulator-form/index.js';
+import Emulator from '../../types/Emulator.js';
 
 export default function EmulatorNewPage() {
   const { message } = App.useApp();
@@ -11,10 +12,9 @@ export default function EmulatorNewPage() {
   const [, setLocation] = useLocation();
 
   const handleSubmit = async (values: any) => {
-    const response = await xior.post('/emulators', values);
+    const response = await xior.post<Emulator>('/emulators', values);
     message.success(t('emulator-created-successfully'));
-    setLocation(`/emulators`);
-    return response.data;
+    setLocation(`/emulators/${response.data.id}`);
   };
 
   return (

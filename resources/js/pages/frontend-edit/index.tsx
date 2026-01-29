@@ -1,10 +1,10 @@
 import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
+import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useParams, useLocation } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import FrontendForm from '../../components/frontend-form/index.js';
-import { useFetch } from 'react-fast-fetch';
 import type Frontend from '../../types/Frontend.js';
 
 export default function FrontendEditPage() {
@@ -15,10 +15,9 @@ export default function FrontendEditPage() {
   const { data: frontend, loading } = useFetch<Frontend>(`/frontends/${frontendId}`);
 
   const handleSubmit = async (values: any) => {
-    const response = await xior.put(`/frontends/${frontendId}`, values);
+    await xior.put(`/frontends/${frontendId}`, values);
     message.success(t('frontend-updated-successfully'));
-    setLocation(`/frontends`);
-    return response.data;
+    setLocation(`/frontends/${frontendId}`);
   };
 
   if (loading) {
