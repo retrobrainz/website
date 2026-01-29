@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import Emulator from '../../types/Emulator.js';
 import OperatingSystemIcon from '../operating-system-icon/index.js';
+import fallbackScreenshot from '../../img/fallback-screenshot.avif';
 
 export interface EmulatorProps {
   emulator: Emulator;
@@ -14,15 +15,13 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
     <Link href={`/emulators/${emulator.id}`}>
       <Card
         cover={
-          emulator.screenshot && (
-            <img
-              src={emulator.screenshot.url}
-              alt={`${emulator.name} screenshot`}
-              width={emulator.screenshot.width}
-              height={emulator.screenshot.height}
-              style={{ width: '100%', height: 'auto' }}
-            />
-          )
+          <img
+            src={emulator.screenshot?.url || fallbackScreenshot}
+            alt={`${emulator.name} screenshot`}
+            width={emulator.screenshot?.width || 1280}
+            height={emulator.screenshot?.height || 720}
+            style={{ width: '100%', height: 'auto' }}
+          />
         }
       >
         <Card.Meta
