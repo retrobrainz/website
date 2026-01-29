@@ -1,4 +1,5 @@
-import { Card, Flex, Tag } from 'antd';
+import { Card, Flex, Tag, Tooltip } from 'antd';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
@@ -11,6 +12,15 @@ export interface EmulatorProps {
 
 export default function EmulatorCard({ emulator }: EmulatorProps) {
   const { t } = useTranslation();
+
+  const osNames = useMemo(() => {
+    const names = new Set<string>();
+    emulator.operatingSystems?.forEach((os) => {
+      names.add(os.name);
+    });
+    return Array.from(names);
+  }, [emulator.operatingSystems]);
+
   return (
     <Link href={`/emulators/${emulator.id}`}>
       <Card
@@ -43,25 +53,15 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
             </Flex>
           }
           description={
-            emulator.website && (
-              <a
-                href={emulator.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {emulator.website}
-              </a>
-            )
+            <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
+              {osNames.map((name) => (
+                <Tooltip key={name} title={name}>
+                  <OperatingSystemIcon key={name} name={name} />
+                </Tooltip>
+              ))}
+            </Flex>
           }
         />
-        <Flex wrap="wrap" gap={8} style={{ marginTop: 16 }}>
-          {emulator.operatingSystems?.map((item) => (
-            <Tag key={item.id} icon={<OperatingSystemIcon name={item.name} />}>
-              {item.name} ({item.arch})
-            </Tag>
-          ))}
-        </Flex>
       </Card>
     </Link>
   );

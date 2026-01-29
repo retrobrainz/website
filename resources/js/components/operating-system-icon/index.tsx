@@ -12,6 +12,6 @@ export interface OperatingSystemIconProps {
   name: string;
 }
 
-export default function OperatingSystemIcon({ name }: OperatingSystemIconProps) {
-  return iconMap[name] || null;
+export default function OperatingSystemIcon({ name, ...rest }: OperatingSystemIconProps) {
+  return <span {...rest}>{iconMap[name] || null}</span>;
 }
