@@ -43,13 +43,15 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
         }
         title={frontend.name}
         description={
-          <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
-            {osNames.map((name) => (
-              <Tooltip key={name} title={name}>
-                <OperatingSystemIcon key={name} name={name} />
-              </Tooltip>
-            ))}
-          </Flex>
+          osNames.length > 0 && (
+            <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
+              {osNames.map((name) => (
+                <Tooltip key={name} title={name}>
+                  <OperatingSystemIcon name={name} />
+                </Tooltip>
+              ))}
+            </Flex>
+          )
         }
       />
     </Card>
