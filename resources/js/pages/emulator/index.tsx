@@ -1,16 +1,21 @@
-import { Badge, Breadcrumb, Card, Descriptions, Flex, Image, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
+import { useAuth } from '../../contexts/auth/index.js';
 import Emulator from '../../types/Emulator.js';
 
 export default function EmulatorPage() {
   const { emulatorId } = useParams();
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   const { data: emulator } = useFetch<Emulator>(`/emulators/${emulatorId}`);
+
+  const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
   return (
     <Container maxWidth="lg" style={{ paddingTop: 16 }}>
@@ -23,32 +28,37 @@ export default function EmulatorPage() {
         style={{ marginBottom: 16 }}
       />
 
-      <Typography.Title level={1}>{emulator?.name || '...'}</Typography.Title>
+      <Flex align="center" style={{ marginBottom: 16 }}>
+        {emulator?.icon && (
+          <img
+            src={emulator.icon.url}
+            width={56}
+            height={56}
+            alt={`${emulator.name} icon`}
+            style={{ marginRight: 16 }}
+          />
+        )}
+        <Typography.Title level={1} style={{ margin: 0 }}>
+          {emulator?.name || '...'}
+        </Typography.Title>
 
-      <Image.PreviewGroup>
-        <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
-          <Badge.Ribbon text={t('icon')} color="green" styles={{ root: { flex: '1 1 50%' } }}>
-            {emulator?.icon ? (
-              <Image src={emulator.icon.url} alt={`${emulator.name} ${t('icon')}`} />
-            ) : (
-              <Flex
-                justify="center"
-                align="center"
-                style={{ height: 150, background: '#ccc', color: '#666' }}
-                aria-label="No icon available"
-              >
-                {t('icon')}
-              </Flex>
-            )}
-          </Badge.Ribbon>
-          <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 50%' } }}>
-            <Image
-              src={emulator?.screenshot?.url || fallbackScreenshot}
-              alt={`${emulator?.name} ${t('screenshot')}`}
-            />
-          </Badge.Ribbon>
-        </Flex>
-      </Image.PreviewGroup>
+        <div style={{ flex: 1 }} />
+
+        {canEdit && (
+          <Link href={`/emulators/${emulatorId}/edit`}>
+            <Button icon={<EditOutlined />}>{t('edit')}</Button>
+          </Link>
+        )}
+      </Flex>
+
+      <Image
+        src={emulator?.screenshot?.url || fallbackScreenshot}
+        width={emulator?.screenshot?.width || 1280}
+        height={emulator?.screenshot?.height || 720}
+        alt={`${emulator?.name} ${t('screenshot')}`}
+        style={{ width: '100%', height: 'auto' }}
+        styles={{ root: { width: '100%', height: 'auto', marginBottom: 16 } }}
+      />
 
       <Card style={{ marginBottom: 24 }}>
         <Descriptions

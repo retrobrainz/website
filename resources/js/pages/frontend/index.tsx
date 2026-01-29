@@ -1,11 +1,11 @@
-import { Badge, Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import { EditOutlined } from '@ant-design/icons';
-import { useAuth } from '../../contexts/auth/index.js';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
+import { useAuth } from '../../contexts/auth/index.js';
 import Frontend from '../../types/Frontend.js';
 
 export default function FrontendPage() {
@@ -28,43 +28,37 @@ export default function FrontendPage() {
         style={{ marginBottom: 16 }}
       />
 
-      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+      <Flex align="center" style={{ marginBottom: 16 }}>
+        {frontend?.icon && (
+          <img
+            src={frontend.icon.url}
+            width={56}
+            height={56}
+            alt={`${frontend.name} icon`}
+            style={{ marginRight: 16 }}
+          />
+        )}
         <Typography.Title level={1} style={{ margin: 0 }}>
           {frontend?.name || '...'}
         </Typography.Title>
-        {canEdit && frontend && (
+
+        <div style={{ flex: 1 }} />
+
+        {canEdit && (
           <Link href={`/frontends/${frontendId}/edit`}>
-            <Button type="primary" icon={<EditOutlined />}>
-              {t('edit')}
-            </Button>
+            <Button icon={<EditOutlined />}>{t('edit')}</Button>
           </Link>
         )}
       </Flex>
 
-      <Image.PreviewGroup>
-        <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
-          <Badge.Ribbon text={t('icon')} color="green" styles={{ root: { flex: '1 1 50%' } }}>
-            {frontend?.icon ? (
-              <Image src={frontend.icon.url} alt={`${frontend.name} ${t('icon')}`} />
-            ) : (
-              <Flex
-                justify="center"
-                align="center"
-                style={{ height: 150, background: '#ccc', color: '#666' }}
-                aria-label="No icon available"
-              >
-                {t('icon')}
-              </Flex>
-            )}
-          </Badge.Ribbon>
-          <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 50%' } }}>
-            <Image
-              src={frontend?.screenshot?.url || fallbackScreenshot}
-              alt={`${frontend?.name} ${t('screenshot')}`}
-            />
-          </Badge.Ribbon>
-        </Flex>
-      </Image.PreviewGroup>
+      <Image
+        src={frontend?.screenshot?.url || fallbackScreenshot}
+        width={frontend?.screenshot?.width || 1280}
+        height={frontend?.screenshot?.height || 720}
+        alt={`${frontend?.name} ${t('screenshot')}`}
+        style={{ width: '100%', height: 'auto' }}
+        styles={{ root: { width: '100%', height: 'auto', marginBottom: 16 } }}
+      />
 
       <Card style={{ marginBottom: 24 }}>
         <Descriptions

@@ -1,10 +1,10 @@
-import { Breadcrumb, Col, Form, Row, Spin, Tag, Button, Flex, Typography } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Col, Flex, Form, Row, Spin, Tag, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import { PlusOutlined } from '@ant-design/icons';
 import EmulatorCard from '../../components/emulator-card/index.js';
 import OperatingSystemIcon from '../../components/operating-system-icon/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
@@ -41,9 +41,7 @@ export default function EmulatorsPage() {
         </Typography.Title>
         {canCreateEmulator && (
           <Link href="/emulators/new">
-            <Button type="primary" icon={<PlusOutlined />}>
-              {t('new-emulator')}
-            </Button>
+            <Button icon={<PlusOutlined />}>{t('new-emulator')}</Button>
           </Link>
         )}
       </Flex>

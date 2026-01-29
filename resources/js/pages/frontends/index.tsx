@@ -1,10 +1,10 @@
+import { PlusOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Col, Flex, Form, Row, Spin, Tag, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import { PlusOutlined } from '@ant-design/icons';
 import FrontendCard from '../../components/frontend-card/index.js';
 import OperatingSystemIcon from '../../components/operating-system-icon/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
@@ -36,9 +36,7 @@ export default function FrontendsPage() {
         </Typography.Title>
         {canCreateFrontend && (
           <Link href="/frontends/new">
-            <Button type="primary" icon={<PlusOutlined />}>
-              {t('new-frontend')}
-            </Button>
+            <Button icon={<PlusOutlined />}>{t('new-frontend')}</Button>
           </Link>
         )}
       </Flex>
