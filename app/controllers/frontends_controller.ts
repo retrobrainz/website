@@ -36,8 +36,7 @@ export default class FrontendsController {
     }
 
     // TODO validate input
-    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } =
-      request.all();
+    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
     const frontend = await Frontend.create({
       name,
       website,
@@ -81,8 +80,7 @@ export default class FrontendsController {
     }
 
     // TODO validate input
-    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } =
-      request.all();
+    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
     const frontend = await Frontend.findOrFail(params.id);
 
     frontend.merge({ name, website, iconId, screenshotId });
