@@ -57,7 +57,15 @@ export default function FrontendPage() {
         height={frontend?.screenshot?.height || 720}
         alt={`${frontend?.name} ${t('screenshot')}`}
         style={{ width: '100%', height: 'auto' }}
-        styles={{ root: { width: '100%', height: 'auto', marginBottom: 16 } }}
+        styles={{
+          root: {
+            width: '100%',
+            height: 'auto',
+            marginBottom: 16,
+            borderRadius: 8,
+            overflow: 'hidden',
+          },
+        }}
       />
 
       <Card style={{ marginBottom: 24 }}>
