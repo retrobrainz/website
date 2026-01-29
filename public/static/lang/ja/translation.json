@@ -65,6 +65,7 @@
   "icon": "アイコン",
   "operating-systems": "オペレーティングシステム",
   "new-emulator": "新しいエミュレータ",
+  "new-frontend": "新しいフロントエンド",
   "edit-emulator": "エミュレータを編集",
   "emulator-created-successfully": "エミュレータが正常に作成されました",
   "emulator-updated-successfully": "エミュレータが正常に更新されました",

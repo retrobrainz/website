@@ -65,6 +65,7 @@
   "icon": "Icon",
   "operating-systems": "Operating Systems",
   "new-emulator": "New Emulator",
+  "new-frontend": "New Frontend",
   "edit-emulator": "Edit Emulator",
   "emulator-created-successfully": "Emulator created successfully",
   "emulator-updated-successfully": "Emulator updated successfully",

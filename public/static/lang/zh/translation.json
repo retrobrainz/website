@@ -65,6 +65,7 @@
   "icon": "图标",
   "operating-systems": "操作系统",
   "new-emulator": "新模拟器",
+  "new-frontend": "新前端",
   "edit-emulator": "编辑模拟器",
   "emulator-created-successfully": "模拟器创建成功",
   "emulator-updated-successfully": "模拟器更新成功",
