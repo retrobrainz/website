@@ -20,40 +20,40 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
 
   return (
     <Link href={`/frontends/${frontend.id}`}>
-    <Card
-      cover={
-        <img
-          src={frontend.screenshot?.url || fallbackScreenshot}
-          alt={`${frontend.name} screenshot`}
-          width={frontend.screenshot?.width || 1280}
-          height={frontend.screenshot?.height || 720}
-          style={{ width: '100%', height: 'auto' }}
-        />
-      }
-    >
-      <Card.Meta
-        avatar={
+      <Card
+        cover={
           <img
-            src={frontend.icon?.url}
-            alt={`${frontend.name} icon`}
-            width={56}
-            height={56}
-            style={{ display: 'block' }}
+            src={frontend.screenshot?.url || fallbackScreenshot}
+            alt={`${frontend.name} screenshot`}
+            width={frontend.screenshot?.width || 1280}
+            height={frontend.screenshot?.height || 720}
+            style={{ width: '100%', height: 'auto' }}
           />
         }
-        title={frontend.name}
-        description={
-          osNames.length > 0 && (
-            <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
-              {osNames.map((name) => (
-                <Tooltip key={name} title={name}>
-                  <OperatingSystemIcon name={name} />
-                </Tooltip>
-              ))}
-            </Flex>
-          )
-        }
       >
+        <Card.Meta
+          avatar={
+            <img
+              src={frontend.icon?.url}
+              alt={`${frontend.name} icon`}
+              width={56}
+              height={56}
+              style={{ display: 'block' }}
+            />
+          }
+          title={frontend.name}
+          description={
+            osNames.length > 0 && (
+              <Flex wrap="wrap" gap={8} style={{ fontSize: 16 }}>
+                {osNames.map((name) => (
+                  <Tooltip key={name} title={name}>
+                    <OperatingSystemIcon name={name} />
+                  </Tooltip>
+                ))}
+              </Flex>
+            )
+          }
+        />
       </Card>
     </Link>
   );
