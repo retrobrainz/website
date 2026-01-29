@@ -29,15 +29,34 @@ export default class FrontendsController {
       .exec();
   }
 
-  async store({ request, auth }: HttpContext) {
+  async store({ request, auth, response }: HttpContext) {
     // Only editors and admins can create frontends
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     // TODO validate input
-    const { name, website } = request.all();
-    const frontend = await Frontend.create({ name, website });
+    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
+    const frontend = await Frontend.create({
+      name,
+      website,
+      iconId,
+      screenshotId,
+    });
+
+    // Attach relationships if provided
+    if (Array.isArray(emulatorIds)) {
+      await frontend.related('emulators').attach(emulatorIds);
+    }
+    if (Array.isArray(operatingSystemIds)) {
+      await frontend.related('operatingSystems').attach(operatingSystemIds);
+    }
+
+    // Load relationships before returning
+    await frontend.load('icon');
+    await frontend.load('screenshot');
+    await frontend.load('emulators');
+    await frontend.load('operatingSystems');
 
     return frontend;
   }
@@ -54,17 +73,33 @@ export default class FrontendsController {
     return frontend;
   }
 
-  async update({ params, request, auth }: HttpContext) {
+  async update({ params, request, auth, response }: HttpContext) {
     // Only editors and admins can update frontends
     if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     // TODO validate input
-    const { name, website } = request.all();
+    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
     const frontend = await Frontend.findOrFail(params.id);
 
-    frontend.merge({ name, website });
-    return await frontend.save();
+    frontend.merge({ name, website, iconId, screenshotId });
+    await frontend.save();
+
+    // Sync relationships if provided
+    if (Array.isArray(emulatorIds)) {
+      await frontend.related('emulators').sync(emulatorIds);
+    }
+    if (Array.isArray(operatingSystemIds)) {
+      await frontend.related('operatingSystems').sync(operatingSystemIds);
+    }
+
+    // Load relationships before returning
+    await frontend.load('icon');
+    await frontend.load('screenshot');
+    await frontend.load('emulators');
+    await frontend.load('operatingSystems');
+
+    return frontend;
   }
 }
