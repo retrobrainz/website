@@ -4,6 +4,8 @@ dist
 es
 lib
 node_modules
+storage
+tmp
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
