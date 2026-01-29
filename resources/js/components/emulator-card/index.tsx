@@ -1,9 +1,9 @@
 import { Card, Flex, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
+import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import Emulator from '../../types/Emulator.js';
 import OperatingSystemIcon from '../operating-system-icon/index.js';
-import fallbackScreenshot from '../../img/fallback-screenshot.avif';
 
 export interface EmulatorProps {
   emulator: Emulator;
