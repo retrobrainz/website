@@ -67,10 +67,15 @@
   "new-emulator": "New Emulator",
   "new-frontend": "New Frontend",
   "edit-emulator": "Edit Emulator",
+  "edit-frontend": "Edit Frontend",
   "emulator-created-successfully": "Emulator created successfully",
   "emulator-updated-successfully": "Emulator updated successfully",
   "emulator-not-found": "Emulator not found",
   "no-emulators-found": "No emulators found",
+  "frontend-created-successfully": "Frontend created successfully",
+  "frontend-updated-successfully": "Frontend updated successfully",
+  "frontend-not-found": "Frontend not found",
   "select-platforms": "Select platforms",
+  "select-emulators": "Select emulators",
   "select-operating-systems": "Select operating systems"
 }

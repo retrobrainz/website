@@ -19,6 +19,8 @@ import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
 import FrontendsPage from './pages/frontends/index.js';
 import FrontendPage from './pages/frontend/index.js';
+import FrontendNewPage from './pages/frontend-new/index.js';
+import FrontendEditPage from './pages/frontend-edit/index.js';
 import EmulatorsPage from './pages/emulators/index.js';
 import EmulatorPage from './pages/emulator/index.js';
 import EmulatorNewPage from './pages/emulator-new/index.js';
@@ -66,6 +68,18 @@ function App() {
 
               <Route path="/frontends">
                 <FrontendsPage />
+              </Route>
+
+              <Route path="/frontends/new">
+                <RequireAuth>
+                  <FrontendNewPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/frontends/:frontendId/edit">
+                <RequireAuth>
+                  <FrontendEditPage />
+                </RequireAuth>
               </Route>
 
               <Route path="/frontends/:frontendId">
