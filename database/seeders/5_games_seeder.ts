@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
