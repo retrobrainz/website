@@ -45,7 +45,11 @@ export default function FrontendPage() {
 
         <div style={{ flex: 1 }} />
 
-        <FrontendFavoriteButton frontendId={frontendId} onToggle={reload} />
+        <FrontendFavoriteButton
+          frontendId={frontendId}
+          favoritesCount={frontend?.favoritesCount ?? undefined}
+          onToggle={reload}
+        />
 
         {canEdit && (
           <Link href={`/frontends/${frontendId}/edit`}>

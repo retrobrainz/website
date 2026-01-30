@@ -45,7 +45,11 @@ export default function EmulatorPage() {
 
         <div style={{ flex: 1 }} />
 
-        <EmulatorFavoriteButton emulatorId={emulatorId} onToggle={reload} />
+        <EmulatorFavoriteButton
+          emulatorId={emulatorId}
+          favoritesCount={emulator?.favoritesCount ?? undefined}
+          onToggle={reload}
+        />
 
         {canEdit && (
           <Link href={`/emulators/${emulatorId}/edit`}>

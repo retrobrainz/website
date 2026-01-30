@@ -12,6 +12,7 @@ export default interface Frontend {
   screenshot: Image | null;
   emulators?: Emulator[] | null;
   operatingSystems?: OperatingSystem[] | null;
+  favoritesCount?: number | null;
   createdAt: string;
   updatedAt: string | null;
 }
