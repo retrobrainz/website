@@ -1,4 +1,4 @@
-import Favorite from '#models/favorite';
+import GameFavorite from '#models/game_favorite';
 import Game from '#models/game';
 import type { HttpContext } from '@adonisjs/core/http';
 
@@ -13,7 +13,7 @@ export default class FavoritesController {
     const userId = request.input('userId');
     const gameId = request.input('gameId');
 
-    const query = Favorite.query();
+    const query = GameFavorite.query();
 
     if (userId) {
       query.where('userId', userId);
@@ -35,7 +35,7 @@ export default class FavoritesController {
    * Display a single favorite
    */
   async show({ params }: HttpContext) {
-    const favorite = await Favorite.query()
+    const favorite = await GameFavorite.query()
       .where('id', params.id)
       .preload('game')
       .preload('user')
@@ -67,7 +67,7 @@ export default class FavoritesController {
 
     // Use firstOrCreate to get existing or create new favorite
     const searchPayload = { userId, gameId };
-    const favorite = await Favorite.firstOrCreate(searchPayload);
+    const favorite = await GameFavorite.firstOrCreate(searchPayload);
 
     await favorite.load((loader) => {
       loader.load('game').load('user');
@@ -86,7 +86,7 @@ export default class FavoritesController {
       return response.unauthorized({ error: 'User must be authenticated' });
     }
 
-    const favorite = await Favorite.find(params.id);
+    const favorite = await GameFavorite.find(params.id);
 
     if (!favorite) {
       return response.notFound({ error: 'Favorite not found' });

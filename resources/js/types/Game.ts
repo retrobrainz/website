@@ -1,4 +1,4 @@
-import Favorite from '#models/favorite';
+import GameFavorite from './GameFavorite.js';
 import Company from './Company.js';
 import Franchise from './Franchise.js';
 import Genre from './Genre.js';
@@ -30,5 +30,5 @@ export default interface Game {
   franchises?: Franchise[];
   genres?: Genre[];
   favoritesCount?: number;
-  myFavorite?: Favorite | null;
+  myFavorite?: GameFavorite | null;
 }

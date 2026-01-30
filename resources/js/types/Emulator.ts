@@ -7,6 +7,7 @@ export default interface Emulator {
   id: number;
   name: string;
   website: string | null;
+  sourceCode: string | null;
   iconId: number | null;
   icon: Image | null;
   screenshotId: number | null;
