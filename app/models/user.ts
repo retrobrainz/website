@@ -5,6 +5,8 @@ import hash from '@adonisjs/core/services/hash';
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import EmulatorFavorite from './emulator_favorite.js';
+import FrontendFavorite from './frontend_favorite.js';
 import GameFavorite from './game_favorite.js';
 import Image from './image.js';
 
@@ -47,4 +49,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => GameFavorite)
   declare favorites: HasMany<typeof GameFavorite>;
+
+  @hasMany(() => EmulatorFavorite)
+  declare emulatorFavorites: HasMany<typeof EmulatorFavorite>;
+
+  @hasMany(() => FrontendFavorite)
+  declare frontendFavorites: HasMany<typeof FrontendFavorite>;
 }

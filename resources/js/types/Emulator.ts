@@ -17,6 +17,7 @@ export default interface Emulator {
   operatingSystems?: OperatingSystem[] | null;
   platforms?: Platform[] | null;
   frontends?: Frontend[] | null;
+  favoritesCount?: number | null;
   createdAt: string;
   updatedAt: string | null;
 }

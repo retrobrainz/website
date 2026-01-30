@@ -1,7 +1,8 @@
-import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Emulator from './emulator.js';
+import FrontendFavorite from './frontend_favorite.js';
 import Image from './image.js';
 import OperatingSystem from './operating_system.js';
 
@@ -51,4 +52,14 @@ export default class Frontend extends BaseModel {
     pivotTable: 'frontend_operating_system',
   })
   declare operatingSystems: ManyToMany<typeof OperatingSystem>;
+
+  @hasMany(() => FrontendFavorite)
+  declare favorites: HasMany<typeof FrontendFavorite>;
+
+  // Virtuals
+
+  @computed()
+  get favoritesCount(): number | null {
+    return this.$extras.favorites_count ?? null;
+  }
 }
