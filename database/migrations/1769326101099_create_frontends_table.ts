@@ -27,6 +27,8 @@ export default class extends BaseSchema {
 
       table.string('website', 255).nullable();
 
+      table.string('source_code', 255).nullable();
+
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });

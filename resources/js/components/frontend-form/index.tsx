@@ -23,6 +23,7 @@ export default function FrontendForm({ frontend, onSubmit, submitText }: Fronten
       form.setFieldsValue({
         name: frontend.name,
         website: frontend.website,
+        sourceCode: frontend.sourceCode,
         emulatorIds: frontend.emulators?.map((e) => e.id) || [],
         operatingSystemIds: frontend.operatingSystems?.map((os) => os.id) || [],
         icon: frontend.icon || null,
@@ -63,6 +64,10 @@ export default function FrontendForm({ frontend, onSubmit, submitText }: Fronten
       </Form.Item>
 
       <Form.Item label={t('website')} name="website">
+        <Input type="url" />
+      </Form.Item>
+
+      <Form.Item label={t('source-code')} name="sourceCode">
         <Input type="url" />
       </Form.Item>
 

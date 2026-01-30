@@ -21,6 +21,9 @@ export default class Frontend extends BaseModel {
   @column()
   declare website: string | null;
 
+  @column()
+  declare sourceCode: string | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
