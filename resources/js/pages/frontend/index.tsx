@@ -7,13 +7,14 @@ import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import { useAuth } from '../../contexts/auth/index.js';
 import Frontend from '../../types/Frontend.js';
+import FrontendFavoriteButton from './FrontendFavoriteButton.js';
 
 export default function FrontendPage() {
   const { frontendId } = useParams();
   const { t } = useTranslation();
   const { user } = useAuth();
 
-  const { data: frontend } = useFetch<Frontend>(`/frontends/${frontendId}`);
+  const { data: frontend, reload } = useFetch<Frontend>(`/frontends/${frontendId}`);
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
@@ -44,9 +45,13 @@ export default function FrontendPage() {
 
         <div style={{ flex: 1 }} />
 
+        <FrontendFavoriteButton frontendId={frontendId} onToggle={reload} />
+
         {canEdit && (
           <Link href={`/frontends/${frontendId}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            <Button icon={<EditOutlined />} style={{ marginLeft: 8 }}>
+              {t('edit')}
+            </Button>
           </Link>
         )}
       </Flex>

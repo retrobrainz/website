@@ -5,7 +5,9 @@ import hash from '@adonisjs/core/services/hash';
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import EmulatorFavorite from './emulator_favorite.js';
 import Favorite from './favorite.js';
+import FrontendFavorite from './frontend_favorite.js';
 import Image from './image.js';
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -47,4 +49,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => Favorite)
   declare favorites: HasMany<typeof Favorite>;
+
+  @hasMany(() => EmulatorFavorite)
+  declare emulatorFavorites: HasMany<typeof EmulatorFavorite>;
+
+  @hasMany(() => FrontendFavorite)
+  declare frontendFavorites: HasMany<typeof FrontendFavorite>;
 }

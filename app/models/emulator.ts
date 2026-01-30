@@ -1,6 +1,7 @@
-import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import EmulatorFavorite from './emulator_favorite.js';
 import Frontend from './frontend.js';
 import Image from './image.js';
 import OperatingSystem from './operating_system.js';
@@ -60,4 +61,7 @@ export default class Emulator extends BaseModel {
     pivotTable: 'frontend_emulator',
   })
   declare frontends: ManyToMany<typeof Frontend>;
+
+  @hasMany(() => EmulatorFavorite)
+  declare favorites: HasMany<typeof EmulatorFavorite>;
 }

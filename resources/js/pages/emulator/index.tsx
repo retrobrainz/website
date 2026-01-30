@@ -7,13 +7,14 @@ import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import { useAuth } from '../../contexts/auth/index.js';
 import Emulator from '../../types/Emulator.js';
+import EmulatorFavoriteButton from './EmulatorFavoriteButton.js';
 
 export default function EmulatorPage() {
   const { emulatorId } = useParams();
   const { t } = useTranslation();
   const { user } = useAuth();
 
-  const { data: emulator } = useFetch<Emulator>(`/emulators/${emulatorId}`);
+  const { data: emulator, reload } = useFetch<Emulator>(`/emulators/${emulatorId}`);
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
@@ -44,9 +45,13 @@ export default function EmulatorPage() {
 
         <div style={{ flex: 1 }} />
 
+        <EmulatorFavoriteButton emulatorId={emulatorId} onToggle={reload} />
+
         {canEdit && (
           <Link href={`/emulators/${emulatorId}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            <Button icon={<EditOutlined />} style={{ marginLeft: 8 }}>
+              {t('edit')}
+            </Button>
           </Link>
         )}
       </Flex>
