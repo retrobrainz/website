@@ -13,6 +13,7 @@ export default class extends BaseSeeder {
         website: 'https://www.retroarch.com',
         sourceCode: 'https://github.com/libretro/RetroArch',
         icon: 'https://github.com/libretro/RetroArch/blob/master/media/com.libretro.RetroArch.svg?raw=true',
+        screenshot: 'https://www.retroarch.com/images/screenshots/ozone-menu.jpg',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -29,6 +30,7 @@ export default class extends BaseSeeder {
         website: 'https://es-de.org',
         sourceCode: 'https://gitlab.com/es-de/emulationstation-de',
         icon: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/org.es_de.frontend.svg?ref_type=heads',
+        screenshot: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/images/es-de_system_view.png?ref_type=heads',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -42,6 +44,7 @@ export default class extends BaseSeeder {
         website: 'https://pegasus-frontend.org',
         sourceCode: 'https://github.com/mmatyas/pegasus-frontend',
         icon: 'https://github.com/mmatyas/pegasus-frontend/blob/master/assets/icon.png?raw=true',
+        screenshot: 'https://pegasus-frontend.org/img/themes/neoretro-horizontal.png',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -54,13 +57,18 @@ export default class extends BaseSeeder {
     ];
 
     // Create frontends and link them to emulators and operating systems
-    for (const { name, website, sourceCode, icon, emulators: emulatorNames, os } of frontends) {
+    for (const { name, website, sourceCode, icon: iconUrl, screenshot: screenshotUrl, emulators: emulatorNames, os } of frontends) {
       const frontend = await Frontend.firstOrCreate({ name }, { name, website, sourceCode });
       frontend.merge({ website, sourceCode });
 
-      if (icon) {
-        const image = await Image.fromHttp(icon, { width: 256, height: 256 });
+      if (iconUrl) {
+        const image = await Image.fromHttp(iconUrl, { width: 256, height: 256, format: 'avif' });
         frontend.iconId = image.id;
+      }
+
+      if (screenshotUrl) {
+        const screenshot = await Image.fromHttp(screenshotUrl, { width: 1280, height: 720, format: 'avif' });
+        frontend.screenshotId = screenshot.id;
       }
 
       await frontend.save();
