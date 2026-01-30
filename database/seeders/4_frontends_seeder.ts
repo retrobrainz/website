@@ -13,7 +13,7 @@ export default class extends BaseSeeder {
         website: 'https://www.retroarch.com',
         sourceCode: 'https://github.com/libretro/RetroArch',
         icon: 'https://github.com/libretro/RetroArch/blob/master/media/com.libretro.RetroArch.svg?raw=true',
-        screenshot: 'https://www.retroarch.com/images/screenshots/ozone-menu.jpg',
+        screenshot: 'https://www.retroarch.com/images/ozone-playlists.png',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -45,7 +45,7 @@ export default class extends BaseSeeder {
         website: 'https://pegasus-frontend.org',
         sourceCode: 'https://github.com/mmatyas/pegasus-frontend',
         icon: 'https://github.com/mmatyas/pegasus-frontend/blob/master/assets/icon.png?raw=true',
-        screenshot: 'https://pegasus-frontend.org/img/themes/neoretro-horizontal.png',
+        screenshot: 'https://pegasus-frontend.org/img/screens/s0.jpg',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
