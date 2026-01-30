@@ -71,13 +71,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         <LanguageMenu />
 
-        {isAuthenticated ? (
+        {isAuthenticated && user ? (
           <>
-            <Link href={`/users/${user?.id}`}>
-              <Button type="text" icon={<Avatar src={user?.avatar?.url} alt={user?.username} />}>
-                {user?.username}
-              </Button>
+            <Link href={`/users/${user.id}`}>
+              <Avatar src={user.avatar?.url} style={{ marginRight: 4 }}>
+                {user.username.substring(0, 1).toUpperCase()}
+              </Avatar>
+              {user.username}
             </Link>
+
             <Link href="/settings">
               <Tooltip title={t('settings')}>
                 <Button icon={<SettingOutlined />} />

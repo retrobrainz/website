@@ -92,6 +92,16 @@ export default function FrontendPage() {
               ),
             },
             {
+              label: t('source-code'),
+              children: frontend?.sourceCode ? (
+                <a href={frontend.sourceCode} target="_blank" rel="noopener noreferrer">
+                  {frontend.sourceCode}
+                </a>
+              ) : (
+                'N/A'
+              ),
+            },
+            {
               label: t('operating-systems'),
               children: frontend?.operatingSystems?.map((os) => os.name).join(', ') || 'N/A',
             },

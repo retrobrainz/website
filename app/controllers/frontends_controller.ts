@@ -36,10 +36,12 @@ export default class FrontendsController {
     }
 
     // TODO validate input
-    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
+    const { name, website, sourceCode, iconId, screenshotId, emulatorIds, operatingSystemIds } =
+      request.all();
     const frontend = await Frontend.create({
       name,
       website,
+      sourceCode,
       iconId,
       screenshotId,
     });
@@ -81,10 +83,11 @@ export default class FrontendsController {
     }
 
     // TODO validate input
-    const { name, website, iconId, screenshotId, emulatorIds, operatingSystemIds } = request.all();
+    const { name, website, sourceCode, iconId, screenshotId, emulatorIds, operatingSystemIds } =
+      request.all();
     const frontend = await Frontend.findOrFail(params.id);
 
-    frontend.merge({ name, website, iconId, screenshotId });
+    frontend.merge({ name, website, sourceCode, iconId, screenshotId });
     await frontend.save();
 
     // Sync relationships if provided

@@ -24,6 +24,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       form.setFieldsValue({
         name: emulator.name,
         website: emulator.website,
+        sourceCode: emulator.sourceCode,
         state: emulator.state,
         releaseDate: emulator.releaseDate ? dayjs(emulator.releaseDate) : null,
         platformIds: emulator.platforms?.map((p) => p.id) || [],
@@ -67,6 +68,10 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
       </Form.Item>
 
       <Form.Item label={t('website')} name="website">
+        <Input type="url" />
+      </Form.Item>
+
+      <Form.Item label={t('source-code')} name="sourceCode">
         <Input type="url" />
       </Form.Item>
 

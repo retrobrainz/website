@@ -92,6 +92,16 @@ export default function EmulatorPage() {
               ),
             },
             {
+              label: t('source-code'),
+              children: emulator?.sourceCode ? (
+                <a href={emulator.sourceCode} target="_blank" rel="noopener noreferrer">
+                  {emulator.sourceCode}
+                </a>
+              ) : (
+                'N/A'
+              ),
+            },
+            {
               label: t('state'),
               children: emulator?.state ? t(emulator.state) : 'N/A',
             },

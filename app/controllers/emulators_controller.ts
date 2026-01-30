@@ -39,6 +39,7 @@ export default class EmulatorsController {
     const {
       name,
       website,
+      sourceCode,
       state,
       releaseDate,
       iconId,
@@ -49,6 +50,7 @@ export default class EmulatorsController {
     const emulator = await Emulator.create({
       name,
       website,
+      sourceCode,
       state,
       releaseDate,
       iconId,
@@ -96,6 +98,7 @@ export default class EmulatorsController {
     const {
       name,
       website,
+      sourceCode,
       state,
       releaseDate,
       iconId,
@@ -105,7 +108,7 @@ export default class EmulatorsController {
     } = request.all();
     const emulator = await Emulator.findOrFail(params.id);
 
-    emulator.merge({ name, website, state, releaseDate, iconId, screenshotId });
+    emulator.merge({ name, website, sourceCode, state, releaseDate, iconId, screenshotId });
     await emulator.save();
 
     // Sync relationships if provided
