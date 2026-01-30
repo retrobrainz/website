@@ -42,7 +42,8 @@ export default class extends BaseSeeder {
         website: 'https://eden-emu.dev/',
         sourceCode: 'https://git.eden-emu.dev/eden-emu/eden',
         icon: 'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/dev.eden_emu.eden.svg',
-        screenshot: 'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/screenshots/zelda-totk.png',
+        screenshot:
+          'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/screenshots/zelda-totk.png',
         state: 'stable',
         releaseDate: DateTime.fromISO('2025-05-10'),
         platforms: ['Switch'],
@@ -103,7 +104,11 @@ export default class extends BaseSeeder {
       const screenshot = screenshotUrl
         ? await Image.fromHttp(screenshotUrl, { width: 1280, height: 720, format: 'avif' })
         : null;
-      const params = { iconId: icon?.id ?? null, screenshotId: screenshot?.id ?? null, ...emulatorData };
+      const params = {
+        iconId: icon?.id ?? null,
+        screenshotId: screenshot?.id ?? null,
+        ...emulatorData,
+      };
       const emulator = await Emulator.firstOrCreate({ name }, params);
       emulator.merge(params);
       await emulator.save();

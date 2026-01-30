@@ -30,7 +30,8 @@ export default class extends BaseSeeder {
         website: 'https://es-de.org',
         sourceCode: 'https://gitlab.com/es-de/emulationstation-de',
         icon: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/org.es_de.frontend.svg?ref_type=heads',
-        screenshot: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/images/es-de_system_view.png?ref_type=heads',
+        screenshot:
+          'https://gitlab.com/es-de/emulationstation-de/-/raw/master/images/es-de_system_view.png?ref_type=heads',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
           { name: 'Windows', arch: 'x86_64' },
@@ -57,7 +58,15 @@ export default class extends BaseSeeder {
     ];
 
     // Create frontends and link them to emulators and operating systems
-    for (const { name, website, sourceCode, icon: iconUrl, screenshot: screenshotUrl, emulators: emulatorNames, os } of frontends) {
+    for (const {
+      name,
+      website,
+      sourceCode,
+      icon: iconUrl,
+      screenshot: screenshotUrl,
+      emulators: emulatorNames,
+      os,
+    } of frontends) {
       const frontend = await Frontend.firstOrCreate({ name }, { name, website, sourceCode });
       frontend.merge({ website, sourceCode });
 
@@ -67,7 +76,11 @@ export default class extends BaseSeeder {
       }
 
       if (screenshotUrl) {
-        const screenshot = await Image.fromHttp(screenshotUrl, { width: 1280, height: 720, format: 'avif' });
+        const screenshot = await Image.fromHttp(screenshotUrl, {
+          width: 1280,
+          height: 720,
+          format: 'avif',
+        });
         frontend.screenshotId = screenshot.id;
       }
 
