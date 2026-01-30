@@ -4,7 +4,9 @@ import { DateTime } from 'luxon';
 import Game from './game.js';
 import User from './user.js';
 
-export default class Favorite extends BaseModel {
+export default class GameFavorite extends BaseModel {
+  static table = 'game_favorites';
+
   @column({ isPrimary: true })
   declare id: number;
 
