@@ -7,11 +7,11 @@ export default class EmulatorFavoritesController {
    * Display a list of emulator favorites
    * Query by userId or emulatorId
    */
-  async index({ request }: HttpContext) {
+  async index({ request, params }: HttpContext) {
     const page = Math.max(1, request.input('page', 1));
     const pageSize = Math.min(100, Math.max(1, request.input('pageSize', 10)));
     const userId = request.input('userId');
-    const emulatorId = request.input('emulatorId');
+    const emulatorId = params.emulator_id;
 
     const query = EmulatorFavorite.query();
 
@@ -47,9 +47,9 @@ export default class EmulatorFavoritesController {
   /**
    * Add an emulator favorite
    */
-  async store({ request, auth, response }: HttpContext) {
+  async store({ params, auth, response }: HttpContext) {
     const userId = auth.user?.id;
-    const emulatorId = request.input('emulatorId');
+    const emulatorId = params.emulator_id;
 
     if (!userId) {
       return response.unauthorized({ error: 'User must be authenticated' });

@@ -7,11 +7,11 @@ export default class FrontendFavoritesController {
    * Display a list of frontend favorites
    * Query by userId or frontendId
    */
-  async index({ request }: HttpContext) {
+  async index({ request, params }: HttpContext) {
     const page = Math.max(1, request.input('page', 1));
     const pageSize = Math.min(100, Math.max(1, request.input('pageSize', 10)));
     const userId = request.input('userId');
-    const frontendId = request.input('frontendId');
+    const frontendId = params.frontend_id;
 
     const query = FrontendFavorite.query();
 
@@ -47,9 +47,9 @@ export default class FrontendFavoritesController {
   /**
    * Add a frontend favorite
    */
-  async store({ request, auth, response }: HttpContext) {
+  async store({ params, auth, response }: HttpContext) {
     const userId = auth.user?.id;
-    const frontendId = request.input('frontendId');
+    const frontendId = params.frontend_id;
 
     if (!userId) {
       return response.unauthorized({ error: 'User must be authenticated' });

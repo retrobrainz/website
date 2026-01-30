@@ -68,6 +68,7 @@ export default class FrontendsController {
       .preload('screenshot')
       .preload('emulators')
       .preload('operatingSystems')
+      .withCount('favorites')
       .firstOrFail();
 
     return frontend;

@@ -80,6 +80,7 @@ export default class EmulatorsController {
       .preload('operatingSystems')
       .preload('frontends')
       .preload('screenshot')
+      .withCount('favorites')
       .firstOrFail();
 
     return emulator;

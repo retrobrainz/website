@@ -48,7 +48,7 @@ export default function FrontendFavoriteButton({
               });
           } else {
             xior
-              .post(`/frontends/${frontendId}/favorites`, { frontendId })
+              .post(`/frontends/${frontendId}/favorites`, {})
               .then(reload)
               .then(onToggle)
               .finally(() => {

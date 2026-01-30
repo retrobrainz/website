@@ -48,7 +48,7 @@ export default function EmulatorFavoriteButton({
               });
           } else {
             xior
-              .post(`/emulators/${emulatorId}/favorites`, { emulatorId })
+              .post(`/emulators/${emulatorId}/favorites`, {})
               .then(reload)
               .then(onToggle)
               .finally(() => {
