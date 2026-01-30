@@ -11,6 +11,8 @@ export default class extends BaseSchema {
 
       table.string('website', 255).nullable();
 
+      table.string('source_code', 255).nullable();
+
       table.string('state', 32).nullable();
 
       table.date('release_date').nullable();

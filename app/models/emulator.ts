@@ -23,6 +23,9 @@ export default class Emulator extends BaseModel {
   declare website: string | null;
 
   @column()
+  declare sourceCode: string | null;
+
+  @column()
   declare state: string | null;
 
   @column.date()
