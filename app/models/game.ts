@@ -2,7 +2,7 @@ import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@ad
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
-import Favorite from './favorite.js';
+import GameFavorite from './game_favorite.js';
 import Franchise from './franchise.js';
 import GameTranslation from './game_translation.js';
 import Genre from './genre.js';
@@ -108,8 +108,8 @@ export default class Game extends BaseModel {
   })
   declare languages: ManyToMany<typeof Language>;
 
-  @hasMany(() => Favorite)
-  declare favorites: HasMany<typeof Favorite>;
+  @hasMany(() => GameFavorite)
+  declare favorites: HasMany<typeof GameFavorite>;
 
   // Virtuals
 

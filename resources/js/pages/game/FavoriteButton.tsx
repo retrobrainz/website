@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
-import Favorite from '../../types/Favorite.js';
+import GameFavorite from '../../types/GameFavorite.js';
 
 export interface FavoriteButtonProps {
   gameId?: number | string;
@@ -15,7 +15,7 @@ export interface FavoriteButtonProps {
 export default function FavoriteButton({ gameId, favoritesCount, onToggle }: FavoriteButtonProps) {
   const { isAuthenticated, user } = useAuth();
 
-  const { data, reload } = useFetch<{ data: Favorite[] }>('/favorites', {
+  const { data, reload } = useFetch<{ data: GameFavorite[] }>('/favorites', {
     params: { gameId, userId: user?.id },
     disabled: !isAuthenticated,
   });

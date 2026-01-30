@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useParams } from 'wouter';
 import GameCard from '../../components/game-card/index.js';
-import Favorite from '../../types/Favorite.js';
+import GameFavorite from '../../types/GameFavorite.js';
 
 export default function FavoriteList() {
   const { userId } = useParams();
 
   const [page, setPage] = useState(1);
 
-  const { data } = useFetch<{ data: Favorite[]; meta: { total: number } }>('/favorites', {
+  const { data } = useFetch<{ data: GameFavorite[]; meta: { total: number } }>('/favorites', {
     params: { userId, pageSize: 24, page },
   });
 
