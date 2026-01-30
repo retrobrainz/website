@@ -12,6 +12,7 @@ export default class extends BaseSeeder {
       {
         name: 'PCSX2',
         website: 'https://pcsx2.net',
+        sourceCode: 'https://github.com/PCSX2/pcsx2',
         icon: 'https://github.com/PCSX2/pcsx2/blob/master/bin/resources/icons/AppIconLarge.png?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2002-09-22'),
@@ -24,6 +25,7 @@ export default class extends BaseSeeder {
       {
         name: 'RPCS3',
         website: 'https://rpcs3.net',
+        sourceCode: 'https://github.com/RPCS3/rpcs3',
         icon: 'https://github.com/RPCS3/rpcs3/blob/master/rpcs3/rpcs3.svg?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2011-05-23'),
@@ -36,6 +38,7 @@ export default class extends BaseSeeder {
       {
         name: 'Eden',
         website: 'https://eden-emu.dev/',
+        sourceCode: 'https://git.eden-emu.dev/eden-emu/eden',
         icon: 'https://git.eden-emu.dev/eden-emu/eden/raw/branch/master/dist/dev.eden_emu.eden.svg',
         state: 'stable',
         releaseDate: DateTime.fromISO('2025-05-10'),
@@ -49,6 +52,7 @@ export default class extends BaseSeeder {
       {
         name: 'Dolphin',
         website: 'https://dolphin-emu.org',
+        sourceCode: 'https://github.com/dolphin-emu/dolphin',
         icon: 'https://github.com/dolphin-emu/dolphin/blob/master/Data/dolphin-emu.svg?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2003-09-22'),
@@ -66,6 +70,7 @@ export default class extends BaseSeeder {
       {
         name: 'Cemu',
         website: 'https://cemu.info',
+        sourceCode: 'https://github.com/cemu-project/Cemu',
         icon: 'https://github.com/cemu-project/Cemu/blob/main/src/resource/logo_icon.png?raw=true',
         state: 'stable',
         releaseDate: DateTime.fromISO('2015-10-13'),

@@ -11,6 +11,7 @@ export default class extends BaseSeeder {
       {
         name: 'RetroArch',
         website: 'https://www.retroarch.com',
+        sourceCode: 'https://github.com/libretro/RetroArch',
         icon: 'https://github.com/libretro/RetroArch/blob/master/media/com.libretro.RetroArch.svg?raw=true',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
@@ -26,6 +27,7 @@ export default class extends BaseSeeder {
       {
         name: 'ES-DE',
         website: 'https://es-de.org',
+        sourceCode: 'https://gitlab.com/es-de/emulationstation-de',
         icon: 'https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/org.es_de.frontend.svg?ref_type=heads',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
@@ -38,6 +40,7 @@ export default class extends BaseSeeder {
       {
         name: 'Pegasus',
         website: 'https://pegasus-frontend.org',
+        sourceCode: 'https://github.com/mmatyas/pegasus-frontend',
         icon: 'https://github.com/mmatyas/pegasus-frontend/blob/master/assets/icon.png?raw=true',
         emulators: ['PCSX2', 'Dolphin'],
         os: [
@@ -51,9 +54,9 @@ export default class extends BaseSeeder {
     ];
 
     // Create frontends and link them to emulators and operating systems
-    for (const { name, website, icon, emulators: emulatorNames, os } of frontends) {
-      const frontend = await Frontend.firstOrCreate({ name }, { name, website });
-      frontend.merge({ website });
+    for (const { name, website, sourceCode, icon, emulators: emulatorNames, os } of frontends) {
+      const frontend = await Frontend.firstOrCreate({ name }, { name, website, sourceCode });
+      frontend.merge({ website, sourceCode });
 
       if (icon) {
         const image = await Image.fromHttp(icon, { width: 256, height: 256 });
