@@ -16,13 +16,7 @@ export default class GenresController {
    * Display a single resource
    */
   async show({ params }: HttpContext) {
-    return Genre.query()
-      .where('id', params.id)
-      .preload('games', (query) => {
-        query.preload('platform').preload('boxart').orderBy('name');
-      })
-      .withCount('games')
-      .firstOrFail();
+    return Genre.query().where('id', params.id).withCount('games').firstOrFail();
   }
 
   /**

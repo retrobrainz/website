@@ -53,6 +53,7 @@ router
       .only(['store', 'update'])
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
+    router.resource('genres.games', GamesController).only(['index']);
     router
       .resource('images', ImagesController)
       .apiOnly()

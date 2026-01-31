@@ -5,10 +5,17 @@ export default class GamesController {
   /**
    * Display a list of resource
    */
-  async index({ request }: HttpContext) {
+  async index({ request, params }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
     const query = Game.query();
+
+    if (params.genre_id || request.input('genreId')) {
+      const genreId = params.genre_id || request.input('genreId');
+      query.whereHas('genres', (q) => {
+        q.where('genres.id', genreId);
+      });
+    }
 
     if (request.input('platformId')) {
       query.where('platformId', request.input('platformId'));
