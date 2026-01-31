@@ -36,8 +36,6 @@ export default function FavoriteButton({
         return `/emulators/${entityId}/favorites`;
       case 'frontend':
         return `/frontends/${entityId}/favorites`;
-      default:
-        return '';
     }
   };
 
@@ -49,8 +47,6 @@ export default function FavoriteButton({
       case 'emulator':
       case 'frontend':
         return { userId: user?.id };
-      default:
-        return {};
     }
   };
 
