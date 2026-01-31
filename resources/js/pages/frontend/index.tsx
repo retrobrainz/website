@@ -123,7 +123,7 @@ export default function FrontendPage() {
           </Typography.Title>
           <Row gutter={[24, 24]} justify="center">
             {frontend.emulators.map((emulator) => (
-              <Col key={emulator.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={emulator.id} xs={24} sm={12} md={8} lg={6} xl={6}>
                 <EmulatorCard emulator={emulator} />
               </Col>
             ))}
