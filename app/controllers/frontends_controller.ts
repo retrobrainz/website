@@ -68,7 +68,9 @@ export default class FrontendsController {
       .where('id', params.id)
       .preload('icon')
       .preload('screenshot')
-      .preload('emulators')
+      .preload('emulators', (query) => {
+        query.preload('icon').preload('screenshot').preload('operatingSystems');
+      })
       .preload('operatingSystems')
       .withCount('favorites')
       .firstOrFail();
