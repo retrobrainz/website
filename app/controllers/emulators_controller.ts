@@ -80,7 +80,9 @@ export default class EmulatorsController {
       .preload('icon')
       .preload('platforms')
       .preload('operatingSystems')
-      .preload('frontends')
+      .preload('frontends', (query) => {
+        query.preload('icon').preload('screenshot').preload('operatingSystems');
+      })
       .preload('screenshot')
       .withCount('favorites')
       .firstOrFail();
