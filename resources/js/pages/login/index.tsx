@@ -6,7 +6,7 @@ import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
 interface LoginFormValues {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -55,8 +55,12 @@ export default function LoginPage() {
 
       <Card>
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item label={t('email')} name="email" rules={[{ required: true }]}>
-            <Input type="email" />
+          <Form.Item
+            label={`${t('username')} / ${t('email')}`}
+            name="username"
+            rules={[{ required: true }]}
+          >
+            <Input />
           </Form.Item>
           <Form.Item label={t('password')} name="password" rules={[{ required: true }]}>
             <Input.Password />

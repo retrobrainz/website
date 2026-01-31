@@ -11,8 +11,8 @@ export default class AuthController {
   }
 
   async login({ request }: HttpContext) {
-    const { email, password } = await request.validateUsing(loginValidator);
-    const user = await User.verifyCredentials(email, password);
+    const { username, password } = await request.validateUsing(loginValidator);
+    const user = await User.verifyCredentials(username, password);
     const token = await User.accessTokens.create(user);
     await user.load('avatar');
     return { user, token };
