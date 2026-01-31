@@ -2,7 +2,7 @@ import vine from '@vinejs/vine';
 
 export const registerValidator = vine.create(
   vine.object({
-    username: vine.string().trim().minLength(3).maxLength(32).unique({
+    username: vine.string().alphaNumeric().trim().minLength(3).maxLength(32).unique({
       table: 'users',
       column: 'username',
     }),
