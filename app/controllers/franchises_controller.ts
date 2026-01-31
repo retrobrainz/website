@@ -7,7 +7,7 @@ export default class FranchisesController {
    */
   async index({ request }: HttpContext) {
     const page = request.input('page', 1);
-    const pageSize = request.input('pageSize', 10);
+    const pageSize = request.input('pageSize', 24);
     return Franchise.query()
       .preload('translations')
       .withCount('games')

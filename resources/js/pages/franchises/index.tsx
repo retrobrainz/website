@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Flex, Row, Spin, Typography } from 'antd';
+import { Breadcrumb, Button, Col, Flex, Pagination, Row, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
+import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
@@ -11,10 +12,15 @@ import Franchise from '../../types/Franchise.js';
 export default function FranchisesPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(24);
 
-  const { data: franchises, loading } = useFetch<{ data: Franchise[] }>('/franchises', {
-    params: { pageSize: 100 },
-  });
+  const { data: franchises, loading } = useFetch<{ data: Franchise[]; meta: { total: number } }>(
+    '/franchises',
+    {
+      params: { page, pageSize },
+    },
+  );
 
   const canCreateFranchise = user?.role === 'admin' || user?.role === 'editor';
 
@@ -49,6 +55,19 @@ export default function FranchisesPage() {
             {t('no-franchises-found')}
           </div>
         )}
+
+        <Flex justify="center" style={{ marginTop: 24, marginBottom: 24 }}>
+          <Pagination
+            current={page}
+            pageSize={pageSize}
+            total={franchises?.meta?.total || 0}
+            onChange={(p, ps) => {
+              setPage(p);
+              setPageSize(ps);
+            }}
+            showSizeChanger
+          />
+        </Flex>
       </Spin>
     </Container>
   );
