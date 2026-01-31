@@ -31,7 +31,7 @@ export default function FavoriteButton({
   const getFetchUrl = () => {
     switch (entityType) {
       case 'game':
-        return '/favorites';
+        return `/games/${entityId}/favorites`;
       case 'emulator':
         return `/emulators/${entityId}/favorites`;
       case 'frontend':
@@ -43,7 +43,6 @@ export default function FavoriteButton({
   const getFetchParams = () => {
     switch (entityType) {
       case 'game':
-        return { gameId: entityId, userId: user?.id };
       case 'emulator':
       case 'frontend':
         return { userId: user?.id };
@@ -54,7 +53,7 @@ export default function FavoriteButton({
   const getDeleteUrl = (favoriteId: number) => {
     switch (entityType) {
       case 'game':
-        return `/favorites/${favoriteId}`;
+        return `/games/${entityId}/favorites/${favoriteId}`;
       case 'emulator':
         return `/emulators/${entityId}/favorites/${favoriteId}`;
       case 'frontend':
@@ -66,7 +65,7 @@ export default function FavoriteButton({
   const getPostUrlAndData = () => {
     switch (entityType) {
       case 'game':
-        return { url: '/favorites', data: { gameId: entityId } };
+        return { url: `/games/${entityId}/favorites`, data: {} };
       case 'emulator':
         return { url: `/emulators/${entityId}/favorites`, data: {} };
       case 'frontend':
