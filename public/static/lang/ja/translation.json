@@ -72,5 +72,7 @@
   "emulator-updated-successfully": "エミュレータが正常に更新されました",
   "emulator-not-found": "エミュレータが見つかりません",
   "select-platforms": "プラットフォームを選択",
-  "select-operating-systems": "オペレーティングシステムを選択"
+  "select-operating-systems": "オペレーティングシステムを選択",
+  "dont-have-account": "アカウントをお持ちではありませんか？",
+  "already-have-account": "すでにアカウントをお持ちですか？"
 }
