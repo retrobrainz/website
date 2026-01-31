@@ -1,4 +1,4 @@
-import { Card, Typography } from 'antd';
+import { Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import Franchise from '../../types/Franchise.js';
@@ -24,12 +24,10 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
           },
         }}
       >
-        <Typography.Title level={4} style={{ margin: 0, marginBottom: 8 }}>
-          {franchise.name}
-        </Typography.Title>
-        <Typography.Text type="secondary">
-          {franchise.gamesCount ?? 0} {t('games')}
-        </Typography.Text>
+        <Card.Meta
+          title={franchise.name}
+          description={`${franchise.gamesCount ?? 0} ${t('games')}`}
+        />
       </Card>
     </Link>
   );
