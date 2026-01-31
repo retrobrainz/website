@@ -82,5 +82,11 @@
   "franchise-updated-successfully": "フランチャイズが正常に更新されました",
   "franchise-not-found": "フランチャイズが見つかりません",
   "no-franchises-found": "フランチャイズが見つかりません",
+  "new-genre": "新しいジャンル",
+  "edit-genre": "ジャンルを編集",
+  "genre-created-successfully": "ジャンルが正常に作成されました",
+  "genre-updated-successfully": "ジャンルが正常に更新されました",
+  "genre-not-found": "ジャンルが見つかりません",
+  "no-genres-found": "ジャンルが見つかりません",
   "games-count": "ゲーム数"
 }

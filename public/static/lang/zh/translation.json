@@ -82,5 +82,11 @@
   "franchise-updated-successfully": "系列更新成功",
   "franchise-not-found": "未找到系列",
   "no-franchises-found": "未找到系列",
+  "new-genre": "新建类型",
+  "edit-genre": "编辑类型",
+  "genre-created-successfully": "类型创建成功",
+  "genre-updated-successfully": "类型更新成功",
+  "genre-not-found": "未找到类型",
+  "no-genres-found": "未找到类型",
   "games-count": "游戏数量"
 }

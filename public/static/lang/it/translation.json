@@ -22,7 +22,7 @@
   "developers": "Sviluppatore/i",
   "publishers": "Editore/i",
   "franchise": "Franchise",
-  "genres": "Genere/i",
+  "genres": "Generi",
   "esrb-rating": "Classificazione ESRB",
   "pegi-rating": "Classificazione PEGI",
   "upload": "Carica",
@@ -82,5 +82,11 @@
   "franchise-updated-successfully": "Franchise aggiornato con successo",
   "franchise-not-found": "Franchise non trovato",
   "no-franchises-found": "Nessun franchise trovato",
+  "new-genre": "Nuovo genere",
+  "edit-genre": "Modifica genere",
+  "genre-created-successfully": "Genere creato con successo",
+  "genre-updated-successfully": "Genere aggiornato con successo",
+  "genre-not-found": "Genere non trovato",
+  "no-genres-found": "Nessun genere trovato",
   "games-count": "Numero di giochi"
 }
