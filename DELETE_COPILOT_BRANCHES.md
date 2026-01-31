@@ -51,7 +51,7 @@ git fetch --all --prune
 git branch -r | grep "origin/copilot/"
 
 # Delete all copilot branches from remote
-git branch -r | grep "origin/copilot/" | sed 's/origin\///' | xargs -I {} git push origin --delete {}
+git branch -r | grep "origin/copilot/" | sed 's/origin\///' | sed 's/^[[:space:]]*//' | xargs -I {} git push origin --delete {}
 
 # Clean up local tracking references
 git fetch --prune
