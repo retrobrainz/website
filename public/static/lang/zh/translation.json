@@ -72,5 +72,7 @@
   "emulator-updated-successfully": "模拟器更新成功",
   "emulator-not-found": "未找到模拟器",
   "select-platforms": "选择平台",
-  "select-operating-systems": "选择操作系统"
+  "select-operating-systems": "选择操作系统",
+  "dont-have-account": "还没有账户？",
+  "already-have-account": "已经有账户了？"
 }

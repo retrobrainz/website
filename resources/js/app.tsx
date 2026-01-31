@@ -27,8 +27,10 @@ import EmulatorNewPage from './pages/emulator-new/index.js';
 import EmulatorEditPage from './pages/emulator-edit/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
+import LoginPage from './pages/login/index.js';
 import PlatformPage from './pages/platform/index.js';
 import PlatformsPage from './pages/platforms/index.js';
+import RegisterPage from './pages/register/index.js';
 import SearchPage from './pages/search/index.js';
 import SettingsPage from './pages/settings/index.js';
 import UserPage from './pages/user/index.js';
@@ -56,6 +58,14 @@ function App() {
             <AppLayout>
               <Route path="/">
                 <HomePage />
+              </Route>
+
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+
+              <Route path="/register">
+                <RegisterPage />
               </Route>
 
               <Route path="/platforms">

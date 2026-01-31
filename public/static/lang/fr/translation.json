@@ -72,5 +72,7 @@
   "emulator-updated-successfully": "Émulateur mis à jour avec succès",
   "emulator-not-found": "Émulateur introuvable",
   "select-platforms": "Sélectionner des plateformes",
-  "select-operating-systems": "Sélectionner des systèmes d'exploitation"
+  "select-operating-systems": "Sélectionner des systèmes d'exploitation",
+  "dont-have-account": "Vous n'avez pas de compte?",
+  "already-have-account": "Vous avez déjà un compte?"
 }
