@@ -1,0 +1,59 @@
+import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
+import { Container } from 'antd-moe';
+import { useFetch } from 'react-fast-fetch';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useParams } from 'wouter';
+import xior from 'xior';
+import FranchiseForm from '../../components/franchise-form/index.js';
+import type Franchise from '../../types/Franchise.js';
+
+export default function FranchiseEditPage() {
+  const { message } = App.useApp();
+  const { t } = useTranslation();
+  const { franchiseId } = useParams<{ franchiseId: string }>();
+  const [, setLocation] = useLocation();
+  const { data: franchise, loading } = useFetch<Franchise>(`/franchises/${franchiseId}`);
+
+  const handleSubmit = async (values: any) => {
+    await xior.put(`/franchises/${franchiseId}`, values);
+    message.success(t('franchise-updated-successfully'));
+    setLocation(`/franchises/${franchiseId}`);
+  };
+
+  if (loading) {
+    return (
+      <Container maxWidth="md">
+        <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />
+      </Container>
+    );
+  }
+
+  if (!franchise) {
+    return (
+      <Container maxWidth="md">
+        <Typography.Text>{t('franchise-not-found')}</Typography.Text>
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxWidth="md">
+      <Breadcrumb
+        items={[
+          { title: <a href="/">{t('home')}</a> },
+          { title: <a href="/franchises">{t('franchises')}</a> },
+          { title: franchise.name },
+          { title: t('edit') },
+        ]}
+        style={{ marginTop: 32 }}
+      />
+      <Typography.Title level={1}>
+        {t('edit-franchise')}: {franchise.name}
+      </Typography.Title>
+
+      <Card>
+        <FranchiseForm franchise={franchise} onSubmit={handleSubmit} submitText={t('save')} />
+      </Card>
+    </Container>
+  );
+}

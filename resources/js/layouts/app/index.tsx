@@ -65,6 +65,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <Button type="text">{t('frontends')}</Button>
         </Link>
 
+        <Link href="/franchises">
+          <Button type="text">{t('franchises')}</Button>
+        </Link>
+
         <div style={{ flex: 1 }} />
 
         <LanguageMenu />

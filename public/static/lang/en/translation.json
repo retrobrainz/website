@@ -80,5 +80,13 @@
   "select-emulators": "Select emulators",
   "select-operating-systems": "Select operating systems",
   "dont-have-account": "Don't have an account?",
-  "already-have-account": "Already have an account?"
+  "already-have-account": "Already have an account?",
+  "franchises": "Franchises",
+  "new-franchise": "New Franchise",
+  "edit-franchise": "Edit Franchise",
+  "franchise-created-successfully": "Franchise created successfully",
+  "franchise-updated-successfully": "Franchise updated successfully",
+  "franchise-not-found": "Franchise not found",
+  "no-franchises-found": "No franchises found",
+  "games-count": "Games Count"
 }
