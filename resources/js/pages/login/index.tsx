@@ -5,6 +5,11 @@ import { Link, useLocation } from 'wouter';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
 export default function LoginPage() {
   const { message } = App.useApp();
   const { t } = useTranslation();
@@ -12,7 +17,7 @@ export default function LoginPage() {
   const [, navigate] = useLocation();
   const [form] = Form.useForm();
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = (values: LoginFormValues) => {
     xior
       .post('/login', values)
       .then((res) => {
@@ -43,7 +48,7 @@ export default function LoginPage() {
   return (
     <Container maxWidth="sm">
       <Breadcrumb
-        items={[{ title: <a href="/">{t('home')}</a> }, { title: t('login') }]}
+        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: t('login') }]}
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>{t('login')}</Typography.Title>
@@ -63,10 +68,7 @@ export default function LoginPage() {
           </Form.Item>
         </Form>
         <Typography.Paragraph style={{ textAlign: 'center', marginTop: 16 }}>
-          {t('dont-have-account')}{' '}
-          <Link href="/register">
-            <a>{t('register')}</a>
-          </Link>
+          {t('dont-have-account')} <Link href="/register">{t('register')}</Link>
         </Typography.Paragraph>
       </Card>
     </Container>

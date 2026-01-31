@@ -5,6 +5,12 @@ import { Link, useLocation } from 'wouter';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
+interface RegisterFormValues {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export default function RegisterPage() {
   const { message } = App.useApp();
   const { t } = useTranslation();
@@ -12,7 +18,7 @@ export default function RegisterPage() {
   const [, navigate] = useLocation();
   const [form] = Form.useForm();
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = (values: RegisterFormValues) => {
     xior
       .post('/register', values)
       .then((res) => {
@@ -43,7 +49,7 @@ export default function RegisterPage() {
   return (
     <Container maxWidth="sm">
       <Breadcrumb
-        items={[{ title: <a href="/">{t('home')}</a> }, { title: t('register') }]}
+        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: t('register') }]}
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>{t('register')}</Typography.Title>
@@ -66,10 +72,7 @@ export default function RegisterPage() {
           </Form.Item>
         </Form>
         <Typography.Paragraph style={{ textAlign: 'center', marginTop: 16 }}>
-          {t('already-have-account')}{' '}
-          <Link href="/login">
-            <a>{t('login')}</a>
-          </Link>
+          {t('already-have-account')} <Link href="/login">{t('login')}</Link>
         </Typography.Paragraph>
       </Card>
     </Container>
