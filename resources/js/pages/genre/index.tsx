@@ -1,15 +1,5 @@
 import { EditOutlined } from '@ant-design/icons';
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Descriptions,
-  Flex,
-  Pagination,
-  Row,
-  Typography,
-} from 'antd';
+import { Breadcrumb, Button, Col, Flex, Pagination, Row, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -62,21 +52,9 @@ export default function GenrePage() {
         )}
       </Flex>
 
-      <Card style={{ marginBottom: 24 }}>
-        <Descriptions
-          column={1}
-          items={[
-            {
-              label: t('games-count'),
-              children: genre?.gamesCount ?? 0,
-            },
-          ]}
-        />
-      </Card>
-
       <Row gutter={[24, 24]} justify="center">
         {games?.data.map((game) => (
-          <Col key={game.id} xs={24} sm={12} md={8} lg={6} xl={4}>
+          <Col key={game.id} xs={24} sm={12} lg={8} xl={6} xxl={4}>
             <GameCard game={game} />
           </Col>
         ))}
