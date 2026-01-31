@@ -39,6 +39,7 @@ router
       .resource('franchises', FranchisesController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router.resource('franchises.games', GamesController).only(['index']);
     router
       .resource('frontends', FrontendsController)
       .apiOnly()

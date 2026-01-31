@@ -17,6 +17,13 @@ export default class GamesController {
       });
     }
 
+    if (params.franchise_id || request.input('franchise_id')) {
+      const franchiseId = params.franchise_id || request.input('franchise_id');
+      query.whereHas('franchises', (q) => {
+        q.where('franchises.id', franchiseId);
+      });
+    }
+
     if (request.input('platformId')) {
       query.where('platformId', request.input('platformId'));
     }

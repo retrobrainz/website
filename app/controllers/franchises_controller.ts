@@ -22,9 +22,6 @@ export default class FranchisesController {
     return Franchise.query()
       .where('id', params.id)
       .preload('translations')
-      .preload('games', (query) => {
-        query.preload('platform').preload('boxart').orderBy('name');
-      })
       .withCount('games')
       .firstOrFail();
   }
