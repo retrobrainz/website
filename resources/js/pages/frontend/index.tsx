@@ -118,12 +118,12 @@ export default function FrontendPage() {
 
       {frontend?.emulators && frontend.emulators.length > 0 && (
         <Container maxWidth="xxl" style={{ paddingTop: 24, paddingBottom: 24 }}>
-          <Typography.Title level={2} style={{ marginBottom: 16 }}>
+          <Typography.Title level={2} style={{ marginBottom: 16, textAlign: 'center' }}>
             {t('emulators')}
           </Typography.Title>
-          <Row gutter={[24, 24]}>
+          <Row gutter={[24, 24]} justify="center">
             {frontend.emulators.map((emulator) => (
-              <Col key={emulator.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+              <Col key={emulator.id} xs={24} sm={12} md={8} lg={6}>
                 <EmulatorCard emulator={emulator} />
               </Col>
             ))}
