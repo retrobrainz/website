@@ -50,6 +50,30 @@ export default function FavoriteButton({
     }
   };
 
+  // Helper function to get the delete URL based on entity type
+  const getDeleteUrl = (favoriteId: number) => {
+    switch (entityType) {
+      case 'game':
+        return `/favorites/${favoriteId}`;
+      case 'emulator':
+        return `/emulators/${entityId}/favorites/${favoriteId}`;
+      case 'frontend':
+        return `/frontends/${entityId}/favorites/${favoriteId}`;
+    }
+  };
+
+  // Helper function to get the post URL and data based on entity type
+  const getPostUrlAndData = () => {
+    switch (entityType) {
+      case 'game':
+        return { url: '/favorites', data: { gameId: entityId } };
+      case 'emulator':
+        return { url: `/emulators/${entityId}/favorites`, data: {} };
+      case 'frontend':
+        return { url: `/frontends/${entityId}/favorites`, data: {} };
+    }
+  };
+
   const { data, reload } = useFetch<{ data: FavoriteType[] }>(getFetchUrl(), {
     params: getFetchParams(),
     disabled: !isAuthenticated,
@@ -75,10 +99,7 @@ export default function FavoriteButton({
 
     if (favorite) {
       // Delete favorite
-      const deleteUrl =
-        entityType === 'game'
-          ? `/favorites/${favorite.id}`
-          : `/${entityType}s/${entityId}/favorites/${favorite.id}`;
+      const deleteUrl = getDeleteUrl(favorite.id);
 
       xior
         .delete(deleteUrl)
@@ -89,9 +110,7 @@ export default function FavoriteButton({
         });
     } else {
       // Create favorite
-      const postUrl =
-        entityType === 'game' ? '/favorites' : `/${entityType}s/${entityId}/favorites`;
-      const postData = entityType === 'game' ? { gameId: entityId } : {};
+      const { url: postUrl, data: postData } = getPostUrlAndData();
 
       xior
         .post(postUrl, postData)
