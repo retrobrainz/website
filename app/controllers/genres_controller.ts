@@ -9,7 +9,7 @@ export default class GenresController {
   async index({ request }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 20);
-    return Genre.query().withCount('games').orderBy('name', 'asc').paginate(page, pageSize);
+    return Genre.query().withCount('games').orderBy('games_count', 'desc').paginate(page, pageSize);
   }
 
   /**

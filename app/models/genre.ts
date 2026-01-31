@@ -1,4 +1,4 @@
-import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Game from './game.js';
@@ -35,4 +35,9 @@ export default class Genre extends BaseModel {
     pivotTable: 'game_genre',
   })
   declare games: ManyToMany<typeof Game>;
+
+  @computed()
+  get gamesCount(): number | null {
+    return this.$extras.games_count ?? null;
+  }
 }
