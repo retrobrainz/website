@@ -21,6 +21,7 @@ export default function FrontendCard({ frontend }: FrontendCardProps) {
   return (
     <Link href={`/frontends/${frontend.id}`}>
       <Card
+        hoverable
         cover={
           <img
             src={frontend.screenshot?.url || fallbackScreenshot}

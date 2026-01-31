@@ -24,6 +24,7 @@ export default function EmulatorCard({ emulator }: EmulatorProps) {
   return (
     <Link href={`/emulators/${emulator.id}`}>
       <Card
+        hoverable
         cover={
           <img
             src={emulator.screenshot?.url || fallbackScreenshot}
