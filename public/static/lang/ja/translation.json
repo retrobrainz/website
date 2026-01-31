@@ -74,5 +74,13 @@
   "select-platforms": "プラットフォームを選択",
   "select-operating-systems": "オペレーティングシステムを選択",
   "dont-have-account": "アカウントをお持ちではありませんか？",
-  "already-have-account": "すでにアカウントをお持ちですか？"
+  "already-have-account": "すでにアカウントをお持ちですか？",
+  "franchises": "フランチャイズ",
+  "new-franchise": "新しいフランチャイズ",
+  "edit-franchise": "フランチャイズを編集",
+  "franchise-created-successfully": "フランチャイズが正常に作成されました",
+  "franchise-updated-successfully": "フランチャイズが正常に更新されました",
+  "franchise-not-found": "フランチャイズが見つかりません",
+  "no-franchises-found": "フランチャイズが見つかりません",
+  "games-count": "ゲーム数"
 }

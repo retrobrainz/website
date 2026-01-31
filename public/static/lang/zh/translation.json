@@ -74,5 +74,13 @@
   "select-platforms": "选择平台",
   "select-operating-systems": "选择操作系统",
   "dont-have-account": "还没有账户？",
-  "already-have-account": "已经有账户了？"
+  "already-have-account": "已经有账户了？",
+  "franchises": "系列",
+  "new-franchise": "新建系列",
+  "edit-franchise": "编辑系列",
+  "franchise-created-successfully": "系列创建成功",
+  "franchise-updated-successfully": "系列更新成功",
+  "franchise-not-found": "未找到系列",
+  "no-franchises-found": "未找到系列",
+  "games-count": "游戏数量"
 }
