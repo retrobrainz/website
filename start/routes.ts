@@ -11,10 +11,10 @@ import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
 import EmulatorFavoritesController from '#controllers/emulator_favorites_controller';
 import EmulatorsController from '#controllers/emulators_controller';
-import FavoritesController from '#controllers/favorites_controller';
 import FranchisesController from '#controllers/franchises_controller';
 import FrontendFavoritesController from '#controllers/frontend_favorites_controller';
 import FrontendsController from '#controllers/frontends_controller';
+import GameFavoritesController from '#controllers/game_favorites_controller';
 import GameTranslationsController from '#controllers/game_translations_controller';
 import GamesController from '#controllers/games_controller';
 import GenresController from '#controllers/genres_controller';
@@ -65,7 +65,7 @@ router
 
     // Favorites routes
     router
-      .resource('favorites', FavoritesController)
+      .resource('games.favorites', GameFavoritesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
 

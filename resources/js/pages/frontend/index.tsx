@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import EmulatorCard from '../../components/emulator-card/index.js';
+import FavoriteButton from '../../components/favorite-button/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
 import Frontend from '../../types/Frontend.js';
-import FrontendFavoriteButton from './FrontendFavoriteButton.js';
 
 export default function FrontendPage() {
   const { frontendId } = useParams();
@@ -47,8 +47,9 @@ export default function FrontendPage() {
 
           <div style={{ flex: 1 }} />
 
-          <FrontendFavoriteButton
-            frontendId={frontendId}
+          <FavoriteButton
+            entityType="frontend"
+            entityId={frontendId}
             favoritesCount={frontend?.favoritesCount ?? undefined}
             onToggle={reload}
           />
