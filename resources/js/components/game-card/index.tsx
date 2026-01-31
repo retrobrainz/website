@@ -13,6 +13,7 @@ export default function GameCard({ game }: GameCardProps) {
   return (
     <Link href={`/platforms/${game.platformId}/games/${game.id}`}>
       <Card
+        hoverable
         cover={
           <img
             src={game.boxart?.url}

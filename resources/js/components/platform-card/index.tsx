@@ -13,6 +13,7 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
   return (
     <Link href={`/platforms/${platform.id}`}>
       <Card
+        hoverable
         cover={
           <img
             alt={platform.name}
