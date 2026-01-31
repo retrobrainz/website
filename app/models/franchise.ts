@@ -1,5 +1,5 @@
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
+import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import FranchiseTranslation from './franchise_translation.js';
 import Game from './game.js';
@@ -28,6 +28,15 @@ export default class Franchise extends BaseModel {
   @hasMany(() => FranchiseTranslation)
   declare translations: HasMany<typeof FranchiseTranslation>;
 
-  @hasMany(() => Game)
-  declare games: HasMany<typeof Game>;
+  @manyToMany(() => Game, {
+    pivotTable: 'game_franchise',
+  })
+  declare games: ManyToMany<typeof Game>;
+
+  // Computed properties
+
+  @computed()
+  get gamesCount(): number | null {
+    return this.$extras.games_count ?? null;
+  }
 }

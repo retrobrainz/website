@@ -25,6 +25,10 @@ import EmulatorsPage from './pages/emulators/index.js';
 import EmulatorPage from './pages/emulator/index.js';
 import EmulatorNewPage from './pages/emulator-new/index.js';
 import EmulatorEditPage from './pages/emulator-edit/index.js';
+import FranchisesPage from './pages/franchises/index.js';
+import FranchisePage from './pages/franchise/index.js';
+import FranchiseNewPage from './pages/franchise-new/index.js';
+import FranchiseEditPage from './pages/franchise-edit/index.js';
 import GamePage from './pages/game/index.js';
 import HomePage from './pages/home/index.js';
 import LoginPage from './pages/login/index.js';
@@ -118,6 +122,26 @@ function App() {
 
               <Route path="/emulators/:emulatorId">
                 <EmulatorPage />
+              </Route>
+
+              <Route path="/franchises">
+                <FranchisesPage />
+              </Route>
+
+              <Route path="/franchises/new">
+                <RequireAuth>
+                  <FranchiseNewPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/franchises/:franchiseId/edit">
+                <RequireAuth>
+                  <FranchiseEditPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/franchises/:franchiseId">
+                <FranchisePage />
               </Route>
 
               <Route path="/platforms/:platformId/games/:gameId">

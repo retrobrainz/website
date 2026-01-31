@@ -74,5 +74,13 @@
   "select-platforms": "Sélectionner des plateformes",
   "select-operating-systems": "Sélectionner des systèmes d'exploitation",
   "dont-have-account": "Vous n'avez pas de compte?",
-  "already-have-account": "Vous avez déjà un compte?"
+  "already-have-account": "Vous avez déjà un compte?",
+  "franchises": "Franchises",
+  "new-franchise": "Nouvelle franchise",
+  "edit-franchise": "Modifier la franchise",
+  "franchise-created-successfully": "Franchise créée avec succès",
+  "franchise-updated-successfully": "Franchise mise à jour avec succès",
+  "franchise-not-found": "Franchise introuvable",
+  "no-franchises-found": "Aucune franchise trouvée",
+  "games-count": "Nombre de jeux"
 }

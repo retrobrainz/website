@@ -35,7 +35,10 @@ router
       .resource('emulators', EmulatorsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router.resource('franchises', FranchisesController).apiOnly();
+    router
+      .resource('franchises', FranchisesController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
       .resource('frontends', FrontendsController)
       .apiOnly()
