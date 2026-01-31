@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
 import FrontendCard from '../../components/frontend-card/index.js';
+import FavoriteButton from '../../components/favorite-button/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
 import Emulator from '../../types/Emulator.js';
-import EmulatorFavoriteButton from './EmulatorFavoriteButton.js';
 
 export default function EmulatorPage() {
   const { emulatorId } = useParams();
@@ -47,8 +47,9 @@ export default function EmulatorPage() {
 
           <div style={{ flex: 1 }} />
 
-          <EmulatorFavoriteButton
-            emulatorId={emulatorId}
+          <FavoriteButton
+            entityType="emulator"
+            entityId={emulatorId}
             favoritesCount={emulator?.favoritesCount ?? undefined}
             onToggle={reload}
           />

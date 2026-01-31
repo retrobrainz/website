@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import Game from '../../types/Game.js';
 import ImageUpload from '../platform/ImageUpload.js';
-import FavoriteButton from './FavoriteButton.js';
+import FavoriteButton from '../../components/favorite-button/index.js';
 
 export default function GamePage() {
   const { gameId } = useParams();
@@ -33,7 +33,12 @@ export default function GamePage() {
       <Typography.Title level={1}>{game?.name}</Typography.Title>
 
       <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
-        <FavoriteButton gameId={gameId} favoritesCount={game?.favoritesCount} onToggle={reload} />
+        <FavoriteButton
+          entityType="game"
+          entityId={gameId}
+          favoritesCount={game?.favoritesCount}
+          onToggle={reload}
+        />
       </Flex>
 
       <Image.PreviewGroup>
