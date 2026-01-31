@@ -17,19 +17,23 @@ import './config/fetch.js';
 import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
-import FrontendsPage from './pages/frontends/index.js';
-import FrontendPage from './pages/frontend/index.js';
-import FrontendNewPage from './pages/frontend-new/index.js';
-import FrontendEditPage from './pages/frontend-edit/index.js';
-import EmulatorsPage from './pages/emulators/index.js';
-import EmulatorPage from './pages/emulator/index.js';
-import EmulatorNewPage from './pages/emulator-new/index.js';
 import EmulatorEditPage from './pages/emulator-edit/index.js';
-import FranchisesPage from './pages/franchises/index.js';
-import FranchisePage from './pages/franchise/index.js';
-import FranchiseNewPage from './pages/franchise-new/index.js';
+import EmulatorNewPage from './pages/emulator-new/index.js';
+import EmulatorPage from './pages/emulator/index.js';
+import EmulatorsPage from './pages/emulators/index.js';
 import FranchiseEditPage from './pages/franchise-edit/index.js';
+import FranchiseNewPage from './pages/franchise-new/index.js';
+import FranchisePage from './pages/franchise/index.js';
+import FranchisesPage from './pages/franchises/index.js';
+import FrontendEditPage from './pages/frontend-edit/index.js';
+import FrontendNewPage from './pages/frontend-new/index.js';
+import FrontendPage from './pages/frontend/index.js';
+import FrontendsPage from './pages/frontends/index.js';
 import GamePage from './pages/game/index.js';
+import GenreEditPage from './pages/genre-edit/index.js';
+import GenreNewPage from './pages/genre-new/index.js';
+import GenrePage from './pages/genre/index.js';
+import GenresPage from './pages/genres/index.js';
 import HomePage from './pages/home/index.js';
 import LoginPage from './pages/login/index.js';
 import PlatformPage from './pages/platform/index.js';
@@ -143,7 +147,25 @@ function App() {
               <Route path="/franchises/:franchiseId">
                 <FranchisePage />
               </Route>
+              <Route path="/genres">
+                <GenresPage />
+              </Route>
 
+              <Route path="/genres/new">
+                <RequireAuth>
+                  <GenreNewPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/genres/:genreId/edit">
+                <RequireAuth>
+                  <GenreEditPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/genres/:genreId">
+                <GenrePage />
+              </Route>
               <Route path="/platforms/:platformId/games/:gameId">
                 <GamePage />
               </Route>
