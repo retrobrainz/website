@@ -2,7 +2,7 @@ import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'wouter';
+import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import FranchiseForm from '../../components/franchise-form/index.js';
 import type Franchise from '../../types/Franchise.js';
@@ -40,8 +40,8 @@ export default function FranchiseEditPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/franchises">{t('franchises')}</a> },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/franchises">{t('franchises')}</Link> },
           { title: franchise.name },
           { title: t('edit') },
         ]}

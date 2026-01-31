@@ -32,10 +32,10 @@ export default class FranchisesController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, auth }: HttpContext) {
+  async store({ request, auth, response }: HttpContext) {
     // Only admin and editor can create franchises
     if (!auth.user || (auth.user.role !== 'admin' && auth.user.role !== 'editor')) {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     const data = request.only(['name']);
@@ -45,10 +45,10 @@ export default class FranchisesController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request, auth }: HttpContext) {
+  async update({ params, request, auth, response }: HttpContext) {
     // Only admin and editor can update franchises
     if (!auth.user || (auth.user.role !== 'admin' && auth.user.role !== 'editor')) {
-      return { error: 'Unauthorized' };
+      return response.forbidden({ message: 'Unauthorized' });
     }
 
     const franchise = await Franchise.findOrFail(params.id);

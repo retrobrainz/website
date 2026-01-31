@@ -1,7 +1,7 @@
 import { App, Breadcrumb, Card, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import xior from 'xior';
 import FranchiseForm from '../../components/franchise-form/index.js';
 import Franchise from '../../types/Franchise.js';
@@ -21,8 +21,8 @@ export default function FranchiseNewPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/franchises">{t('franchises')}</a> },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/franchises">{t('franchises')}</Link> },
           { title: t('new') },
         ]}
         style={{ marginTop: 32 }}
