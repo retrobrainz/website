@@ -53,6 +53,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         <SearchBar />
 
+        <Link href="/franchises">
+          <Button type="text">{t('franchises')}</Button>
+        </Link>
+
         <Link href="/platforms">
           <Button type="text">{t('platforms')}</Button>
         </Link>
@@ -63,10 +67,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         <Link href="/frontends">
           <Button type="text">{t('frontends')}</Button>
-        </Link>
-
-        <Link href="/franchises">
-          <Button type="text">{t('franchises')}</Button>
         </Link>
 
         <div style={{ flex: 1 }} />
