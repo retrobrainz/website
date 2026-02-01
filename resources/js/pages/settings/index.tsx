@@ -1,6 +1,7 @@
 import { App, Breadcrumb, Card, Typography, Upload } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'wouter';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
@@ -12,7 +13,7 @@ export default function SettingsPage() {
   return (
     <Container maxWidth="md">
       <Breadcrumb
-        items={[{ title: <a href="/">{t('home')}</a> }, { title: t('settings') }]}
+        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: t('settings') }]}
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>{t('settings')}</Typography.Title>

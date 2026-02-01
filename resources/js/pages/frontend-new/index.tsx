@@ -1,7 +1,7 @@
 import { App, Breadcrumb, Card, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import xior from 'xior';
 import FrontendForm from '../../components/frontend-form/index.js';
 
@@ -20,8 +20,8 @@ export default function FrontendNewPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/frontends">{t('frontends')}</a> },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/frontends">{t('frontends')}</Link> },
           { title: t('new') },
         ]}
         style={{ marginTop: 32 }}

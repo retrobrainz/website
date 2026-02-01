@@ -16,7 +16,11 @@ export default function PlatformPage() {
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
-        items={[{ title: <Link href="/">{t('home')}</Link> }, { title: platform?.name || '...' }]}
+        items={[
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/platforms">{t('platforms')}</Link> },
+          { title: platform?.name || '...' },
+        ]}
         style={{ marginBottom: 16 }}
       />
 

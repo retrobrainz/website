@@ -1,7 +1,7 @@
 import { App, Breadcrumb, Card, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import xior from 'xior';
 import EmulatorForm from '../../components/emulator-form/index.js';
 import Emulator from '../../types/Emulator.js';
@@ -21,8 +21,8 @@ export default function EmulatorNewPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/emulators">{t('emulators')}</a> },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/emulators">{t('emulators')}</Link> },
           { title: t('new') },
         ]}
         style={{ marginTop: 32 }}
