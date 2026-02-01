@@ -27,20 +27,22 @@ export default function FranchisePage() {
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
+  const displayName = franchise?.translations?.[0]?.name || franchise?.name || '...';
+
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/franchises">{t('franchises')}</Link> },
-          { title: franchise?.name || '...' },
+          { title: displayName },
         ]}
         style={{ marginBottom: 16 }}
       />
 
       <Flex align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {franchise?.name || '...'}
+          {displayName}
         </Typography.Title>
 
         <div style={{ flex: 1 }} />

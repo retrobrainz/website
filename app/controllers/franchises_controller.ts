@@ -5,25 +5,34 @@ export default class FranchisesController {
   /**
    * Display a list of resource
    */
-  async index({ request }: HttpContext) {
+  async index({ request, i18n }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 24);
-    return Franchise.query()
-      .preload('translations')
-      .withCount('games')
-      .orderBy('games_count', 'desc')
-      .paginate(page, pageSize);
+    const locale = request.input('locale', i18n.locale);
+
+    const query = Franchise.query().withCount('games').orderBy('games_count', 'desc');
+
+    if (locale) {
+      query.preload('translations', (q) => q.where('locale', locale));
+    }
+
+    return query.paginate(page, pageSize);
   }
 
   /**
    * Display a single resource
    */
-  async show({ params }: HttpContext) {
-    return Franchise.query()
-      .where('id', params.id)
-      .preload('translations')
-      .withCount('games')
-      .firstOrFail();
+  async show({ params, request, i18n }: HttpContext) {
+    const locale = request.input('locale');
+    const query = Franchise.query().where('id', params.id).withCount('games');
+
+    if (locale === '*') {
+      query.preload('translations');
+    } else {
+      query.preload('translations', (q) => q.where('locale', locale || i18n.locale));
+    }
+
+    return query.firstOrFail();
   }
 
   /**
