@@ -11,6 +11,7 @@ import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
 import EmulatorFavoritesController from '#controllers/emulator_favorites_controller';
 import EmulatorsController from '#controllers/emulators_controller';
+import FranchiseTranslationsController from '#controllers/franchise_translations_controller';
 import FranchisesController from '#controllers/franchises_controller';
 import FrontendFavoritesController from '#controllers/frontend_favorites_controller';
 import FrontendsController from '#controllers/frontends_controller';
@@ -41,6 +42,10 @@ router
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('franchises.games', GamesController).only(['index']);
+    router
+      .resource('franchises.translations', FranchiseTranslationsController)
+      .only(['store', 'update'])
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
       .resource('frontends', FrontendsController)
       .apiOnly()

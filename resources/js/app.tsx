@@ -23,6 +23,7 @@ import EmulatorPage from './pages/emulator/index.js';
 import EmulatorsPage from './pages/emulators/index.js';
 import FranchiseEditPage from './pages/franchise-edit/index.js';
 import FranchiseNewPage from './pages/franchise-new/index.js';
+import FranchiseTranslatePage from './pages/franchise-translate/index.js';
 import FranchisePage from './pages/franchise/index.js';
 import FranchisesPage from './pages/franchises/index.js';
 import FrontendEditPage from './pages/frontend-edit/index.js';
@@ -142,6 +143,12 @@ function App() {
               <Route path="/franchises/:franchiseId/edit">
                 <RequireAuth>
                   <FranchiseEditPage />
+                </RequireAuth>
+              </Route>
+
+              <Route path="/franchises/:franchiseId/translate">
+                <RequireAuth>
+                  <FranchiseTranslatePage />
                 </RequireAuth>
               </Route>
 
