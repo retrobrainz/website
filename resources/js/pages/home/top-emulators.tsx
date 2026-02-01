@@ -8,9 +8,9 @@ import type Emulator from '../../types/Emulator.js';
 
 export default function TopEmulators() {
   const { t } = useTranslation();
-  const { data: emulators } = useFetch<Emulator[]>('/emulators');
-
-  const topEmulators = emulators?.slice(0, 6);
+  const { data } = useFetch<{ data: Emulator[] }>('/emulators', {
+    params: { page: 1, pageSize: 6 },
+  });
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function TopEmulators() {
         </Link>
       </Flex>
       <Row gutter={[24, 24]} style={{ marginBottom: 48 }}>
-        {topEmulators?.map((emulator) => (
+        {data?.data.map((emulator) => (
           <Col key={emulator.id} xs={24} md={12} xl={8} xxl={4}>
             <EmulatorCard emulator={emulator} />
           </Col>

@@ -22,8 +22,8 @@ export default function EmulatorsPage() {
   const [platformId, setPlatformId] = useState<number | null>(null);
   const [operatingSystemId, setOperatingSystemId] = useState<number | null>(null);
 
-  const { data: emulators, loading } = useFetch<Emulator[]>('/emulators', {
-    params: { platformId, operatingSystemId },
+  const { data: emulators, loading } = useFetch<{ data: Emulator[] }>('/emulators', {
+    params: { platformId, operatingSystemId, pageSize: 24 },
   });
 
   const canCreateEmulator = user?.role === 'admin' || user?.role === 'editor';
@@ -80,13 +80,13 @@ export default function EmulatorsPage() {
 
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
-          {emulators?.map((emulator) => (
+          {emulators?.data.map((emulator) => (
             <Col key={emulator.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
               <EmulatorCard emulator={emulator} />
             </Col>
           ))}
         </Row>
-        {!loading && emulators?.length === 0 && (
+        {!loading && emulators?.data.length === 0 && (
           <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
             {t('no-emulators-found')}
           </div>

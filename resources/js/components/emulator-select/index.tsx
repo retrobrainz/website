@@ -17,7 +17,9 @@ export default function EmulatorSelect({
   placeholder,
 }: EmulatorSelectProps) {
   const { t } = useTranslation();
-  const { data: emulators } = useFetch<Emulator[]>('/emulators');
+  const { data: emulators } = useFetch<{ data: Emulator[] }>('/emulators', {
+    params: { pageSize: 100 },
+  });
 
   return (
     <Select
@@ -25,7 +27,7 @@ export default function EmulatorSelect({
       value={value}
       onChange={onChange}
       placeholder={placeholder || t('select-emulators')}
-      options={emulators?.map((e) => ({ label: e.name, value: e.id })) || []}
+      options={emulators?.data.map((e) => ({ label: e.name, value: e.id })) || []}
     />
   );
 }

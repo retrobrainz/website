@@ -20,13 +20,16 @@ export default class EmulatorsController {
       });
     }
 
+    const page = request.input('page', 1);
+    const pageSize = request.input('pageSize', 10);
+
     return query
       .preload('icon')
       .preload('operatingSystems')
       .preload('platforms')
       .preload('screenshot')
       .orderBy('name', 'asc')
-      .exec();
+      .paginate(page, pageSize);
   }
 
   async store({ request, auth, response }: HttpContext) {
