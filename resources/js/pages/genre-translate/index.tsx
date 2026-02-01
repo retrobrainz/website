@@ -13,7 +13,7 @@ export default function GenreTranslatePage() {
   const { genreId } = useParams();
   const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh' : i18n.language);
 
-  const { data: genre } = useFetch<Genre>(`/genres/${genreId}`, {
+  const { data: genre, reload } = useFetch<Genre>(`/genres/${genreId}`, {
     params: { locale },
   });
 
@@ -33,6 +33,7 @@ export default function GenreTranslatePage() {
         });
       }
       message.success(t('saved'));
+      await reload();
     } catch (e: any) {
       if (e.response && e.response.data && e.response.data.message) {
         message.error(e.response.data.message);
@@ -56,7 +57,11 @@ export default function GenreTranslatePage() {
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/genres">{t('genres')}</Link> },
-          { title: <Link href={`/genres/${genre?.id}`}>{genre?.name || '...'}</Link> },
+          {
+            title: (
+              <Link href={`/genres/${genre?.id}`}>{translation?.name || genre?.name || '...'}</Link>
+            ),
+          },
           { title: t('translate') },
         ]}
         style={{ marginBottom: 16 }}
@@ -64,7 +69,7 @@ export default function GenreTranslatePage() {
 
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {t('translate')}: {genre?.name || '...'}
+          {t('translate')}: {translation?.name || genre?.name || '...'}
         </Typography.Title>
         <Select
           value={locale}

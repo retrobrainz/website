@@ -27,20 +27,22 @@ export default function GenrePage() {
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
+  const displayName = genre ? genre.translations?.[0]?.name || genre.name : '...';
+
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/genres">{t('genres')}</Link> },
-          { title: genre?.name || '...' },
+          { title: displayName },
         ]}
         style={{ marginBottom: 16 }}
       />
 
       <Flex align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {genre?.name || '...'}
+          {displayName}
         </Typography.Title>
 
         <div style={{ flex: 1 }} />
