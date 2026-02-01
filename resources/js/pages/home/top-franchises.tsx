@@ -9,7 +9,7 @@ import type Franchise from '../../types/Franchise.js';
 export default function TopFranchises() {
   const { t } = useTranslation();
   const { data: franchises } = useFetch<{ data: Franchise[] }>('/franchises', {
-    params: { page: 1, pageSize: 6 },
+    params: { page: 1, pageSize: 12 },
   });
 
   return (

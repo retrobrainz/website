@@ -9,7 +9,7 @@ import type Genre from '../../types/Genre.js';
 export default function TopGenres() {
   const { t } = useTranslation();
   const { data: genres } = useFetch<{ data: Genre[] }>('/genres', {
-    params: { page: 1, pageSize: 6 },
+    params: { page: 1, pageSize: 12 },
   });
 
   return (
