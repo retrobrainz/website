@@ -13,7 +13,10 @@ export default function GenreCard({ genre }: GenreCardProps) {
   return (
     <Link href={`/genres/${genre.id}`}>
       <Card hoverable>
-        <Card.Meta title={genre.name} description={`${genre.gamesCount ?? 0} ${t('games')}`} />
+        <Card.Meta
+          title={genre.translations?.[0]?.name || genre.name}
+          description={`${genre.gamesCount ?? 0} ${t('games')}`}
+        />
       </Card>
     </Link>
   );
