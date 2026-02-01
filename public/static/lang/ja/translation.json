@@ -88,5 +88,6 @@
   "genre-updated-successfully": "ジャンルが正常に更新されました",
   "genre-not-found": "ジャンルが見つかりません",
   "no-genres-found": "ジャンルが見つかりません",
-  "games-count": "ゲーム数"
+  "games-count": "ゲーム数",
+  "more": "もっと見る"
 }

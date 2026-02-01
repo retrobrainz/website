@@ -88,5 +88,6 @@
   "genre-updated-successfully": "类型更新成功",
   "genre-not-found": "未找到类型",
   "no-genres-found": "未找到类型",
-  "games-count": "游戏数量"
+  "games-count": "游戏数量",
+  "more": "更多"
 }

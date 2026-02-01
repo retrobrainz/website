@@ -88,5 +88,6 @@
   "genre-updated-successfully": "Genre mis à jour avec succès",
   "genre-not-found": "Genre introuvable",
   "no-genres-found": "Aucun genre trouvé",
-  "games-count": "Nombre de jeux"
+  "games-count": "Nombre de jeux",
+  "more": "Plus"
 }
