@@ -1,4 +1,4 @@
-import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
+import { App, Breadcrumb, Card, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ export default function GenreEditPage() {
   const { t } = useTranslation();
   const { genreId } = useParams<{ genreId: string }>();
   const [, setLocation] = useLocation();
-  const { data: genre, loading } = useFetch<Genre>(`/genres/${genreId}`);
+  const { data: genre } = useFetch<Genre>(`/genres/${genreId}`);
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/genres/${genreId}`, values);
@@ -20,21 +20,7 @@ export default function GenreEditPage() {
     setLocation(`/genres/${genreId}`);
   };
 
-  if (loading) {
-    return (
-      <Container maxWidth="md">
-        <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />
-      </Container>
-    );
-  }
-
-  if (!genre) {
-    return (
-      <Container maxWidth="md">
-        <Typography.Text>{t('genre-not-found')}</Typography.Text>
-      </Container>
-    );
-  }
+  const displayName = genre?.translations?.[0]?.name || genre?.name || '...';
 
   return (
     <Container maxWidth="md">
@@ -42,13 +28,13 @@ export default function GenreEditPage() {
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/genres">{t('genres')}</Link> },
-          { title: <Link href={`/genres/${genreId}`}>{genre.name}</Link> },
+          { title: <Link href={`/genres/${genreId}`}>{displayName}</Link> },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>
-        {t('edit-genre')}: {genre.name}
+        {t('edit')}: {displayName}
       </Typography.Title>
 
       <Card>
