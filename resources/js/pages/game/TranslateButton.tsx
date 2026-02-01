@@ -1,6 +1,7 @@
 import { TranslationOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import { useAuth } from '../../contexts/auth/index.js';
 
@@ -10,6 +11,7 @@ export interface TranslateButtonProps {
 }
 
 export default function TranslateButton({ gameId, onTranslate }: TranslateButtonProps) {
+  const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
 
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -30,7 +32,7 @@ export default function TranslateButton({ gameId, onTranslate }: TranslateButton
         }
       }}
     >
-      Translate
+      {t('translate')}
     </Button>
   );
 }
