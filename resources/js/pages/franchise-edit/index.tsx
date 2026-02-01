@@ -42,7 +42,7 @@ export default function FranchiseEditPage() {
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/franchises">{t('franchises')}</Link> },
-          { title: franchise.name },
+          { title: <Link href={`/franchises/${franchiseId}`}>{franchise.name}</Link> },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}

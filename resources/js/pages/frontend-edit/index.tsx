@@ -2,7 +2,7 @@ import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'wouter';
+import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import FrontendForm from '../../components/frontend-form/index.js';
 import type Frontend from '../../types/Frontend.js';
@@ -40,9 +40,9 @@ export default function FrontendEditPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/frontends">{t('frontends')}</a> },
-          { title: frontend.name },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/frontends">{t('frontends')}</Link> },
+          { title: <Link href={`/frontends/${frontendId}`}>{frontend.name}</Link> },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}

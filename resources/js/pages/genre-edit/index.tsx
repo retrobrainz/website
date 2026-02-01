@@ -42,7 +42,7 @@ export default function GenreEditPage() {
         items={[
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/genres">{t('genres')}</Link> },
-          { title: genre.name },
+          { title: <Link href={`/genres/${genreId}`}>{genre.name}</Link> },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}

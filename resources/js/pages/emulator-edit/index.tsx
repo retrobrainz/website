@@ -2,7 +2,7 @@ import { App, Breadcrumb, Card, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'wouter';
+import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import EmulatorForm from '../../components/emulator-form/index.js';
 import type Emulator from '../../types/Emulator.js';
@@ -40,9 +40,9 @@ export default function EmulatorEditPage() {
     <Container maxWidth="md">
       <Breadcrumb
         items={[
-          { title: <a href="/">{t('home')}</a> },
-          { title: <a href="/emulators">{t('emulators')}</a> },
-          { title: emulator.name },
+          { title: <Link href="/">{t('home')}</Link> },
+          { title: <Link href="/emulators">{t('emulators')}</Link> },
+          { title: <Link href={`/emulators/${emulatorId}`}>{emulator.name}</Link> },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}
