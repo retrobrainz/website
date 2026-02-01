@@ -50,6 +50,12 @@ export default class GamesController {
         });
     }
 
+    if (request.input('orderBy') === 'random') {
+      query.orderByRaw('RANDOM()');
+    } else {
+      query.orderBy('name', 'asc');
+    }
+
     return query
       .preload('franchises')
       .preload('genres')
@@ -64,7 +70,6 @@ export default class GamesController {
       .preload('screenshot')
       .preload('titlescreen')
       .withCount('favorites')
-      .orderBy('name', 'asc')
       .paginate(page, pageSize);
   }
 

@@ -89,5 +89,8 @@
   "genre-not-found": "未找到类型",
   "no-genres-found": "未找到类型",
   "games-count": "游戏数量",
-  "more": "更多"
+  "more": "更多",
+  "random-games": "随机游戏",
+  "refresh": "刷新",
+  "top-games": "热门游戏"
 }

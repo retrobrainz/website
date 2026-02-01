@@ -95,5 +95,8 @@
   "genre-not-found": "Genre not found",
   "no-genres-found": "No genres found",
   "games-count": "Games Count",
-  "more": "More"
+  "more": "More",
+  "random-games": "Random Games",
+  "refresh": "Refresh",
+  "top-games": "Top Games"
 }
