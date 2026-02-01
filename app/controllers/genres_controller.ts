@@ -6,17 +6,34 @@ export default class GenresController {
   /**
    * Display a list of resource
    */
-  async index({ request }: HttpContext) {
+  async index({ request, i18n }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
-    return Genre.query().withCount('games').orderBy('games_count', 'desc').paginate(page, pageSize);
+    const locale = request.input('locale', i18n.locale);
+
+    const query = Genre.query().withCount('games').orderBy('games_count', 'desc');
+
+    if (locale) {
+      query.preload('translations', (q) => q.where('locale', locale));
+    }
+
+    return query.paginate(page, pageSize);
   }
 
   /**
    * Display a single resource
    */
-  async show({ params }: HttpContext) {
-    return Genre.query().where('id', params.id).withCount('games').firstOrFail();
+  async show({ params, request, i18n }: HttpContext) {
+    const locale = request.input('locale');
+    const query = Genre.query().where('id', params.id).withCount('games');
+
+    if (locale === '*') {
+      query.preload('translations');
+    } else {
+      query.preload('translations', (q) => q.where('locale', locale || i18n.locale));
+    }
+
+    return query.firstOrFail();
   }
 
   /**

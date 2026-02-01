@@ -17,6 +17,7 @@ import FrontendsController from '#controllers/frontends_controller';
 import GameFavoritesController from '#controllers/game_favorites_controller';
 import GameTranslationsController from '#controllers/game_translations_controller';
 import GamesController from '#controllers/games_controller';
+import GenreTranslationsController from '#controllers/genre_translations_controller';
 import GenresController from '#controllers/genres_controller';
 import ImagesController from '#controllers/images_controller';
 import LanguagesController from '#controllers/languages_controller';
@@ -55,6 +56,10 @@ router
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
     router.resource('genres.games', GamesController).only(['index']);
+    router
+      .resource('genres.translations', GenreTranslationsController)
+      .only(['store', 'update'])
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
       .resource('images', ImagesController)
       .apiOnly()

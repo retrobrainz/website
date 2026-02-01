@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Col, Flex, Pagination, Row, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
@@ -46,9 +46,14 @@ export default function GenrePage() {
         <div style={{ flex: 1 }} />
 
         {canEdit && (
-          <Link href={`/genres/${genreId}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
-          </Link>
+          <Flex gap="small">
+            <Link href={`/genres/${genreId}/translate`}>
+              <Button icon={<TranslationOutlined />}>{t('translate')}</Button>
+            </Link>
+            <Link href={`/genres/${genreId}/edit`}>
+              <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            </Link>
+          </Flex>
         )}
       </Flex>
 

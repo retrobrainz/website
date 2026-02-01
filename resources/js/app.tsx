@@ -32,6 +32,7 @@ import FrontendsPage from './pages/frontends/index.js';
 import GamePage from './pages/game/index.js';
 import GenreEditPage from './pages/genre-edit/index.js';
 import GenreNewPage from './pages/genre-new/index.js';
+import GenreTranslatePage from './pages/genre-translate/index.js';
 import GenrePage from './pages/genre/index.js';
 import GenresPage from './pages/genres/index.js';
 import HomePage from './pages/home/index.js';
@@ -157,15 +158,22 @@ function App() {
                 </RequireAuth>
               </Route>
 
+              <Route path="/genres/:genreId">
+                <GenrePage />
+              </Route>
+
               <Route path="/genres/:genreId/edit">
                 <RequireAuth>
                   <GenreEditPage />
                 </RequireAuth>
               </Route>
 
-              <Route path="/genres/:genreId">
-                <GenrePage />
+              <Route path="/genres/:genreId/translate">
+                <RequireAuth>
+                  <GenreTranslatePage />
+                </RequireAuth>
               </Route>
+
               <Route path="/platforms/:platformId/games/:gameId">
                 <GamePage />
               </Route>

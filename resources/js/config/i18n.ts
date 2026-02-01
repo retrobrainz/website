@@ -3,13 +3,23 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import FetchBackend from 'i18next-fetch-backend';
 import { initReactI18next } from 'react-i18next';
 
+export const languages = [
+  { code: 'en', name: 'English' },
+  { code: 'fr', name: 'Français' },
+  { code: 'es', name: 'Español' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'it', name: 'Italiano' },
+  { code: 'ja', name: '日本語' },
+  { code: 'zh', name: '中文' },
+];
+
 i18next
   .use(FetchBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    supportedLngs: ['en', 'fr', 'es', 'de', 'it', 'ja', 'zh'],
+    supportedLngs: languages.map((lang) => lang.code),
     interpolation: {
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
