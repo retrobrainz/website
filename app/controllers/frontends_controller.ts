@@ -20,13 +20,16 @@ export default class FrontendsController {
       });
     }
 
+    const page = request.input('page', 1);
+    const pageSize = request.input('pageSize', 10);
+
     return query
       .preload('icon')
       .preload('screenshot')
       .preload('emulators')
       .preload('operatingSystems')
       .orderBy('name', 'asc')
-      .exec();
+      .paginate(page, pageSize);
   }
 
   async store({ request, auth, response }: HttpContext) {

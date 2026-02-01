@@ -8,9 +8,9 @@ import type Frontend from '../../types/Frontend.js';
 
 export default function TopFrontends() {
   const { t } = useTranslation();
-  const { data: frontends } = useFetch<Frontend[]>('/frontends');
-
-  const topFrontends = frontends?.slice(0, 6);
+  const { data } = useFetch<{ data: Frontend[] }>('/frontends', {
+    params: { page: 1, pageSize: 6 },
+  });
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function TopFrontends() {
         </Link>
       </Flex>
       <Row gutter={[24, 24]} style={{ marginBottom: 48 }}>
-        {topFrontends?.map((frontend) => (
+        {data?.data.map((frontend) => (
           <Col key={frontend.id} xs={24} md={12} xl={8} xxl={4}>
             <FrontendCard frontend={frontend} />
           </Col>

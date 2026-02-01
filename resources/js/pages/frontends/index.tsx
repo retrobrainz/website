@@ -17,8 +17,8 @@ export default function FrontendsPage() {
   const { data: operatingSystems } = useFetch<OperatingSystem[]>('/operatingSystems');
   const [operatingSystemId, setOperatingSystemId] = useState<number | null>(null);
 
-  const { data, loading } = useFetch<Frontend[]>('/frontends', {
-    params: { operatingSystemId },
+  const { data, loading } = useFetch<{ data: Frontend[] }>('/frontends', {
+    params: { operatingSystemId, pageSize: 24 },
   });
 
   const canCreateFrontend = user?.role === 'admin' || user?.role === 'editor';
@@ -61,7 +61,7 @@ export default function FrontendsPage() {
       </Form>
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
-          {data?.map((frontend) => (
+          {data?.data.map((frontend) => (
             <Col key={frontend.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
               <FrontendCard frontend={frontend} />
             </Col>
