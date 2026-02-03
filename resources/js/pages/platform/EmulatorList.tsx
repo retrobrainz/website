@@ -15,7 +15,7 @@ export default function EmulatorList() {
   const { data: operatingSystems } = useFetch<OperatingSystem[]>('/operatingSystems');
   const [operatingSystemId, setOperatingSystemId] = useState<number | null>(null);
 
-  const { data, loading } = useFetch<Emulator[]>(`/emulators`, {
+  const { data, loading } = useFetch<{ data: Emulator[] }>(`/emulators`, {
     params: { platformId, operatingSystemId },
   });
 
@@ -39,7 +39,7 @@ export default function EmulatorList() {
       </Form>
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
-          {data?.map((emulator) => (
+          {data?.data?.map((emulator) => (
             <Col key={emulator.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
               <EmulatorCard emulator={emulator} />
             </Col>
