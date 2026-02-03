@@ -58,7 +58,7 @@ export default class GamesController {
 
     return query
       .preload('franchises')
-      .preload('genres')
+      .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
       .preload('developers')
@@ -77,7 +77,7 @@ export default class GamesController {
     const game = await Game.query()
       .where('id', params.id)
       .preload('franchises')
-      .preload('genres')
+      .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
       .preload('developers')

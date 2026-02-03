@@ -3,13 +3,13 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import FavoriteButton from '../../components/favorite-button/index.js';
 import Game from '../../types/Game.js';
 import ImageUpload from '../platform/ImageUpload.js';
-import FavoriteButton from '../../components/favorite-button/index.js';
 
 export default function GamePage() {
   const { gameId } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
 
@@ -103,7 +103,22 @@ export default function GamePage() {
             },
             {
               label: t('genres'),
-              children: game?.genres?.map((genre) => genre.name).join(', ') || 'N/A',
+              children:
+                game?.genres && game.genres.length > 0
+                  ? game.genres.map((genre, index, arr) => {
+                      const translation = genre.translations?.find(
+                        (tr) => tr.locale === i18n.language,
+                      );
+                      return (
+                        <span key={genre.id}>
+                          <Link href={`/genres/${genre.id}`}>
+                            {translation?.name || genre.name}
+                          </Link>
+                          {index < arr.length - 1 ? ', ' : ''}
+                        </span>
+                      );
+                    })
+                  : 'N/A',
             },
             {
               label: t('esrb-rating'),
