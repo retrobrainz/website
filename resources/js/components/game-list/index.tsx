@@ -57,15 +57,14 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
     <div>
       <Form
         form={form}
-        layout="vertical"
         initialValues={initialFilters}
         onValuesChange={(changedValues: any) => {
           setFilters((prev) => ({ ...prev, ...changedValues }));
         }}
       >
         {!hideFilters.includes('search') && (
-          <Form.Item label={t('search')} name="search">
-            <Input.Search allowClear />
+          <Form.Item name="search">
+            <Input.Search placeholder={t('search')} allowClear />
           </Form.Item>
         )}
 
@@ -104,21 +103,21 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
         ))}
       </Row>
 
-      {data?.meta?.total ? (
-        <Pagination
-          current={page}
-          pageSize={pageSize}
-          onChange={(p, pSize) => {
-            setPage(p);
-            setPageSize(pSize);
-          }}
-          total={data?.meta?.total}
-          showTotal={(total) => t('total-games', { total })}
-          showSizeChanger
-          pageSizeOptions={['12', '24', '48', '96']}
-          style={{ marginTop: 24, textAlign: 'center' }}
-        />
-      ) : null}
+      <Pagination
+        current={page}
+        pageSize={pageSize}
+        onChange={(p, pSize) => {
+          setPage(p);
+          setPageSize(pSize);
+        }}
+        total={data?.meta?.total}
+        showTotal={(total) => t('total-games', { total })}
+        showSizeChanger
+        pageSizeOptions={['12', '24', '48', '96']}
+        align="center"
+        hideOnSinglePage
+        style={{ marginTop: 24 }}
+      />
     </div>
   );
 }
