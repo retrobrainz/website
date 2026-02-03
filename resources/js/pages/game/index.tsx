@@ -99,7 +99,22 @@ export default function GamePage() {
             },
             {
               label: t('franchise'),
-              children: game?.franchises?.map((franchise) => franchise.name).join(', ') || 'N/A',
+              children:
+                game?.franchises && game.franchises.length > 0
+                  ? game.franchises.map((franchise, index, arr) => {
+                      const translation = franchise.translations?.find(
+                        (tr) => tr.locale === i18n.language,
+                      );
+                      return (
+                        <span key={franchise.id}>
+                          <Link href={`/franchises/${franchise.id}`}>
+                            {translation?.name || franchise.name}
+                          </Link>
+                          {index < arr.length - 1 ? ', ' : ''}
+                        </span>
+                      );
+                    })
+                  : 'N/A',
             },
             {
               label: t('genres'),
