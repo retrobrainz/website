@@ -1,4 +1,4 @@
-import { App as AntApp, ConfigProvider } from 'antd';
+import { App as AntApp, ConfigProvider, Flex, Spin } from 'antd';
 import de from 'antd/es/locale/de_DE.js';
 import en from 'antd/es/locale/en_US.js';
 import es from 'antd/es/locale/es_ES.js';
@@ -17,33 +17,34 @@ import './config/fetch.js';
 import './config/i18n.js';
 import { AuthProvider } from './contexts/auth/index.js';
 import AppLayout from './layouts/app/index.js';
-import EmulatorEditPage from './pages/emulator-edit/index.js';
-import EmulatorNewPage from './pages/emulator-new/index.js';
-import EmulatorPage from './pages/emulator/index.js';
-import EmulatorsPage from './pages/emulators/index.js';
-import FranchiseEditPage from './pages/franchise-edit/index.js';
-import FranchiseNewPage from './pages/franchise-new/index.js';
-import FranchiseTranslatePage from './pages/franchise-translate/index.js';
-import FranchisePage from './pages/franchise/index.js';
-import FranchisesPage from './pages/franchises/index.js';
-import FrontendEditPage from './pages/frontend-edit/index.js';
-import FrontendNewPage from './pages/frontend-new/index.js';
-import FrontendPage from './pages/frontend/index.js';
-import FrontendsPage from './pages/frontends/index.js';
-import GamePage from './pages/game/index.js';
-import GenreEditPage from './pages/genre-edit/index.js';
-import GenreNewPage from './pages/genre-new/index.js';
-import GenreTranslatePage from './pages/genre-translate/index.js';
-import GenrePage from './pages/genre/index.js';
-import GenresPage from './pages/genres/index.js';
-import HomePage from './pages/home/index.js';
-import LoginPage from './pages/login/index.js';
-import PlatformPage from './pages/platform/index.js';
-import PlatformsPage from './pages/platforms/index.js';
-import RegisterPage from './pages/register/index.js';
-import SearchPage from './pages/search/index.js';
-import SettingsPage from './pages/settings/index.js';
-import UserPage from './pages/user/index.js';
+
+const EmulatorEditPage = React.lazy(() => import('./pages/emulator-edit/index.js'));
+const EmulatorNewPage = React.lazy(() => import('./pages/emulator-new/index.js'));
+const EmulatorPage = React.lazy(() => import('./pages/emulator/index.js'));
+const EmulatorsPage = React.lazy(() => import('./pages/emulators/index.js'));
+const FranchiseEditPage = React.lazy(() => import('./pages/franchise-edit/index.js'));
+const FranchiseNewPage = React.lazy(() => import('./pages/franchise-new/index.js'));
+const FranchiseTranslatePage = React.lazy(() => import('./pages/franchise-translate/index.js'));
+const FranchisePage = React.lazy(() => import('./pages/franchise/index.js'));
+const FranchisesPage = React.lazy(() => import('./pages/franchises/index.js'));
+const FrontendEditPage = React.lazy(() => import('./pages/frontend-edit/index.js'));
+const FrontendNewPage = React.lazy(() => import('./pages/frontend-new/index.js'));
+const FrontendPage = React.lazy(() => import('./pages/frontend/index.js'));
+const FrontendsPage = React.lazy(() => import('./pages/frontends/index.js'));
+const GamePage = React.lazy(() => import('./pages/game/index.js'));
+const GenreEditPage = React.lazy(() => import('./pages/genre-edit/index.js'));
+const GenreNewPage = React.lazy(() => import('./pages/genre-new/index.js'));
+const GenreTranslatePage = React.lazy(() => import('./pages/genre-translate/index.js'));
+const GenrePage = React.lazy(() => import('./pages/genre/index.js'));
+const GenresPage = React.lazy(() => import('./pages/genres/index.js'));
+const HomePage = React.lazy(() => import('./pages/home/index.js'));
+const LoginPage = React.lazy(() => import('./pages/login/index.js'));
+const PlatformPage = React.lazy(() => import('./pages/platform/index.js'));
+const PlatformsPage = React.lazy(() => import('./pages/platforms/index.js'));
+const RegisterPage = React.lazy(() => import('./pages/register/index.js'));
+const SearchPage = React.lazy(() => import('./pages/search/index.js'));
+const SettingsPage = React.lazy(() => import('./pages/settings/index.js'));
+const UserPage = React.lazy(() => import('./pages/user/index.js'));
 
 const localeMap: Record<string, any> = {
   de,
@@ -66,134 +67,142 @@ function App() {
         <AntApp>
           <AuthProvider>
             <AppLayout>
-              <Route path="/">
-                <HomePage />
-              </Route>
+              <React.Suspense
+                fallback={
+                  <Flex justify="center" align="center" style={{ padding: 100 }}>
+                    <Spin size="large" />
+                  </Flex>
+                }
+              >
+                <Route path="/">
+                  <HomePage />
+                </Route>
 
-              <Route path="/login">
-                <LoginPage />
-              </Route>
+                <Route path="/login">
+                  <LoginPage />
+                </Route>
 
-              <Route path="/register">
-                <RegisterPage />
-              </Route>
+                <Route path="/register">
+                  <RegisterPage />
+                </Route>
 
-              <Route path="/platforms">
-                <PlatformsPage />
-              </Route>
+                <Route path="/platforms">
+                  <PlatformsPage />
+                </Route>
 
-              <Route path="/search">
-                <SearchPage />
-              </Route>
+                <Route path="/search">
+                  <SearchPage />
+                </Route>
 
-              <Route path="/frontends">
-                <FrontendsPage />
-              </Route>
+                <Route path="/frontends">
+                  <FrontendsPage />
+                </Route>
 
-              <Route path="/frontends/new">
-                <RequireAuth>
-                  <FrontendNewPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/frontends/new">
+                  <RequireAuth>
+                    <FrontendNewPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/frontends/:frontendId/edit">
-                <RequireAuth>
-                  <FrontendEditPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/frontends/:frontendId/edit">
+                  <RequireAuth>
+                    <FrontendEditPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/frontends/:frontendId">
-                <FrontendPage />
-              </Route>
+                <Route path="/frontends/:frontendId">
+                  <FrontendPage />
+                </Route>
 
-              <Route path="/platforms/:platformId">
-                <PlatformPage />
-              </Route>
+                <Route path="/platforms/:platformId">
+                  <PlatformPage />
+                </Route>
 
-              <Route path="/emulators">
-                <EmulatorsPage />
-              </Route>
+                <Route path="/emulators">
+                  <EmulatorsPage />
+                </Route>
 
-              <Route path="/emulators/new">
-                <RequireAuth>
-                  <EmulatorNewPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/emulators/new">
+                  <RequireAuth>
+                    <EmulatorNewPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/emulators/:emulatorId/edit">
-                <RequireAuth>
-                  <EmulatorEditPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/emulators/:emulatorId/edit">
+                  <RequireAuth>
+                    <EmulatorEditPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/emulators/:emulatorId">
-                <EmulatorPage />
-              </Route>
+                <Route path="/emulators/:emulatorId">
+                  <EmulatorPage />
+                </Route>
 
-              <Route path="/franchises">
-                <FranchisesPage />
-              </Route>
+                <Route path="/franchises">
+                  <FranchisesPage />
+                </Route>
 
-              <Route path="/franchises/new">
-                <RequireAuth>
-                  <FranchiseNewPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/franchises/new">
+                  <RequireAuth>
+                    <FranchiseNewPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/franchises/:franchiseId/edit">
-                <RequireAuth>
-                  <FranchiseEditPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/franchises/:franchiseId/edit">
+                  <RequireAuth>
+                    <FranchiseEditPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/franchises/:franchiseId/translate">
-                <RequireAuth>
-                  <FranchiseTranslatePage />
-                </RequireAuth>
-              </Route>
+                <Route path="/franchises/:franchiseId/translate">
+                  <RequireAuth>
+                    <FranchiseTranslatePage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/franchises/:franchiseId">
-                <FranchisePage />
-              </Route>
-              <Route path="/genres">
-                <GenresPage />
-              </Route>
+                <Route path="/franchises/:franchiseId">
+                  <FranchisePage />
+                </Route>
+                <Route path="/genres">
+                  <GenresPage />
+                </Route>
 
-              <Route path="/genres/new">
-                <RequireAuth>
-                  <GenreNewPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/genres/new">
+                  <RequireAuth>
+                    <GenreNewPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/genres/:genreId">
-                <GenrePage />
-              </Route>
+                <Route path="/genres/:genreId">
+                  <GenrePage />
+                </Route>
 
-              <Route path="/genres/:genreId/edit">
-                <RequireAuth>
-                  <GenreEditPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/genres/:genreId/edit">
+                  <RequireAuth>
+                    <GenreEditPage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/genres/:genreId/translate">
-                <RequireAuth>
-                  <GenreTranslatePage />
-                </RequireAuth>
-              </Route>
+                <Route path="/genres/:genreId/translate">
+                  <RequireAuth>
+                    <GenreTranslatePage />
+                  </RequireAuth>
+                </Route>
 
-              <Route path="/platforms/:platformId/games/:gameId">
-                <GamePage />
-              </Route>
+                <Route path="/platforms/:platformId/games/:gameId">
+                  <GamePage />
+                </Route>
 
-              <Route path="/users/:userId">
-                <UserPage />
-              </Route>
+                <Route path="/users/:userId">
+                  <UserPage />
+                </Route>
 
-              <Route path="/settings">
-                <RequireAuth>
-                  <SettingsPage />
-                </RequireAuth>
-              </Route>
+                <Route path="/settings">
+                  <RequireAuth>
+                    <SettingsPage />
+                  </RequireAuth>
+                </Route>
+              </React.Suspense>
             </AppLayout>
           </AuthProvider>
         </AntApp>
