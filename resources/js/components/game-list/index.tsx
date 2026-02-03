@@ -23,59 +23,48 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
+  const [filters, setFilters] = useState(initialFilters);
 
-  // Watch form values
-  const search = Form.useWatch('search', form);
-  const platformId = Form.useWatch('platformId', form);
-  const regionId = Form.useWatch('regionId', form);
-  const languageId = Form.useWatch('languageId', form);
-
-  // Combine initial filters with form values
+  // Reset page when filters change
   useEffect(() => {
-    form.setFieldsValue(initialFilters);
-  }, [initialFilters, form]);
+    setPage(1);
+  }, [filters]);
 
   const { data: platforms } = useFetch<any[]>('/platforms', {
     disabled: hideFilters.includes('platform'),
   });
 
-  const activePlatformId = platformId || initialFilters.platformId;
-
   const { data: regions } = useFetch<any[]>('/regions', {
-    params: activePlatformId ? { platformId: activePlatformId } : undefined,
+    params: filters.platformId ? { platformId: filters.platformId } : undefined,
     disabled: hideFilters.includes('region'),
   });
   const { data: languages } = useFetch<any[]>('/languages', {
-    params: activePlatformId ? { platformId: activePlatformId } : undefined,
+    params: filters.platformId ? { platformId: filters.platformId } : undefined,
     disabled: hideFilters.includes('language'),
   });
 
-  const queryParams = {
-    page,
-    pageSize,
-    search: search || undefined,
-    platformId: platformId || initialFilters.platformId,
-    regionId: regionId || initialFilters.regionId,
-    languageId: languageId || initialFilters.languageId,
-    genreId: initialFilters.genreId,
-    franchiseId: initialFilters.franchiseId,
-  };
-
   const { data } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
-    params: queryParams,
+    params: {
+      page,
+      pageSize,
+      ...initialFilters,
+      ...filters,
+    },
   });
-
-  // Reset page when filters change
-  useEffect(() => {
-    setPage(1);
-  }, [search, platformId, regionId, languageId]);
 
   return (
     <div>
-      <Form form={form} layout="vertical" initialValues={initialFilters}>
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={initialFilters}
+        onValuesChange={(changedValues: any) => {
+          setFilters((prev) => ({ ...prev, ...changedValues }));
+        }}
+      >
         {!hideFilters.includes('search') && (
           <Form.Item label={t('search')} name="search">
-            <Input.Search allowClear onSearch={(val) => form.setFieldValue('search', val)} />
+            <Input.Search allowClear />
           </Form.Item>
         )}
 
