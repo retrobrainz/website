@@ -3,9 +3,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import GameList from '../../components/game-list/index.js';
 import Platform from '../../types/Platform.js';
 import EmulatorList from './EmulatorList.js';
-import GameList from './GameList.js';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
@@ -28,7 +28,16 @@ export default function PlatformPage() {
 
       <Tabs
         items={[
-          { key: 'games', label: t('games'), children: <GameList /> },
+          {
+            key: 'games',
+            label: t('games'),
+            children: (
+              <GameList
+                initialFilters={{ platformId: Number(platformId) }}
+                hideFilters={['platform']}
+              />
+            ),
+          },
           { key: 'emulators', label: t('emulators'), children: <EmulatorList /> },
         ]}
       />

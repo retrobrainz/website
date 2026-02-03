@@ -1,29 +1,19 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Flex, Pagination, Row, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Typography } from 'antd';
 import { Container } from 'antd-moe';
-import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import GameCard from '../../components/game-card/index.js';
+import GameList from '../../components/game-list/index.js';
 import { useAuth } from '../../contexts/auth/index.js';
 import Franchise from '../../types/Franchise.js';
-import Game from '../../types/Game.js';
 
 export default function FranchisePage() {
   const { franchiseId } = useParams();
   const { t } = useTranslation();
   const { user } = useAuth();
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(24);
 
   const { data: franchise } = useFetch<Franchise>(`/franchises/${franchiseId}`);
-  const { data: games } = useFetch<{ data: Game[]; meta: { total: number } }>(
-    `/franchises/${franchiseId}/games`,
-    {
-      params: { page, pageSize },
-    },
-  );
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
@@ -59,28 +49,7 @@ export default function FranchisePage() {
         )}
       </Flex>
 
-      <Row gutter={[24, 24]} justify="center">
-        {games?.data.map((game) => (
-          <Col key={game.id} xs={24} sm={12} lg={8} xl={6} xxl={4}>
-            <GameCard game={game} />
-          </Col>
-        ))}
-      </Row>
-
-      <Flex justify="center" style={{ marginTop: 24 }}>
-        <Pagination
-          current={page}
-          pageSize={pageSize}
-          total={games?.meta.total ?? 0}
-          onChange={(p, ps) => {
-            setPage(p);
-            setPageSize(ps);
-          }}
-          showSizeChanger
-          pageSizeOptions={[12, 24, 36, 48]}
-          hideOnSinglePage
-        />
-      </Flex>
+      <GameList initialFilters={{ franchiseId: Number(franchiseId) }} />
     </Container>
   );
 }
