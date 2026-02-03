@@ -5,16 +5,18 @@ import { useTranslation } from 'react-i18next';
 import Game from '../../types/Game.js';
 import GameCard from '../game-card/index.js';
 
+interface GameListFilters {
+  platformId?: number;
+  genreId?: number;
+  franchiseId?: number;
+  search?: string;
+  regionId?: number;
+  languageId?: number;
+}
+
 interface GameListProps {
-  initialFilters?: {
-    platformId?: number;
-    genreId?: number;
-    franchiseId?: number;
-    search?: string;
-    regionId?: number;
-    languageId?: number;
-  };
-  hideFilters?: Array<'platform' | 'region' | 'language' | 'search'>;
+  initialFilters?: GameListFilters;
+  hideFilters?: Array<keyof GameListFilters>;
 }
 
 export default function GameList({ initialFilters = {}, hideFilters = [] }: GameListProps) {
@@ -25,22 +27,21 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
   const [pageSize, setPageSize] = useState(24);
   const [filters, setFilters] = useState(initialFilters);
 
-  // Reset page when filters change
   useEffect(() => {
     setPage(1);
   }, [filters]);
 
   const { data: platforms } = useFetch<any[]>('/platforms', {
-    disabled: hideFilters.includes('platform'),
+    disabled: hideFilters.includes('platformId'),
   });
 
   const { data: regions } = useFetch<any[]>('/regions', {
     params: filters.platformId ? { platformId: filters.platformId } : undefined,
-    disabled: hideFilters.includes('region'),
+    disabled: hideFilters.includes('regionId'),
   });
   const { data: languages } = useFetch<any[]>('/languages', {
     params: filters.platformId ? { platformId: filters.platformId } : undefined,
-    disabled: hideFilters.includes('language'),
+    disabled: hideFilters.includes('languageId'),
   });
 
   const { data } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
@@ -68,7 +69,7 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
           </Form.Item>
         )}
 
-        {!hideFilters.includes('platform') && (
+        {!hideFilters.includes('platformId') && (
           <Form.Item label={t('platform')} name="platformId">
             <Tag.CheckableTagGroup
               options={platforms
@@ -78,7 +79,7 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
           </Form.Item>
         )}
 
-        {!hideFilters.includes('region') && (
+        {!hideFilters.includes('regionId') && (
           <Form.Item label={t('region')} name="regionId">
             <Tag.CheckableTagGroup
               options={regions?.map((region) => ({ value: region.id, label: region.name }))}
@@ -86,7 +87,7 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
           </Form.Item>
         )}
 
-        {!hideFilters.includes('language') && (
+        {!hideFilters.includes('languageId') && (
           <Form.Item label={t('language')} name="languageId">
             <Tag.CheckableTagGroup
               options={languages?.map((language) => ({ value: language.id, label: language.name }))}
