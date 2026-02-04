@@ -49,7 +49,10 @@ export default function FranchisePage() {
         )}
       </Flex>
 
-      <GameList initialFilters={{ franchiseId: Number(franchiseId) }} />
+      <GameList
+        initialFilters={{ franchiseId: Number(franchiseId) }}
+        showFilters={['search', 'platformId', 'regionId', 'languageId']}
+      />
     </Container>
   );
 }

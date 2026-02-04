@@ -34,7 +34,7 @@ export default function PlatformPage() {
             children: (
               <GameList
                 initialFilters={{ platformId: Number(platformId) }}
-                hideFilters={['platformId']}
+                showFilters={['search', 'regionId', 'languageId']}
               />
             ),
           },

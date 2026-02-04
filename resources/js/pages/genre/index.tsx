@@ -49,7 +49,10 @@ export default function GenrePage() {
         )}
       </Flex>
 
-      <GameList initialFilters={{ genreId: Number(genreId) }} />
+      <GameList
+        initialFilters={{ genreId: Number(genreId) }}
+        showFilters={['search', 'platformId', 'regionId', 'languageId']}
+      />
     </Container>
   );
 }

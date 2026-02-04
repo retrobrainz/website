@@ -17,10 +17,10 @@ interface GameListFilters {
 
 interface GameListProps {
   initialFilters?: GameListFilters;
-  hideFilters?: Array<keyof GameListFilters>;
+  showFilters?: Array<keyof GameListFilters>;
 }
 
-export default function GameList({ initialFilters = {}, hideFilters = [] }: GameListProps) {
+export default function GameList({ initialFilters = {}, showFilters = [] }: GameListProps) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
@@ -33,16 +33,16 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
   }, [filters]);
 
   const { data: platforms } = useFetch<any[]>('/platforms', {
-    disabled: hideFilters.includes('platformId'),
+    disabled: !showFilters.includes('platformId'),
   });
 
   const { data: regions } = useFetch<any[]>('/regions', {
     params: filters.platformId ? { platformId: filters.platformId } : undefined,
-    disabled: hideFilters.includes('regionId'),
+    disabled: !showFilters.includes('regionId'),
   });
   const { data: languages } = useFetch<any[]>('/languages', {
     params: filters.platformId ? { platformId: filters.platformId } : undefined,
-    disabled: hideFilters.includes('languageId'),
+    disabled: !showFilters.includes('languageId'),
   });
 
   const { data } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
@@ -56,45 +56,50 @@ export default function GameList({ initialFilters = {}, hideFilters = [] }: Game
 
   return (
     <div>
-      <Form
-        form={form}
-        initialValues={initialFilters}
-        onValuesChange={(changedValues: any) => {
-          setFilters((prev) => ({ ...prev, ...changedValues }));
-        }}
-      >
-        {!hideFilters.includes('search') && (
-          <Form.Item name="search">
-            <Input.Search placeholder={t('search')} allowClear />
-          </Form.Item>
-        )}
+      {showFilters && showFilters.length > 0 && (
+        <Form
+          form={form}
+          initialValues={initialFilters}
+          onValuesChange={(changedValues: any) => {
+            setFilters((prev) => ({ ...prev, ...changedValues }));
+          }}
+        >
+          {showFilters.includes('search') && (
+            <Form.Item name="search">
+              <Input.Search placeholder={t('search')} allowClear />
+            </Form.Item>
+          )}
 
-        {!hideFilters.includes('platformId') && (
-          <Form.Item label={t('platform')} name="platformId">
-            <Tag.CheckableTagGroup
-              options={platforms
-                ?.sort((a, b) => (b.gamesCount || 0) - (a.gamesCount || 0))
-                ?.map((platform) => ({ value: platform.id, label: platform.name }))}
-            />
-          </Form.Item>
-        )}
+          {showFilters.includes('platformId') && (
+            <Form.Item label={t('platform')} name="platformId">
+              <Tag.CheckableTagGroup
+                options={platforms
+                  ?.sort((a, b) => (b.gamesCount || 0) - (a.gamesCount || 0))
+                  ?.map((platform) => ({ value: platform.id, label: platform.name }))}
+              />
+            </Form.Item>
+          )}
 
-        {!hideFilters.includes('regionId') && (
-          <Form.Item label={t('region')} name="regionId">
-            <Tag.CheckableTagGroup
-              options={regions?.map((region) => ({ value: region.id, label: region.name }))}
-            />
-          </Form.Item>
-        )}
+          {showFilters.includes('regionId') && (
+            <Form.Item label={t('region')} name="regionId">
+              <Tag.CheckableTagGroup
+                options={regions?.map((region) => ({ value: region.id, label: region.name }))}
+              />
+            </Form.Item>
+          )}
 
-        {!hideFilters.includes('languageId') && (
-          <Form.Item label={t('language')} name="languageId">
-            <Tag.CheckableTagGroup
-              options={languages?.map((language) => ({ value: language.id, label: language.name }))}
-            />
-          </Form.Item>
-        )}
-      </Form>
+          {showFilters.includes('languageId') && (
+            <Form.Item label={t('language')} name="languageId">
+              <Tag.CheckableTagGroup
+                options={languages?.map((language) => ({
+                  value: language.id,
+                  label: language.name,
+                }))}
+              />
+            </Form.Item>
+          )}
+        </Form>
+      )}
 
       <Row gutter={[24, 24]} style={{ marginTop: 24 }}>
         {data?.data?.map((game) => (
