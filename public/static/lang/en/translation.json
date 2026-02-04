@@ -27,8 +27,6 @@
   "pegi-rating": "PEGI Rating",
   "upload": "Upload",
   "reuse": "Reuse",
-  "favorites": "Favorites",
-  "reviews": "Reviews",
   "avatar-updated-successfully": "Avatar updated successfully",
   "alpha-notice": "Alpha Notice",
   "alpha-notice-message": "The site is currently under alpha testing. Data may be lost at any time!",
@@ -94,10 +92,8 @@
   "genre-updated-successfully": "Genre updated successfully",
   "genre-not-found": "Genre not found",
   "no-genres-found": "No genres found",
-  "games-count": "Games Count",
   "more": "More",
   "random-games": "Random Games",
   "refresh": "Refresh",
-  "top-games": "Top Games",
   "translate": "Translate"
 }

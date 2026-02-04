@@ -27,8 +27,6 @@
   "pegi-rating": "Classification PEGI",
   "upload": "Télécharger",
   "reuse": "Réutiliser",
-  "favorites": "Favoris",
-  "reviews": "Critiques",
   "avatar-updated-successfully": "Avatar mis à jour avec succès",
   "alpha-notice": "Avis Alpha",
   "alpha-notice-message": "Le site est actuellement en phase de test alpha. Les données peuvent être perdues à tout moment !",
@@ -88,7 +86,6 @@
   "genre-updated-successfully": "Genre mis à jour avec succès",
   "genre-not-found": "Genre introuvable",
   "no-genres-found": "Aucun genre trouvé",
-  "games-count": "Nombre de jeux",
   "more": "Plus",
   "translate": "Traduire"
 }

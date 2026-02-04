@@ -27,8 +27,6 @@
   "pegi-rating": "PEGI レーティング",
   "upload": "アップロード",
   "reuse": "再利用",
-  "favorites": "お気に入り",
-  "reviews": "レビュー",
   "avatar-updated-successfully": "アバターが正常に更新されました",
   "alpha-notice": "アルファ版の注意",
   "alpha-notice-message": "このサイトは現在アルファテスト中です。データはいつでも失われる可能性があります！",
@@ -88,7 +86,6 @@
   "genre-updated-successfully": "ジャンルが正常に更新されました",
   "genre-not-found": "ジャンルが見つかりません",
   "no-genres-found": "ジャンルが見つかりません",
-  "games-count": "ゲーム数",
   "more": "もっと見る",
   "translate": "翻訳"
 }

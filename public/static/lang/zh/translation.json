@@ -27,8 +27,6 @@
   "pegi-rating": "PEGI 评级",
   "upload": "上传",
   "reuse": "重用",
-  "favorites": "收藏",
-  "reviews": "评论",
   "avatar-updated-successfully": "头像更新成功",
   "alpha-notice": "内测提示",
   "alpha-notice-message": "本网站目前处于内测阶段，数据可能随时丢失！",
@@ -88,10 +86,8 @@
   "genre-updated-successfully": "类型更新成功",
   "genre-not-found": "未找到类型",
   "no-genres-found": "未找到类型",
-  "games-count": "游戏数量",
   "more": "更多",
   "random-games": "随机游戏",
   "refresh": "刷新",
-  "top-games": "热门游戏",
   "translate": "翻译"
 }
