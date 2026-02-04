@@ -13,19 +13,27 @@ interface GameListFilters {
   platformId?: number;
   regionId?: number;
   search?: string;
+  orderBy?: string;
 }
 
 interface GameListProps {
   initialFilters?: GameListFilters;
   showFilters?: Array<keyof GameListFilters>;
+  pageSize?: number;
+  hidePagination?: boolean;
 }
 
-export default function GameList({ initialFilters = {}, showFilters = [] }: GameListProps) {
+export default function GameList({
+  initialFilters = {},
+  showFilters = [],
+  pageSize: initialPageSize = 24,
+  hidePagination = false,
+}: GameListProps) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(24);
+  const [pageSize, setPageSize] = useState(initialPageSize);
   const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
@@ -111,21 +119,23 @@ export default function GameList({ initialFilters = {}, showFilters = [] }: Game
         </Row>
       </Spin>
 
-      <Pagination
-        current={page}
-        pageSize={pageSize}
-        onChange={(p, pSize) => {
-          setPage(p);
-          setPageSize(pSize);
-        }}
-        total={data?.meta?.total}
-        showTotal={(total) => t('total-games', { total })}
-        showSizeChanger
-        pageSizeOptions={['12', '24', '48', '96']}
-        align="center"
-        hideOnSinglePage
-        style={{ marginTop: 24 }}
-      />
+      {!hidePagination && (
+        <Pagination
+          current={page}
+          pageSize={pageSize}
+          onChange={(p, pSize) => {
+            setPage(p);
+            setPageSize(pSize);
+          }}
+          total={data?.meta?.total}
+          showTotal={(total) => t('total-games', { total })}
+          showSizeChanger
+          pageSizeOptions={['12', '24', '48', '96']}
+          align="center"
+          hideOnSinglePage
+          style={{ marginTop: 24 }}
+        />
+      )}
     </div>
   );
 }
