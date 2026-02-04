@@ -20,6 +20,12 @@ export default class EmulatorsController {
       });
     }
 
+    if (request.input('favoriteUserId')) {
+      query.whereHas('favorites', (q) => {
+        q.where('userId', request.input('favoriteUserId'));
+      });
+    }
+
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
 
@@ -28,6 +34,7 @@ export default class EmulatorsController {
       .preload('operatingSystems')
       .preload('platforms')
       .preload('screenshot')
+      .withCount('favorites')
       .orderBy('name', 'asc')
       .paginate(page, pageSize);
   }

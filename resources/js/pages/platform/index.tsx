@@ -3,9 +3,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import EmulatorList from '../../components/emulator-list/index.js';
 import GameList from '../../components/game-list/index.js';
 import Platform from '../../types/Platform.js';
-import EmulatorList from './EmulatorList.js';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
@@ -38,7 +38,13 @@ export default function PlatformPage() {
               />
             ),
           },
-          { key: 'emulators', label: t('emulators'), children: <EmulatorList /> },
+          {
+            key: 'emulators',
+            label: t('emulators'),
+            children: (
+              <EmulatorList initialFilters={{ platformId }} showFilters={['operatingSystemId']} />
+            ),
+          },
         ]}
       />
     </Container>

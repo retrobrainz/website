@@ -1,4 +1,4 @@
-import { Col, Form, Input, Pagination, Row, Tag } from 'antd';
+import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -45,7 +45,7 @@ export default function GameList({ initialFilters = {}, showFilters = [] }: Game
     disabled: !showFilters.includes('languageId'),
   });
 
-  const { data } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
+  const { data, loading } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
     params: {
       page,
       pageSize,
@@ -101,13 +101,15 @@ export default function GameList({ initialFilters = {}, showFilters = [] }: Game
         </Form>
       )}
 
-      <Row gutter={[24, 24]} style={{ marginTop: 24 }}>
-        {data?.data?.map((game) => (
-          <Col key={game.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
-            <GameCard game={game} />
-          </Col>
-        ))}
-      </Row>
+      <Spin spinning={loading}>
+        <Row justify="center" gutter={[24, 24]} style={{ marginTop: 24 }}>
+          {data?.data?.map((game) => (
+            <Col key={game.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+              <GameCard game={game} />
+            </Col>
+          ))}
+        </Row>
+      </Spin>
 
       <Pagination
         current={page}
