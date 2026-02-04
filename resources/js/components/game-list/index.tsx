@@ -6,12 +6,13 @@ import Game from '../../types/Game.js';
 import GameCard from '../game-card/index.js';
 
 interface GameListFilters {
-  platformId?: number;
-  genreId?: number;
+  favoriteUserId?: number | string;
   franchiseId?: number;
-  search?: string;
-  regionId?: number;
+  genreId?: number;
   languageId?: number;
+  platformId?: number;
+  regionId?: number;
+  search?: string;
 }
 
 interface GameListProps {

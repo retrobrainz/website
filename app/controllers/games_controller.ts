@@ -28,6 +28,12 @@ export default class GamesController {
       query.where('platformId', request.input('platformId'));
     }
 
+    if (request.input('favoriteUserId')) {
+      query.whereHas('favorites', (q) => {
+        q.where('game_favorites.user_id', request.input('favoriteUserId'));
+      });
+    }
+
     if (request.input('regionId')) {
       query.whereHas('regions', (q) => {
         q.where('regions.id', request.input('regionId'));

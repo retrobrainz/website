@@ -3,8 +3,8 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'wouter';
+import GameList from '../../components/game-list/index.js';
 import User from '../../types/User.js';
-import FavoriteList from './FavoriteList.js';
 
 export default function UserPage() {
   const { userId } = useParams();
@@ -20,8 +20,12 @@ export default function UserPage() {
       <Tabs
         centered
         items={[
-          { key: 'favorites', label: t('favorites'), children: <FavoriteList /> },
-          { key: 'reviews', label: t('reviews') },
+          {
+            key: 'games',
+            label: t('games'),
+            children: <GameList initialFilters={{ favoriteUserId: userId }} />,
+          },
+          { key: 'emulators', label: t('emulators') },
         ]}
       />
     </Container>
