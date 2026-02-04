@@ -1,4 +1,5 @@
 import { Container } from 'antd-moe';
+import PopularGames from './popular-games.js';
 import RandomGames from './random-games.js';
 import TopEmulators from './top-emulators.js';
 import TopFranchises from './top-franchises.js';
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <Container style={{ paddingTop: 24, paddingBottom: 24 }}>
       <RandomGames />
+      <PopularGames />
       <TopPlatforms />
       <TopGenres />
       <TopFranchises />

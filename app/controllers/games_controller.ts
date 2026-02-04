@@ -8,7 +8,7 @@ export default class GamesController {
   async index({ request, params }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
-    const query = Game.query();
+    const query = Game.query().withCount('favorites');
 
     if (params.genre_id || request.input('genreId')) {
       const genreId = params.genre_id || request.input('genreId');
@@ -58,6 +58,8 @@ export default class GamesController {
 
     if (request.input('orderBy') === 'random') {
       query.orderByRaw('RANDOM()');
+    } else if (request.input('orderBy') === 'favorites_count') {
+      query.orderBy('favorites_count', 'desc');
     } else {
       query.orderBy('name', 'asc');
     }
@@ -75,7 +77,6 @@ export default class GamesController {
       .preload('logo')
       .preload('screenshot')
       .preload('titlescreen')
-      .withCount('favorites')
       .paginate(page, pageSize);
   }
 
