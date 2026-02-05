@@ -60,7 +60,7 @@ export default function CompaniesPage() {
         </Row>
         {!loading && companies?.data?.length === 0 && (
           <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
-            {t('no-companies-found')}
+            {t('not-found')}
           </div>
         )}
 

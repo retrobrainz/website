@@ -16,7 +16,7 @@ export default function CompanyEditPage() {
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/companies/${companyId}`, values);
-    message.success(t('company-updated-successfully'));
+    message.success(t('update-success'));
     setLocation(`/companies/${companyId}`);
   };
 

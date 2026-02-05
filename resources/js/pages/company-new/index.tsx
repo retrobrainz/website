@@ -13,7 +13,7 @@ export default function CompanyNewPage() {
 
   const handleSubmit = async (values: any) => {
     const response = await xior.post<Company>('/companies', values);
-    message.success(t('company-created-successfully'));
+    message.success(t('create-success'));
     setLocation(`/companies/${response.data.id}`);
   };
 

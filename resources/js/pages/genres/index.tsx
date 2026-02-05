@@ -52,7 +52,7 @@ export default function GenresPage() {
         </Row>
         {!loading && genres?.data?.length === 0 && (
           <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
-            {t('no-genres-found')}
+            {t('not-found')}
           </div>
         )}
 
