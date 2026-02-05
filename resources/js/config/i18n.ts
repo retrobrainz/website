@@ -3,12 +3,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import FetchBackend from 'i18next-fetch-backend';
 import { initReactI18next } from 'react-i18next';
 
+// Sort by name
 export const languages = [
   { code: 'en', name: 'English' },
   { code: 'fr', name: 'Français' },
   { code: 'es', name: 'Español' },
   { code: 'de', name: 'Deutsch' },
   { code: 'it', name: 'Italiano' },
+  { code: 'pt', name: 'Português' },
   { code: 'fi', name: 'Suomi' },
   { code: 'ja', name: '日本語' },
   { code: 'ko', name: '한국어' },
