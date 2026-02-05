@@ -15,6 +15,7 @@ description: Add or improve translations for different languages.
   - `resources/js/i18n.ts`: configure supported languages used by frontend.
   - `public/static/lang/{lang}/*.json`: frontend translation files for each supported language.
   - Read https://react.i18next.com/ for frontend i18n details.
+  - Check `resources/js/app.tsx` for antd and dayjs locale configuration.
 - When adding a new language, ensure it is added consistently across all the above files.
 
 ## Messages
