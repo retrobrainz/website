@@ -48,7 +48,7 @@ export default function FranchiseEditPage() {
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>
-        {t('edit-franchise')}: {franchise.name}
+        {t('edit')}: {franchise.name}
       </Typography.Title>
 
       <Card>

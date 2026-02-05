@@ -25,7 +25,7 @@ export default function EmulatorsPage() {
         </Typography.Title>
         {canCreateEmulator && (
           <Link href="/emulators/new">
-            <Button icon={<PlusOutlined />}>{t('new-emulator')}</Button>
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
           </Link>
         )}
       </Flex>

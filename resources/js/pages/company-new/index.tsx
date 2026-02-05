@@ -27,7 +27,7 @@ export default function CompanyNewPage() {
         ]}
         style={{ marginTop: 32 }}
       />
-      <Typography.Title level={1}>{t('new-company')}</Typography.Title>
+      <Typography.Title level={1}>{t('new')}</Typography.Title>
 
       <Card>
         <CompanyForm onSubmit={handleSubmit} submitText={t('create')} />

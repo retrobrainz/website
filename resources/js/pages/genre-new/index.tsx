@@ -27,7 +27,7 @@ export default function GenreNewPage() {
         ]}
         style={{ marginTop: 32 }}
       />
-      <Typography.Title level={1}>{t('new-genre')}</Typography.Title>
+      <Typography.Title level={1}>{t('new')}</Typography.Title>
 
       <Card>
         <GenreForm onSubmit={handleSubmit} submitText={t('create')} />

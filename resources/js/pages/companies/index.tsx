@@ -38,7 +38,7 @@ export default function CompaniesPage() {
         </Typography.Title>
         {canCreateCompany && (
           <Link href="/companies/new">
-            <Button icon={<PlusOutlined />}>{t('new-company')}</Button>
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
           </Link>
         )}
       </Flex>

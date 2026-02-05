@@ -48,7 +48,7 @@ export default function FrontendEditPage() {
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>
-        {t('edit-frontend')}: {frontend.name}
+        {t('edit')}: {frontend.name}
       </Typography.Title>
 
       <Card>

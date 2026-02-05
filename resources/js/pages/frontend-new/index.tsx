@@ -26,7 +26,7 @@ export default function FrontendNewPage() {
         ]}
         style={{ marginTop: 32 }}
       />
-      <Typography.Title level={1}>{t('new-frontend')}</Typography.Title>
+      <Typography.Title level={1}>{t('new')}</Typography.Title>
 
       <Card>
         <FrontendForm onSubmit={handleSubmit} submitText={t('create')} />

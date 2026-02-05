@@ -36,7 +36,7 @@ export default function FrontendsPage() {
         </Typography.Title>
         {canCreateFrontend && (
           <Link href="/frontends/new">
-            <Button icon={<PlusOutlined />}>{t('new-frontend')}</Button>
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
           </Link>
         )}
       </Flex>

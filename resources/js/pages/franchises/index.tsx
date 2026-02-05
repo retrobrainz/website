@@ -37,7 +37,7 @@ export default function FranchisesPage() {
         </Typography.Title>
         {canCreateFranchise && (
           <Link href="/franchises/new">
-            <Button icon={<PlusOutlined />}>{t('new-franchise')}</Button>
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
           </Link>
         )}
       </Flex>

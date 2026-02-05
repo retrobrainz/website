@@ -48,7 +48,7 @@ export default function EmulatorEditPage() {
         style={{ marginTop: 32 }}
       />
       <Typography.Title level={1}>
-        {t('edit-emulator')}: {emulator.name}
+        {t('edit')}: {emulator.name}
       </Typography.Title>
 
       <Card>

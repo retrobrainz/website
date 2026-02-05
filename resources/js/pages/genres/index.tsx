@@ -37,7 +37,7 @@ export default function GenresPage() {
         </Typography.Title>
         {canCreateGenre && (
           <Link href="/genres/new">
-            <Button icon={<PlusOutlined />}>{t('new-genre')}</Button>
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
           </Link>
         )}
       </Flex>
