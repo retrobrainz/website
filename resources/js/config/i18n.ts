@@ -9,6 +9,7 @@ export const languages = [
   { code: 'es', name: 'Español' },
   { code: 'de', name: 'Deutsch' },
   { code: 'it', name: 'Italiano' },
+  { code: 'fi', name: 'Suomi' },
   { code: 'ja', name: '日本語' },
   { code: 'ko', name: '한국어' },
   { code: 'zh', name: '中文' },

@@ -2,6 +2,7 @@ import { App as AntApp, ConfigProvider, Flex, Spin } from 'antd';
 import de from 'antd/es/locale/de_DE';
 import en from 'antd/es/locale/en_US';
 import es from 'antd/es/locale/es_ES';
+import fi from 'antd/es/locale/fi_FI';
 import fr from 'antd/es/locale/fr_FR';
 import it from 'antd/es/locale/it_IT';
 import ja from 'antd/es/locale/ja_JP';
@@ -56,6 +57,7 @@ const localeMap: Record<string, any> = {
   de,
   en,
   es,
+  fi,
   fr,
   it,
   ja,
