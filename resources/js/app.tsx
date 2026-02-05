@@ -5,6 +5,7 @@ import es from 'antd/es/locale/es_ES';
 import fr from 'antd/es/locale/fr_FR';
 import it from 'antd/es/locale/it_IT';
 import ja from 'antd/es/locale/ja_JP';
+import ko from 'antd/es/locale/ko_KR';
 import zh from 'antd/es/locale/zh_CN';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -58,6 +59,7 @@ const localeMap: Record<string, any> = {
   fr,
   it,
   ja,
+  ko,
   zh,
 };
 
