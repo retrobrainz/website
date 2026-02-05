@@ -16,7 +16,7 @@ export default function GenreEditPage() {
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/genres/${genreId}`, values);
-    message.success(t('genre-updated-successfully'));
+    message.success(t('update-success'));
     setLocation(`/genres/${genreId}`);
   };
 

@@ -16,7 +16,7 @@ export default function EmulatorEditPage() {
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/emulators/${emulatorId}`, values);
-    message.success(t('emulator-updated-successfully'));
+    message.success(t('update-success'));
     setLocation(`/emulators/${emulatorId}`);
   };
 

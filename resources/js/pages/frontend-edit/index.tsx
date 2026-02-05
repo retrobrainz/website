@@ -16,7 +16,7 @@ export default function FrontendEditPage() {
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/frontends/${frontendId}`, values);
-    message.success(t('frontend-updated-successfully'));
+    message.success(t('update-success'));
     setLocation(`/frontends/${frontendId}`);
   };
 

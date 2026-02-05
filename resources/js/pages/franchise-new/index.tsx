@@ -13,7 +13,7 @@ export default function FranchiseNewPage() {
 
   const handleSubmit = async (values: any) => {
     const response = await xior.post<Franchise>('/franchises', values);
-    message.success(t('franchise-created-successfully'));
+    message.success(t('create-success'));
     setLocation(`/franchises/${response.data.id}`);
   };
 

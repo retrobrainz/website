@@ -16,7 +16,7 @@ export default function FranchiseEditPage() {
 
   const handleSubmit = async (values: any) => {
     await xior.put(`/franchises/${franchiseId}`, values);
-    message.success(t('franchise-updated-successfully'));
+    message.success(t('update-success'));
     setLocation(`/franchises/${franchiseId}`);
   };
 

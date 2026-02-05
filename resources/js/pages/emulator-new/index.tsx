@@ -13,7 +13,7 @@ export default function EmulatorNewPage() {
 
   const handleSubmit = async (values: any) => {
     const response = await xior.post<Emulator>('/emulators', values);
-    message.success(t('emulator-created-successfully'));
+    message.success(t('create-success'));
     setLocation(`/emulators/${response.data.id}`);
   };
 

@@ -13,7 +13,7 @@ export default function GenreNewPage() {
 
   const handleSubmit = async (values: any) => {
     const response = await xior.post<Genre>('/genres', values);
-    message.success(t('genre-created-successfully'));
+    message.success(t('create-success'));
     setLocation(`/genres/${response.data.id}`);
   };
 

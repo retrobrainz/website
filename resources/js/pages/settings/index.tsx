@@ -40,7 +40,7 @@ export default function SettingsPage() {
                 .put('/me', { avatarId: info.file.response.id })
                 .then((res) => {
                   setUser(res.data);
-                  message.success(t('avatar-updated-successfully'));
+                  message.success(t('update-success'));
                 })
                 .catch((e) => {
                   message.error(e.response?.data?.errors?.[0]?.message || e.message);
