@@ -5,6 +5,14 @@ import Image from './Image.js';
 import Platform from './Platform.js';
 import Region from './Region.js';
 
+export interface GameTranslation {
+  id: number;
+  locale: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
 export default interface Game {
   id: number;
   platformId: number | null;
@@ -23,6 +31,7 @@ export default interface Game {
   logo: Image | null;
   screenshot: Image | null;
   titlescreen: Image | null;
+  translations?: GameTranslation[];
   regions?: Region[];
   developers?: Company[];
   publishers?: Company[];

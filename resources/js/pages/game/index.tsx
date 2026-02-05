@@ -1,4 +1,4 @@
-import { Badge, Breadcrumb, Card, Descriptions, Flex, Image, Typography } from 'antd';
+import { Badge, Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import Game from '../../types/Game.js';
 import ImageUpload from '../platform/ImageUpload.js';
 
 export default function GamePage() {
-  const { gameId } = useParams();
+  const { gameId } = useParams<{ gameId: string }>();
   const { t, i18n } = useTranslation();
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
@@ -39,6 +39,9 @@ export default function GamePage() {
           favoritesCount={game?.favoritesCount}
           onToggle={reload}
         />
+        <Link href={`/platforms/${game?.platform?.id}/games/${game?.id}/translate`}>
+          <Button>{t('translate')}</Button>
+        </Link>
       </Flex>
 
       <Image.PreviewGroup>

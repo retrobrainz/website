@@ -32,6 +32,7 @@ const FrontendNewPage = React.lazy(() => import('./pages/frontend-new/index.js')
 const FrontendPage = React.lazy(() => import('./pages/frontend/index.js'));
 const FrontendsPage = React.lazy(() => import('./pages/frontends/index.js'));
 const GamePage = React.lazy(() => import('./pages/game/index.js'));
+const GameTranslatePage = React.lazy(() => import('./pages/game-translate/index.js'));
 const GenreEditPage = React.lazy(() => import('./pages/genre-edit/index.js'));
 const GenreNewPage = React.lazy(() => import('./pages/genre-new/index.js'));
 const GenreTranslatePage = React.lazy(() => import('./pages/genre-translate/index.js'));
@@ -186,6 +187,12 @@ function App() {
                 <Route path="/genres/:genreId/translate">
                   <RequireAuth>
                     <GenreTranslatePage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/platforms/:platformId/games/:gameId/translate">
+                  <RequireAuth>
+                    <GameTranslatePage />
                   </RequireAuth>
                 </Route>
 
