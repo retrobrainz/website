@@ -10,6 +10,7 @@ export const languages = [
   { code: 'de', name: 'Deutsch' },
   { code: 'it', name: 'Italiano' },
   { code: 'ja', name: '日本語' },
+  { code: 'ko', name: '한국어' },
   { code: 'zh', name: '中文' },
 ];
 
