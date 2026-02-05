@@ -31,7 +31,7 @@ export default function FrontendEditPage() {
   if (!frontend) {
     return (
       <Container maxWidth="md">
-        <Typography.Text>{t('frontend-not-found')}</Typography.Text>
+        <Typography.Text>{t('not-found')}</Typography.Text>
       </Container>
     );
   }

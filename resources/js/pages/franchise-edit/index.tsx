@@ -31,7 +31,7 @@ export default function FranchiseEditPage() {
   if (!franchise) {
     return (
       <Container maxWidth="md">
-        <Typography.Text>{t('franchise-not-found')}</Typography.Text>
+        <Typography.Text>{t('not-found')}</Typography.Text>
       </Container>
     );
   }

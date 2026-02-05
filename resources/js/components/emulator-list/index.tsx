@@ -100,7 +100,7 @@ export default function EmulatorList({ initialFilters = {}, showFilters = [] }: 
 
       {!data?.data?.length && (
         <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
-          {t('no-emulators-found')}
+          {t('not-found')}
         </div>
       )}
 

@@ -31,7 +31,7 @@ export default function EmulatorEditPage() {
   if (!emulator) {
     return (
       <Container maxWidth="md">
-        <Typography.Text>{t('emulator-not-found')}</Typography.Text>
+        <Typography.Text>{t('not-found')}</Typography.Text>
       </Container>
     );
   }

@@ -52,7 +52,7 @@ export default function FranchisesPage() {
         </Row>
         {!loading && franchises?.data?.length === 0 && (
           <div style={{ textAlign: 'center', padding: '48px 0', color: '#999' }}>
-            {t('no-franchises-found')}
+            {t('not-found')}
           </div>
         )}
 
