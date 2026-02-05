@@ -97,11 +97,27 @@ export default function GamePage() {
             },
             {
               label: t('developers'),
-              children: game?.developers?.map((developer) => developer.name).join(', ') || 'N/A',
+              children:
+                game?.developers && game.developers.length > 0
+                  ? game.developers.map((developer, index, arr) => (
+                      <span key={developer.id}>
+                        <Link href={`/companies/${developer.id}`}>{developer.name}</Link>
+                        {index < arr.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  : 'N/A',
             },
             {
               label: t('publishers'),
-              children: game?.publishers?.map((publisher) => publisher.name).join(', ') || 'N/A',
+              children:
+                game?.publishers && game.publishers.length > 0
+                  ? game.publishers.map((publisher, index, arr) => (
+                      <span key={publisher.id}>
+                        <Link href={`/companies/${publisher.id}`}>{publisher.name}</Link>
+                        {index < arr.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  : 'N/A',
             },
             {
               label: t('franchise'),
