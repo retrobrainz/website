@@ -22,6 +22,10 @@ const EmulatorEditPage = React.lazy(() => import('./pages/emulator-edit'));
 const EmulatorNewPage = React.lazy(() => import('./pages/emulator-new'));
 const EmulatorPage = React.lazy(() => import('./pages/emulator'));
 const EmulatorsPage = React.lazy(() => import('./pages/emulators'));
+const CompanyEditPage = React.lazy(() => import('./pages/company-edit'));
+const CompanyNewPage = React.lazy(() => import('./pages/company-new'));
+const CompanyPage = React.lazy(() => import('./pages/company'));
+const CompaniesPage = React.lazy(() => import('./pages/companies'));
 const FranchiseEditPage = React.lazy(() => import('./pages/franchise-edit'));
 const FranchiseNewPage = React.lazy(() => import('./pages/franchise-new'));
 const FranchiseTranslatePage = React.lazy(() => import('./pages/franchise-translate'));
@@ -117,6 +121,26 @@ function App() {
 
                 <Route path="/platforms/:platformId">
                   <PlatformPage />
+                </Route>
+
+                <Route path="/companies">
+                  <CompaniesPage />
+                </Route>
+
+                <Route path="/companies/new">
+                  <RequireAuth>
+                    <CompanyNewPage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/companies/:companyId/edit">
+                  <RequireAuth>
+                    <CompanyEditPage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/companies/:companyId">
+                  <CompanyPage />
                 </Route>
 
                 <Route path="/emulators">

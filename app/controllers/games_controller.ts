@@ -24,6 +24,18 @@ export default class GamesController {
       });
     }
 
+    if (request.input('developerId')) {
+      query.whereHas('developers', (q) => {
+        q.where('companies.id', request.input('developerId'));
+      });
+    }
+
+    if (request.input('publisherId')) {
+      query.whereHas('publishers', (q) => {
+        q.where('companies.id', request.input('publisherId'));
+      });
+    }
+
     if (request.input('platformId')) {
       query.where('platformId', request.input('platformId'));
     }

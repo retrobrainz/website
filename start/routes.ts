@@ -32,7 +32,10 @@ import router from '@adonisjs/core/services/router';
 
 router
   .group(() => {
-    router.resource('companies', CompaniesController).apiOnly();
+    router
+      .resource('companies', CompaniesController)
+      .apiOnly()
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
       .resource('emulators', EmulatorsController)
       .apiOnly()

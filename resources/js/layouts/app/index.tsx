@@ -61,6 +61,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <Button type="text">{t('genres')}</Button>
         </Link>
 
+        <Link href="/companies">
+          <Button type="text">{t('companies')}</Button>
+        </Link>
+
         <Link href="/platforms">
           <Button type="text">{t('platforms')}</Button>
         </Link>
