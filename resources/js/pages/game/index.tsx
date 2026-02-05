@@ -13,6 +13,9 @@ export default function GamePage() {
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
 
+  const gameTranslation = game?.translations?.find((tr) => tr.locale === i18n.language);
+  const displayName = gameTranslation?.name || game?.name;
+
   return (
     <Container maxWidth="lg" style={{ paddingTop: 16 }}>
       <Breadcrumb
@@ -24,13 +27,13 @@ export default function GamePage() {
             ),
           },
           {
-            title: game?.name || '...',
+            title: displayName || '...',
           },
         ]}
         style={{ marginBottom: 16 }}
       />
 
-      <Typography.Title level={1}>{game?.name}</Typography.Title>
+      <Typography.Title level={1}>{displayName}</Typography.Title>
 
       <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
         <FavoriteButton
@@ -52,7 +55,7 @@ export default function GamePage() {
                 <ImageUpload game={game} type="boxart" onFinish={reload} />
               </Flex>
             ) : (
-              <Image src={game?.boxart?.url} alt={`${game?.name} ${t('boxart')}`} />
+              <Image src={game?.boxart?.url} alt={`${displayName} ${t('boxart')}`} />
             )}
           </Badge.Ribbon>
           <Badge.Ribbon
@@ -65,7 +68,7 @@ export default function GamePage() {
                 <ImageUpload game={game} type="titlescreen" onFinish={reload} />
               </Flex>
             ) : (
-              <Image src={game?.titlescreen?.url} alt={`${game?.name} ${t('titlescreen')}`} />
+              <Image src={game?.titlescreen?.url} alt={`${displayName} ${t('titlescreen')}`} />
             )}
           </Badge.Ribbon>
           <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 33%' } }}>
@@ -74,7 +77,7 @@ export default function GamePage() {
                 <ImageUpload game={game} type="screenshot" onFinish={reload} />
               </Flex>
             ) : (
-              <Image src={game?.screenshot?.url} alt={`${game?.name} ${t('screenshot')}`} />
+              <Image src={game?.screenshot?.url} alt={`${displayName} ${t('screenshot')}`} />
             )}
           </Badge.Ribbon>
         </Flex>
