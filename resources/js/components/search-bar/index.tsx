@@ -26,7 +26,7 @@ export default function SearchBar() {
 
   return (
     <Input.Search
-      placeholder={t('search-games')}
+      placeholder={t('search')}
       value={search}
       onChange={(e) => {
         setSearch(e.target.value);
@@ -34,7 +34,7 @@ export default function SearchBar() {
       onSearch={handleSearch}
       style={{ width: 200 }}
       allowClear
-      aria-label={t('search-games')}
+      aria-label={t('search')}
     />
   );
 }
