@@ -24,7 +24,7 @@ export default function PlatformSelect({
       mode={mode}
       value={value}
       onChange={onChange}
-      placeholder={placeholder || t('select-platforms')}
+      placeholder={placeholder || t('select')}
       options={platforms?.map((p) => ({ label: p.name, value: p.id })) || []}
     />
   );

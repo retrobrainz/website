@@ -24,7 +24,7 @@ export default function OperatingSystemSelect({
       mode={mode}
       value={value}
       onChange={onChange}
-      placeholder={placeholder || t('select-operating-systems')}
+      placeholder={placeholder || t('select')}
       options={
         operatingSystems?.map((os) => ({
           label: `${os.name} (${os.arch})`,

@@ -26,7 +26,7 @@ export default function EmulatorSelect({
       mode={mode}
       value={value}
       onChange={onChange}
-      placeholder={placeholder || t('select-emulators')}
+      placeholder={placeholder || t('select')}
       options={emulators?.data.map((e) => ({ label: e.name, value: e.id })) || []}
     />
   );
