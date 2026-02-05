@@ -7,11 +7,11 @@ description: Add or improve translations for different languages.
 
 ## Languages
 
-- Backend:
+- Backend (API):
   - `config/i18n.ts`: configure supported languages used by backend.
   - `resources/lang/{lang}/*.json`: backend translation files for each supported language.
   - Read https://docs.adonisjs.com/guides/digging-deeper/i18n for backend i18n details.
-- Frontend:
+- Frontend (UI/Pages):
   - `resources/js/i18n.ts`: configure supported languages used by frontend.
   - `public/static/lang/{lang}/*.json`: frontend translation files for each supported language.
   - Read https://react.i18next.com/ for frontend i18n details.
