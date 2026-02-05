@@ -168,8 +168,6 @@ export default function GamePage() {
           ]}
         />
       </Card>
-
-      <p>{t('game-details-placeholder')}</p>
     </Container>
   );
 }
