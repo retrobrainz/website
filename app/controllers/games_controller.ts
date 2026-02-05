@@ -58,7 +58,7 @@ export default class GamesController {
 
     if (request.input('orderBy') === 'random') {
       query.orderByRaw('RANDOM()');
-    } else if (request.input('orderBy') === 'favorites_count') {
+    } else if (request.input('orderBy') === 'favoritesCount') {
       query.orderBy('favorites_count', 'desc');
     } else {
       query.orderBy('name', 'asc');
