@@ -1,9 +1,9 @@
 ---
-name: translate
+name: i18n
 description: Add or improve translations for different languages.
 ---
 
-# Translate
+# I18n (Internationalization) Skill Guide
 
 ## Languages
 
