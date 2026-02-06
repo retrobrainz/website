@@ -5,10 +5,11 @@ import { initReactI18next } from 'react-i18next';
 
 // Sort by name
 export const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'fr', name: 'Français' },
-  { code: 'es', name: 'Español' },
+  { code: 'da', name: 'Dansk' },
   { code: 'de', name: 'Deutsch' },
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'fr', name: 'Français' },
   { code: 'it', name: 'Italiano' },
   { code: 'pt', name: 'Português' },
   { code: 'ru', name: 'Русский' },

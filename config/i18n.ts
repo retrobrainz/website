@@ -14,6 +14,7 @@ export const supportedLocales = [
   'pt',
   'ru',
   'sv',
+  'da',
 ];
 
 const i18nConfig = defineConfig({
