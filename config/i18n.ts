@@ -1,7 +1,7 @@
 import app from '@adonisjs/core/services/app';
 import { defineConfig, formatters, loaders } from '@adonisjs/i18n';
 
-export const supportedLocales = ['en', 'fr', 'es', 'de', 'it', 'ja', 'zh', 'ko', 'fi', 'pt'];
+export const supportedLocales = ['en', 'fr', 'es', 'de', 'it', 'ja', 'zh', 'ko', 'fi', 'pt', 'ru'];
 
 const i18nConfig = defineConfig({
   defaultLocale: 'en',
