@@ -13,6 +13,7 @@ export const languages = [
   { code: 'pt', name: 'Português' },
   { code: 'ru', name: 'Русский' },
   { code: 'fi', name: 'Suomi' },
+  { code: 'sv', name: 'Svenska' },
   { code: 'ja', name: '日本語' },
   { code: 'ko', name: '한국어' },
   { code: 'zh', name: '中文' },
