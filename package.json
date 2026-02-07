@@ -36,7 +36,7 @@
     "#config/*": "./config/*.js"
   },
   "scripts": {
-    "build": "node ace build --ignore-ts-errors",
+    "build": "node ace build",
     "ci:eslint": "eslint -f json src -o ./.ci/eslint.json",
     "dev": "node ace serve --hmr",
     "format": "prettier --write .",

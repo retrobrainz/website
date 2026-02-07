@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "preserve",
     "strict": true
-  }
+  },
+  "include": ["**/*"]
 }
