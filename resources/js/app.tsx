@@ -1,18 +1,5 @@
 import { App as AntApp, ConfigProvider, Flex, Spin } from 'antd';
-import da from 'antd/es/locale/da_DK';
-import de from 'antd/es/locale/de_DE';
-import en from 'antd/es/locale/en_US';
-import es from 'antd/es/locale/es_ES';
-import fi from 'antd/es/locale/fi_FI';
-import fr from 'antd/es/locale/fr_FR';
-import it from 'antd/es/locale/it_IT';
-import ja from 'antd/es/locale/ja_JP';
-import ko from 'antd/es/locale/ko_KR';
-import pt from 'antd/es/locale/pt_PT';
-import ru from 'antd/es/locale/ru_RU';
-import sv from 'antd/es/locale/sv_SE';
-import zh from 'antd/es/locale/zh_CN';
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { FetchProvider } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -22,65 +9,52 @@ import RequireAuth from './components/require-auth';
 import './config/fetch';
 import './config/i18n';
 import { AuthProvider } from './contexts/auth';
+import useAntdLocale from './hooks/use-antd-locale';
 import AppLayout from './layouts/app';
 
-const EmulatorEditPage = React.lazy(() => import('./pages/emulator-edit'));
-const EmulatorNewPage = React.lazy(() => import('./pages/emulator-new'));
-const EmulatorPage = React.lazy(() => import('./pages/emulator'));
-const EmulatorsPage = React.lazy(() => import('./pages/emulators'));
-const CompanyEditPage = React.lazy(() => import('./pages/company-edit'));
-const CompanyNewPage = React.lazy(() => import('./pages/company-new'));
-const CompanyPage = React.lazy(() => import('./pages/company'));
-const CompaniesPage = React.lazy(() => import('./pages/companies'));
-const FranchiseEditPage = React.lazy(() => import('./pages/franchise-edit'));
-const FranchiseNewPage = React.lazy(() => import('./pages/franchise-new'));
-const FranchiseTranslatePage = React.lazy(() => import('./pages/franchise-translate'));
-const FranchisePage = React.lazy(() => import('./pages/franchise'));
-const FranchisesPage = React.lazy(() => import('./pages/franchises'));
-const FrontendEditPage = React.lazy(() => import('./pages/frontend-edit'));
-const FrontendNewPage = React.lazy(() => import('./pages/frontend-new'));
-const FrontendPage = React.lazy(() => import('./pages/frontend'));
-const FrontendsPage = React.lazy(() => import('./pages/frontends'));
-const GamePage = React.lazy(() => import('./pages/game'));
-const GameTranslatePage = React.lazy(() => import('./pages/game-translate'));
-const GenreEditPage = React.lazy(() => import('./pages/genre-edit'));
-const GenreNewPage = React.lazy(() => import('./pages/genre-new'));
-const GenreTranslatePage = React.lazy(() => import('./pages/genre-translate'));
-const GenrePage = React.lazy(() => import('./pages/genre'));
-const GenresPage = React.lazy(() => import('./pages/genres'));
-const HomePage = React.lazy(() => import('./pages/home'));
-const LoginPage = React.lazy(() => import('./pages/login'));
-const PlatformPage = React.lazy(() => import('./pages/platform'));
-const PlatformsPage = React.lazy(() => import('./pages/platforms'));
-const RegisterPage = React.lazy(() => import('./pages/register'));
-const SearchPage = React.lazy(() => import('./pages/search'));
-const SettingsPage = React.lazy(() => import('./pages/settings'));
-const UserPage = React.lazy(() => import('./pages/user'));
-
-const localeMap: Record<string, any> = {
-  de,
-  en,
-  es,
-  fi,
-  fr,
-  it,
-  ja,
-  ko,
-  pt,
-  zh,
-  ru,
-  da,
-  sv,
-};
+const EmulatorEditPage = lazy(() => import('./pages/emulator-edit'));
+const EmulatorNewPage = lazy(() => import('./pages/emulator-new'));
+const EmulatorPage = lazy(() => import('./pages/emulator'));
+const EmulatorsPage = lazy(() => import('./pages/emulators'));
+const CompanyEditPage = lazy(() => import('./pages/company-edit'));
+const CompanyNewPage = lazy(() => import('./pages/company-new'));
+const CompanyPage = lazy(() => import('./pages/company'));
+const CompaniesPage = lazy(() => import('./pages/companies'));
+const FranchiseEditPage = lazy(() => import('./pages/franchise-edit'));
+const FranchiseNewPage = lazy(() => import('./pages/franchise-new'));
+const FranchiseTranslatePage = lazy(() => import('./pages/franchise-translate'));
+const FranchisePage = lazy(() => import('./pages/franchise'));
+const FranchisesPage = lazy(() => import('./pages/franchises'));
+const FrontendEditPage = lazy(() => import('./pages/frontend-edit'));
+const FrontendNewPage = lazy(() => import('./pages/frontend-new'));
+const FrontendPage = lazy(() => import('./pages/frontend'));
+const FrontendsPage = lazy(() => import('./pages/frontends'));
+const GamePage = lazy(() => import('./pages/game'));
+const GameTranslatePage = lazy(() => import('./pages/game-translate'));
+const GenreEditPage = lazy(() => import('./pages/genre-edit'));
+const GenreNewPage = lazy(() => import('./pages/genre-new'));
+const GenreTranslatePage = lazy(() => import('./pages/genre-translate'));
+const GenrePage = lazy(() => import('./pages/genre'));
+const GenresPage = lazy(() => import('./pages/genres'));
+const HomePage = lazy(() => import('./pages/home'));
+const LoginPage = lazy(() => import('./pages/login'));
+const PlatformPage = lazy(() => import('./pages/platform'));
+const PlatformsPage = lazy(() => import('./pages/platforms'));
+const RegisterPage = lazy(() => import('./pages/register'));
+const SearchPage = lazy(() => import('./pages/search'));
+const SettingsPage = lazy(() => import('./pages/settings'));
+const UserPage = lazy(() => import('./pages/user'));
 
 function App() {
   const { i18n } = useTranslation();
 
   xior.defaults.headers['Accept-Language'] = i18n.language;
 
+  const locale = useAntdLocale(i18n.language);
+
   return (
     <FetchProvider fetcher={(url) => xior.get(url).then((res) => res.data)}>
-      <ConfigProvider locale={localeMap[i18n.language]}>
+      <ConfigProvider locale={locale}>
         <AntApp>
           <AuthProvider>
             <AppLayout>
