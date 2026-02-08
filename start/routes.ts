@@ -26,6 +26,7 @@ import OperatingSystemsController from '#controllers/operating_systems_controlle
 import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
+import TitlesController from '#controllers/titles_controller';
 import UsersController from '#controllers/users_controller';
 import { middleware } from '#start/kernel';
 import router from '@adonisjs/core/services/router';
@@ -44,7 +45,7 @@ router
       .resource('franchises', FranchisesController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router.resource('franchises.games', GamesController).only(['index']);
+    router.resource('franchises.titles', TitlesController).only(['index']);
     router
       .resource('franchises.translations', FranchiseTranslationsController)
       .only(['store', 'update'])
@@ -57,7 +58,6 @@ router
       .resource('games', GamesController)
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
-
     router
       .resource('games.translations', GameTranslationsController)
       .only(['store', 'update'])
@@ -79,6 +79,7 @@ router
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('platforms', PlatformsController).apiOnly();
     router.resource('regions', RegionsController).apiOnly();
+    router.resource('titles', TitlesController).apiOnly();
     router.resource('users', UsersController).apiOnly();
 
     // Favorites routes

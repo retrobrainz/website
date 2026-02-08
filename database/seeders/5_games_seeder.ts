@@ -100,7 +100,6 @@ export default class extends BaseSeeder {
   async importGame(rawGame: any, platform: Platform): Promise<void> {
     const {
       name: romName,
-      title,
       $entries,
       releaseyear,
       releasemonth,
@@ -133,7 +132,13 @@ export default class extends BaseSeeder {
       })
       .first();
 
-    const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
+    const {
+      name: gameName,
+      title: titleName,
+      disc = null,
+      regions,
+      languages = [],
+    } = parseName(romName);
 
     const game =
       existingGame ||
@@ -156,9 +161,17 @@ export default class extends BaseSeeder {
       });
     }
 
-    if (!game.titleId && title) {
-      const titleModel = await Title.firstOrCreate({ name: title });
-      game.titleId = titleModel.id;
+    if (!game.titleId && titleName) {
+      const title = await Title.firstOrCreate({ name: titleName });
+      game.titleId = title.id;
+      await title.load('franchises');
+      if (franchise && !title?.franchises.length) {
+        for (const franchiseName of (franchise as string).split('/')) {
+          const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
+          await franchiseModel.refresh();
+          await title.related('franchises').save(franchiseModel);
+        }
+      }
     }
 
     if (game.$isDirty) {
@@ -197,16 +210,6 @@ export default class extends BaseSeeder {
         await publisherModel.refresh();
         await publisherModel.load('duplicate');
         await game.related('publishers').save(publisherModel.duplicate || publisherModel);
-      }
-    }
-
-    await game.load('title');
-    await game.title?.load('franchises');
-    if (franchise && !game.title?.franchises.length) {
-      for (const franchiseName of (franchise as string).split('/')) {
-        const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
-        await franchiseModel.refresh();
-        await game.title?.related('franchises').save(franchiseModel);
       }
     }
 
