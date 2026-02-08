@@ -203,8 +203,7 @@ export default class extends BaseSeeder {
       for (const developerName of (developer as string).split('/')) {
         const developerModel = await Company.firstOrCreate({ name: developerName.trim() });
         await developerModel.refresh();
-        await developerModel.load('duplicate');
-        await game.related('developers').save(developerModel.duplicate || developerModel);
+        await game.related('developers').save(developerModel);
       }
     }
 
@@ -212,8 +211,7 @@ export default class extends BaseSeeder {
       for (const publisherName of (publisher as string).split('/')) {
         const publisherModel = await Company.firstOrCreate({ name: publisherName.trim() });
         await publisherModel.refresh();
-        await publisherModel.load('duplicate');
-        await game.related('publishers').save(publisherModel.duplicate || publisherModel);
+        await game.related('publishers').save(publisherModel);
       }
     }
 

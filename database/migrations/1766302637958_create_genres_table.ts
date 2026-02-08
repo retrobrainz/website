@@ -9,14 +9,6 @@ export default class extends BaseSchema {
 
       table.string('name', 32).notNullable().unique();
 
-      table
-        .integer('duplicate_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('genres')
-        .onDelete('SET NULL');
-
       table.timestamp('created_at');
       table.timestamp('updated_at');
     });
