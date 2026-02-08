@@ -2,8 +2,8 @@ import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@ad
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
-import GameFavorite from './game_favorite.js';
 import Franchise from './franchise.js';
+import GameFavorite from './game_favorite.js';
 import GameTranslation from './game_translation.js';
 import Genre from './genre.js';
 import Image from './image.js';
@@ -11,6 +11,7 @@ import Language from './language.js';
 import Platform from './platform.js';
 import Region from './region.js';
 import Rom from './rom.js';
+import Title from './title.js';
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -18,6 +19,9 @@ export default class Game extends BaseModel {
 
   @column()
   declare platformId: number;
+
+  @column()
+  declare titleId: number | null;
 
   @column()
   declare name: string;
@@ -30,9 +34,6 @@ export default class Game extends BaseModel {
 
   @column()
   declare pegiRating: string | null;
-
-  @column()
-  declare duplicateId: number | null;
 
   @column()
   declare boxartId: number | null;
@@ -57,8 +58,8 @@ export default class Game extends BaseModel {
   @belongsTo(() => Platform)
   declare platform: BelongsTo<typeof Platform>;
 
-  @belongsTo(() => Game, { foreignKey: 'duplicateId' })
-  declare duplicate: BelongsTo<typeof Game>;
+  @belongsTo(() => Title)
+  declare title: BelongsTo<typeof Title>;
 
   @belongsTo(() => Image, { foreignKey: 'boxartId' })
   declare boxart: BelongsTo<typeof Image>;

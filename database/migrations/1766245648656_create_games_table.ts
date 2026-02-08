@@ -13,21 +13,21 @@ export default class extends BaseSchema {
         .notNullable()
         .references('id')
         .inTable('platforms')
-        .onDelete('CASCADE');
+        .onDelete('SET NULL');
+
+      table
+        .integer('title_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('titles')
+        .onDelete('SET NULL');
 
       table.string('name', 256).notNullable();
       table.date('release_date').nullable();
 
       table.string('esrb_rating', 4).nullable();
       table.string('pegi_rating', 2).nullable();
-
-      table
-        .integer('duplicate_id')
-        .unsigned()
-        .nullable()
-        .references('id')
-        .inTable('games')
-        .onDelete('SET NULL');
 
       table
         .integer('boxart_id')
