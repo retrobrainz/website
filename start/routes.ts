@@ -45,7 +45,6 @@ router
       .resource('franchises', FranchisesController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router.resource('franchises.titles', TitlesController).only(['index']);
     router
       .resource('franchises.translations', FranchiseTranslationsController)
       .only(['store', 'update'])
@@ -63,7 +62,6 @@ router
       .only(['store', 'update'])
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
-    router.resource('genres.games', GamesController).only(['index']);
     router
       .resource('genres.translations', GenreTranslationsController)
       .only(['store', 'update'])

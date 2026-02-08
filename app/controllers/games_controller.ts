@@ -5,20 +5,20 @@ export default class GamesController {
   /**
    * Display a list of resource
    */
-  async index({ request, params }: HttpContext) {
+  async index({ request }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 10);
     const query = Game.query().withCount('favorites');
 
-    if (params.genre_id || request.input('genreId')) {
-      const genreId = params.genre_id || request.input('genreId');
+    const genreId = request.input('genreId');
+    if (genreId) {
       query.whereHas('genres', (q) => {
         q.where('genres.id', genreId);
       });
     }
 
-    if (params.franchise_id || request.input('franchiseId')) {
-      const franchiseId = params.franchise_id || request.input('franchiseId');
+    const franchiseId = request.input('franchiseId');
+    if (franchiseId) {
       query.whereHas('title', (q) => {
         q.whereHas('franchises', (qq) => {
           qq.where('franchises.id', franchiseId);
@@ -26,42 +26,48 @@ export default class GamesController {
       });
     }
 
-    if (request.input('developerId')) {
+    const developerId = request.input('developerId');
+    if (developerId) {
       query.whereHas('developers', (q) => {
-        q.where('companies.id', request.input('developerId'));
+        q.where('companies.id', developerId);
       });
     }
 
-    if (request.input('publisherId')) {
+    const publisherId = request.input('publisherId');
+    if (publisherId) {
       query.whereHas('publishers', (q) => {
-        q.where('companies.id', request.input('publisherId'));
+        q.where('companies.id', publisherId);
       });
     }
 
-    if (request.input('platformId')) {
-      query.where('platformId', request.input('platformId'));
+    const platformId = request.input('platformId');
+    if (platformId) {
+      query.where('platformId', platformId);
     }
 
-    if (request.input('favoriteUserId')) {
+    const favoriteUserId = request.input('favoriteUserId');
+    if (favoriteUserId) {
       query.whereHas('favorites', (q) => {
-        q.where('game_favorites.user_id', request.input('favoriteUserId'));
+        q.where('game_favorites.user_id', favoriteUserId);
       });
     }
 
-    if (request.input('regionId')) {
+    const regionId = request.input('regionId');
+    if (regionId) {
       query.whereHas('regions', (q) => {
-        q.where('regions.id', request.input('regionId'));
+        q.where('regions.id', regionId);
       });
     }
 
-    if (request.input('languageId')) {
+    const languageId = request.input('languageId');
+    if (languageId) {
       query.whereHas('languages', (q) => {
-        q.where('languages.id', request.input('languageId'));
+        q.where('languages.id', languageId);
       });
     }
 
-    if (request.input('search')) {
-      const search = request.input('search');
+    const search = request.input('search');
+    if (search) {
       search
         .split(' ')
         .filter(Boolean)
@@ -70,9 +76,10 @@ export default class GamesController {
         });
     }
 
-    if (request.input('orderBy') === 'random') {
+    const orderBy = request.input('orderBy');
+    if (orderBy === 'random') {
       query.orderByRaw('RANDOM()');
-    } else if (request.input('orderBy') === 'favoritesCount') {
+    } else if (orderBy === 'favoritesCount') {
       query.orderBy('favorites_count', 'desc');
     } else {
       query.orderBy('name', 'asc');
