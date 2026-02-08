@@ -3,8 +3,8 @@ import { Breadcrumb, Button, Flex, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import EmulatorList from '../../components/emulator-list/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
+import EmulatorList from '../../components/emulator-list';
+import { useAuth } from '../../contexts/auth';
 
 export default function EmulatorsPage() {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import type Platform from '../../types/Platform.js';
+import type Platform from '../../types/Platform';
 
 interface PlatformSelectProps {
   mode?: 'multiple' | 'tags';

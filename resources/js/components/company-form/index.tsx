@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
-import Company from '../../types/Company.js';
+import Company from '../../types/Company';
 
 export interface CompanyFormProps {
   company?: Company;

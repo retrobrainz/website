@@ -3,8 +3,8 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import EmulatorForm from '../../components/emulator-form/index.js';
-import Emulator from '../../types/Emulator.js';
+import EmulatorForm from '../../components/emulator-form';
+import Emulator from '../../types/Emulator';
 
 export default function EmulatorNewPage() {
   const { message } = App.useApp();

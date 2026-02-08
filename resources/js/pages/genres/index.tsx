@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import GenreCard from '../../components/genre-card/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Genre from '../../types/Genre.js';
+import GenreCard from '../../components/genre-card';
+import { useAuth } from '../../contexts/auth';
+import Genre from '../../types/Genre';
 
 export default function GenresPage() {
   const { t } = useTranslation();

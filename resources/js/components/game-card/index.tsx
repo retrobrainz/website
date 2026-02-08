@@ -3,7 +3,7 @@ import { Card, Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
-import Game from '../../types/Game.js';
+import Game from '../../types/Game';
 
 export interface GameCardProps {
   game: Game;

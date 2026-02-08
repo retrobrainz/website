@@ -1,4 +1,4 @@
-import type Image from './Image.js';
+import type Image from './Image';
 
 export default interface User {
   id: number;

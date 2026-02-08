@@ -5,10 +5,10 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
-import FrontendCard from '../../components/frontend-card/index.js';
-import FavoriteButton from '../../components/favorite-button/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Emulator from '../../types/Emulator.js';
+import FavoriteButton from '../../components/favorite-button';
+import FrontendCard from '../../components/frontend-card';
+import { useAuth } from '../../contexts/auth';
+import Emulator from '../../types/Emulator';
 
 export default function EmulatorPage() {
   const { emulatorId } = useParams();

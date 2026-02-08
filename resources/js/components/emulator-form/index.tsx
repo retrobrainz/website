@@ -2,10 +2,10 @@ import { App, Button, DatePicker, Form, Input } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ImageUpload from '../image-upload/index.js';
-import OperatingSystemSelect from '../operating-system-select/index.js';
-import PlatformSelect from '../platform-select/index.js';
-import type Emulator from '../../types/Emulator.js';
+import type Emulator from '../../types/Emulator';
+import ImageUpload from '../image-upload';
+import OperatingSystemSelect from '../operating-system-select';
+import PlatformSelect from '../platform-select';
 
 interface EmulatorFormProps {
   emulator?: Emulator;

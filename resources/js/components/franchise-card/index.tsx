@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import Franchise from '../../types/Franchise.js';
+import Franchise from '../../types/Franchise';
 
 export interface FranchiseCardProps {
   franchise: Franchise;

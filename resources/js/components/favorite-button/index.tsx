@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useLocation } from 'wouter';
 import xior from 'xior';
-import { useAuth } from '../../contexts/auth/index.js';
-import EmulatorFavorite from '../../types/EmulatorFavorite.js';
-import FrontendFavorite from '../../types/FrontendFavorite.js';
-import GameFavorite from '../../types/GameFavorite.js';
+import { useAuth } from '../../contexts/auth';
+import EmulatorFavorite from '../../types/EmulatorFavorite';
+import FrontendFavorite from '../../types/FrontendFavorite';
+import GameFavorite from '../../types/GameFavorite';
 
 type FavoriteType = GameFavorite | EmulatorFavorite | FrontendFavorite;
 

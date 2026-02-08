@@ -4,8 +4,8 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
-import GenreForm from '../../components/genre-form/index.js';
-import type Genre from '../../types/Genre.js';
+import GenreForm from '../../components/genre-form';
+import type Genre from '../../types/Genre';
 
 export default function GenreEditPage() {
   const { message } = App.useApp();

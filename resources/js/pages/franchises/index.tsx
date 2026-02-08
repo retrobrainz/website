@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import FranchiseCard from '../../components/franchise-card/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Franchise from '../../types/Franchise.js';
+import FranchiseCard from '../../components/franchise-card';
+import { useAuth } from '../../contexts/auth';
+import Franchise from '../../types/Franchise';
 
 export default function FranchisesPage() {
   const { t } = useTranslation();

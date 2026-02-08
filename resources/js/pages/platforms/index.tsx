@@ -3,7 +3,7 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import PlatformCard from '../../components/platform-card/index.js';
+import PlatformCard from '../../components/platform-card';
 
 export default function PlatformsPage() {
   const { t } = useTranslation();

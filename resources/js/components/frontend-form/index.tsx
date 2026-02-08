@@ -1,10 +1,10 @@
 import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ImageUpload from '../image-upload/index.js';
-import OperatingSystemSelect from '../operating-system-select/index.js';
-import EmulatorSelect from '../emulator-select/index.js';
-import type Frontend from '../../types/Frontend.js';
+import type Frontend from '../../types/Frontend';
+import EmulatorSelect from '../emulator-select';
+import ImageUpload from '../image-upload';
+import OperatingSystemSelect from '../operating-system-select';
 
 interface FrontendFormProps {
   frontend?: Frontend;

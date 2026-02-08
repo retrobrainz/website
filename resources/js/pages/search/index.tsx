@@ -1,6 +1,6 @@
 import { Container } from 'antd-moe';
 import { useSearchParams } from 'wouter';
-import GameList from '../../components/game-list/index.js';
+import GameList from '../../components/game-list';
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();

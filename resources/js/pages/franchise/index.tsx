@@ -4,9 +4,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import GameList from '../../components/game-list/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Franchise from '../../types/Franchise.js';
+import GameList from '../../components/game-list';
+import { useAuth } from '../../contexts/auth';
+import Franchise from '../../types/Franchise';
 
 export default function FranchisePage() {
   const { franchiseId } = useParams();

@@ -3,8 +3,8 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import CompanyForm from '../../components/company-form/index.js';
-import Company from '../../types/Company.js';
+import CompanyForm from '../../components/company-form';
+import Company from '../../types/Company';
 
 export default function CompanyNewPage() {
   const { message } = App.useApp();

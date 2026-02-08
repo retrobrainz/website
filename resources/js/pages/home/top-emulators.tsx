@@ -3,8 +3,8 @@ import { Button, Col, Flex, Row, Typography } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import EmulatorCard from '../../components/emulator-card/index.js';
-import type Emulator from '../../types/Emulator.js';
+import EmulatorCard from '../../components/emulator-card';
+import type Emulator from '../../types/Emulator';
 
 export default function TopEmulators() {
   const { t } = useTranslation();

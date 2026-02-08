@@ -5,8 +5,8 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import xior from 'xior';
-import { languages } from '../../config/i18n.js';
-import Genre from '../../types/Genre.js';
+import { languages } from '../../config/i18n';
+import Genre from '../../types/Genre';
 
 export default function GenreTranslatePage() {
   const { t, i18n } = useTranslation();

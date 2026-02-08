@@ -4,8 +4,8 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
-import FranchiseForm from '../../components/franchise-form/index.js';
-import type Franchise from '../../types/Franchise.js';
+import FranchiseForm from '../../components/franchise-form';
+import type Franchise from '../../types/Franchise';
 
 export default function FranchiseEditPage() {
   const { message } = App.useApp();

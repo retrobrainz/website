@@ -1,6 +1,6 @@
 import { Flex, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import GameList from '../../components/game-list/index.js';
+import GameList from '../../components/game-list';
 
 export default function PopularGames() {
   const { t } = useTranslation();

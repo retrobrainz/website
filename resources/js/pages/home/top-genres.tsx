@@ -3,8 +3,8 @@ import { Button, Col, Flex, Row, Typography } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import GenreCard from '../../components/genre-card/index.js';
-import type Genre from '../../types/Genre.js';
+import GenreCard from '../../components/genre-card';
+import type Genre from '../../types/Genre';
 
 export default function TopGenres() {
   const { t } = useTranslation();

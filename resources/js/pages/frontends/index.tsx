@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import FrontendCard from '../../components/frontend-card/index.js';
-import OperatingSystemIcon from '../../components/operating-system-icon/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Frontend from '../../types/Frontend.js';
-import OperatingSystem from '../../types/OperatingSystem.js';
+import FrontendCard from '../../components/frontend-card';
+import OperatingSystemIcon from '../../components/operating-system-icon';
+import { useAuth } from '../../contexts/auth';
+import Frontend from '../../types/Frontend';
+import OperatingSystem from '../../types/OperatingSystem';
 
 export default function FrontendsPage() {
   const { t } = useTranslation();

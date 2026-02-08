@@ -1,7 +1,7 @@
 import { Card, Flex, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import Platform from '../../types/Platform.js';
+import Platform from '../../types/Platform';
 
 interface PlatformCardProps {
   platform: Platform;

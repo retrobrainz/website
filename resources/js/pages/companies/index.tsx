@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import CompanyCard from '../../components/company-card/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Company from '../../types/Company.js';
+import CompanyCard from '../../components/company-card';
+import { useAuth } from '../../contexts/auth';
+import Company from '../../types/Company';
 
 export default function CompaniesPage() {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import xior from 'xior';
-import User from '../../types/User.js';
+import User from '../../types/User';
 
 interface AuthContextValue {
   isAuthenticated: boolean;

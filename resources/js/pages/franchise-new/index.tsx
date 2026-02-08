@@ -3,8 +3,8 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import FranchiseForm from '../../components/franchise-form/index.js';
-import Franchise from '../../types/Franchise.js';
+import FranchiseForm from '../../components/franchise-form';
+import Franchise from '../../types/Franchise';
 
 export default function FranchiseNewPage() {
   const { message } = App.useApp();

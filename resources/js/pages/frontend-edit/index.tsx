@@ -4,8 +4,8 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
-import FrontendForm from '../../components/frontend-form/index.js';
-import type Frontend from '../../types/Frontend.js';
+import FrontendForm from '../../components/frontend-form';
+import type Frontend from '../../types/Frontend';
 
 export default function FrontendEditPage() {
   const { message } = App.useApp();

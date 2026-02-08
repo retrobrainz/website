@@ -1,7 +1,7 @@
-import Frontend from './Frontend.js';
-import Image from './Image.js';
-import OperatingSystem from './OperatingSystem.js';
-import Platform from './Platform.js';
+import Frontend from './Frontend';
+import Image from './Image';
+import OperatingSystem from './OperatingSystem';
+import Platform from './Platform';
 
 export default interface Emulator {
   id: number;

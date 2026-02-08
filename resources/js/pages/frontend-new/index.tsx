@@ -3,7 +3,7 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import FrontendForm from '../../components/frontend-form/index.js';
+import FrontendForm from '../../components/frontend-form';
 
 export default function FrontendNewPage() {
   const { message } = App.useApp();

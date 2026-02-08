@@ -3,8 +3,8 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import GenreForm from '../../components/genre-form/index.js';
-import Genre from '../../types/Genre.js';
+import GenreForm from '../../components/genre-form';
+import Genre from '../../types/Genre';
 
 export default function GenreNewPage() {
   const { message } = App.useApp();

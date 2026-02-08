@@ -2,7 +2,7 @@ import { GlobalOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { languages } from '../../config/i18n.js';
+import { languages } from '../../config/i18n';
 
 export default function LanguageMenu() {
   const { i18n } = useTranslation();

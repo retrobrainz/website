@@ -3,9 +3,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import FavoriteButton from '../../components/favorite-button/index.js';
-import Game from '../../types/Game.js';
-import ImageUpload from '../platform/ImageUpload.js';
+import FavoriteButton from '../../components/favorite-button';
+import Game from '../../types/Game';
+import ImageUpload from '../platform/ImageUpload';
 
 export default function GamePage() {
   const { gameId } = useParams<{ gameId: string }>();

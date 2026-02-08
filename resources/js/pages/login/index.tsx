@@ -3,7 +3,7 @@ import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'wouter';
 import xior from 'xior';
-import { useAuth } from '../../contexts/auth/index.js';
+import { useAuth } from '../../contexts/auth';
 
 interface LoginFormValues {
   username: string;

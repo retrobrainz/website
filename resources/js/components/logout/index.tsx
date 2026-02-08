@@ -2,7 +2,7 @@ import { LogoutOutlined } from '@ant-design/icons';
 import { App, Button, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
-import { useAuth } from '../../contexts/auth/index.js';
+import { useAuth } from '../../contexts/auth';
 
 export default function Logout() {
   const { message } = App.useApp();

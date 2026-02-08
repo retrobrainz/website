@@ -1,9 +1,9 @@
-import Company from './Company.js';
-import Franchise from './Franchise.js';
-import Genre from './Genre.js';
-import Image from './Image.js';
-import Platform from './Platform.js';
-import Region from './Region.js';
+import Company from './Company';
+import Franchise from './Franchise';
+import Genre from './Genre';
+import Image from './Image';
+import Platform from './Platform';
+import Region from './Region';
 
 export interface GameTranslation {
   id: number;

@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 import { Link } from 'wouter';
-import Company from '../../types/Company.js';
+import Company from '../../types/Company';
 
 export interface CompanyCardProps {
   company: Company;

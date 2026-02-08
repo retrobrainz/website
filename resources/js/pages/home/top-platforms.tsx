@@ -3,8 +3,8 @@ import { Button, Col, Flex, Row, Typography } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import PlatformCard from '../../components/platform-card/index.js';
-import type Platform from '../../types/Platform.js';
+import PlatformCard from '../../components/platform-card';
+import type Platform from '../../types/Platform';
 
 export default function TopPlatforms() {
   const { t } = useTranslation();

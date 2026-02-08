@@ -1,7 +1,7 @@
 import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type Franchise from '../../types/Franchise.js';
+import type Franchise from '../../types/Franchise';
 
 interface FranchiseFormProps {
   franchise?: Franchise;

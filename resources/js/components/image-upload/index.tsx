@@ -1,9 +1,9 @@
-import { Button, Upload } from 'antd';
-import type { UploadFile } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import type { UploadFile } from 'antd';
+import { Button, Upload } from 'antd';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
-import type Image from '../../types/Image.js';
+import type Image from '../../types/Image';
 
 interface ImageUploadProps {
   value?: Image | null;

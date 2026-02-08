@@ -2,8 +2,8 @@ import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import Game from '../../types/Game.js';
-import GameCard from '../game-card/index.js';
+import Game from '../../types/Game';
+import GameCard from '../game-card';
 
 interface GameListFilters {
   favoriteUserId?: number | string;

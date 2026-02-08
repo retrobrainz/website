@@ -2,9 +2,9 @@ import { Col, Form, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import Emulator from '../../types/Emulator.js';
-import EmulatorCard from '../emulator-card/index.js';
-import OperatingSystemIcon from '../operating-system-icon/index.js';
+import Emulator from '../../types/Emulator';
+import EmulatorCard from '../emulator-card';
+import OperatingSystemIcon from '../operating-system-icon';
 
 interface EmulatorListFilters {
   platformId?: number | string;

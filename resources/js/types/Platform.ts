@@ -1,5 +1,5 @@
-import Company from './Company.js';
-import Image from './Image.js';
+import Company from './Company';
+import Image from './Image';
 
 export default interface Platform {
   id: number;

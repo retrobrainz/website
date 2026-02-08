@@ -2,8 +2,8 @@ import { Card, Flex, Tooltip } from 'antd';
 import { useMemo } from 'react';
 import { Link } from 'wouter';
 import fallbackScreenshot from '../../../img/fallback-screenshot.avif';
-import Frontend from '../../types/Frontend.js';
-import OperatingSystemIcon from '../operating-system-icon/index.js';
+import Frontend from '../../types/Frontend';
+import OperatingSystemIcon from '../operating-system-icon';
 
 export interface FrontendCardProps {
   frontend: Frontend;

@@ -3,8 +3,8 @@ import { Button, Col, Flex, Row, Typography } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import FranchiseCard from '../../components/franchise-card/index.js';
-import type Franchise from '../../types/Franchise.js';
+import FranchiseCard from '../../components/franchise-card';
+import type Franchise from '../../types/Franchise';
 
 export default function TopFranchises() {
   const { t } = useTranslation();

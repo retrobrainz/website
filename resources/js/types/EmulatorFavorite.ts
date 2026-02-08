@@ -1,5 +1,5 @@
-import Emulator from './Emulator.js';
-import User from './User.js';
+import Emulator from './Emulator';
+import User from './User';
 
 export default interface EmulatorFavorite {
   id: number;

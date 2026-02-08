@@ -1,6 +1,6 @@
 import { Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../contexts/auth/index.js';
+import { useAuth } from '../../contexts/auth';
 
 export default function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();

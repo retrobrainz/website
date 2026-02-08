@@ -2,10 +2,10 @@ import { SettingOutlined } from '@ant-design/icons';
 import { Avatar, Button, Layout, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import LanguageMenu from '../../components/language-menu/index.js';
-import Logout from '../../components/logout/index.js';
-import SearchBar from '../../components/search-bar/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
+import LanguageMenu from '../../components/language-menu';
+import Logout from '../../components/logout';
+import SearchBar from '../../components/search-bar';
+import { useAuth } from '../../contexts/auth';
 
 export default function AppNavbar() {
   const { t } = useTranslation();

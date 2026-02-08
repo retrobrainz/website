@@ -4,8 +4,8 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
-import EmulatorForm from '../../components/emulator-form/index.js';
-import type Emulator from '../../types/Emulator.js';
+import EmulatorForm from '../../components/emulator-form';
+import type Emulator from '../../types/Emulator';
 
 export default function EmulatorEditPage() {
   const { message } = App.useApp();

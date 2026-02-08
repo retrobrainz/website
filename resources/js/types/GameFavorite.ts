@@ -1,5 +1,5 @@
-import Game from './Game.js';
-import User from './User.js';
+import Game from './Game';
+import User from './User';
 
 export default interface GameFavorite {
   id: number;

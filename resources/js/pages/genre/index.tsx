@@ -4,9 +4,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import GameList from '../../components/game-list/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Genre from '../../types/Genre.js';
+import GameList from '../../components/game-list';
+import { useAuth } from '../../contexts/auth';
+import Genre from '../../types/Genre';
 
 export default function GenrePage() {
   const { genreId } = useParams();

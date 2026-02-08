@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
-import { useAuth } from '../../contexts/auth/index.js';
-import Game from '../../types/Game.js';
-import ImageModel from '../../types/Image.js';
+import { useAuth } from '../../contexts/auth';
+import Game from '../../types/Game';
+import ImageModel from '../../types/Image';
 
 export interface ImageUploadProps {
   game: Game;

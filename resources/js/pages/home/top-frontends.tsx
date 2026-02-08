@@ -3,8 +3,8 @@ import { Button, Col, Flex, Row, Typography } from 'antd';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
-import FrontendCard from '../../components/frontend-card/index.js';
-import type Frontend from '../../types/Frontend.js';
+import FrontendCard from '../../components/frontend-card';
+import type Frontend from '../../types/Frontend';
 
 export default function TopFrontends() {
   const { t } = useTranslation();

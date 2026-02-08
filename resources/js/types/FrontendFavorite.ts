@@ -1,5 +1,5 @@
-import Frontend from './Frontend.js';
-import User from './User.js';
+import Frontend from './Frontend';
+import User from './User';
 
 export default interface FrontendFavorite {
   id: number;

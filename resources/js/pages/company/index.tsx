@@ -4,9 +4,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import GameList from '../../components/game-list/index.js';
-import { useAuth } from '../../contexts/auth/index.js';
-import Company from '../../types/Company.js';
+import GameList from '../../components/game-list';
+import { useAuth } from '../../contexts/auth';
+import Company from '../../types/Company';
 
 export default function CompanyPage() {
   const { companyId } = useParams();

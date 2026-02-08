@@ -3,9 +3,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'wouter';
-import EmulatorList from '../../components/emulator-list/index.js';
-import GameList from '../../components/game-list/index.js';
-import User from '../../types/User.js';
+import EmulatorList from '../../components/emulator-list';
+import GameList from '../../components/game-list';
+import User from '../../types/User';
 
 export default function UserPage() {
   const { userId } = useParams();

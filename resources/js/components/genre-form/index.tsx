@@ -1,7 +1,7 @@
 import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type Genre from '../../types/Genre.js';
+import type Genre from '../../types/Genre';
 
 interface GenreFormProps {
   genre?: Genre;

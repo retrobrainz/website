@@ -3,9 +3,9 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
-import EmulatorList from '../../components/emulator-list/index.js';
-import GameList from '../../components/game-list/index.js';
-import Platform from '../../types/Platform.js';
+import EmulatorList from '../../components/emulator-list';
+import GameList from '../../components/game-list';
+import Platform from '../../types/Platform';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
