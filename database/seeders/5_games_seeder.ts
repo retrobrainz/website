@@ -165,7 +165,7 @@ export default class extends BaseSeeder {
       const title = await Title.firstOrCreate({ name: titleName });
       game.titleId = title.id;
       await title.load('franchises');
-      if (franchise && !title.franchises?.length) {
+      if (franchise) {
         for (const franchiseName of (franchise as string).split('/')) {
           const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
           await title.related('franchises').save(franchiseModel);
