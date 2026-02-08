@@ -122,8 +122,8 @@ export default function GamePage() {
             {
               label: t('franchise'),
               children:
-                game?.franchises && game.franchises.length > 0
-                  ? game.franchises.map((franchise, index, arr) => {
+                game?.title?.franchises && game.title.franchises.length > 0
+                  ? game.title.franchises.map((franchise, index, arr) => {
                       const translation = franchise.translations?.find(
                         (tr) => tr.locale === i18n.language,
                       );
