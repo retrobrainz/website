@@ -165,10 +165,9 @@ export default class extends BaseSeeder {
       const title = await Title.firstOrCreate({ name: titleName });
       game.titleId = title.id;
       await title.load('franchises');
-      if (franchise && !title?.franchises.length) {
+      if (franchise && !title.franchises?.length) {
         for (const franchiseName of (franchise as string).split('/')) {
           const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
-          await franchiseModel.refresh();
           await title.related('franchises').save(franchiseModel);
         }
       }
@@ -297,7 +296,7 @@ export default class extends BaseSeeder {
 
     if (!game[type] && existsSync(imagePath)) {
       try {
-        const image = await Image.fromFs(imagePath);
+        const image = await Image.fromFs(imagePath, { format: 'avif' });
         game[type] = image.id;
         await game.save();
       } catch {
