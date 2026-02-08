@@ -1,5 +1,6 @@
 import Franchise from '#models/franchise';
 import Game from '#models/game';
+import Genre from '#models/genre';
 import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
@@ -26,4 +27,9 @@ export default class Title extends BaseModel {
     pivotTable: 'title_franchise',
   })
   declare franchises: ManyToMany<typeof Franchise>;
+
+  @manyToMany(() => Genre, {
+    pivotTable: 'title_genre',
+  })
+  declare genres: ManyToMany<typeof Genre>;
 }

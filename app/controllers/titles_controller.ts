@@ -16,6 +16,10 @@ export default class TitlesController {
       query.where('name', 'ilike', `%${search}%`);
     }
 
+    query
+      .preload('franchises', (q) => q.preload('translations'))
+      .preload('genres', (q) => q.preload('translations'));
+
     query.orderBy('name', 'asc');
 
     return query.paginate(page, pageSize);
@@ -25,7 +29,11 @@ export default class TitlesController {
    * Display a single resource
    */
   async show({ params }: HttpContext) {
-    return Title.findOrFail(params.id);
+    return Title.query()
+      .where('id', params.id)
+      .preload('franchises', (q) => q.preload('translations'))
+      .preload('genres', (q) => q.preload('translations'))
+      .firstOrFail();
   }
 
   /**

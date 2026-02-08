@@ -1,5 +1,4 @@
 import Company from './Company';
-import Genre from './Genre';
 import Image from './Image';
 import Platform from './Platform';
 import Region from './Region';
@@ -37,6 +36,5 @@ export default interface Game {
   regions?: Region[];
   developers?: Company[];
   publishers?: Company[];
-  genres?: Genre[];
   favoritesCount?: number;
 }

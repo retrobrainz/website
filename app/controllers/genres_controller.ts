@@ -11,7 +11,7 @@ export default class GenresController {
     const pageSize = request.input('pageSize', 10);
     const locale = request.input('locale', i18n.locale);
 
-    const query = Genre.query().withCount('games').orderBy('games_count', 'desc');
+    const query = Genre.query().withCount('titles').orderBy('titles_count', 'desc');
 
     if (locale) {
       query.preload('translations', (q) => q.where('locale', locale));
@@ -25,7 +25,7 @@ export default class GenresController {
    */
   async show({ params, request, i18n }: HttpContext) {
     const locale = request.input('locale');
-    const query = Genre.query().where('id', params.id).withCount('games');
+    const query = Genre.query().where('id', params.id).withCount('titles');
 
     if (locale === '*') {
       query.preload('translations');

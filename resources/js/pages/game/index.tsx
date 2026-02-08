@@ -141,8 +141,8 @@ export default function GamePage() {
             {
               label: t('genres'),
               children:
-                game?.genres && game.genres.length > 0
-                  ? game.genres.map((genre, index, arr) => {
+                game?.title?.genres && game.title.genres.length > 0
+                  ? game.title.genres.map((genre, index, arr) => {
                       const translation = genre.translations?.find(
                         (tr) => tr.locale === i18n.language,
                       );

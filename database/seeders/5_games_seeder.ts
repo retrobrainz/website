@@ -19,7 +19,7 @@ import { DateTime } from 'luxon';
 
 export default class extends BaseSeeder {
   async run() {
-    const platforms = await Platform.all();
+    const platforms = await Platform.query().orderBy('id', 'asc');
 
     await this.downloadGithubRepo('libretro', 'libretro-database');
 
@@ -170,6 +170,12 @@ export default class extends BaseSeeder {
           await title.related('franchises').save(franchiseModel);
         }
       }
+      if (genre) {
+        for (const genreName of (genre as string).split('/')) {
+          const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
+          await title.related('genres').save(genreModel);
+        }
+      }
     }
 
     if (game.$isDirty) {
@@ -208,15 +214,6 @@ export default class extends BaseSeeder {
         await publisherModel.refresh();
         await publisherModel.load('duplicate');
         await game.related('publishers').save(publisherModel.duplicate || publisherModel);
-      }
-    }
-
-    if (genre) {
-      for (const genreName of (genre as string).split('/')) {
-        const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
-        await genreModel.refresh();
-        await genreModel.load('duplicate');
-        await game.related('genres').save(genreModel.duplicate || genreModel);
       }
     }
 
@@ -295,7 +292,7 @@ export default class extends BaseSeeder {
 
     if (!game[type] && existsSync(imagePath)) {
       try {
-        const image = await Image.fromFs(imagePath, { format: 'avif' });
+        const image = await Image.fromFs(imagePath);
         game[type] = image.id;
         await game.save();
       } catch {

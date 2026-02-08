@@ -12,8 +12,10 @@ export default class GamesController {
 
     const genreId = request.input('genreId');
     if (genreId) {
-      query.whereHas('genres', (q) => {
-        q.where('genres.id', genreId);
+      query.whereHas('title', (q) => {
+        q.whereHas('genres', (qq) => {
+          qq.where('genres.id', genreId);
+        });
       });
     }
 
@@ -87,10 +89,9 @@ export default class GamesController {
 
     return query
       .preload('title', (q) => {
-        // TODO title translations
         q.preload('franchises', (qq) => qq.preload('translations'));
+        q.preload('genres', (qq) => qq.preload('translations'));
       })
-      .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
       .preload('developers')
@@ -108,10 +109,9 @@ export default class GamesController {
     const game = await Game.query()
       .where('id', params.id)
       .preload('title', (q) => {
-        // TODO title translations
         q.preload('franchises', (qq) => qq.preload('translations'));
+        q.preload('genres', (qq) => qq.preload('translations'));
       })
-      .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
       .preload('developers')

@@ -1,4 +1,5 @@
 import Franchise from './Franchise';
+import Genre from './Genre';
 
 export default interface Title {
   id: number;
@@ -6,4 +7,5 @@ export default interface Title {
   createdAt: string;
   updatedAt: string;
   franchises?: Franchise[];
+  genres?: Genre[];
 }

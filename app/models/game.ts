@@ -4,7 +4,6 @@ import { DateTime } from 'luxon';
 import Company from './company.js';
 import GameFavorite from './game_favorite.js';
 import GameTranslation from './game_translation.js';
-import Genre from './genre.js';
 import Image from './image.js';
 import Language from './language.js';
 import Platform from './platform.js';
@@ -92,11 +91,6 @@ export default class Game extends BaseModel {
     pivotTable: 'game_region',
   })
   declare regions: ManyToMany<typeof Region>;
-
-  @manyToMany(() => Genre, {
-    pivotTable: 'game_genre',
-  })
-  declare genres: ManyToMany<typeof Genre>;
 
   @manyToMany(() => Language, {
     pivotTable: 'game_language',

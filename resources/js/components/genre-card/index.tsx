@@ -15,7 +15,7 @@ export default function GenreCard({ genre }: GenreCardProps) {
       <Card hoverable>
         <Card.Meta
           title={genre.translations?.[0]?.name || genre.name}
-          description={`${genre.gamesCount ?? 0} ${t('games')}`}
+          description={`${genre.titlesCount ?? 0} ${t('titles')}`}
         />
       </Card>
     </Link>

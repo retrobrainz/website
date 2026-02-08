@@ -1,4 +1,4 @@
-import Game from './Game';
+import Title from './Title';
 
 export interface GenreTranslation {
   id: number;
@@ -12,8 +12,8 @@ export default interface Genre {
   id: number;
   name: string;
   translations?: GenreTranslation[];
-  games?: Game[];
-  gamesCount?: number | null;
+  titles?: Title[];
+  titlesCount?: number | null;
   createdAt: string;
   updatedAt: string | null;
 }
