@@ -13,7 +13,7 @@ export default function AppNavbar() {
   return (
     <Layout.Header
       style={{
-        padding: '8px 16px',
+        paddingInline: 24,
         display: 'flex',
         alignItems: 'center',
         gap: 8,
@@ -38,12 +38,12 @@ export default function AppNavbar() {
 
       <SearchBar />
 
-      <Link href="/franchises">
-        <Button type="text">{t('franchises')}</Button>
+      <Link href="/titles" style={{ display: 'inline-block' }}>
+        <Button type="text">{t('titles')}</Button>
       </Link>
 
-      <Link href="/titles">
-        <Button type="text">{t('titles')}</Button>
+      <Link href="/franchises">
+        <Button type="text">{t('franchises')}</Button>
       </Link>
 
       <Link href="/genres">
