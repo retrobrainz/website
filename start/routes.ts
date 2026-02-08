@@ -26,6 +26,7 @@ import OperatingSystemsController from '#controllers/operating_systems_controlle
 import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
+import TitleFavoritesController from '#controllers/title_favorites_controller';
 import TitleTranslationsController from '#controllers/title_translations_controller';
 import TitlesController from '#controllers/titles_controller';
 import UsersController from '#controllers/users_controller';
@@ -98,6 +99,10 @@ router
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
       .resource('frontends.favorites', FrontendFavoritesController)
+      .apiOnly()
+      .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
+    router
+      .resource('titles.favorites', TitleFavoritesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
 
