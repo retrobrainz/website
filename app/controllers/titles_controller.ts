@@ -5,7 +5,7 @@ export default class TitlesController {
   /**
    * Display a list of resource
    */
-  async index({ request }: HttpContext) {
+  async index({ request, i18n }: HttpContext) {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 20);
     const search = request.input('search');
@@ -17,8 +17,11 @@ export default class TitlesController {
     }
 
     query
-      .preload('franchises', (q) => q.preload('translations'))
-      .preload('genres', (q) => q.preload('translations'));
+      .preload('translations', (q) => q.where('locale', i18n.locale))
+      .preload('franchises', (q) =>
+        q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
+      )
+      .preload('genres', (q) => q.preload('translations', (qq) => qq.where('locale', i18n.locale)));
 
     query.orderBy('name', 'asc');
 
@@ -28,11 +31,14 @@ export default class TitlesController {
   /**
    * Display a single resource
    */
-  async show({ params }: HttpContext) {
+  async show({ params, i18n }: HttpContext) {
     return Title.query()
       .where('id', params.id)
-      .preload('franchises', (q) => q.preload('translations'))
-      .preload('genres', (q) => q.preload('translations'))
+      .preload('translations', (q) => q.where('locale', i18n.locale))
+      .preload('franchises', (q) =>
+        q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
+      )
+      .preload('genres', (q) => q.preload('translations', (qq) => qq.where('locale', i18n.locale)))
       .firstOrFail();
   }
 
@@ -40,7 +46,7 @@ export default class TitlesController {
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
-    const data = request.only(['name', 'duplicateId']);
+    const data = request.only(['name']);
     const title = await Title.create(data);
     return response.created(title);
   }
@@ -50,7 +56,7 @@ export default class TitlesController {
    */
   async update({ params, request }: HttpContext) {
     const title = await Title.findOrFail(params.id);
-    const data = request.only(['name', 'duplicateId']);
+    const data = request.only(['name']);
     title.merge(data);
     await title.save();
     return title;

@@ -26,6 +26,7 @@ import OperatingSystemsController from '#controllers/operating_systems_controlle
 import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
 import RegionsController from '#controllers/regions_controller';
+import TitleTranslationsController from '#controllers/title_translations_controller';
 import TitlesController from '#controllers/titles_controller';
 import UsersController from '#controllers/users_controller';
 import { middleware } from '#start/kernel';
@@ -46,10 +47,6 @@ router
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
-      .resource('franchises.translations', FranchiseTranslationsController)
-      .only(['store', 'update'])
-      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router
       .resource('frontends', FrontendsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
@@ -57,15 +54,7 @@ router
       .resource('games', GamesController)
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
-    router
-      .resource('games.translations', GameTranslationsController)
-      .only(['store', 'update'])
-      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('genres', GenresController).apiOnly();
-    router
-      .resource('genres.translations', GenreTranslationsController)
-      .only(['store', 'update'])
-      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
       .resource('images', ImagesController)
       .apiOnly()
@@ -80,17 +69,33 @@ router
     router.resource('titles', TitlesController).apiOnly();
     router.resource('users', UsersController).apiOnly();
 
+    // Translations routes
+    router
+      .resource('franchises.translations', FranchiseTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router
+      .resource('games.translations', GameTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router
+      .resource('genres.translations', GenreTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router
+      .resource('titles.translations', TitleTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+
     // Favorites routes
     router
       .resource('games.favorites', GameFavoritesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
-
     router
       .resource('emulators.favorites', EmulatorFavoritesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
-
     router
       .resource('frontends.favorites', FrontendFavoritesController)
       .apiOnly()
