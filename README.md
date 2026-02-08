@@ -80,4 +80,10 @@ RetroBrainz website is built using the following free & open source technologies
 - [Nginx](https://www.nginx.com/) as the web server.
 - [Certbot](https://certbot.eff.org/) as the SSL certificate manager.
 
-RetroBrainz logo is created by [Wikmoz](https://commons.wikimedia.org/wiki/User:Wikmoz) and licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en) license. ([Source](https://commons.wikimedia.org/wiki/File:Video_Game_Book.svg))
+RetroBrainz logo is created by [Wikmoz](https://commons.wikimedia.org/wiki/User:Wikmoz) and licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) license. ([Source](https://commons.wikimedia.org/wiki/File:Video_Game_Book.svg))
+
+## License
+
+RetroBrainz website source code is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+RetroBrainz website content is licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) license, unless otherwise noted.
