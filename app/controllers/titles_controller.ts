@@ -19,6 +19,7 @@ export default class TitlesController {
     query
       .withCount('games')
       .preload('translations', (q) => q.where('locale', i18n.locale))
+      .preload('platforms')
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
       )

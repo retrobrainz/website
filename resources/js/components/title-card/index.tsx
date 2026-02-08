@@ -15,7 +15,14 @@ export default function TitleCard({ title }: TitleCardProps) {
       <Card hoverable>
         <Card.Meta
           title={title.translations?.[0]?.name || title.name}
-          description={`${title.gamesCount ?? 0} ${t('games')}`}
+          description={
+            <div>
+              {`${title.gamesCount ?? 0} ${t('games')}`}&nbsp;|&nbsp;
+              {Array.from(new Set(title.platforms?.map((platform) => platform.name)))
+                .sort()
+                .join(', ')}
+            </div>
+          }
         />
       </Card>
     </Link>

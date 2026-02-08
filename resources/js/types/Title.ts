@@ -1,6 +1,7 @@
 import Franchise from './Franchise';
 import Game from './Game';
 import Genre from './Genre';
+import Platform from './Platform';
 
 export interface TitleTranslation {
   id: number;
@@ -17,6 +18,7 @@ export default interface Title {
   translations?: TitleTranslation[];
   games?: Game[];
   gamesCount?: number;
+  platforms?: Platform[];
   franchises?: Franchise[];
   genres?: Genre[];
   createdAt: string;

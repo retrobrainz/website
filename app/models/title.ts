@@ -6,6 +6,7 @@ import TitleTranslation from '#models/title_translation';
 import { BaseModel, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import Platform from './platform.js';
 
 export default class Title extends BaseModel {
   @column({ isPrimary: true })
@@ -33,6 +34,11 @@ export default class Title extends BaseModel {
 
   @hasMany(() => TitleFavorite)
   declare favorites: HasMany<typeof TitleFavorite>;
+
+  @manyToMany(() => Platform, {
+    pivotTable: 'games',
+  })
+  declare platforms: ManyToMany<typeof Platform>;
 
   @manyToMany(() => Franchise, {
     pivotTable: 'title_franchise',
