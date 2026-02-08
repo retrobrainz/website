@@ -1,9 +1,9 @@
 import Company from './Company';
-import Franchise from './Franchise';
 import Genre from './Genre';
 import Image from './Image';
 import Platform from './Platform';
 import Region from './Region';
+import Title from './Title';
 
 export interface GameTranslation {
   id: number;
@@ -16,7 +16,9 @@ export interface GameTranslation {
 export default interface Game {
   id: number;
   platformId: number | null;
-  platform: Platform | null;
+  platform?: Platform | null;
+  titleId: number | null;
+  title?: Title | null;
   name: string;
   releaseDate: string | null;
   esrbRating: string | null;
@@ -35,7 +37,6 @@ export default interface Game {
   regions?: Region[];
   developers?: Company[];
   publishers?: Company[];
-  franchises?: Franchise[];
   genres?: Genre[];
   favoritesCount?: number;
 }
