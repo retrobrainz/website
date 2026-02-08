@@ -1,6 +1,7 @@
 import Franchise from '#models/franchise';
 import Game from '#models/game';
 import Genre from '#models/genre';
+import TitleFavorite from '#models/title_favorite';
 import TitleTranslation from '#models/title_translation';
 import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
@@ -26,6 +27,9 @@ export default class Title extends BaseModel {
 
   @hasMany(() => TitleTranslation)
   declare translations: HasMany<typeof TitleTranslation>;
+
+  @hasMany(() => TitleFavorite)
+  declare favorites: HasMany<typeof TitleFavorite>;
 
   @manyToMany(() => Franchise, {
     pivotTable: 'title_franchise',
