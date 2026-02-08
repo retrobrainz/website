@@ -17,6 +17,7 @@ export default class TitlesController {
     }
 
     query
+      .withCount('games')
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
@@ -46,7 +47,7 @@ export default class TitlesController {
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
-    const data = request.only(['name']);
+    const data = request.only(['name', 'wikipedia']);
     const title = await Title.create(data);
     return response.created(title);
   }
@@ -56,7 +57,7 @@ export default class TitlesController {
    */
   async update({ params, request }: HttpContext) {
     const title = await Title.findOrFail(params.id);
-    const data = request.only(['name']);
+    const data = request.only(['name', 'wikipedia']);
     title.merge(data);
     await title.save();
     return title;

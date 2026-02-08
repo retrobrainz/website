@@ -43,6 +43,11 @@ const PlatformsPage = lazy(() => import('./pages/platforms'));
 const RegisterPage = lazy(() => import('./pages/register'));
 const SearchPage = lazy(() => import('./pages/search'));
 const SettingsPage = lazy(() => import('./pages/settings'));
+const TitleEditPage = lazy(() => import('./pages/title-edit'));
+const TitleNewPage = lazy(() => import('./pages/title-new'));
+const TitleTranslatePage = lazy(() => import('./pages/title-translate'));
+const TitlePage = lazy(() => import('./pages/title'));
+const TitlesPage = lazy(() => import('./pages/titles'));
 const UserPage = lazy(() => import('./pages/user'));
 
 function App() {
@@ -197,6 +202,32 @@ function App() {
                 <Route path="/genres/:genreId/translate">
                   <RequireAuth>
                     <GenreTranslatePage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/titles">
+                  <TitlesPage />
+                </Route>
+
+                <Route path="/titles/new">
+                  <RequireAuth>
+                    <TitleNewPage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/titles/:titleId">
+                  <TitlePage />
+                </Route>
+
+                <Route path="/titles/:titleId/edit">
+                  <RequireAuth>
+                    <TitleEditPage />
+                  </RequireAuth>
+                </Route>
+
+                <Route path="/titles/:titleId/translate">
+                  <RequireAuth>
+                    <TitleTranslatePage />
                   </RequireAuth>
                 </Route>
 

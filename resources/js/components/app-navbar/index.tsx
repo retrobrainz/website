@@ -42,6 +42,10 @@ export default function AppNavbar() {
         <Button type="text">{t('franchises')}</Button>
       </Link>
 
+      <Link href="/titles">
+        <Button type="text">{t('titles')}</Button>
+      </Link>
+
       <Link href="/genres">
         <Button type="text">{t('genres')}</Button>
       </Link>

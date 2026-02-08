@@ -3,7 +3,7 @@ import Game from '#models/game';
 import Genre from '#models/genre';
 import TitleFavorite from '#models/title_favorite';
 import TitleTranslation from '#models/title_translation';
-import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import { BaseModel, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 
@@ -43,4 +43,11 @@ export default class Title extends BaseModel {
     pivotTable: 'title_genre',
   })
   declare genres: ManyToMany<typeof Genre>;
+
+  // Computed properties
+
+  @computed()
+  get gamesCount(): number | null {
+    return this.$extras.games_count ?? null;
+  }
 }

@@ -28,6 +28,11 @@ export default class GamesController {
       });
     }
 
+    const titleId = request.input('titleId');
+    if (titleId) {
+      query.where('titleId', titleId);
+    }
+
     const developerId = request.input('developerId');
     if (developerId) {
       query.whereHas('developers', (q) => {

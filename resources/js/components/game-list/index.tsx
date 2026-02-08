@@ -14,6 +14,7 @@ interface GameListFilters {
   regionId?: number;
   developerId?: number;
   publisherId?: number;
+  titleId?: number;
   search?: string;
   orderBy?: string;
 }
