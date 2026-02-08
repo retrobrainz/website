@@ -69,6 +69,7 @@
   "state": "상태",
   "telegram": "Telegram",
   "titlescreen": "타이틀 화면",
+  "titles": "타이틀",
   "total-games": "총 {{total}} 게임",
   "translate": "번역",
   "update-success": "성공적으로 업데이트되었습니다",
