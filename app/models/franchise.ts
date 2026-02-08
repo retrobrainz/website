@@ -1,8 +1,8 @@
-import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
-import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
+import FranchiseTranslation from '#models/franchise_translation';
+import Title from '#models/title';
+import { BaseModel, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
-import FranchiseTranslation from './franchise_translation.js';
-import Game from './game.js';
 
 export default class Franchise extends BaseModel {
   @column({ isPrimary: true })
@@ -10,9 +10,6 @@ export default class Franchise extends BaseModel {
 
   @column()
   declare name: string;
-
-  @column()
-  declare duplicateId: number | null;
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
@@ -22,21 +19,18 @@ export default class Franchise extends BaseModel {
 
   // Relationships
 
-  @belongsTo(() => Franchise, { foreignKey: 'duplicateId' })
-  declare duplicate: BelongsTo<typeof Franchise>;
-
   @hasMany(() => FranchiseTranslation)
   declare translations: HasMany<typeof FranchiseTranslation>;
 
-  @manyToMany(() => Game, {
-    pivotTable: 'game_franchise',
+  @manyToMany(() => Title, {
+    pivotTable: 'title_franchise',
   })
-  declare games: ManyToMany<typeof Game>;
+  declare titles: ManyToMany<typeof Title>;
 
   // Computed properties
 
   @computed()
-  get gamesCount(): number | null {
-    return this.$extras.games_count ?? null;
+  get titlesCount(): number | null {
+    return this.$extras.titles_count ?? null;
   }
 }

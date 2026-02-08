@@ -17,10 +17,12 @@ export default class GamesController {
       });
     }
 
-    if (params.franchise_id || request.input('franchise_id')) {
-      const franchiseId = params.franchise_id || request.input('franchise_id');
-      query.whereHas('franchises', (q) => {
-        q.where('franchises.id', franchiseId);
+    if (params.franchise_id || request.input('franchiseId')) {
+      const franchiseId = params.franchise_id || request.input('franchiseId');
+      query.whereHas('title', (q) => {
+        q.whereHas('franchises', (qq) => {
+          qq.where('franchises.id', franchiseId);
+        });
       });
     }
 
@@ -77,7 +79,10 @@ export default class GamesController {
     }
 
     return query
-      .preload('franchises', (q) => q.preload('translations'))
+      .preload('title', (q) => {
+        // TODO title translations
+        q.preload('franchises', (qq) => qq.preload('translations'));
+      })
       .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')
@@ -95,7 +100,10 @@ export default class GamesController {
   async show({ params }: HttpContext) {
     const game = await Game.query()
       .where('id', params.id)
-      .preload('franchises', (q) => q.preload('translations'))
+      .preload('title', (q) => {
+        // TODO title translations
+        q.preload('franchises', (qq) => qq.preload('translations'));
+      })
       .preload('genres', (q) => q.preload('translations'))
       .preload('platform')
       .preload('regions')

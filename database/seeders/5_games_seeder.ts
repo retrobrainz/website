@@ -8,6 +8,7 @@ import Language from '#models/language';
 import Platform from '#models/platform';
 import Region from '#models/region';
 import Rom from '#models/rom';
+import Title from '#models/title';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 import { download } from '@guoyunhe/downloader';
 import { parse as parseDat } from '@retrobrainz/dat';
@@ -99,6 +100,7 @@ export default class extends BaseSeeder {
   async importGame(rawGame: any, platform: Platform): Promise<void> {
     const {
       name: romName,
+      title,
       $entries,
       releaseyear,
       releasemonth,
@@ -133,7 +135,7 @@ export default class extends BaseSeeder {
 
     const { name: gameName, disc = null, regions, languages = [] } = parseName(romName);
 
-    let game =
+    const game =
       existingGame ||
       (await Game.firstOrCreate({
         platformId: platform.id,
@@ -141,8 +143,6 @@ export default class extends BaseSeeder {
       }));
 
     await game.refresh();
-    await game.load('duplicate');
-    game = game.duplicate || game;
 
     if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
       game.esrbRating = esrb_rating;
@@ -154,6 +154,11 @@ export default class extends BaseSeeder {
         month: Number(releasemonth),
         day: releaseday ? Number(releaseday) : 1,
       });
+    }
+
+    if (!game.titleId && title) {
+      const titleModel = await Title.firstOrCreate({ name: title });
+      game.titleId = titleModel.id;
     }
 
     if (game.$isDirty) {
@@ -195,12 +200,13 @@ export default class extends BaseSeeder {
       }
     }
 
-    if (franchise) {
+    await game.load('title');
+    await game.title?.load('franchises');
+    if (franchise && !game.title?.franchises.length) {
       for (const franchiseName of (franchise as string).split('/')) {
         const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
         await franchiseModel.refresh();
-        await franchiseModel.load('duplicate');
-        await game.related('franchises').save(franchiseModel.duplicate || franchiseModel);
+        await game.title?.related('franchises').save(franchiseModel);
       }
     }
 

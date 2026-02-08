@@ -10,7 +10,7 @@ export default class FranchisesController {
     const pageSize = request.input('pageSize', 24);
     const locale = request.input('locale', i18n.locale);
 
-    const query = Franchise.query().withCount('games').orderBy('games_count', 'desc');
+    const query = Franchise.query().withCount('titles').orderBy('titles_count', 'desc');
 
     if (locale) {
       query.preload('translations', (q) => q.where('locale', locale));
@@ -24,7 +24,7 @@ export default class FranchisesController {
    */
   async show({ params, request, i18n }: HttpContext) {
     const locale = request.input('locale');
-    const query = Franchise.query().where('id', params.id).withCount('games');
+    const query = Franchise.query().where('id', params.id).withCount('titles');
 
     if (locale === '*') {
       query.preload('translations');

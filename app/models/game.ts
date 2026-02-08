@@ -2,7 +2,6 @@ import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@ad
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
 import Company from './company.js';
-import Franchise from './franchise.js';
 import GameFavorite from './game_favorite.js';
 import GameTranslation from './game_translation.js';
 import Genre from './genre.js';
@@ -98,11 +97,6 @@ export default class Game extends BaseModel {
     pivotTable: 'game_genre',
   })
   declare genres: ManyToMany<typeof Genre>;
-
-  @manyToMany(() => Franchise, {
-    pivotTable: 'game_franchise',
-  })
-  declare franchises: ManyToMany<typeof Franchise>;
 
   @manyToMany(() => Language, {
     pivotTable: 'game_language',
