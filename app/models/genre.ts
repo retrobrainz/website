@@ -11,9 +11,6 @@ export default class Genre extends BaseModel {
   @column()
   declare name: string;
 
-  @column()
-  declare parentId: number | null;
-
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
