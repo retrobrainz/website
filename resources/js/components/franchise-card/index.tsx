@@ -15,7 +15,7 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
       <Card hoverable>
         <Card.Meta
           title={franchise.translations?.[0]?.name || franchise.name}
-          description={`${franchise.gamesCount ?? 0} ${t('games')}`}
+          description={`${franchise.titlesCount ?? 0} ${t('titles')}`}
         />
       </Card>
     </Link>
