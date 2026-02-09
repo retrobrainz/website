@@ -9,11 +9,37 @@ export default class TitlesController {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 20);
     const search = request.input('search');
+    const platformId = request.input('platformId');
+    const franchiseId = request.input('franchiseId');
+    const genreId = request.input('genreId');
 
     const query = Title.query();
 
     if (search) {
-      query.where('name', 'ilike', `%${search}%`);
+      search
+        .split(' ')
+        .filter(Boolean)
+        .forEach((term: string) => {
+          query.where('name', 'ilike', `%${term}%`);
+        });
+    }
+
+    if (platformId) {
+      query.whereHas('platforms', (q) => {
+        q.where('platforms.id', platformId);
+      });
+    }
+
+    if (franchiseId) {
+      query.whereHas('franchises', (q) => {
+        q.where('franchises.id', franchiseId);
+      });
+    }
+
+    if (genreId) {
+      query.whereHas('genres', (q) => {
+        q.where('genres.id', genreId);
+      });
     }
 
     query
