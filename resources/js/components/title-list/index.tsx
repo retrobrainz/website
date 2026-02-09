@@ -27,7 +27,6 @@ export default function TitleList({
   hidePagination = false,
 }: TitleListProps) {
   const { t } = useTranslation();
-  const [form] = Form.useForm();
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(initialPageSize);
@@ -54,7 +53,6 @@ export default function TitleList({
     <div>
       {showFilters && showFilters.length > 0 && (
         <Form
-          form={form}
           initialValues={initialFilters}
           onValuesChange={(changedValues: any) => {
             setFilters((prev) => ({ ...prev, ...changedValues }));
@@ -62,8 +60,12 @@ export default function TitleList({
           style={{ marginBottom: 24 }}
         >
           {showFilters.includes('search') && (
-            <Form.Item name="search">
-              <Input.Search placeholder={t('search')} allowClear />
+            <Form.Item>
+              <Input.Search
+                placeholder={t('search')}
+                allowClear
+                onSearch={(value) => setFilters((prev) => ({ ...prev, search: value }))}
+              />
             </Form.Item>
           )}
 
@@ -75,6 +77,9 @@ export default function TitleList({
                     value: item.id,
                     label: item.name,
                   })) ?? []
+                }
+                onChange={(value) =>
+                  setFilters((prev) => ({ ...prev, platformId: value ?? undefined }))
                 }
               />
             </Form.Item>
