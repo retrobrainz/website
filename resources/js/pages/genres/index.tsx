@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Col, Flex, Input, Pagination, Row, Spin, Typography } from 'antd';
 import { Container } from 'antd-moe';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
@@ -22,6 +22,10 @@ export default function GenresPage() {
       params: { page, pageSize, search },
     },
   );
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   const canCreateGenre = user?.role === 'admin' || user?.role === 'editor';
 
