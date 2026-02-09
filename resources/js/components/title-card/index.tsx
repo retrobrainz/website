@@ -6,7 +6,7 @@ import Title from '../../types/Title';
 export interface TitleCardProps {
   title: Title;
 }
-
+// 123s
 export default function TitleCard({ title }: TitleCardProps) {
   const { t } = useTranslation();
 
