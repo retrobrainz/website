@@ -1,10 +1,11 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import GameList from '../../components/game-list';
+import TitleList from '../../components/title-list';
 import { useAuth } from '../../contexts/auth';
 import Franchise from '../../types/Franchise';
 
@@ -49,9 +50,29 @@ export default function FranchisePage() {
         )}
       </Flex>
 
-      <GameList
-        initialFilters={{ franchiseId: Number(franchiseId) }}
-        showFilters={['search', 'platformId', 'regionId', 'languageId']}
+      <Tabs
+        items={[
+          {
+            key: 'titles',
+            label: t('titles'),
+            children: (
+              <TitleList
+                initialFilters={{ franchiseId: Number(franchiseId) }}
+                showFilters={['search', 'platformId']}
+              />
+            ),
+          },
+          {
+            key: 'games',
+            label: t('games'),
+            children: (
+              <GameList
+                initialFilters={{ franchiseId: Number(franchiseId) }}
+                showFilters={['search', 'platformId', 'regionId', 'languageId']}
+              />
+            ),
+          },
+        ]}
       />
     </Container>
   );

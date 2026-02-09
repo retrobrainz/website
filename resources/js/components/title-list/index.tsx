@@ -2,6 +2,7 @@ import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
+import Platform from '../../types/Platform';
 import Title from '../../types/Title';
 import TitleCard from '../title-card';
 
@@ -36,16 +37,8 @@ export default function TitleList({
     setPage(1);
   }, [filters]);
 
-  const { data: platforms } = useFetch<any[]>('/platforms', {
+  const { data: platforms } = useFetch<Platform[]>('/platforms', {
     disabled: !showFilters.includes('platformId'),
-  });
-
-  const { data: franchises } = useFetch<any[]>('/franchises', {
-    disabled: !showFilters.includes('franchiseId'),
-  });
-
-  const { data: genres } = useFetch<any[]>('/genres', {
-    disabled: !showFilters.includes('genreId'),
   });
 
   const { data, loading } = useFetch<{ data: Title[]; meta: { total: number } }>('/titles', {
@@ -79,32 +72,6 @@ export default function TitleList({
               <Tag.CheckableTagGroup
                 options={
                   platforms?.map((item) => ({
-                    value: item.id,
-                    label: item.name,
-                  })) ?? []
-                }
-              />
-            </Form.Item>
-          )}
-
-          {showFilters.includes('franchiseId') && (
-            <Form.Item label={t('franchise')} name="franchiseId">
-              <Tag.CheckableTagGroup
-                options={
-                  franchises?.map((item) => ({
-                    value: item.id,
-                    label: item.name,
-                  })) ?? []
-                }
-              />
-            </Form.Item>
-          )}
-
-          {showFilters.includes('genreId') && (
-            <Form.Item label={t('genre')} name="genreId">
-              <Tag.CheckableTagGroup
-                options={
-                  genres?.map((item) => ({
                     value: item.id,
                     label: item.name,
                   })) ?? []
