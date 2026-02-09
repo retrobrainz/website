@@ -9,8 +9,20 @@ export default class FranchisesController {
     const page = request.input('page', 1);
     const pageSize = request.input('pageSize', 24);
     const locale = request.input('locale', i18n.locale);
+    const search = request.input('search');
 
-    const query = Franchise.query().withCount('titles').orderBy('titles_count', 'desc');
+    const query = Franchise.query().withCount('titles');
+
+    if (search) {
+      search
+        .split(' ')
+        .filter(Boolean)
+        .forEach((term: string) => {
+          query.where('name', 'ilike', `%${term}%`);
+        });
+    }
+
+    query.orderBy('titles_count', 'desc');
 
     if (locale) {
       query.preload('translations', (q) => q.where('locale', locale));
