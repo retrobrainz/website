@@ -13,9 +13,20 @@ export default class RegionsController {
       });
     }
 
-    if (request.input('titleId')) {
+    const titleId = request.input('titleId');
+    const franchiseId = request.input('franchiseId');
+    if (titleId || franchiseId) {
       query.whereHas('games', (gameQuery) => {
-        gameQuery.where('titleId', request.input('titleId'));
+        if (titleId) {
+          gameQuery.where('titleId', titleId);
+        }
+        if (franchiseId) {
+          gameQuery.whereHas('title', (titleQuery) => {
+            titleQuery.whereHas('franchises', (franchiseQuery) => {
+              franchiseQuery.where('franchises.id', franchiseId);
+            });
+          });
+        }
       });
     }
 
