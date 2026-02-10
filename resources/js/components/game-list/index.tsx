@@ -44,6 +44,7 @@ export default function GameList({
   }, [filters]);
 
   const { data: platforms } = useFetch<any[]>('/platforms', {
+    params: { titleId: filters.titleId },
     disabled: !showFilters.includes('platformId'),
   });
 
