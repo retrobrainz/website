@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import Game from '../../types/Game';
+import Language from '../../types/Language';
+import Platform from '../../types/Platform';
+import Region from '../../types/Region';
 import GameCard from '../game-card';
 
 interface GameListFilters {
@@ -43,18 +46,26 @@ export default function GameList({
     setPage(1);
   }, [filters]);
 
-  const { data: platforms } = useFetch<any[]>('/platforms', {
-    params: { titleId: filters.titleId },
+  const { data: platforms } = useFetch<Platform[]>('/platforms', {
+    params: { titleId: filters.titleId, franchiseId: filters.franchiseId },
     disabled: !showFilters.includes('platformId'),
   });
 
-  const { data: regions } = useFetch<any[]>('/regions', {
-    params: { platformId: filters.platformId, titleId: filters.titleId },
+  const { data: regions } = useFetch<Region[]>('/regions', {
+    params: {
+      platformId: filters.platformId,
+      titleId: filters.titleId,
+      franchiseId: filters.franchiseId,
+    },
     disabled: !showFilters.includes('regionId'),
   });
 
-  const { data: languages } = useFetch<any[]>('/languages', {
-    params: { platformId: filters.platformId, titleId: filters.titleId },
+  const { data: languages } = useFetch<Language[]>('/languages', {
+    params: {
+      platformId: filters.platformId,
+      titleId: filters.titleId,
+      franchiseId: filters.franchiseId,
+    },
     disabled: !showFilters.includes('languageId'),
   });
 
