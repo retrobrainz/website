@@ -12,6 +12,11 @@ export default class RegionsController {
         gameQuery.where('platformId', request.input('platformId'));
       });
     }
+    if (request.input('titleId')) {
+      query.whereHas('games', (gameQuery) => {
+        gameQuery.where('titleId', request.input('titleId'));
+      });
+    }
     return query.orderBy('name', 'asc').exec();
   }
 }
