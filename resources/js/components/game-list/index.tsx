@@ -48,11 +48,12 @@ export default function GameList({
   });
 
   const { data: regions } = useFetch<any[]>('/regions', {
-    params: filters.platformId ? { platformId: filters.platformId } : undefined,
+    params: { platformId: filters.platformId, titleId: filters.titleId },
     disabled: !showFilters.includes('regionId'),
   });
+
   const { data: languages } = useFetch<any[]>('/languages', {
-    params: filters.platformId ? { platformId: filters.platformId } : undefined,
+    params: { platformId: filters.platformId, titleId: filters.titleId },
     disabled: !showFilters.includes('languageId'),
   });
 
