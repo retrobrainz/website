@@ -2,7 +2,7 @@ import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import Platform from '../../types/Platform';
+import usePlatforms from '../../hooks/use-platforms';
 import Title from '../../types/Title';
 import TitleCard from '../title-card';
 
@@ -36,9 +36,7 @@ export default function TitleList({
     setPage(1);
   }, [filters]);
 
-  const { data: platforms } = useFetch<Platform[]>('/platforms', {
-    disabled: !showFilters.includes('platformId'),
-  });
+  const { data: platforms } = usePlatforms({}, !showFilters.includes('platformId'));
 
   const { data, loading } = useFetch<{ data: Title[]; meta: { total: number } }>('/titles', {
     params: {
