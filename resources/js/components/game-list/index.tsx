@@ -2,10 +2,10 @@ import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
+import useLanguages from '../../hooks/use-languages';
 import usePlatforms from '../../hooks/use-platforms';
 import useRegions from '../../hooks/use-regions';
 import Game from '../../types/Game';
-import Language from '../../types/Language';
 import GameCard from '../game-card';
 
 interface GameListFilters {
@@ -67,16 +67,16 @@ export default function GameList({
     !showFilters.includes('regionId'),
   );
 
-  const { data: languages } = useFetch<Language[]>('/languages', {
-    params: {
+  const { data: languages } = useLanguages(
+    {
       platformId: filters.platformId,
       titleId: filters.titleId,
       franchiseId: filters.franchiseId,
       publisherId: filters.publisherId,
       developerId: filters.developerId,
     },
-    disabled: !showFilters.includes('languageId'),
-  });
+    !showFilters.includes('languageId'),
+  );
 
   const { data, loading } = useFetch<{ data: Game[]; meta: { total: number } }>('/games', {
     params: {
