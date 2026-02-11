@@ -72,6 +72,8 @@ export default function GameList({
       platformId: filters.platformId,
       titleId: filters.titleId,
       franchiseId: filters.franchiseId,
+      publisherId: filters.publisherId,
+      developerId: filters.developerId,
     },
     disabled: !showFilters.includes('languageId'),
   });
