@@ -15,7 +15,9 @@ export default class RegionsController {
 
     const titleId = request.input('titleId');
     const franchiseId = request.input('franchiseId');
-    if (titleId || franchiseId) {
+    const developerId = request.input('developerId');
+    const publisherId = request.input('publisherId');
+    if (titleId || franchiseId || developerId || publisherId) {
       query.whereHas('games', (gameQuery) => {
         if (titleId) {
           gameQuery.where('titleId', titleId);
@@ -25,6 +27,16 @@ export default class RegionsController {
             titleQuery.whereHas('franchises', (franchiseQuery) => {
               franchiseQuery.where('franchises.id', franchiseId);
             });
+          });
+        }
+        if (developerId) {
+          gameQuery.whereHas('developers', (developerQuery) => {
+            developerQuery.where('companies.id', developerId);
+          });
+        }
+        if (publisherId) {
+          gameQuery.whereHas('publishers', (publisherQuery) => {
+            publisherQuery.where('companies.id', publisherId);
           });
         }
       });
