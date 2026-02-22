@@ -121,6 +121,7 @@ export default class GamesController {
       .preload('regions')
       .preload('developers')
       .preload('publishers')
+      .preload('languages')
       .preload('roms')
       .preload('boxart')
       .preload('logo')
