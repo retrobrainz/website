@@ -3,6 +3,7 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import fallbackImage from '../../../img/fallback-screenshot.avif';
 import FavoriteButton from '../../components/favorite-button';
 import Game from '../../types/Game';
 import ImageUpload from '../platform/ImageUpload';
@@ -50,35 +51,50 @@ export default function GamePage() {
       <Image.PreviewGroup>
         <Flex gap={16} align="center" style={{ marginBottom: 24 }}>
           <Badge.Ribbon text={t('boxart')} color="green" styles={{ root: { flex: '1 1 33%' } }}>
-            {game?.boxartId === null ? (
-              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
-                <ImageUpload game={game} type="boxart" onFinish={reload} />
-              </Flex>
-            ) : (
-              <Image src={game?.boxart?.url} alt={`${displayName} ${t('boxart')}`} />
-            )}
+            <div>
+              <Image
+                src={game?.boxart?.url || fallbackImage}
+                alt={`${displayName} ${t('boxart')}`}
+                fallback={fallbackImage}
+              />
+              {game?.boxartId === null && (
+                <Flex justify="center" style={{ marginTop: 8 }}>
+                  <ImageUpload game={game} type="boxart" onFinish={reload} />
+                </Flex>
+              )}
+            </div>
           </Badge.Ribbon>
           <Badge.Ribbon
             text={t('titlescreen')}
             color="orange"
             styles={{ root: { flex: '1 1 33%' } }}
           >
-            {game?.titlescreenId === null ? (
-              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
-                <ImageUpload game={game} type="titlescreen" onFinish={reload} />
-              </Flex>
-            ) : (
-              <Image src={game?.titlescreen?.url} alt={`${displayName} ${t('titlescreen')}`} />
-            )}
+            <div>
+              <Image
+                src={game?.titlescreen?.url || fallbackImage}
+                alt={`${displayName} ${t('titlescreen')}`}
+                fallback={fallbackImage}
+              />
+              {game?.titlescreenId === null && (
+                <Flex justify="center" style={{ marginTop: 8 }}>
+                  <ImageUpload game={game} type="titlescreen" onFinish={reload} />
+                </Flex>
+              )}
+            </div>
           </Badge.Ribbon>
           <Badge.Ribbon text={t('screenshot')} color="blue" styles={{ root: { flex: '1 1 33%' } }}>
-            {game?.screenshotId === null ? (
-              <Flex justify="center" align="center" style={{ height: 150, background: '#ccc' }}>
-                <ImageUpload game={game} type="screenshot" onFinish={reload} />
-              </Flex>
-            ) : (
-              <Image src={game?.screenshot?.url} alt={`${displayName} ${t('screenshot')}`} />
-            )}
+            <div>
+              <Image
+                src={game?.screenshot?.url || fallbackImage}
+                alt={`${displayName} ${t('screenshot')}`}
+                fallback={fallbackImage}
+              />
+              {game?.screenshotId === null && (
+                <Flex justify="center" style={{ marginTop: 8 }}>
+                  <ImageUpload game={game} type="screenshot" onFinish={reload} />
+                </Flex>
+              )}
+            </div>
           </Badge.Ribbon>
         </Flex>
       </Image.PreviewGroup>
