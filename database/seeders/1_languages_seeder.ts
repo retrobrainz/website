@@ -39,7 +39,8 @@ export default class extends BaseSeeder {
         { code: 'sv', name: 'Swedish' },
         { code: 'ta', name: 'Tamil' },
         { code: 'tr', name: 'Turkish' },
-        { code: 'zh', name: 'Chinese' },
+        { code: 'zh-CN', name: 'Chinese (Simplified)' },
+        { code: 'zh-TW', name: 'Chinese (Traditional)' },
       ].map(({ code, name }) => Language.firstOrCreate({ code }, { code, name })),
     );
   }

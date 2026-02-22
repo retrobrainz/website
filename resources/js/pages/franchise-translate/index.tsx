@@ -11,7 +11,7 @@ import Franchise from '../../types/Franchise';
 export default function FranchiseTranslatePage() {
   const { t, i18n } = useTranslation();
   const { franchiseId } = useParams();
-  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh' : i18n.language);
+  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh-CN' : i18n.language);
 
   const { data: franchise, reload } = useFetch<Franchise>(`/franchises/${franchiseId}`, {
     params: { locale },

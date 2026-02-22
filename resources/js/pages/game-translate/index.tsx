@@ -11,7 +11,7 @@ import Game from '../../types/Game';
 export default function GameTranslatePage() {
   const { t, i18n } = useTranslation();
   const { gameId } = useParams<{ gameId: string }>();
-  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh' : i18n.language);
+  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh-CN' : i18n.language);
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`, {
     params: { locale },

@@ -11,7 +11,7 @@ import Genre from '../../types/Genre';
 export default function GenreTranslatePage() {
   const { t, i18n } = useTranslation();
   const { genreId } = useParams();
-  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh' : i18n.language);
+  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh-CN' : i18n.language);
 
   const { data: genre, reload } = useFetch<Genre>(`/genres/${genreId}`, {
     params: { locale },

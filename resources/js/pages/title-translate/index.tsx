@@ -11,7 +11,7 @@ import Title from '../../types/Title';
 export default function TitleTranslatePage() {
   const { t, i18n } = useTranslation();
   const { titleId } = useParams();
-  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh' : i18n.language);
+  const [locale, setLocale] = useState(i18n.language === 'en' ? 'zh-CN' : i18n.language);
 
   const { data: title, reload } = useFetch<Title>(`/titles/${titleId}`, {
     params: { locale },
