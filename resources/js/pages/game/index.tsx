@@ -92,6 +92,10 @@ export default function GamePage() {
               children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
             },
             {
+              label: t('languages'),
+              children: game?.languages?.map((language) => language.name).join(', ') || 'N/A',
+            },
+            {
               label: t('release-date'),
               children: game?.releaseDate || 'N/A',
             },
