@@ -1,5 +1,4 @@
 # Dependencies and AdonisJS build
-.adonisjs
 node_modules
 build
 tmp

@@ -11,3 +11,5 @@ pnpm-lock.yaml
 yarn.lock
 *.min.js
 *.min.css
+.adonisjs
+database/schema.ts
