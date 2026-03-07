@@ -7,7 +7,7 @@ export default class PlatformsController {
    */
   async index({ request }: HttpContext) {
     const query = Platform.query()
-      .orderBy('releaseDate', 'desc')
+      .orderBy('name', 'asc')
       .preload('company')
       .preload('logo')
       .preload('photo')
