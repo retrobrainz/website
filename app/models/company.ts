@@ -10,6 +10,9 @@ export default class Company extends BaseModel {
   declare name: string;
 
   @column()
+  declare wikipedia: string | null;
+
+  @column()
   declare parentId: number | null;
 
   @column.dateTime({ autoCreate: true })

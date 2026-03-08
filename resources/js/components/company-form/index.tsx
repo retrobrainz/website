@@ -26,6 +26,10 @@ export default function CompanyForm({ company, onSubmit, submitText }: CompanyFo
         <Input />
       </Form.Item>
 
+      <Form.Item label="Wikipedia" name="wikipedia">
+        <Input type="url" />
+      </Form.Item>
+
       <Form.Item label={t('parent-company')} name="parentId">
         <CompanySelect allowClear excludeCompanyId={company?.id} />
       </Form.Item>

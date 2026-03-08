@@ -90,6 +90,15 @@ export default function CompanyPage() {
         <Descriptions
           items={[
             {
+              label: 'Wikipedia',
+              children: company?.wikipedia && (
+                <a href={company.wikipedia} target="_blank" rel="noreferrer">
+                  {company.wikipedia}
+                </a>
+              ),
+              hidden: !company?.wikipedia,
+            },
+            {
               label: t('parent-company'),
               children: company?.parent && (
                 <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
