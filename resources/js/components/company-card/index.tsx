@@ -10,7 +10,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Link href={`/companies/${company.id}`}>
       <Card hoverable>
-        <Card.Meta title={company.name} />
+        <Card.Meta title={company.name} description={company.parent?.name || undefined} />
       </Card>
     </Link>
   );

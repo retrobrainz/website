@@ -11,7 +11,7 @@ export default class CompaniesController {
     const pageSize = request.input('pageSize', 20);
     const search = request.input('search');
 
-    const query = Company.query();
+    const query = Company.query().preload('parent');
 
     if (search) {
       query.where('name', 'ilike', `%${search}%`);
@@ -26,7 +26,7 @@ export default class CompaniesController {
    * Display a single resource
    */
   async show({ params }: HttpContext) {
-    return Company.findOrFail(params.id);
+    return Company.query().where('id', params.id).preload('parent').firstOrFail();
   }
 
   /**
@@ -39,6 +39,8 @@ export default class CompaniesController {
 
     const data = await request.validateUsing(companyValidator);
     const company = await Company.create(data);
+    await company.refresh();
+    await company.load('parent');
     return response.created(company);
   }
 
@@ -54,6 +56,8 @@ export default class CompaniesController {
     const data = await request.validateUsing(companyValidator);
     company.merge(data);
     await company.save();
+    await company.refresh();
+    await company.load('parent');
     return company;
   }
 

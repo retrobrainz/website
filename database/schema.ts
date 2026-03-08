@@ -8,373 +8,377 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class AuthAccessTokenSchema extends BaseModel {
-  static $columns = ['id', 'tokenableId', 'type', 'name', 'hash', 'abilities', 'createdAt', 'updatedAt', 'lastUsedAt', 'expiresAt'] as const
+  static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare tokenableId: number
-  @column()
-  declare type: string
-  @column()
-  declare name: string | null
-  @column()
-  declare hash: string
   @column()
   declare abilities: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
-  @column.dateTime()
-  declare lastUsedAt: DateTime | null
   @column.dateTime()
   declare expiresAt: DateTime | null
+  @column()
+  declare hash: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare lastUsedAt: DateTime | null
+  @column()
+  declare name: string | null
+  @column()
+  declare tokenableId: number
+  @column()
+  declare type: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
 }
 
 export class CompanySchema extends BaseModel {
-  static $columns = ['id', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'parentId', 'updatedAt'] as const
   $columns = CompanySchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  @column()
+  declare parentId: number | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class EmulatorFavoriteSchema extends BaseModel {
-  static $columns = ['id', 'userId', 'emulatorId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'emulatorId', 'id', 'updatedAt', 'userId'] as const
   $columns = EmulatorFavoriteSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare userId: number
-  @column()
-  declare emulatorId: number
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare emulatorId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class EmulatorOperatingSystemSchema extends BaseModel {
-  static $columns = ['id', 'emulatorId', 'operatingSystemId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'emulatorId', 'id', 'operatingSystemId', 'updatedAt'] as const
   $columns = EmulatorOperatingSystemSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare emulatorId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare emulatorId: number
-  @column()
   declare operatingSystemId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class EmulatorSchema extends BaseModel {
-  static $columns = ['id', 'name', 'website', 'sourceCode', 'state', 'releaseDate', 'iconId', 'screenshotId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'iconId', 'id', 'name', 'releaseDate', 'screenshotId', 'sourceCode', 'state', 'updatedAt', 'website'] as const
   $columns = EmulatorSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare iconId: number | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
+  @column.date()
+  declare releaseDate: DateTime | null
   @column()
-  declare website: string | null
+  declare screenshotId: number | null
   @column()
   declare sourceCode: string | null
   @column()
   declare state: string | null
-  @column.date()
-  declare releaseDate: DateTime | null
-  @column()
-  declare iconId: number | null
-  @column()
-  declare screenshotId: number | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare website: string | null
 }
 
 export class FranchiseTranslationSchema extends BaseModel {
-  static $columns = ['id', 'franchiseId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'franchiseId', 'id', 'locale', 'name', 'updatedAt'] as const
   $columns = FranchiseTranslationSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
   declare franchiseId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column()
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class FranchiseSchema extends BaseModel {
-  static $columns = ['id', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
   $columns = FranchiseSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class FrontendEmulatorSchema extends BaseModel {
-  static $columns = ['id', 'emulatorId', 'frontendId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'emulatorId', 'frontendId', 'id', 'updatedAt'] as const
   $columns = FrontendEmulatorSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
   declare emulatorId: number
   @column()
   declare frontendId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class FrontendFavoriteSchema extends BaseModel {
-  static $columns = ['id', 'userId', 'frontendId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'frontendId', 'id', 'updatedAt', 'userId'] as const
   $columns = FrontendFavoriteSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare userId: number
-  @column()
-  declare frontendId: number
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare frontendId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class FrontendOperatingSystemSchema extends BaseModel {
-  static $columns = ['id', 'frontendId', 'operatingSystemId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'frontendId', 'id', 'operatingSystemId', 'updatedAt'] as const
   $columns = FrontendOperatingSystemSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare frontendId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare frontendId: number
-  @column()
   declare operatingSystemId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class FrontendSchema extends BaseModel {
-  static $columns = ['id', 'name', 'iconId', 'screenshotId', 'website', 'sourceCode', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'iconId', 'id', 'name', 'screenshotId', 'sourceCode', 'updatedAt', 'website'] as const
   $columns = FrontendSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare iconId: number | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
   @column()
-  declare iconId: number | null
-  @column()
   declare screenshotId: number | null
   @column()
-  declare website: string | null
-  @column()
   declare sourceCode: string | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare website: string | null
 }
 
 export class GameDeveloperSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'companyId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['companyId', 'createdAt', 'gameId', 'id', 'updatedAt'] as const
   $columns = GameDeveloperSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare gameId: number
   @column()
   declare companyId: number
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare gameId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GameFavoriteSchema extends BaseModel {
-  static $columns = ['id', 'userId', 'gameId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'gameId', 'id', 'updatedAt', 'userId'] as const
   $columns = GameFavoriteSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare userId: number
-  @column()
-  declare gameId: number
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare gameId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class GameLanguageSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'languageId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'gameId', 'id', 'languageId', 'updatedAt'] as const
   $columns = GameLanguageSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare gameId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare gameId: number
-  @column()
   declare languageId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GamePublisherSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'companyId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['companyId', 'createdAt', 'gameId', 'id', 'updatedAt'] as const
   $columns = GamePublisherSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare gameId: number
   @column()
   declare companyId: number
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare gameId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GameRegionSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'regionId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'gameId', 'id', 'regionId', 'updatedAt'] as const
   $columns = GameRegionSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare gameId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare gameId: number
-  @column()
   declare regionId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GameTranslationSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'gameId', 'id', 'locale', 'name', 'updatedAt'] as const
   $columns = GameTranslationSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
   declare gameId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column()
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GameSchema extends BaseModel {
-  static $columns = ['id', 'platformId', 'titleId', 'name', 'releaseDate', 'esrbRating', 'pegiRating', 'boxartId', 'logoId', 'screenshotId', 'titlescreenId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['boxartId', 'createdAt', 'esrbRating', 'id', 'logoId', 'name', 'pegiRating', 'platformId', 'releaseDate', 'screenshotId', 'titleId', 'titlescreenId', 'updatedAt'] as const
   $columns = GameSchema.$columns
+  @column()
+  declare boxartId: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare esrbRating: string | null
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare platformId: number
-  @column()
-  declare titleId: number | null
+  declare logoId: number | null
   @column()
   declare name: string
-  @column.date()
-  declare releaseDate: DateTime | null
-  @column()
-  declare esrbRating: string | null
   @column()
   declare pegiRating: string | null
   @column()
-  declare boxartId: number | null
-  @column()
-  declare logoId: number | null
+  declare platformId: number
+  @column.date()
+  declare releaseDate: DateTime | null
   @column()
   declare screenshotId: number | null
   @column()
+  declare titleId: number | null
+  @column()
   declare titlescreenId: number | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GenreTranslationSchema extends BaseModel {
-  static $columns = ['id', 'genreId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'genreId', 'id', 'locale', 'name', 'updatedAt'] as const
   $columns = GenreTranslationSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
   declare genreId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column()
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class GenreSchema extends BaseModel {
-  static $columns = ['id', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
   $columns = GenreSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class ImageSchema extends BaseModel {
-  static $columns = ['id', 'format', 'width', 'height', 'size', 'md5', 'userId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'format', 'height', 'id', 'md5', 'size', 'updatedAt', 'userId', 'width'] as const
   $columns = ImageSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
   declare format: string
   @column()
-  declare width: number
-  @column()
   declare height: number
-  @column()
-  declare size: number
+  @column({ isPrimary: true })
+  declare id: number
   @column()
   declare md5: string
   @column()
-  declare userId: number | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  declare size: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number | null
+  @column()
+  declare width: number
 }
 
 export class LanguageTranslationSchema extends BaseModel {
-  static $columns = ['id', 'languageId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'languageId', 'locale', 'name', 'updatedAt'] as const
   $columns = LanguageTranslationSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
@@ -383,235 +387,233 @@ export class LanguageTranslationSchema extends BaseModel {
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class LanguageSchema extends BaseModel {
-  static $columns = ['id', 'code', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['code', 'createdAt', 'id', 'name', 'updatedAt'] as const
   $columns = LanguageSchema.$columns
+  @column()
+  declare code: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare code: string
-  @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class OperatingSystemSchema extends BaseModel {
-  static $columns = ['id', 'name', 'arch', 'createdAt', 'updatedAt'] as const
+  static $columns = ['arch', 'createdAt', 'id', 'name', 'updatedAt'] as const
   $columns = OperatingSystemSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare name: string
   @column()
   declare arch: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class PlatformEmulatorSchema extends BaseModel {
-  static $columns = ['id', 'platformId', 'emulatorId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'emulatorId', 'id', 'platformId', 'updatedAt'] as const
   $columns = PlatformEmulatorSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare emulatorId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare platformId: number
-  @column()
-  declare emulatorId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class PlatformSchema extends BaseModel {
-  static $columns = ['id', 'name', 'companyId', 'logoId', 'photoId', 'screenWidth', 'screenHeight', 'releaseDate', 'createdAt', 'updatedAt'] as const
+  static $columns = ['companyId', 'createdAt', 'id', 'logoId', 'name', 'photoId', 'releaseDate', 'screenHeight', 'screenWidth', 'updatedAt'] as const
   $columns = PlatformSchema.$columns
+  @column()
+  declare companyId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare name: string
-  @column()
-  declare companyId: number
-  @column()
   declare logoId: number | null
   @column()
+  declare name: string
+  @column()
   declare photoId: number | null
-  @column()
-  declare screenWidth: number
-  @column()
-  declare screenHeight: number
   @column.date()
   declare releaseDate: DateTime | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  @column()
+  declare screenHeight: number
+  @column()
+  declare screenWidth: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class RegionTranslationSchema extends BaseModel {
-  static $columns = ['id', 'regionId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'locale', 'name', 'regionId', 'updatedAt'] as const
   $columns = RegionTranslationSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
-  @column()
-  declare regionId: number
   @column()
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  @column()
+  declare regionId: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class RegionSchema extends BaseModel {
-  static $columns = ['id', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
   $columns = RegionSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class RomSchema extends BaseModel {
-  static $columns = ['id', 'gameId', 'name', 'filename', 'size', 'crc', 'md5', 'sha1', 'serial', 'disc', 'createdAt', 'updatedAt'] as const
+  static $columns = ['crc', 'createdAt', 'disc', 'filename', 'gameId', 'id', 'md5', 'name', 'serial', 'sha1', 'size', 'updatedAt'] as const
   $columns = RomSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
   @column()
-  declare gameId: number
+  declare crc: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column()
-  declare name: string
+  declare disc: number | null
   @column()
   declare filename: string
   @column()
-  declare size: bigint | number
-  @column()
-  declare crc: string
+  declare gameId: number
+  @column({ isPrimary: true })
+  declare id: number
   @column()
   declare md5: string
   @column()
-  declare sha1: string
+  declare name: string
   @column()
   declare serial: string | null
   @column()
-  declare disc: number | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  declare sha1: string
+  @column()
+  declare size: bigint | number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class TitleFavoriteSchema extends BaseModel {
-  static $columns = ['id', 'userId', 'titleId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'titleId', 'updatedAt', 'userId'] as const
   $columns = TitleFavoriteSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare userId: number
-  @column()
   declare titleId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class TitleFranchiseSchema extends BaseModel {
-  static $columns = ['id', 'titleId', 'franchiseId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'franchiseId', 'id', 'titleId', 'updatedAt'] as const
   $columns = TitleFranchiseSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare franchiseId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare titleId: number
-  @column()
-  declare franchiseId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class TitleGenreSchema extends BaseModel {
-  static $columns = ['id', 'titleId', 'genreId', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'genreId', 'id', 'titleId', 'updatedAt'] as const
   $columns = TitleGenreSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare genreId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare titleId: number
-  @column()
-  declare genreId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class TitleTranslationSchema extends BaseModel {
-  static $columns = ['id', 'titleId', 'locale', 'name', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'locale', 'name', 'titleId', 'updatedAt'] as const
   $columns = TitleTranslationSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
-  @column()
-  declare titleId: number
   @column()
   declare locale: string
   @column()
   declare name: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
+  @column()
+  declare titleId: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
 
 export class TitleSchema extends BaseModel {
-  static $columns = ['id', 'name', 'wikipedia', 'createdAt', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt', 'wikipedia'] as const
   $columns = TitleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare name: string
-  @column()
-  declare wikipedia: string | null
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare wikipedia: string | null
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['id', 'username', 'email', 'password', 'role', 'createdAt', 'updatedAt', 'avatarId'] as const
+  static $columns = ['avatarId', 'createdAt', 'email', 'id', 'password', 'role', 'updatedAt', 'username'] as const
   $columns = UserSchema.$columns
-  @column({ isPrimary: true })
-  declare id: number
   @column()
-  declare username: string | null
+  declare avatarId: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
   @column()
   declare email: string
+  @column({ isPrimary: true })
+  declare id: number
   @column({ serializeAs: null })
   declare password: string
   @column()
   declare role: string
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
-  declare avatarId: number | null
+  declare username: string | null
 }

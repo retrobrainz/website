@@ -9,6 +9,7 @@ interface CompanySelectProps {
   onChange?: (value: number | undefined) => void;
   placeholder?: string;
   allowClear?: boolean;
+  excludeCompanyId?: number;
 }
 
 export default function CompanySelect({
@@ -16,6 +17,7 @@ export default function CompanySelect({
   onChange,
   placeholder,
   allowClear,
+  excludeCompanyId,
 }: CompanySelectProps) {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
@@ -40,6 +42,7 @@ export default function CompanySelect({
 
   const shouldFetchSelectedCompany =
     typeof value === 'number' &&
+    value !== excludeCompanyId &&
     !hasSearch &&
     !companies?.data?.some((company) => company.id === value);
 
@@ -52,10 +55,12 @@ export default function CompanySelect({
 
   const options = useMemo(() => {
     const companyOptions =
-      companies?.data?.map((company) => ({
-        label: company.name,
-        value: company.id,
-      })) || [];
+      companies?.data
+        ?.map((company) => ({
+          label: company.name,
+          value: company.id,
+        }))
+        .filter((option) => option.value !== excludeCompanyId) || [];
 
     if (hasSearch || !selectedCompany) {
       return companyOptions;
@@ -66,7 +71,7 @@ export default function CompanySelect({
     }
 
     return [{ label: selectedCompany.name, value: selectedCompany.id }, ...companyOptions];
-  }, [companies?.data, hasSearch, selectedCompany]);
+  }, [companies?.data, excludeCompanyId, hasSearch, selectedCompany]);
 
   return (
     <Select

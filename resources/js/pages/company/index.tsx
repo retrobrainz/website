@@ -47,6 +47,12 @@ export default function CompanyPage() {
           {company?.name || '...'}
         </Typography.Title>
 
+        {company?.parent && (
+          <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
+            Parent: <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
+          </Typography.Text>
+        )}
+
         <div style={{ flex: 1 }} />
 
         {canEdit && (
