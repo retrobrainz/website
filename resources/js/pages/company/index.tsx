@@ -60,11 +60,11 @@ export default function CompanyPage() {
             title="Delete company"
             description="Are you sure you want to delete this company?"
             onConfirm={handleDelete}
-            okText="Delete"
+            okText={t('delete')}
             cancelText="Cancel"
           >
             <Button danger icon={<DeleteOutlined />} style={{ marginLeft: 8 }}>
-              Delete
+              {t('delete')}
             </Button>
           </Popconfirm>
         )}
