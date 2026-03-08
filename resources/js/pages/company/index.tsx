@@ -1,5 +1,15 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { App, Breadcrumb, Button, Flex, Popconfirm, Tabs, Typography } from 'antd';
+import {
+  App,
+  Breadcrumb,
+  Button,
+  Card,
+  Descriptions,
+  Flex,
+  Popconfirm,
+  Tabs,
+  Typography,
+} from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -47,13 +57,6 @@ export default function CompanyPage() {
           {company?.name || '...'}
         </Typography.Title>
 
-        {company?.parent && (
-          <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
-            {t('parent-company')}:{' '}
-            <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
-          </Typography.Text>
-        )}
-
         <div style={{ flex: 1 }} />
 
         {canEdit && (
@@ -76,6 +79,20 @@ export default function CompanyPage() {
           </Popconfirm>
         )}
       </Flex>
+
+      <Card style={{ marginBottom: 16 }}>
+        <Descriptions
+          items={[
+            {
+              label: t('parent-company'),
+              children: company?.parent && (
+                <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
+              ),
+              hidden: !company?.parent,
+            },
+          ].filter((item) => !item.hidden)}
+        />
+      </Card>
 
       <Tabs
         items={[
