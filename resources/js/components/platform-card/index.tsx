@@ -20,7 +20,7 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
             src={platform.photo?.url}
             width={platform.photo?.width}
             height={platform.photo?.height}
-            style={{ height: 'auto' }}
+            style={{ height: 'auto', aspectRatio: '16/9', objectFit: 'contain' }}
           />
         }
       >

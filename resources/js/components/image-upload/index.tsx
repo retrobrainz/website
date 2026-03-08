@@ -11,6 +11,7 @@ interface ImageUploadProps {
   width?: string;
   height?: string;
   format?: string;
+  fit?: string;
 }
 
 export default function ImageUpload({
@@ -19,6 +20,7 @@ export default function ImageUpload({
   width,
   height,
   format = 'avif',
+  fit = 'cover',
 }: ImageUploadProps) {
   const { t } = useTranslation();
 
@@ -49,6 +51,7 @@ export default function ImageUpload({
           formData.append('height', height);
         }
         formData.append('format', format);
+        formData.append('fit', fit);
         xior
           .post('/images', formData)
           .then((res) => {

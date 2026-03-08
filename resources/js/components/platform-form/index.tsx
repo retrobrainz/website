@@ -86,11 +86,11 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
       </Form.Item>
 
       <Form.Item label={t('logo')} name="logo">
-        <ImageUpload width="512" height="256" />
+        <ImageUpload width="512" height="512" fit="inside" />
       </Form.Item>
 
       <Form.Item label={t('image')} name="photo">
-        <ImageUpload width="1280" height="720" />
+        <ImageUpload width="1280" height="720" fit="inside" />
       </Form.Item>
 
       <Form.Item>
