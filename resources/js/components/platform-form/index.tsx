@@ -1,10 +1,9 @@
-import { App, Button, DatePicker, Form, Input, InputNumber, Select } from 'antd';
+import { App, Button, DatePicker, Form, Input, InputNumber } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import type Company from '../../types/Company';
 import type Platform from '../../types/Platform';
+import CompanySelect from '../company-select';
 import EmulatorSelect from '../emulator-select';
 import ImageUpload from '../image-upload';
 
@@ -19,10 +18,6 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-
-  const { data: companies } = useFetch<{ data: Company[] }>('/companies', {
-    params: { pageSize: 100 },
-  });
 
   useEffect(() => {
     if (platform) {
@@ -71,13 +66,7 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
       </Form.Item>
 
       <Form.Item label={t('companies')} name="companyId" rules={[{ required: true }]}>
-        <Select
-          placeholder={t('select')}
-          options={companies?.data?.map((company) => ({
-            label: company.name,
-            value: company.id,
-          }))}
-        />
+        <CompanySelect />
       </Form.Item>
 
       <Form.Item label="Screen Width" name="screenWidth" rules={[{ required: true }]}>
