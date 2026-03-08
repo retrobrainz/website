@@ -1,21 +1,35 @@
-import { EditOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { App, Breadcrumb, Button, Flex, Popconfirm, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'wouter';
+import { Link, useLocation, useParams } from 'wouter';
+import xior from 'xior';
 import GameList from '../../components/game-list';
 import { useAuth } from '../../contexts/auth';
 import Company from '../../types/Company';
 
 export default function CompanyPage() {
+  const { message } = App.useApp();
   const { companyId } = useParams();
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [, setLocation] = useLocation();
 
   const { data: company } = useFetch<Company>(`/companies/${companyId}`);
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
+  const canDelete = user?.role === 'admin';
+
+  const handleDelete = async () => {
+    try {
+      await xior.delete(`/companies/${companyId}`);
+      message.success('Deleted successfully');
+      setLocation('/companies');
+    } catch (error: any) {
+      message.error(error.response?.data?.message || error.message);
+    }
+  };
 
   return (
     <Container style={{ paddingTop: 24 }}>
@@ -39,6 +53,20 @@ export default function CompanyPage() {
           <Link href={`/companies/${companyId}/edit`}>
             <Button icon={<EditOutlined />}>{t('edit')}</Button>
           </Link>
+        )}
+
+        {canDelete && (
+          <Popconfirm
+            title="Delete company"
+            description="Are you sure you want to delete this company?"
+            onConfirm={handleDelete}
+            okText="Delete"
+            cancelText="Cancel"
+          >
+            <Button danger icon={<DeleteOutlined />} style={{ marginLeft: 8 }}>
+              Delete
+            </Button>
+          </Popconfirm>
         )}
       </Flex>
 

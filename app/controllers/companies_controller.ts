@@ -32,7 +32,11 @@ export default class CompaniesController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, response }: HttpContext) {
+  async store({ request, auth, response }: HttpContext) {
+    if (!auth.user || (auth.user.role !== 'admin' && auth.user.role !== 'editor')) {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
     const data = await request.validateUsing(companyValidator);
     const company = await Company.create(data);
     return response.created(company);
@@ -41,7 +45,11 @@ export default class CompaniesController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) {
+  async update({ params, request, auth, response }: HttpContext) {
+    if (!auth.user || (auth.user.role !== 'admin' && auth.user.role !== 'editor')) {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
     const company = await Company.findOrFail(params.id);
     const data = await request.validateUsing(companyValidator);
     company.merge(data);
@@ -52,7 +60,11 @@ export default class CompaniesController {
   /**
    * Delete the resource
    */
-  async destroy({ params, response }: HttpContext) {
+  async destroy({ params, auth, response }: HttpContext) {
+    if (!auth.user || auth.user.role !== 'admin') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
     const company = await Company.findOrFail(params.id);
     await company.delete();
     return response.noContent();
