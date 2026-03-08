@@ -1,13 +1,17 @@
-import { Breadcrumb, Col, Flex, Row, Typography } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Col, Flex, Row, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import PlatformCard from '../../components/platform-card';
+import { useAuth } from '../../contexts/auth';
 
 export default function PlatformsPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const { data } = useFetch<any[]>('/platforms');
+  const canCreatePlatform = user?.role === 'admin' || user?.role === 'editor';
 
   return (
     <Container style={{ paddingTop: 24 }}>
@@ -16,10 +20,15 @@ export default function PlatformsPage() {
         style={{ marginBottom: 16 }}
       />
 
-      <Flex align="center" style={{ marginBottom: 16 }}>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
           {t('platforms')}
         </Typography.Title>
+        {canCreatePlatform && (
+          <Link href="/platforms/new">
+            <Button icon={<PlusOutlined />}>{t('new')}</Button>
+          </Link>
+        )}
       </Flex>
 
       <Row gutter={[24, 24]}>

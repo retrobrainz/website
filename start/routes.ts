@@ -65,7 +65,10 @@ router
       .resource('operatingSystems', OperatingSystemsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router.resource('platforms', PlatformsController).apiOnly();
+    router
+      .resource('platforms', PlatformsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('regions', RegionsController).apiOnly();
     router.resource('titles', TitlesController).apiOnly();
     router.resource('users', UsersController).apiOnly();

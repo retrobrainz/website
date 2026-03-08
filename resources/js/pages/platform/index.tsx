@@ -1,17 +1,21 @@
-import { Breadcrumb, Tabs, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import EmulatorList from '../../components/emulator-list';
 import GameList from '../../components/game-list';
+import { useAuth } from '../../contexts/auth';
 import Platform from '../../types/Platform';
 
 export default function PlatformPage() {
   const { platformId } = useParams();
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   const { data: platform } = useFetch<Platform>(`/platforms/${platformId}`);
+  const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
   return (
     <Container style={{ paddingTop: 24 }}>
@@ -24,7 +28,17 @@ export default function PlatformPage() {
         style={{ marginBottom: 16 }}
       />
 
-      <Typography.Title level={1}>{platform?.name || '...'}</Typography.Title>
+      <Flex align="center" style={{ marginBottom: 16 }}>
+        <Typography.Title level={1} style={{ margin: 0 }}>
+          {platform?.name || '...'}
+        </Typography.Title>
+        <div style={{ flex: 1 }} />
+        {canEdit && (
+          <Link href={`/platforms/${platformId}/edit`}>
+            <Button icon={<EditOutlined />}>{t('edit')}</Button>
+          </Link>
+        )}
+      </Flex>
 
       <Tabs
         items={[

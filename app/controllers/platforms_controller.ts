@@ -1,5 +1,7 @@
 import Platform from '#models/platform';
+import { createPlatformValidator, updatePlatformValidator } from '#validators/platform_validator';
 import type { HttpContext } from '@adonisjs/core/http';
+import { DateTime } from 'luxon';
 
 export default class PlatformsController {
   /**
@@ -53,6 +55,61 @@ export default class PlatformsController {
       .preload('logo')
       .preload('photo')
       .firstOrFail();
+
+    return platform;
+  }
+
+  async store({ request, auth, response }: HttpContext) {
+    if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    const { emulatorIds, releaseDate, ...payload } =
+      await request.validateUsing(createPlatformValidator);
+
+    const platform = await Platform.create({
+      ...payload,
+      releaseDate: releaseDate ? DateTime.fromISO(releaseDate) : null,
+    });
+
+    if (Array.isArray(emulatorIds)) {
+      await platform.related('emulators').attach(emulatorIds);
+    }
+
+    await platform.load('company');
+    await platform.load('logo');
+    await platform.load('photo');
+    await platform.load('emulators');
+
+    return response.created(platform);
+  }
+
+  async update({ params, request, auth, response }: HttpContext) {
+    if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    const { emulatorIds, releaseDate, ...payload } =
+      await request.validateUsing(updatePlatformValidator);
+
+    const platform = await Platform.findOrFail(params.id);
+
+    platform.merge({
+      ...payload,
+      ...(releaseDate !== undefined
+        ? { releaseDate: releaseDate ? DateTime.fromISO(releaseDate) : null }
+        : {}),
+    });
+    await platform.save();
+
+    if (Array.isArray(emulatorIds)) {
+      await platform.related('emulators').sync(emulatorIds);
+    }
+
+    await platform.load('company');
+    await platform.load('logo');
+    await platform.load('photo');
+    await platform.load('emulators');
 
     return platform;
   }

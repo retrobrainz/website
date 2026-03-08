@@ -38,6 +38,8 @@ const GenrePage = lazy(() => import('./pages/genre'));
 const GenresPage = lazy(() => import('./pages/genres'));
 const HomePage = lazy(() => import('./pages/home'));
 const LoginPage = lazy(() => import('./pages/login'));
+const PlatformEditPage = lazy(() => import('./pages/platform-edit'));
+const PlatformNewPage = lazy(() => import('./pages/platform-new'));
 const PlatformPage = lazy(() => import('./pages/platform'));
 const PlatformsPage = lazy(() => import('./pages/platforms'));
 const RegisterPage = lazy(() => import('./pages/register'));
@@ -193,6 +195,18 @@ function App() {
 
                   <Route path="/platforms">
                     <PlatformsPage />
+                  </Route>
+
+                  <Route path="/platforms/new">
+                    <RequireAuth>
+                      <PlatformNewPage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/platforms/:platformId/edit">
+                    <RequireAuth>
+                      <PlatformEditPage />
+                    </RequireAuth>
                   </Route>
 
                   <Route path="/platforms/:platformId/games/:gameId/translate">
