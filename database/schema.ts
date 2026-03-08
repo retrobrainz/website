@@ -33,7 +33,7 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class CompanySchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'parentId', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'parentId', 'updatedAt', 'wikipedia'] as const
   $columns = CompanySchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -45,6 +45,8 @@ export class CompanySchema extends BaseModel {
   declare parentId: number | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare wikipedia: string | null
 }
 
 export class EmulatorFavoriteSchema extends BaseModel {
