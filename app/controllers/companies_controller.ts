@@ -26,7 +26,13 @@ export default class CompaniesController {
    * Display a single resource
    */
   async show({ params }: HttpContext) {
-    return Company.query().where('id', params.id).preload('parent').firstOrFail();
+    return Company.query()
+      .where('id', params.id)
+      .preload('parent')
+      .preload('children', (query) => {
+        query.orderBy('name', 'asc');
+      })
+      .firstOrFail();
   }
 
   /**

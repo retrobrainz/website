@@ -90,6 +90,19 @@ export default function CompanyPage() {
               ),
               hidden: !company?.parent,
             },
+            {
+              label: t('children-companies'),
+              children:
+                company?.children && company.children.length > 0
+                  ? company.children.map((child, index) => (
+                      <span key={child.id}>
+                        {index > 0 ? ', ' : ''}
+                        <Link href={`/companies/${child.id}`}>{child.name}</Link>
+                      </span>
+                    ))
+                  : null,
+              hidden: !company?.children || company.children.length === 0,
+            },
           ].filter((item) => !item.hidden)}
         />
       </Card>
