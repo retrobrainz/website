@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { FetchProvider } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import { Route } from 'wouter';
+import { Route, Switch } from 'wouter';
 import xior from 'xior';
 import RequireAuth from './components/require-auth';
 import './config/fetch';
@@ -70,186 +70,188 @@ function App() {
                   </Flex>
                 }
               >
-                <Route path="/">
-                  <HomePage />
-                </Route>
+                <Switch>
+                  <Route path="/">
+                    <HomePage />
+                  </Route>
 
-                <Route path="/login">
-                  <LoginPage />
-                </Route>
+                  <Route path="/login">
+                    <LoginPage />
+                  </Route>
 
-                <Route path="/register">
-                  <RegisterPage />
-                </Route>
+                  <Route path="/register">
+                    <RegisterPage />
+                  </Route>
 
-                <Route path="/platforms">
-                  <PlatformsPage />
-                </Route>
+                  <Route path="/platforms">
+                    <PlatformsPage />
+                  </Route>
 
-                <Route path="/search">
-                  <SearchPage />
-                </Route>
+                  <Route path="/search">
+                    <SearchPage />
+                  </Route>
 
-                <Route path="/frontends">
-                  <FrontendsPage />
-                </Route>
+                  <Route path="/frontends">
+                    <FrontendsPage />
+                  </Route>
 
-                <Route path="/frontends/new">
-                  <RequireAuth>
-                    <FrontendNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/frontends/new">
+                    <RequireAuth>
+                      <FrontendNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/frontends/:frontendId/edit">
-                  <RequireAuth>
-                    <FrontendEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/frontends/:frontendId/edit">
+                    <RequireAuth>
+                      <FrontendEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/frontends/:frontendId">
-                  <FrontendPage />
-                </Route>
+                  <Route path="/frontends/:frontendId">
+                    <FrontendPage />
+                  </Route>
 
-                <Route path="/platforms/:platformId">
-                  <PlatformPage />
-                </Route>
+                  <Route path="/platforms/:platformId">
+                    <PlatformPage />
+                  </Route>
 
-                <Route path="/companies">
-                  <CompaniesPage />
-                </Route>
+                  <Route path="/companies">
+                    <CompaniesPage />
+                  </Route>
 
-                <Route path="/companies/new">
-                  <RequireAuth>
-                    <CompanyNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/companies/new">
+                    <RequireAuth>
+                      <CompanyNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/companies/:companyId/edit">
-                  <RequireAuth>
-                    <CompanyEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/companies/:companyId/edit">
+                    <RequireAuth>
+                      <CompanyEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/companies/:companyId">
-                  <CompanyPage />
-                </Route>
+                  <Route path="/companies/:companyId">
+                    <CompanyPage />
+                  </Route>
 
-                <Route path="/emulators">
-                  <EmulatorsPage />
-                </Route>
+                  <Route path="/emulators">
+                    <EmulatorsPage />
+                  </Route>
 
-                <Route path="/emulators/new">
-                  <RequireAuth>
-                    <EmulatorNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/emulators/new">
+                    <RequireAuth>
+                      <EmulatorNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/emulators/:emulatorId/edit">
-                  <RequireAuth>
-                    <EmulatorEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/emulators/:emulatorId/edit">
+                    <RequireAuth>
+                      <EmulatorEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/emulators/:emulatorId">
-                  <EmulatorPage />
-                </Route>
+                  <Route path="/emulators/:emulatorId">
+                    <EmulatorPage />
+                  </Route>
 
-                <Route path="/franchises">
-                  <FranchisesPage />
-                </Route>
+                  <Route path="/franchises">
+                    <FranchisesPage />
+                  </Route>
 
-                <Route path="/franchises/new">
-                  <RequireAuth>
-                    <FranchiseNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/franchises/new">
+                    <RequireAuth>
+                      <FranchiseNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/franchises/:franchiseId/edit">
-                  <RequireAuth>
-                    <FranchiseEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/franchises/:franchiseId/edit">
+                    <RequireAuth>
+                      <FranchiseEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/franchises/:franchiseId/translate">
-                  <RequireAuth>
-                    <FranchiseTranslatePage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/franchises/:franchiseId/translate">
+                    <RequireAuth>
+                      <FranchiseTranslatePage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/franchises/:franchiseId">
-                  <FranchisePage />
-                </Route>
-                <Route path="/genres">
-                  <GenresPage />
-                </Route>
+                  <Route path="/franchises/:franchiseId">
+                    <FranchisePage />
+                  </Route>
+                  <Route path="/genres">
+                    <GenresPage />
+                  </Route>
 
-                <Route path="/genres/new">
-                  <RequireAuth>
-                    <GenreNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/genres/new">
+                    <RequireAuth>
+                      <GenreNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/genres/:genreId">
-                  <GenrePage />
-                </Route>
+                  <Route path="/genres/:genreId">
+                    <GenrePage />
+                  </Route>
 
-                <Route path="/genres/:genreId/edit">
-                  <RequireAuth>
-                    <GenreEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/genres/:genreId/edit">
+                    <RequireAuth>
+                      <GenreEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/genres/:genreId/translate">
-                  <RequireAuth>
-                    <GenreTranslatePage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/genres/:genreId/translate">
+                    <RequireAuth>
+                      <GenreTranslatePage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/titles">
-                  <TitlesPage />
-                </Route>
+                  <Route path="/titles">
+                    <TitlesPage />
+                  </Route>
 
-                <Route path="/titles/new">
-                  <RequireAuth>
-                    <TitleNewPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/titles/new">
+                    <RequireAuth>
+                      <TitleNewPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/titles/:titleId">
-                  <TitlePage />
-                </Route>
+                  <Route path="/titles/:titleId">
+                    <TitlePage />
+                  </Route>
 
-                <Route path="/titles/:titleId/edit">
-                  <RequireAuth>
-                    <TitleEditPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/titles/:titleId/edit">
+                    <RequireAuth>
+                      <TitleEditPage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/titles/:titleId/translate">
-                  <RequireAuth>
-                    <TitleTranslatePage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/titles/:titleId/translate">
+                    <RequireAuth>
+                      <TitleTranslatePage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/platforms/:platformId/games/:gameId/translate">
-                  <RequireAuth>
-                    <GameTranslatePage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/platforms/:platformId/games/:gameId/translate">
+                    <RequireAuth>
+                      <GameTranslatePage />
+                    </RequireAuth>
+                  </Route>
 
-                <Route path="/platforms/:platformId/games/:gameId">
-                  <GamePage />
-                </Route>
+                  <Route path="/platforms/:platformId/games/:gameId">
+                    <GamePage />
+                  </Route>
 
-                <Route path="/users/:userId">
-                  <UserPage />
-                </Route>
+                  <Route path="/users/:userId">
+                    <UserPage />
+                  </Route>
 
-                <Route path="/settings">
-                  <RequireAuth>
-                    <SettingsPage />
-                  </RequireAuth>
-                </Route>
+                  <Route path="/settings">
+                    <RequireAuth>
+                      <SettingsPage />
+                    </RequireAuth>
+                  </Route>
+                </Switch>
               </React.Suspense>
             </AppLayout>
           </AuthProvider>
