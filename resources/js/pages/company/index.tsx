@@ -57,6 +57,7 @@ export default function CompanyPage() {
       <Flex align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
           {company?.name || '...'}
+          {company?.defunctDate && '🪦'}
         </Typography.Title>
 
         <div style={{ flex: 1 }} />
