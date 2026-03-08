@@ -75,46 +75,6 @@ function App() {
                     <HomePage />
                   </Route>
 
-                  <Route path="/login">
-                    <LoginPage />
-                  </Route>
-
-                  <Route path="/register">
-                    <RegisterPage />
-                  </Route>
-
-                  <Route path="/platforms">
-                    <PlatformsPage />
-                  </Route>
-
-                  <Route path="/search">
-                    <SearchPage />
-                  </Route>
-
-                  <Route path="/frontends">
-                    <FrontendsPage />
-                  </Route>
-
-                  <Route path="/frontends/new">
-                    <RequireAuth>
-                      <FrontendNewPage />
-                    </RequireAuth>
-                  </Route>
-
-                  <Route path="/frontends/:frontendId/edit">
-                    <RequireAuth>
-                      <FrontendEditPage />
-                    </RequireAuth>
-                  </Route>
-
-                  <Route path="/frontends/:frontendId">
-                    <FrontendPage />
-                  </Route>
-
-                  <Route path="/platforms/:platformId">
-                    <PlatformPage />
-                  </Route>
-
                   <Route path="/companies">
                     <CompaniesPage />
                   </Route>
@@ -180,6 +140,27 @@ function App() {
                   <Route path="/franchises/:franchiseId">
                     <FranchisePage />
                   </Route>
+
+                  <Route path="/frontends">
+                    <FrontendsPage />
+                  </Route>
+
+                  <Route path="/frontends/new">
+                    <RequireAuth>
+                      <FrontendNewPage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/frontends/:frontendId/edit">
+                    <RequireAuth>
+                      <FrontendEditPage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/frontends/:frontendId">
+                    <FrontendPage />
+                  </Route>
+
                   <Route path="/genres">
                     <GenresPage />
                   </Route>
@@ -188,10 +169,6 @@ function App() {
                     <RequireAuth>
                       <GenreNewPage />
                     </RequireAuth>
-                  </Route>
-
-                  <Route path="/genres/:genreId">
-                    <GenrePage />
                   </Route>
 
                   <Route path="/genres/:genreId/edit">
@@ -206,6 +183,46 @@ function App() {
                     </RequireAuth>
                   </Route>
 
+                  <Route path="/genres/:genreId">
+                    <GenrePage />
+                  </Route>
+
+                  <Route path="/login">
+                    <LoginPage />
+                  </Route>
+
+                  <Route path="/platforms">
+                    <PlatformsPage />
+                  </Route>
+
+                  <Route path="/platforms/:platformId/games/:gameId/translate">
+                    <RequireAuth>
+                      <GameTranslatePage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/platforms/:platformId/games/:gameId">
+                    <GamePage />
+                  </Route>
+
+                  <Route path="/platforms/:platformId">
+                    <PlatformPage />
+                  </Route>
+
+                  <Route path="/register">
+                    <RegisterPage />
+                  </Route>
+
+                  <Route path="/search">
+                    <SearchPage />
+                  </Route>
+
+                  <Route path="/settings">
+                    <RequireAuth>
+                      <SettingsPage />
+                    </RequireAuth>
+                  </Route>
+
                   <Route path="/titles">
                     <TitlesPage />
                   </Route>
@@ -214,10 +231,6 @@ function App() {
                     <RequireAuth>
                       <TitleNewPage />
                     </RequireAuth>
-                  </Route>
-
-                  <Route path="/titles/:titleId">
-                    <TitlePage />
                   </Route>
 
                   <Route path="/titles/:titleId/edit">
@@ -232,24 +245,12 @@ function App() {
                     </RequireAuth>
                   </Route>
 
-                  <Route path="/platforms/:platformId/games/:gameId/translate">
-                    <RequireAuth>
-                      <GameTranslatePage />
-                    </RequireAuth>
-                  </Route>
-
-                  <Route path="/platforms/:platformId/games/:gameId">
-                    <GamePage />
+                  <Route path="/titles/:titleId">
+                    <TitlePage />
                   </Route>
 
                   <Route path="/users/:userId">
                     <UserPage />
-                  </Route>
-
-                  <Route path="/settings">
-                    <RequireAuth>
-                      <SettingsPage />
-                    </RequireAuth>
                   </Route>
                 </Switch>
               </React.Suspense>
