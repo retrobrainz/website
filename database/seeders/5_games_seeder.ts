@@ -19,7 +19,7 @@ import { DateTime } from 'luxon';
 
 export default class extends BaseSeeder {
   async run() {
-    const platforms = await Platform.query().orderBy('id', 'asc');
+    const platforms = await Platform.query().orderByRaw('RANDOM()');
 
     await this.downloadGithubRepo('libretro', 'libretro-database');
 
