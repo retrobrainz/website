@@ -24,7 +24,7 @@ export default function CompanyPage() {
   const handleDelete = async () => {
     try {
       await xior.delete(`/companies/${companyId}`);
-      message.success('Deleted successfully');
+      message.success(t('delete-success'));
       setLocation('/companies');
     } catch (error: any) {
       message.error(error.response?.data?.message || error.message);
@@ -49,7 +49,8 @@ export default function CompanyPage() {
 
         {company?.parent && (
           <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
-            Parent: <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
+            {t('parent')}:{' '}
+            <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
           </Typography.Text>
         )}
 
@@ -63,11 +64,11 @@ export default function CompanyPage() {
 
         {canDelete && (
           <Popconfirm
-            title="Delete company"
-            description="Are you sure you want to delete this company?"
+            title={t('delete-company')}
+            description={t('delete-company-confirm')}
             onConfirm={handleDelete}
             okText={t('delete')}
-            cancelText="Cancel"
+            cancelText={t('cancel')}
           >
             <Button danger icon={<DeleteOutlined />} style={{ marginLeft: 8 }}>
               {t('delete')}

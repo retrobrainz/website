@@ -26,7 +26,7 @@ export default function CompanyForm({ company, onSubmit, submitText }: CompanyFo
         <Input />
       </Form.Item>
 
-      <Form.Item label="Parent Company" name="parentId">
+      <Form.Item label={t('parent-company')} name="parentId">
         <CompanySelect allowClear excludeCompanyId={company?.id} />
       </Form.Item>
 
