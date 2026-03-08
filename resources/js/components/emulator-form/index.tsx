@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Emulator from '../../types/Emulator';
+import FrontendSelect from '../frontend-select';
 import ImageUpload from '../image-upload';
 import OperatingSystemSelect from '../operating-system-select';
 import PlatformSelect from '../platform-select';
@@ -28,6 +29,7 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
         state: emulator.state,
         releaseDate: emulator.releaseDate ? dayjs(emulator.releaseDate) : null,
         platformIds: emulator.platforms?.map((p) => p.id) || [],
+        frontendIds: emulator.frontends?.map((f) => f.id) || [],
         operatingSystemIds: emulator.operatingSystems?.map((os) => os.id) || [],
         icon: emulator.icon || null,
         screenshot: emulator.screenshot || null,
@@ -85,6 +87,10 @@ export default function EmulatorForm({ emulator, onSubmit, submitText }: Emulato
 
       <Form.Item label={t('platforms')} name="platformIds">
         <PlatformSelect mode="multiple" />
+      </Form.Item>
+
+      <Form.Item label={t('frontends')} name="frontendIds">
+        <FrontendSelect mode="multiple" />
       </Form.Item>
 
       <Form.Item label={t('operating-systems')} name="operatingSystemIds">

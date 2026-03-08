@@ -56,6 +56,7 @@ export default class EmulatorsController {
       screenshotId,
       platformIds,
       operatingSystemIds,
+      frontendIds,
     } = request.all();
     const emulator = await Emulator.create({
       name,
@@ -74,12 +75,16 @@ export default class EmulatorsController {
     if (Array.isArray(operatingSystemIds)) {
       await emulator.related('operatingSystems').attach(operatingSystemIds);
     }
+    if (Array.isArray(frontendIds)) {
+      await emulator.related('frontends').attach(frontendIds);
+    }
 
     // Load relationships before returning
     await emulator.load('icon');
     await emulator.load('screenshot');
     await emulator.load('platforms');
     await emulator.load('operatingSystems');
+    await emulator.load('frontends');
 
     return emulator;
   }
@@ -117,6 +122,7 @@ export default class EmulatorsController {
       screenshotId,
       platformIds,
       operatingSystemIds,
+      frontendIds,
     } = request.all();
     const emulator = await Emulator.findOrFail(params.id);
 
@@ -130,12 +136,16 @@ export default class EmulatorsController {
     if (Array.isArray(operatingSystemIds)) {
       await emulator.related('operatingSystems').sync(operatingSystemIds);
     }
+    if (Array.isArray(frontendIds)) {
+      await emulator.related('frontends').sync(frontendIds);
+    }
 
     // Load relationships before returning
     await emulator.load('icon');
     await emulator.load('screenshot');
     await emulator.load('platforms');
     await emulator.load('operatingSystems');
+    await emulator.load('frontends');
 
     return emulator;
   }
