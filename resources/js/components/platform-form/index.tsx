@@ -69,11 +69,11 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
         <CompanySelect />
       </Form.Item>
 
-      <Form.Item label="Screen Width" name="screenWidth" rules={[{ required: true }]}>
+      <Form.Item label={t('screen-width')} name="screenWidth" rules={[{ required: true }]}>
         <InputNumber min={1} style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item label="Screen Height" name="screenHeight" rules={[{ required: true }]}>
+      <Form.Item label={t('screen-height')} name="screenHeight" rules={[{ required: true }]}>
         <InputNumber min={1} style={{ width: '100%' }} />
       </Form.Item>
 
