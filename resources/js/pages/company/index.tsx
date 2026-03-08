@@ -90,13 +90,23 @@ export default function CompanyPage() {
         <Descriptions
           items={[
             {
-              label: 'Wikipedia',
+              label: t('wikipedia'),
               children: company?.wikipedia && (
                 <a href={company.wikipedia} target="_blank" rel="noreferrer">
                   {company.wikipedia}
                 </a>
               ),
               hidden: !company?.wikipedia,
+            },
+            {
+              label: t('founding-date'),
+              children: company?.foundingDate,
+              hidden: !company?.foundingDate,
+            },
+            {
+              label: t('defunct-date'),
+              children: company?.defunctDate,
+              hidden: !company?.defunctDate,
             },
             {
               label: t('parent-company'),

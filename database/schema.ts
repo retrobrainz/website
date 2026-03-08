@@ -33,10 +33,14 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class CompanySchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'parentId', 'updatedAt', 'wikipedia'] as const
+  static $columns = ['createdAt', 'defunctDate', 'foundingDate', 'id', 'name', 'parentId', 'updatedAt', 'wikipedia'] as const
   $columns = CompanySchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column.date()
+  declare defunctDate: DateTime | null
+  @column.date()
+  declare foundingDate: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()

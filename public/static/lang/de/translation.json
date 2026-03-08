@@ -13,6 +13,7 @@
   "create-success": "Erfolgreich erstellt",
   "developed-games": "Entwickelte Spiele",
   "developers": "Entwickler",
+  "defunct-date": "Auflösungsdatum",
   "delete": "Löschen",
   "delete-company": "Unternehmen löschen",
   "delete-company-confirm": "Möchten Sie dieses Unternehmen wirklich löschen?",
@@ -27,6 +28,7 @@
   "experimental": "Experimentell",
   "franchise": "Franchise",
   "franchises": "Franchises",
+  "founding-date": "Gründungsdatum",
   "frontends": "Benutzeroberflächen",
   "game": "Spiel",
   "games": "Spiele",
@@ -91,5 +93,6 @@
   "upload": "Hochladen",
   "upload-image": "Bild hochladen",
   "username": "Benutzername",
+  "wikipedia": "Wikipedia",
   "website": "Webseite"
 }

@@ -15,6 +15,7 @@
   "create-success": "Luotu onnistuneesti",
   "developed-games": "Kehitetyt pelit",
   "developers": "Kehittäjä(t)",
+  "defunct-date": "Lakkautuspäivä",
   "delete": "Poista",
   "delete-company": "Poista yritys",
   "delete-company-confirm": "Haluatko varmasti poistaa tämän yrityksen?",
@@ -29,6 +30,7 @@
   "experimental": "Kokeellinen",
   "franchise": "Pelisarja",
   "franchises": "Pelisarjat",
+  "founding-date": "Perustamispäivä",
   "frontends": "Käyttöliittymät",
   "game": "Peli",
   "games": "Pelit",
@@ -95,5 +97,6 @@
   "upload": "Lataa",
   "upload-image": "Lataa kuva",
   "username": "Käyttäjätunnus",
+  "wikipedia": "Wikipedia",
   "website": "Verkkosivusto"
 }

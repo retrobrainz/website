@@ -13,6 +13,7 @@
   "create-success": "Успешно создано",
   "developed-games": "Разработанные игры",
   "developers": "Разработчик(и)",
+  "defunct-date": "Дата ликвидации",
   "delete": "Удалить",
   "delete-company": "Удалить компанию",
   "delete-company-confirm": "Вы уверены, что хотите удалить эту компанию?",
@@ -27,6 +28,7 @@
   "experimental": "Экспериментальный",
   "franchise": "Франшиза",
   "franchises": "Франшизы",
+  "founding-date": "Дата основания",
   "frontends": "Фронтенды",
   "game": "Игра",
   "games": "Игры",
@@ -91,5 +93,6 @@
   "upload": "Загрузить",
   "upload-image": "Загрузить изображение",
   "username": "Имя пользователя",
+  "wikipedia": "Википедия",
   "website": "Веб-сайт"
 }

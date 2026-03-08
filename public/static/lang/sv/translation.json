@@ -13,6 +13,7 @@
   "create-success": "Skapades framgångsrikt",
   "developed-games": "Utvecklade spel",
   "developers": "Utvecklare",
+  "defunct-date": "Nedläggningsdatum",
   "delete": "Ta bort",
   "delete-company": "Ta bort företag",
   "delete-company-confirm": "Är du säker på att du vill ta bort detta företag?",
@@ -27,6 +28,7 @@
   "experimental": "Experimentell",
   "franchise": "Franchise",
   "franchises": "Franchiser",
+  "founding-date": "Grundandedatum",
   "frontends": "Frontends",
   "game": "Spel",
   "games": "Spel",
@@ -91,5 +93,6 @@
   "upload": "Ladda upp",
   "upload-image": "Ladda upp bild",
   "username": "Användarnamn",
+  "wikipedia": "Wikipedia",
   "website": "Webbplats"
 }

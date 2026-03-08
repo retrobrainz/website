@@ -13,6 +13,7 @@
   "create-success": "正常に作成されました",
   "developed-games": "開発したゲーム",
   "developers": "開発者",
+  "defunct-date": "解散日",
   "delete": "削除",
   "delete-company": "企業を削除",
   "delete-company-confirm": "この企業を削除してもよろしいですか？",
@@ -27,6 +28,7 @@
   "experimental": "実験版",
   "franchise": "フランチャイズ",
   "franchises": "フランチャイズ",
+  "founding-date": "設立日",
   "frontends": "フロントエンド",
   "game": "ゲーム",
   "games": "ゲーム",
@@ -91,5 +93,6 @@
   "upload": "アップロード",
   "upload-image": "画像をアップロード",
   "username": "ユーザー名",
+  "wikipedia": "ウィキペディア",
   "website": "ウェブサイト"
 }

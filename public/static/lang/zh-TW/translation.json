@@ -13,6 +13,7 @@
   "create-success": "建立成功",
   "developed-games": "開發的遊戲",
   "developers": "開發商",
+  "defunct-date": "解散日期",
   "delete": "刪除",
   "delete-company": "刪除廠商",
   "delete-company-confirm": "確定要刪除此廠商嗎？",
@@ -27,6 +28,7 @@
   "experimental": "實驗版",
   "franchise": "系列",
   "franchises": "系列",
+  "founding-date": "成立日期",
   "frontends": "前端",
   "game": "遊戲",
   "games": "遊戲",
@@ -91,5 +93,6 @@
   "upload": "上傳",
   "upload-image": "上傳圖片",
   "username": "使用者名稱",
+  "wikipedia": "維基百科",
   "website": "網站"
 }

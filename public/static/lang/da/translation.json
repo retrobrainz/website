@@ -13,6 +13,7 @@
   "create-success": "Oprettet succesfuldt",
   "developed-games": "Udviklede spil",
   "developers": "Udvikler(e)",
+  "defunct-date": "Nedlæggelsesdato",
   "delete": "Slet",
   "delete-company": "Slet virksomhed",
   "delete-company-confirm": "Er du sikker på, at du vil slette denne virksomhed?",
@@ -27,6 +28,7 @@
   "experimental": "Eksperimentel",
   "franchise": "Franchise",
   "franchises": "Franchiser",
+  "founding-date": "Stiftelsesdato",
   "frontends": "Frontends",
   "game": "Spil",
   "games": "Spil",
@@ -91,5 +93,6 @@
   "upload": "Upload",
   "upload-image": "Upload billede",
   "username": "Brugernavn",
+  "wikipedia": "Wikipedia",
   "website": "Websted"
 }

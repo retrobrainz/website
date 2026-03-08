@@ -15,6 +15,12 @@ export default class Company extends BaseModel {
   @column()
   declare parentId: number | null;
 
+  @column.date()
+  declare foundingDate: DateTime | null;
+
+  @column.date()
+  declare defunctDate: DateTime | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 

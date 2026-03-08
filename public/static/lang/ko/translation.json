@@ -13,6 +13,7 @@
   "create-success": "성공적으로 생성되었습니다",
   "developed-games": "개발한 게임",
   "developers": "개발자",
+  "defunct-date": "해산일",
   "delete": "삭제",
   "delete-company": "회사 삭제",
   "delete-company-confirm": "이 회사를 삭제하시겠습니까?",
@@ -27,6 +28,7 @@
   "experimental": "실험적",
   "franchise": "프랜차이즈",
   "franchises": "프랜차이즈",
+  "founding-date": "설립일",
   "frontends": "프론트엔드",
   "game": "게임",
   "games": "게임",
@@ -91,5 +93,6 @@
   "upload": "업로드",
   "upload-image": "이미지 업로드",
   "username": "사용자 이름",
+  "wikipedia": "위키백과",
   "website": "웹사이트"
 }

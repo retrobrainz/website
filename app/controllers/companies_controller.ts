@@ -3,6 +3,7 @@ import { companyMergeValidator } from '#validators/company_merge_validator';
 import { companyValidator } from '#validators/company_validator';
 import type { HttpContext } from '@adonisjs/core/http';
 import db from '@adonisjs/lucid/services/db';
+import { DateTime } from 'luxon';
 
 export default class CompaniesController {
   /**
@@ -45,8 +46,12 @@ export default class CompaniesController {
       return response.forbidden({ message: 'Unauthorized' });
     }
 
-    const data = await request.validateUsing(companyValidator);
-    const company = await Company.create(data);
+    const { foundingDate, defunctDate, ...payload } = await request.validateUsing(companyValidator);
+    const company = await Company.create({
+      ...payload,
+      foundingDate: foundingDate ? DateTime.fromISO(foundingDate) : null,
+      defunctDate: defunctDate ? DateTime.fromISO(defunctDate) : null,
+    });
     await company.refresh();
     await company.load('parent');
     return response.created(company);
@@ -61,8 +66,16 @@ export default class CompaniesController {
     }
 
     const company = await Company.findOrFail(params.id);
-    const data = await request.validateUsing(companyValidator);
-    company.merge(data);
+    const { foundingDate, defunctDate, ...payload } = await request.validateUsing(companyValidator);
+    company.merge({
+      ...payload,
+      ...(foundingDate !== undefined
+        ? { foundingDate: foundingDate ? DateTime.fromISO(foundingDate) : null }
+        : {}),
+      ...(defunctDate !== undefined
+        ? { defunctDate: defunctDate ? DateTime.fromISO(defunctDate) : null }
+        : {}),
+    });
     await company.save();
     await company.refresh();
     await company.load('parent');
