@@ -61,27 +61,29 @@ export default function CompanyPage() {
 
         <div style={{ flex: 1 }} />
 
-        {canEdit && (
-          <Link href={`/companies/${companyId}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
-          </Link>
-        )}
+        <Flex gap={8}>
+          {canEdit && (
+            <Link href={`/companies/${companyId}/edit`}>
+              <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            </Link>
+          )}
 
-        {canDelete && (
-          <Popconfirm
-            title={t('delete-company')}
-            description={t('delete-company-confirm')}
-            onConfirm={handleDelete}
-            okText={t('delete')}
-            cancelText={t('cancel')}
-          >
-            <Button danger icon={<DeleteOutlined />} style={{ marginLeft: 8 }}>
-              {t('delete')}
-            </Button>
-          </Popconfirm>
-        )}
+          {canDelete && (
+            <Popconfirm
+              title={t('delete-company')}
+              description={t('delete-company-confirm')}
+              onConfirm={handleDelete}
+              okText={t('delete')}
+              cancelText={t('cancel')}
+            >
+              <Button danger icon={<DeleteOutlined />}>
+                {t('delete')}
+              </Button>
+            </Popconfirm>
+          )}
 
-        {canMerge && <CompanyMergeButton companyId={Number(companyId)} />}
+          {canMerge && <CompanyMergeButton companyId={Number(companyId)} />}
+        </Flex>
       </Flex>
 
       <Card style={{ marginBottom: 16 }}>

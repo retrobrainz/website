@@ -42,11 +42,7 @@ export default function CompanyMergeButton({ companyId }: CompanyMergeButtonProp
 
   return (
     <>
-      <Button
-        icon={<SwapOutlined />}
-        style={{ marginLeft: 8 }}
-        onClick={() => setMergeModalOpen(true)}
-      >
+      <Button danger icon={<SwapOutlined />} onClick={() => setMergeModalOpen(true)}>
         {t('merge')}
       </Button>
 
