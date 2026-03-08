@@ -69,6 +69,7 @@ export default function CompanyMergeButton({ companyId }: CompanyMergeButtonProp
           value={targetCompanyId}
           onChange={setTargetCompanyId}
           excludeCompanyId={companyId}
+          style={{ width: '100%' }}
         />
       </Modal>
     </>

@@ -1,14 +1,10 @@
-import { Select } from 'antd';
+import { Select, SelectProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import type Company from '../../types/Company';
 
-interface CompanySelectProps {
-  value?: number;
-  onChange?: (value: number | undefined) => void;
-  placeholder?: string;
-  allowClear?: boolean;
+interface CompanySelectProps extends SelectProps<number> {
   excludeCompanyId?: number;
 }
 
@@ -16,8 +12,8 @@ export default function CompanySelect({
   value,
   onChange,
   placeholder,
-  allowClear,
   excludeCompanyId,
+  ...rest
 }: CompanySelectProps) {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
@@ -46,12 +42,9 @@ export default function CompanySelect({
     !hasSearch &&
     !companies?.data?.some((company) => company.id === value);
 
-  const { data: selectedCompany, loading: selectedCompanyLoading } = useFetch<Company>(
-    `/companies/${value || 0}`,
-    {
-      disabled: !shouldFetchSelectedCompany,
-    },
-  );
+  const { data: selectedCompany } = useFetch<Company>(`/companies/${value}`, {
+    disabled: !shouldFetchSelectedCompany,
+  });
 
   const options = useMemo(() => {
     const companyOptions =
@@ -75,15 +68,15 @@ export default function CompanySelect({
 
   return (
     <Select
+      {...rest}
       value={value}
       onChange={onChange}
       placeholder={placeholder || t('select')}
-      allowClear={allowClear}
       showSearch
       filterOption={false}
       onSearch={setSearch}
       options={options}
-      loading={loading || selectedCompanyLoading}
+      loading={loading}
     />
   );
 }
