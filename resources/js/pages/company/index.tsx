@@ -49,7 +49,7 @@ export default function CompanyPage() {
 
         {company?.parent && (
           <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
-            {t('parent')}:{' '}
+            {t('parent-company')}:{' '}
             <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
           </Typography.Text>
         )}
