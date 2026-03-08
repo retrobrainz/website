@@ -10,6 +10,7 @@ export type ScannedRoutes = {
     'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'companies.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'emulators.index': { paramsTuple?: []; params?: {} }
     'emulators.store': { paramsTuple?: []; params?: {} }
     'emulators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -210,6 +211,7 @@ export type ScannedRoutes = {
   }
   POST: {
     'companies.store': { paramsTuple?: []; params?: {} }
+    'companies.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'emulators.store': { paramsTuple?: []; params?: {} }
     'franchises.store': { paramsTuple?: []; params?: {} }
     'frontends.store': { paramsTuple?: []; params?: {} }

@@ -15,6 +15,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
+import CompanyMergeButton from '../../components/company-merge-button';
 import GameList from '../../components/game-list';
 import { useAuth } from '../../contexts/auth';
 import Company from '../../types/Company';
@@ -30,6 +31,7 @@ export default function CompanyPage() {
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
   const canDelete = user?.role === 'admin';
+  const canMerge = user?.role === 'admin';
 
   const handleDelete = async () => {
     try {
@@ -78,6 +80,8 @@ export default function CompanyPage() {
             </Button>
           </Popconfirm>
         )}
+
+        {canMerge && <CompanyMergeButton companyId={Number(companyId)} />}
       </Flex>
 
       <Card style={{ marginBottom: 16 }}>

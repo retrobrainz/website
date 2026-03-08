@@ -40,6 +40,9 @@ router
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
+      .post('companies/:id/merge', [CompaniesController, 'merge'])
+      .use(middleware.auth({ guards: ['api'] }));
+    router
       .resource('emulators', EmulatorsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
