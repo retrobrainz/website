@@ -5,6 +5,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import GameList from '../../components/game-list';
+import TitleMergeButton from '../../components/title-merge-button';
 import { useAuth } from '../../contexts/auth';
 import Title from '../../types/Title';
 
@@ -16,6 +17,7 @@ export default function TitlePage() {
   const { data: title } = useFetch<Title>(`/titles/${titleId}`);
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
+  const canMerge = user?.role === 'admin';
 
   const displayName = title?.translations?.[0]?.name || title?.name || '...';
 
@@ -45,6 +47,7 @@ export default function TitlePage() {
           )}
           {canEdit && (
             <>
+              {canMerge && <TitleMergeButton titleId={Number(titleId)} />}
               <Link href={`/titles/${titleId}/translate`}>
                 <Button icon={<TranslationOutlined />}>{t('translate')}</Button>
               </Link>

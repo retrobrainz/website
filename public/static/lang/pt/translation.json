@@ -51,6 +51,8 @@
   "merge-company": "Mesclar empresa",
   "merge-company-description": "Transfira os jogos desenvolvidos e publicados para a empresa de destino.",
   "merge-success": "Mesclado com sucesso",
+  "merge-title": "Mesclar título",
+  "merge-title-description": "Mova os jogos e relacionamentos relacionados para o título de destino.",
   "more": "Mais",
   "name": "Nome",
   "new": "Novo",

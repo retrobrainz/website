@@ -49,6 +49,8 @@
   "merge-company": "Sammanfoga företag",
   "merge-company-description": "Flytta utvecklade och publicerade spel till målföretaget.",
   "merge-success": "Sammanfogning lyckades",
+  "merge-title": "Slå samman titel",
+  "merge-title-description": "Flytta relaterade spel och relationer till måltiteln.",
   "more": "Mer",
   "name": "Namn",
   "new": "Ny",

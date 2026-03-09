@@ -1,5 +1,7 @@
 import Title from '#models/title';
+import { titleMergeValidator } from '#validators/title_merge_validator';
 import type { HttpContext } from '@adonisjs/core/http';
+import db from '@adonisjs/lucid/services/db';
 
 export default class TitlesController {
   /**
@@ -97,5 +99,100 @@ export default class TitlesController {
     const title = await Title.findOrFail(params.id);
     await title.delete();
     return response.noContent();
+  }
+
+  async merge({ params, request, auth, response, i18n }: HttpContext) {
+    if (!auth.user || auth.user.role !== 'admin') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    const sourceTitleId = Number(params.id);
+    const { targetTitleId } = await request.validateUsing(titleMergeValidator);
+
+    if (sourceTitleId === targetTitleId) {
+      return response.badRequest({ message: 'Source and target titles must be different' });
+    }
+
+    await db.transaction(async (trx) => {
+      await Title.query({ client: trx }).where('id', sourceTitleId).firstOrFail();
+      await Title.query({ client: trx }).where('id', targetTitleId).firstOrFail();
+
+      // Migrate games
+      await trx.from('games').where('title_id', sourceTitleId).update({ title_id: targetTitleId });
+
+      // Migrate franchises
+      const franchiseRows = await trx
+        .from('title_franchise')
+        .where('title_id', sourceTitleId)
+        .select('franchise_id');
+      if (franchiseRows.length > 0) {
+        await trx
+          .table('title_franchise')
+          .insert(
+            franchiseRows.map((row) => ({
+              franchise_id: row.franchise_id,
+              title_id: targetTitleId,
+            })),
+          )
+          .onConflict(['franchise_id', 'title_id'])
+          .ignore();
+      }
+
+      // Migrate genres
+      const genreRows = await trx
+        .from('title_genre')
+        .where('title_id', sourceTitleId)
+        .select('genre_id');
+      if (genreRows.length > 0) {
+        await trx
+          .table('title_genre')
+          .insert(genreRows.map((row) => ({ genre_id: row.genre_id, title_id: targetTitleId })))
+          .onConflict(['genre_id', 'title_id'])
+          .ignore();
+      }
+
+      // Migrate favorites
+      const favoriteRows = await trx
+        .from('title_favorites')
+        .where('title_id', sourceTitleId)
+        .select('user_id');
+      if (favoriteRows.length > 0) {
+        await trx
+          .table('title_favorites')
+          .insert(favoriteRows.map((row) => ({ user_id: row.user_id, title_id: targetTitleId })))
+          .onConflict(['user_id', 'title_id'])
+          .ignore();
+      }
+
+      // Migrate translations
+      const translationRows = await trx
+        .from('title_translations')
+        .where('title_id', sourceTitleId)
+        .select('locale', 'name');
+      if (translationRows.length > 0) {
+        await trx
+          .table('title_translations')
+          .insert(
+            translationRows.map((row) => ({
+              locale: row.locale,
+              name: row.name,
+              title_id: targetTitleId,
+            })),
+          )
+          .onConflict(['locale', 'title_id'])
+          .ignore();
+      }
+
+      await trx.from('titles').where('id', sourceTitleId).delete();
+    });
+
+    return Title.query()
+      .where('id', targetTitleId)
+      .preload('translations', (q) => q.where('locale', i18n.locale))
+      .preload('franchises', (q) =>
+        q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
+      )
+      .preload('genres', (q) => q.preload('translations', (qq) => qq.where('locale', i18n.locale)))
+      .firstOrFail();
   }
 }

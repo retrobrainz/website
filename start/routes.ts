@@ -74,6 +74,7 @@ router
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router.resource('regions', RegionsController).apiOnly();
     router.resource('titles', TitlesController).apiOnly();
+    router.post('titles/:id/merge', [TitlesController, 'merge']).use(middleware.auth());
     router.resource('users', UsersController).apiOnly();
 
     // Translations routes

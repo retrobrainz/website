@@ -49,6 +49,8 @@
   "merge-company": "회사 병합",
   "merge-company-description": "개발 및 발행 게임을 대상 회사로 이전합니다.",
   "merge-success": "병합되었습니다",
+  "merge-title": "제목 병합",
+  "merge-title-description": "관련 게임 및 관계를 대상 제목으로 이동합니다.",
   "more": "더보기",
   "name": "이름",
   "new": "새로 만들기",

@@ -49,6 +49,8 @@
   "merge-company": "合并厂商",
   "merge-company-description": "将开发和发行游戏迁移到目标厂商。",
   "merge-success": "合并成功",
+  "merge-title": "合并作品",
+  "merge-title-description": "将相关游戏和关系迁移到目标作品。",
   "more": "更多",
   "name": "名称",
   "new": "新建",

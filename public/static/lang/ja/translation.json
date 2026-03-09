@@ -49,6 +49,8 @@
   "merge-company": "企業を統合",
   "merge-company-description": "開発・発売ゲームを対象企業に移行します。",
   "merge-success": "統合に成功しました",
+  "merge-title": "タイトルをマージ",
+  "merge-title-description": "関連するゲームと関係をターゲットタイトルに移動します。",
   "more": "もっと見る",
   "name": "名前",
   "new": "新規",
