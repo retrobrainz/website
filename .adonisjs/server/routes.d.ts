@@ -66,6 +66,7 @@ export type ScannedRoutes = {
     'titles.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'titles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'titles.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'titles.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.index': { paramsTuple?: []; params?: {} }
     'users.store': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -223,6 +224,7 @@ export type ScannedRoutes = {
     'platforms.store': { paramsTuple?: []; params?: {} }
     'regions.store': { paramsTuple?: []; params?: {} }
     'titles.store': { paramsTuple?: []; params?: {} }
+    'titles.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.store': { paramsTuple?: []; params?: {} }
     'franchises.translations.store': { paramsTuple: [ParamValue]; params: {'franchise_id': ParamValue} }
     'games.translations.store': { paramsTuple: [ParamValue]; params: {'game_id': ParamValue} }
