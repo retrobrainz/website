@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Title from '../../types/Title';
 
+import FranchiseSelect from '../franchise-select';
+
 interface TitleFormProps {
   title?: Title;
   onSubmit: (values: any) => Promise<void>;
@@ -20,6 +22,7 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
       form.setFieldsValue({
         name: title.name,
         wikipedia: title.wikipedia,
+        franchiseIds: title.franchises?.map((f) => f.id) || [],
       });
     }
   }, [title, form]);
@@ -49,6 +52,10 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
 
       <Form.Item label="Wikipedia" name="wikipedia">
         <Input placeholder="https://en.wikipedia.org/wiki/..." />
+      </Form.Item>
+
+      <Form.Item label={t('franchises')} name="franchiseIds">
+        <FranchiseSelect mode="multiple" />
       </Form.Item>
 
       <Form.Item>

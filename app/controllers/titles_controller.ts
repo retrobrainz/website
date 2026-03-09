@@ -78,6 +78,13 @@ export default class TitlesController {
   async store({ request, response }: HttpContext) {
     const data = request.only(['name', 'wikipedia']);
     const title = await Title.create(data);
+
+    const franchiseIds = request.input('franchiseIds');
+    if (Array.isArray(franchiseIds)) {
+      await title.related('franchises').sync(franchiseIds);
+    }
+
+    await title.load('franchises');
     return response.created(title);
   }
 
@@ -89,6 +96,13 @@ export default class TitlesController {
     const data = request.only(['name', 'wikipedia']);
     title.merge(data);
     await title.save();
+
+    const franchiseIds = request.input('franchiseIds');
+    if (Array.isArray(franchiseIds)) {
+      await title.related('franchises').sync(franchiseIds);
+    }
+
+    await title.load('franchises');
     return title;
   }
 
