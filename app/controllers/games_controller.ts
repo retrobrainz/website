@@ -95,6 +95,7 @@ export default class GamesController {
 
     return query
       .preload('title', (q) => {
+        q.preload('translations');
         q.preload('franchises', (qq) => qq.preload('translations'));
         q.preload('genres', (qq) => qq.preload('translations'));
       })
@@ -115,6 +116,7 @@ export default class GamesController {
     const game = await Game.query()
       .where('id', params.id)
       .preload('title', (q) => {
+        q.preload('translations');
         q.preload('franchises', (qq) => qq.preload('translations'));
         q.preload('genres', (qq) => qq.preload('translations'));
       })

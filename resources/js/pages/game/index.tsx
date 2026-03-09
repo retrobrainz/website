@@ -20,6 +20,8 @@ export default function GamePage() {
 
   const gameTranslation = game?.translations?.find((tr) => tr.locale === i18n.language);
   const displayName = gameTranslation?.name || game?.name;
+  const titleTranslation = game?.title?.translations?.find((tr) => tr.locale === i18n.language);
+  const titleDisplayName = titleTranslation?.name || game?.title?.name;
 
   return (
     <Container maxWidth="lg" style={{ paddingTop: 16 }}>
@@ -123,6 +125,15 @@ export default function GamePage() {
             {
               label: t('release-date'),
               children: game?.releaseDate || 'N/A',
+            },
+            {
+              label: t('title'),
+              children:
+                game?.title?.id && titleDisplayName ? (
+                  <Link href={`/titles/${game.title.id}`}>{titleDisplayName}</Link>
+                ) : (
+                  'N/A'
+                ),
             },
             {
               label: t('developers'),
