@@ -3,12 +3,12 @@ import dayjs from 'dayjs';
 import { useEffect, useMemo, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
-import type Company from '../../types/Company';
 import type Game from '../../types/Game';
 import type Language from '../../types/Language';
 import type Platform from '../../types/Platform';
 import type Region from '../../types/Region';
 import type Title from '../../types/Title';
+import CompanySelect from '../company-select';
 import ImageUpload from '../image-upload';
 
 interface GameFormProps {
@@ -39,9 +39,6 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
   const { data: platforms } = useFetch<Platform[]>('/platforms');
   const { data: regions } = useFetch<Region[]>('/regions');
   const { data: languages } = useFetch<Language[]>('/languages');
-  const { data: companiesData } = useFetch<{ data: Company[] }>('/companies', {
-    params: { pageSize: 200 },
-  });
 
   const { data: titlesData, loading: loadingTitles } = useFetch<{ data: Title[] }>('/titles', {
     params: {
@@ -136,12 +133,6 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
     }
   };
 
-  const companyOptions =
-    companiesData?.data?.map((company) => ({
-      value: company.id,
-      label: company.name,
-    })) || [];
-
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
@@ -184,11 +175,11 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       </Form.Item>
 
       <Form.Item label={t('developers')} name="developerIds">
-        <Select mode="multiple" options={companyOptions} placeholder={t('select')} showSearch />
+        <CompanySelect mode="multiple" />
       </Form.Item>
 
       <Form.Item label={t('publishers')} name="publisherIds">
-        <Select mode="multiple" options={companyOptions} placeholder={t('select')} showSearch />
+        <CompanySelect mode="multiple" />
       </Form.Item>
 
       <Form.Item label={t('regions')} name="regionIds">
