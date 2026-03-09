@@ -58,7 +58,7 @@ export default function GenrePage() {
             children: (
               <TitleList
                 initialFilters={{ genreId: Number(genreId) }}
-                showFilters={['search', 'platformId', 'franchiseId']}
+                showFilters={['search', 'platformId', 'noFranchise']}
               />
             ),
           },

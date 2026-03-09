@@ -1,4 +1,4 @@
-import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
+import { Checkbox, Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ interface TitleListFilters {
   search?: string;
   platformId?: number | string;
   franchiseId?: number | string;
+  noFranchise?: boolean;
   genreId?: number | string;
 }
 
@@ -80,6 +81,12 @@ export default function TitleList({
                   setFilters((prev) => ({ ...prev, platformId: value ?? undefined }))
                 }
               />
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noFranchise') && (
+            <Form.Item name="noFranchise" valuePropName="checked">
+              <Checkbox>{t('no-franchise')}</Checkbox>
             </Form.Item>
           )}
         </Form>
