@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
@@ -34,9 +34,14 @@ export default function PlatformPage() {
         </Typography.Title>
         <div style={{ flex: 1 }} />
         {canEdit && (
-          <Link href={`/platforms/${platformId}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
-          </Link>
+          <Flex gap="small">
+            <Link href={`/platforms/${platformId}/games/new`}>
+              <Button icon={<PlusOutlined />}>{t('new')}</Button>
+            </Link>
+            <Link href={`/platforms/${platformId}/edit`}>
+              <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            </Link>
+          </Flex>
         )}
       </Flex>
 

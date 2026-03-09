@@ -1,5 +1,6 @@
 import Game from '#models/game';
 import type { HttpContext } from '@adonisjs/core/http';
+import { DateTime } from 'luxon';
 
 export default class GamesController {
   /**
@@ -134,9 +135,87 @@ export default class GamesController {
     return game;
   }
 
+  async store({ request, auth, response }: HttpContext) {
+    if (auth.user!.role !== 'admin' && auth.user!.role !== 'editor') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    // TODO validate input
+    const {
+      platformId,
+      titleId,
+      name,
+      releaseDate,
+      esrbRating,
+      pegiRating,
+      boxartId,
+      logoId,
+      screenshotId,
+      titlescreenId,
+      developerIds,
+      publisherIds,
+      regionIds,
+      languageIds,
+    } = request.all();
+
+    const game = await Game.create({
+      platformId,
+      titleId,
+      name,
+      releaseDate: releaseDate ? DateTime.fromISO(releaseDate) : null,
+      esrbRating,
+      pegiRating,
+      boxartId,
+      logoId,
+      screenshotId,
+      titlescreenId,
+    });
+
+    if (Array.isArray(developerIds)) {
+      await game.related('developers').attach(developerIds);
+    }
+    if (Array.isArray(publisherIds)) {
+      await game.related('publishers').attach(publisherIds);
+    }
+    if (Array.isArray(regionIds)) {
+      await game.related('regions').attach(regionIds);
+    }
+    if (Array.isArray(languageIds)) {
+      await game.related('languages').attach(languageIds);
+    }
+
+    await game.load('title');
+    await game.load('platform');
+    await game.load('regions');
+    await game.load('developers');
+    await game.load('publishers');
+    await game.load('languages');
+    await game.load('boxart');
+    await game.load('logo');
+    await game.load('screenshot');
+    await game.load('titlescreen');
+
+    return response.created(game);
+  }
+
   async update({ params, request, auth }: HttpContext) {
     // TODO validate input
-    const { boxartId, logoId, screenshotId, titlescreenId } = request.all();
+    const {
+      platformId,
+      titleId,
+      name,
+      releaseDate,
+      esrbRating,
+      pegiRating,
+      boxartId,
+      logoId,
+      screenshotId,
+      titlescreenId,
+      developerIds,
+      publisherIds,
+      regionIds,
+      languageIds,
+    } = request.all();
     const game = await Game.findOrFail(params.id);
 
     if (auth.user!.role === 'user') {
@@ -155,8 +234,67 @@ export default class GamesController {
       }
     } else if (auth.user!.role === 'admin' || auth.user!.role === 'editor') {
       // admins and editors can update all properties
-      game.merge({ boxartId, logoId, screenshotId, titlescreenId });
+      const payload: Record<string, unknown> = {};
+      if (platformId !== undefined) {
+        payload.platformId = platformId;
+      }
+      if (titleId !== undefined) {
+        payload.titleId = titleId;
+      }
+      if (name !== undefined) {
+        payload.name = name;
+      }
+      if (releaseDate !== undefined) {
+        payload.releaseDate = releaseDate ? DateTime.fromISO(releaseDate) : null;
+      }
+      if (esrbRating !== undefined) {
+        payload.esrbRating = esrbRating;
+      }
+      if (pegiRating !== undefined) {
+        payload.pegiRating = pegiRating;
+      }
+      if (boxartId !== undefined) {
+        payload.boxartId = boxartId;
+      }
+      if (logoId !== undefined) {
+        payload.logoId = logoId;
+      }
+      if (screenshotId !== undefined) {
+        payload.screenshotId = screenshotId;
+      }
+      if (titlescreenId !== undefined) {
+        payload.titlescreenId = titlescreenId;
+      }
+
+      game.merge(payload);
+
+      if (Array.isArray(developerIds)) {
+        await game.related('developers').sync(developerIds);
+      }
+      if (Array.isArray(publisherIds)) {
+        await game.related('publishers').sync(publisherIds);
+      }
+      if (Array.isArray(regionIds)) {
+        await game.related('regions').sync(regionIds);
+      }
+      if (Array.isArray(languageIds)) {
+        await game.related('languages').sync(languageIds);
+      }
     }
-    return await game.save();
+
+    await game.save();
+
+    await game.load('title');
+    await game.load('platform');
+    await game.load('regions');
+    await game.load('developers');
+    await game.load('publishers');
+    await game.load('languages');
+    await game.load('boxart');
+    await game.load('logo');
+    await game.load('screenshot');
+    await game.load('titlescreen');
+
+    return game;
   }
 }

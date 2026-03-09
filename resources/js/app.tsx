@@ -29,6 +29,8 @@ const FrontendEditPage = lazy(() => import('./pages/frontend-edit'));
 const FrontendNewPage = lazy(() => import('./pages/frontend-new'));
 const FrontendPage = lazy(() => import('./pages/frontend'));
 const FrontendsPage = lazy(() => import('./pages/frontends'));
+const GameEditPage = lazy(() => import('./pages/game-edit'));
+const GameNewPage = lazy(() => import('./pages/game-new'));
 const GamePage = lazy(() => import('./pages/game'));
 const GameTranslatePage = lazy(() => import('./pages/game-translate'));
 const GenreEditPage = lazy(() => import('./pages/genre-edit'));
@@ -212,6 +214,18 @@ function App() {
                   <Route path="/platforms/:platformId/games/:gameId/translate">
                     <RequireAuth>
                       <GameTranslatePage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/platforms/:platformId/games/new">
+                    <RequireAuth>
+                      <GameNewPage />
+                    </RequireAuth>
+                  </Route>
+
+                  <Route path="/platforms/:platformId/games/:gameId/edit">
+                    <RequireAuth>
+                      <GameEditPage />
                     </RequireAuth>
                   </Route>
 

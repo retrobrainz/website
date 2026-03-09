@@ -1,3 +1,4 @@
+import { EditOutlined } from '@ant-design/icons';
 import { Badge, Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
@@ -5,14 +6,17 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
 import FavoriteButton from '../../components/favorite-button';
+import { useAuth } from '../../contexts/auth';
 import Game from '../../types/Game';
 import ImageUpload from '../platform/ImageUpload';
 
 export default function GamePage() {
   const { gameId } = useParams<{ gameId: string }>();
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
+  const canEdit = user?.role === 'admin' || user?.role === 'editor';
 
   const gameTranslation = game?.translations?.find((tr) => tr.locale === i18n.language);
   const displayName = gameTranslation?.name || game?.name;
@@ -46,6 +50,11 @@ export default function GamePage() {
         <Link href={`/platforms/${game?.platform?.id}/games/${game?.id}/translate`}>
           <Button>{t('translate')}</Button>
         </Link>
+        {canEdit && (
+          <Link href={`/platforms/${game?.platform?.id}/games/${game?.id}/edit`}>
+            <Button icon={<EditOutlined />}>{t('edit')}</Button>
+          </Link>
+        )}
       </Flex>
 
       <Image.PreviewGroup>
