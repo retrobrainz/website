@@ -183,25 +183,6 @@ export default class TitlesController {
           .ignore();
       }
 
-      // Migrate translations
-      const translationRows = await trx
-        .from('title_translations')
-        .where('title_id', sourceTitleId)
-        .select('locale', 'name');
-      if (translationRows.length > 0) {
-        await trx
-          .table('title_translations')
-          .insert(
-            translationRows.map((row) => ({
-              locale: row.locale,
-              name: row.name,
-              title_id: targetTitleId,
-            })),
-          )
-          .onConflict(['locale', 'title_id'])
-          .ignore();
-      }
-
       await trx.from('titles').where('id', sourceTitleId).delete();
     });
 
