@@ -57,7 +57,7 @@ export default function FranchisesPage() {
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
           {franchises?.data?.map((franchise) => (
-            <Col key={franchise.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+            <Col key={franchise.id} xs={24} md={12} xl={8} xxl={6} xxxl={4}>
               <FranchiseCard franchise={franchise} />
             </Col>
           ))}

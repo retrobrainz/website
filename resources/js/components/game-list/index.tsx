@@ -137,7 +137,7 @@ export default function GameList({
       <Spin spinning={loading}>
         <Row justify="center" gutter={[24, 24]} style={{ marginTop: 24 }}>
           {data?.data?.map((game) => (
-            <Col key={game.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+            <Col key={game.id} xs={24} md={12} xl={8} xxl={6} xxxl={4}>
               <GameCard game={game} />
             </Col>
           ))}

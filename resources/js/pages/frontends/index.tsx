@@ -62,7 +62,7 @@ export default function FrontendsPage() {
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
           {data?.data.map((frontend) => (
-            <Col key={frontend.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+            <Col key={frontend.id} xs={24} md={12} xl={8} xxl={6} xxxl={4}>
               <FrontendCard frontend={frontend} />
             </Col>
           ))}

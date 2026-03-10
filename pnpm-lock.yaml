@@ -51,11 +51,11 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       antd:
-        specifier: ^6.3.1
-        version: 6.3.1(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^6.3.2
+        version: 6.3.2(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       antd-moe:
         specifier: ^1.0.0
-        version: 1.0.0(antd@6.3.1(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+        version: 1.0.0(antd@6.3.2(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -1868,8 +1868,8 @@ packages:
       react: '>=16.11.0'
       react-dom: '>=16.11.0'
 
-  '@rc-component/form@1.6.2':
-    resolution: {integrity: sha512-OgIn2RAoaSBqaIgzJf/X6iflIa9LpTozci1lagLBdURDFhGA370v0+T0tXxOi8YShMjTha531sFhwtnrv+EJaQ==}
+  '@rc-component/form@1.7.1':
+    resolution: {integrity: sha512-Uhw0FPvJ+Ko4xBxhvziqmqzIuO0YvVBzVyFGNAI9fMCz4r4DfrYK6PRIN6CkFqM0vdAX9sr4JGA1/h/VzpA1cA==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
@@ -2537,8 +2537,8 @@ packages:
       antd: ^5.29.0 || ^6.2.0
       react: '>=16.8.0'
 
-  antd@6.3.1:
-    resolution: {integrity: sha512-8pRjvxitZFyrYAtgwml93Km7fCXjw9IeqlmzpIsusRsmO3eWFVrOMum6+0TsGCtR/WrXVnPwfsgrFg3ChzGCeA==}
+  antd@6.3.2:
+    resolution: {integrity: sha512-IlMoqaXlq5Bgxi0ANERhAzmDREYyGwr/U7MCVihaUQbE/ZOB3r4ArakUxjA1ULYNDA6K00dawSrB8aalGnZlLA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -7108,7 +7108,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@rc-component/form@1.6.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@rc-component/form@1.7.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@rc-component/async-validator': 5.1.0
       '@rc-component/util': 1.9.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -7859,13 +7859,13 @@ snapshots:
 
   ansi-styles@6.2.3: {}
 
-  antd-moe@1.0.0(antd@6.3.1(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
+  antd-moe@1.0.0(antd@6.3.2(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
     dependencies:
-      antd: 6.3.1(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      antd: 6.3.2(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       clsx: 2.1.1
       react: 19.2.4
 
-  antd@6.3.1(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  antd@6.3.2(luxon@3.7.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@ant-design/colors': 8.0.1
       '@ant-design/cssinjs': 2.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -7881,7 +7881,7 @@ snapshots:
       '@rc-component/dialog': 1.8.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@rc-component/drawer': 1.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@rc-component/dropdown': 1.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@rc-component/form': 1.6.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@rc-component/form': 1.7.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@rc-component/image': 1.6.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@rc-component/input': 1.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@rc-component/input-number': 1.6.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)

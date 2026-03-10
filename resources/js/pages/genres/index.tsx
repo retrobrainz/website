@@ -57,7 +57,7 @@ export default function GenresPage() {
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
           {genres?.data?.map((genre) => (
-            <Col key={genre.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+            <Col key={genre.id} xs={24} md={12} xl={8} xxl={6} xxxl={4}>
               <GenreCard genre={genre} />
             </Col>
           ))}

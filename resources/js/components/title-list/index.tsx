@@ -95,7 +95,7 @@ export default function TitleList({
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
           {data?.data?.map((title) => (
-            <Col key={title.id} xs={24} sm={12} md={8} xl={6} xxl={4}>
+            <Col key={title.id} xs={24} md={12} xl={8} xxl={6} xxxl={4}>
               <TitleCard title={title} />
             </Col>
           ))}
