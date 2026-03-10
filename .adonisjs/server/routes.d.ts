@@ -21,6 +21,7 @@ export type ScannedRoutes = {
     'franchises.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'franchises.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.index': { paramsTuple?: []; params?: {} }
     'frontends.store': { paramsTuple?: []; params?: {} }
     'frontends.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -215,6 +216,7 @@ export type ScannedRoutes = {
     'companies.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'emulators.store': { paramsTuple?: []; params?: {} }
     'franchises.store': { paramsTuple?: []; params?: {} }
+    'franchises.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.store': { paramsTuple?: []; params?: {} }
     'games.store': { paramsTuple?: []; params?: {} }
     'genres.store': { paramsTuple?: []; params?: {} }

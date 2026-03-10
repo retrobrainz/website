@@ -48,6 +48,8 @@
   "merge": "合併",
   "merge-company": "合併廠商",
   "merge-company-description": "將開發與發行遊戲轉移到目標廠商。",
+  "merge-franchise": "合併系列",
+  "merge-franchise-description": "將相關作品遷移到目標系列。",
   "merge-success": "合併成功",
   "merge-title": "合併作品",
   "merge-title-description": "將相關遊戲和關係遷移到目標作品。",

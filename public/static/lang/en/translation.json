@@ -48,6 +48,8 @@
   "merge": "Merge",
   "merge-company": "Merge company",
   "merge-company-description": "Move developed and published games to the target company.",
+  "merge-franchise": "Merge franchise",
+  "merge-franchise-description": "Move titles to the target franchise.",
   "merge-success": "Merged successfully",
   "merge-title": "Merge title",
   "merge-title-description": "Move related games and relationships to the target title.",

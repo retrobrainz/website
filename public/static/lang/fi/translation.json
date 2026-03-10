@@ -50,6 +50,8 @@
   "merge": "Yhdistä",
   "merge-company": "Yhdistä yritys",
   "merge-company-description": "Siirrä kehitetyt ja julkaistut pelit kohdeyritykselle.",
+  "merge-franchise": "Yhdistä pelisarja",
+  "merge-franchise-description": "Siirrä otsikot kohdepelisarjaan.",
   "merge-success": "Yhdistetty onnistuneesti",
   "merge-title": "Yhdistä otsikko",
   "merge-title-description": "Siirrä liittyvät pelit ja suhteet kohdeotsikkoon.",

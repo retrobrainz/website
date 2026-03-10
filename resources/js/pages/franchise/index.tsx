@@ -4,6 +4,7 @@ import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
+import FranchiseMergeButton from '../../components/franchise-merge-button';
 import GameList from '../../components/game-list';
 import TitleList from '../../components/title-list';
 import { useAuth } from '../../contexts/auth';
@@ -46,6 +47,7 @@ export default function FranchisePage() {
             <Link href={`/franchises/${franchiseId}/edit`}>
               <Button icon={<EditOutlined />}>{t('edit')}</Button>
             </Link>
+            <FranchiseMergeButton franchiseId={Number(franchiseId)} />
           </Flex>
         )}
       </Flex>

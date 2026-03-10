@@ -49,7 +49,10 @@ router
     router
       .resource('franchises', FranchisesController)
       .apiOnly()
-      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
+    router
+      .post('franchises/:id/merge', [FranchisesController, 'merge'])
+      .use(middleware.auth({ guards: ['api'] }));
     router
       .resource('frontends', FrontendsController)
       .apiOnly()

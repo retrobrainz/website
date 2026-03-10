@@ -50,6 +50,8 @@
   "merge": "Mesclar",
   "merge-company": "Mesclar empresa",
   "merge-company-description": "Transfira os jogos desenvolvidos e publicados para a empresa de destino.",
+  "merge-franchise": "Mesclar franquia",
+  "merge-franchise-description": "Mova os títulos para a franquia de destino.",
   "merge-success": "Mesclado com sucesso",
   "merge-title": "Mesclar título",
   "merge-title-description": "Mova os jogos e relacionamentos relacionados para o título de destino.",

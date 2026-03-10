@@ -48,6 +48,8 @@
   "merge": "Sammanfoga",
   "merge-company": "Sammanfoga företag",
   "merge-company-description": "Flytta utvecklade och publicerade spel till målföretaget.",
+  "merge-franchise": "Sammanfoga franchise",
+  "merge-franchise-description": "Flytta titlar till målfranchisen.",
   "merge-success": "Sammanfogning lyckades",
   "merge-title": "Slå samman titel",
   "merge-title-description": "Flytta relaterade spel och relationer till måltiteln.",
