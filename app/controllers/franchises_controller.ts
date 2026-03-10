@@ -56,7 +56,7 @@ export default class FranchisesController {
       return response.forbidden({ message: 'Unauthorized' });
     }
 
-    const data = request.only(['name']);
+    const data = request.only(['name', 'wikipedia']);
     return Franchise.create(data);
   }
 
@@ -70,7 +70,7 @@ export default class FranchisesController {
     }
 
     const franchise = await Franchise.findOrFail(params.id);
-    const data = request.only(['name']);
+    const data = request.only(['name', 'wikipedia']);
     franchise.merge(data);
     return franchise.save();
   }

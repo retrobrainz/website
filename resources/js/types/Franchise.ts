@@ -11,6 +11,7 @@ export interface FranchiseTranslation {
 export default interface Franchise {
   id: number;
   name: string;
+  wikipedia?: string | null;
   translations?: FranchiseTranslation[];
   titles?: Title[];
   titlesCount?: number | null;

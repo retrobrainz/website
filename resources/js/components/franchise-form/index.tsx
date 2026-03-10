@@ -19,6 +19,7 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
     if (franchise) {
       form.setFieldsValue({
         name: franchise.name,
+        wikipedia: franchise.wikipedia,
       });
     }
   }, [franchise, form]);
@@ -44,6 +45,10 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
+      </Form.Item>
+
+      <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
+        <Input type="url" placeholder="https://wikipedia.org/wiki/..." />
       </Form.Item>
 
       <Form.Item>

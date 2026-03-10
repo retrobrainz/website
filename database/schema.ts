@@ -126,7 +126,7 @@ export class FranchiseTranslationSchema extends BaseModel {
 }
 
 export class FranchiseSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt', 'wikipedia'] as const
   $columns = FranchiseSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -136,6 +136,8 @@ export class FranchiseSchema extends BaseModel {
   declare name: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare wikipedia: string | null
 }
 
 export class FrontendEmulatorSchema extends BaseModel {

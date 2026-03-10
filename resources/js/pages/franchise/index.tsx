@@ -1,5 +1,5 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
+import { Breadcrumb, Button, Card, Descriptions, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -49,6 +49,23 @@ export default function FranchisePage() {
           </Flex>
         )}
       </Flex>
+
+      <Card style={{ marginBottom: 16 }}>
+        <Descriptions
+          items={[
+            {
+              label: t('wikipedia'),
+              children: franchise?.wikipedia ? (
+                <a href={franchise.wikipedia} target="_blank" rel="noreferrer">
+                  {franchise.wikipedia}
+                </a>
+              ) : (
+                t('none')
+              ),
+            },
+          ]}
+        />
+      </Card>
 
       <Tabs
         items={[

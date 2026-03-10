@@ -11,6 +11,9 @@ export default class Franchise extends BaseModel {
   @column()
   declare name: string;
 
+  @column()
+  declare wikipedia: string | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 
