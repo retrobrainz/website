@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import GameList from '../../components/game-list';
 import TitleMergeButton from '../../components/title-merge-button';
+import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Title from '../../types/Title';
 
@@ -58,6 +59,8 @@ export default function TitlePage() {
           )}
         </Flex>
       </Flex>
+
+      <WikipediaExcerpt url={title?.wikipedia} />
 
       <GameList
         initialFilters={{ titleId: Number(titleId) }}
