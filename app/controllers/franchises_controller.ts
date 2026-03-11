@@ -1,5 +1,6 @@
 import Franchise from '#models/franchise';
 import { franchiseMergeValidator } from '#validators/franchise_merge_validator';
+import { franchiseValidator } from '#validators/franchise_validator';
 import type { HttpContext } from '@adonisjs/core/http';
 import db from '@adonisjs/lucid/services/db';
 
@@ -58,7 +59,7 @@ export default class FranchisesController {
       return response.forbidden({ message: 'Unauthorized' });
     }
 
-    const data = request.only(['name', 'wikipedia', 'iconId']);
+    const data = await request.validateUsing(franchiseValidator);
     return Franchise.create(data);
   }
 
@@ -72,7 +73,8 @@ export default class FranchisesController {
     }
 
     const franchise = await Franchise.findOrFail(params.id);
-    const data = request.only(['name', 'wikipedia', 'iconId']);
+    const data = await request.validateUsing(franchiseValidator);
+    console.log(data);
     franchise.merge(data);
     return franchise.save();
   }

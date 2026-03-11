@@ -21,7 +21,7 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
                 alt={`${franchise.name} icon`}
                 width={56}
                 height={56}
-                style={{ display: 'block' }}
+                style={{ display: 'block', borderRadius: 4 }}
               />
             )
           }

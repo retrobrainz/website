@@ -18,18 +18,14 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
 
   useEffect(() => {
     if (franchise) {
-      form.setFieldsValue({
-        name: franchise.name,
-        iconId: franchise.iconId,
-        wikipedia: franchise.wikipedia,
-      });
+      form.setFieldsValue(franchise);
     }
   }, [franchise, form]);
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      await onSubmit(values);
+      await onSubmit({ ...values, iconId: values.icon?.id });
     } catch (error: any) {
       if (error.response?.data?.errors) {
         error.response.data.errors.forEach((err: any) => {
@@ -45,7 +41,7 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item label={t('icon')} name="iconId">
+      <Form.Item label={t('icon')} name="icon">
         <ImageUpload width={256} height={256} format="avif" fit="cover" />
       </Form.Item>
 
