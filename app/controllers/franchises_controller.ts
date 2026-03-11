@@ -25,7 +25,7 @@ export default class FranchisesController {
         });
     }
 
-    query.orderBy('titles_count', 'desc');
+    query.orderBy('titles_count', 'desc').orderBy('name', 'asc');
 
     if (locale) {
       query.preload('translations', (q) => q.where('locale', locale));
