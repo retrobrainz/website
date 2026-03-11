@@ -1,5 +1,16 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Card, Col, Descriptions, Flex, Row, Tabs, Typography } from 'antd';
+import {
+  Avatar,
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Descriptions,
+  Flex,
+  Row,
+  Tabs,
+  Typography,
+} from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +45,15 @@ export default function FranchisePage() {
       />
 
       <Flex align="center" style={{ marginBottom: 16 }}>
+        {franchise?.icon && (
+          <Avatar
+            src={franchise?.icon?.url}
+            alt={`${displayName} icon`}
+            shape="square"
+            size={48}
+            style={{ marginRight: 8 }}
+          />
+        )}
         <Typography.Title level={1} style={{ margin: 0 }}>
           {displayName}
         </Typography.Title>

@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Avatar, Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
 import Franchise from '../../types/Franchise';
@@ -16,12 +16,11 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
         <Card.Meta
           avatar={
             franchise.icon && (
-              <img
+              <Avatar
                 src={franchise.icon.url}
                 alt={`${franchise.name} icon`}
-                width={56}
-                height={56}
-                style={{ display: 'block', borderRadius: 4 }}
+                shape="square"
+                size={56}
               />
             )
           }
