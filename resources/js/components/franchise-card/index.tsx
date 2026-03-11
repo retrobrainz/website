@@ -21,6 +21,7 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
                 alt={`${franchise.name} icon`}
                 shape="square"
                 size={56}
+                style={{ background: '#eee' }}
               />
             )
           }

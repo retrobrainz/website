@@ -51,7 +51,7 @@ export default function FranchisePage() {
             alt={`${displayName} icon`}
             shape="square"
             size={48}
-            style={{ marginRight: 8 }}
+            style={{ marginRight: 8, background: '#fff' }}
           />
         )}
         <Typography.Title level={1} style={{ margin: 0 }}>
