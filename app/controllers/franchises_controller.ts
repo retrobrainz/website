@@ -13,7 +13,7 @@ export default class FranchisesController {
     const locale = request.input('locale', i18n.locale);
     const search = request.input('search');
 
-    const query = Franchise.query().withCount('titles');
+    const query = Franchise.query().withCount('titles').preload('icon');
 
     if (search) {
       search
@@ -38,7 +38,7 @@ export default class FranchisesController {
    */
   async show({ params, request, i18n }: HttpContext) {
     const locale = request.input('locale');
-    const query = Franchise.query().where('id', params.id).withCount('titles');
+    const query = Franchise.query().where('id', params.id).withCount('titles').preload('icon');
 
     if (locale === '*') {
       query.preload('translations');
@@ -58,7 +58,7 @@ export default class FranchisesController {
       return response.forbidden({ message: 'Unauthorized' });
     }
 
-    const data = request.only(['name', 'wikipedia']);
+    const data = request.only(['name', 'wikipedia', 'iconId']);
     return Franchise.create(data);
   }
 
@@ -72,7 +72,7 @@ export default class FranchisesController {
     }
 
     const franchise = await Franchise.findOrFail(params.id);
-    const data = request.only(['name', 'wikipedia']);
+    const data = request.only(['name', 'wikipedia', 'iconId']);
     franchise.merge(data);
     return franchise.save();
   }

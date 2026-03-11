@@ -2,6 +2,7 @@ import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Franchise from '../../types/Franchise';
+import ImageUpload from '../image-upload';
 
 interface FranchiseFormProps {
   franchise?: Franchise;
@@ -19,6 +20,7 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
     if (franchise) {
       form.setFieldsValue({
         name: franchise.name,
+        iconId: franchise.iconId,
         wikipedia: franchise.wikipedia,
       });
     }
@@ -43,6 +45,10 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
+      <Form.Item label={t('icon')} name="iconId">
+        <ImageUpload width={256} height={256} format="avif" fit="cover" />
+      </Form.Item>
+
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
       </Form.Item>

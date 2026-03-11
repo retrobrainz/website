@@ -14,6 +14,17 @@ export default function FranchiseCard({ franchise }: FranchiseCardProps) {
     <Link href={`/franchises/${franchise.id}`}>
       <Card hoverable>
         <Card.Meta
+          avatar={
+            franchise.icon && (
+              <img
+                src={franchise.icon.url}
+                alt={`${franchise.name} icon`}
+                width={56}
+                height={56}
+                style={{ display: 'block' }}
+              />
+            )
+          }
           title={franchise.translations?.[0]?.name || franchise.name}
           description={`${franchise.titlesCount ?? 0} ${t('titles')}`}
         />

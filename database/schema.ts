@@ -126,10 +126,12 @@ export class FranchiseTranslationSchema extends BaseModel {
 }
 
 export class FranchiseSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'updatedAt', 'wikipedia'] as const
+  static $columns = ['createdAt', 'iconId', 'id', 'name', 'updatedAt', 'wikipedia'] as const
   $columns = FranchiseSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare iconId: number | null
   @column({ isPrimary: true })
   declare id: number
   @column()
