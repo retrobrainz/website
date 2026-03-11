@@ -1,0 +1,9 @@
+.wikipedia-excerpt .mw-empty-elt {
+  display: none;
+}
+
+.wikipedia-excerpt p,
+.wikipedia-excerpt li {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}

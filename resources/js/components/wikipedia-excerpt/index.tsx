@@ -1,6 +1,7 @@
-import { Card, Skeleton } from 'antd';
+import { Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import './index.css';
 
 export interface WikipediaExcerptProps {
   url?: string | null;
@@ -60,7 +61,7 @@ export default function WikipediaExcerpt({ url }: WikipediaExcerptProps) {
   if (!url || (!loading && !extract)) return null;
 
   return (
-    <Card style={{ marginBottom: 24 }}>
+    <div>
       {loading ? (
         <Skeleton active />
       ) : (
@@ -68,12 +69,12 @@ export default function WikipediaExcerpt({ url }: WikipediaExcerptProps) {
           {/* The MediaWiki Action API sanitizes extract HTML through its own parser,
               stripping scripts and other dangerous elements before returning it. */}
           {/* eslint-disable-next-line react/no-danger */}
-          <div dangerouslySetInnerHTML={{ __html: extract || '' }} />
+          <div className="wikipedia-excerpt" dangerouslySetInnerHTML={{ __html: extract || '' }} />
           <a href={url} target="_blank" rel="noopener noreferrer">
             {t('view-more-on-wikipedia')}
           </a>
         </>
       )}
-    </Card>
+    </div>
   );
 }
