@@ -133,6 +133,9 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
     }
   };
 
+  const platformId = Form.useWatch('platformId', form);
+  const platform = platforms?.find((p) => p.id === platformId);
+
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
@@ -141,9 +144,7 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
 
       <Form.Item label={t('platform')} name="platformId" rules={[{ required: true }]}>
         <Select
-          options={
-            platforms?.map((platform) => ({ value: platform.id, label: platform.name })) || []
-          }
+          options={platforms?.map((p) => ({ value: p.id, label: p.name })) || []}
           placeholder={t('select')}
           showSearch
           optionFilterProp="label"
@@ -205,19 +206,29 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       </Form.Item>
 
       <Form.Item label={t('boxart')} name="boxart">
-        <ImageUpload width="1024" height="1024" fit="inside" />
+        <ImageUpload width={2048} height={2048} fit="inside" format="avif" />
       </Form.Item>
 
       <Form.Item label={t('logo')} name="logo">
-        <ImageUpload width="1024" height="1024" fit="inside" />
+        <ImageUpload width={512} height={512} fit="inside" format="avif" />
       </Form.Item>
 
       <Form.Item label={t('screenshot')} name="screenshot">
-        <ImageUpload width="1280" height="720" fit="inside" />
+        <ImageUpload
+          width={platform?.screenWidth || 1280}
+          height={platform?.screenHeight || 720}
+          fit="inside"
+          format="avif"
+        />
       </Form.Item>
 
       <Form.Item label={t('titlescreen')} name="titlescreen">
-        <ImageUpload width="1280" height="720" fit="inside" />
+        <ImageUpload
+          width={platform?.screenWidth || 1280}
+          height={platform?.screenHeight || 720}
+          fit="inside"
+          format="avif"
+        />
       </Form.Item>
 
       <Form.Item>
