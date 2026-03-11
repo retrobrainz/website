@@ -7,6 +7,7 @@ import { Link, useParams } from 'wouter';
 import FranchiseMergeButton from '../../components/franchise-merge-button';
 import GameList from '../../components/game-list';
 import TitleList from '../../components/title-list';
+import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Franchise from '../../types/Franchise';
 
@@ -68,6 +69,8 @@ export default function FranchisePage() {
           ]}
         />
       </Card>
+
+      <WikipediaExcerpt url={franchise?.wikipedia} />
 
       <Tabs
         items={[

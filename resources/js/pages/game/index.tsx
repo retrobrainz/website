@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
 import FavoriteButton from '../../components/favorite-button';
+import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Game from '../../types/Game';
 import ImageUpload from '../platform/ImageUpload';
@@ -208,6 +209,8 @@ export default function GamePage() {
           ]}
         />
       </Card>
+
+      <WikipediaExcerpt url={game?.title?.wikipedia} />
     </Container>
   );
 }
