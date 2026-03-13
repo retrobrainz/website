@@ -1,5 +1,15 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Badge, Breadcrumb, Button, Card, Descriptions, Flex, Image, Typography } from 'antd';
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  Descriptions,
+  Divider,
+  Flex,
+  Image,
+  Typography,
+} from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -208,9 +218,11 @@ export default function GamePage() {
             },
           ]}
         />
-      </Card>
 
-      <WikipediaExcerpt url={game?.title?.wikipedia} />
+        <Divider />
+
+        <WikipediaExcerpt url={game?.title?.wikipedia} />
+      </Card>
     </Container>
   );
 }
