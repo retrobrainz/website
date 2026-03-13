@@ -75,25 +75,11 @@ export default function FranchisePage() {
 
       <Card style={{ marginBottom: 16 }}>
         <Row>
-          <Col xs={24} md={12}>
+          <Col xs={24} md={12} xl={16} xxl={18}>
             <WikipediaExcerpt url={franchise?.wikipedia} />
           </Col>
-          <Col xs={24} md={12}>
-            <Descriptions
-              title={t('details')}
-              items={[
-                {
-                  label: t('wikipedia'),
-                  children: franchise?.wikipedia ? (
-                    <a href={franchise.wikipedia} target="_blank" rel="noreferrer">
-                      {franchise.wikipedia}
-                    </a>
-                  ) : (
-                    t('none')
-                  ),
-                },
-              ]}
-            />
+          <Col xs={24} md={12} xl={8} xxl={6}>
+            <Descriptions column={1} items={[]} />
           </Col>
         </Row>
       </Card>
