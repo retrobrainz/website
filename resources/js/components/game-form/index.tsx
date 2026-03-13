@@ -167,7 +167,11 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       <Form.Item
         label={t('release-date')}
         name="releaseDate"
-        extra={<AskGoogle query={`release date of ${platform?.name} game "${game?.name}"`} />}
+        extra={
+          <AskGoogle
+            query={`release date (YYYY-MM-DD) of ${platform?.name} game "${game?.name}"`}
+          />
+        }
       >
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
