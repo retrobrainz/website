@@ -8,6 +8,7 @@ import type Language from '../../types/Language';
 import type Platform from '../../types/Platform';
 import type Region from '../../types/Region';
 import type Title from '../../types/Title';
+import AskGoogle from '../ask-google';
 import CompanySelect from '../company-select';
 import ImageUpload from '../image-upload';
 
@@ -163,7 +164,11 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         />
       </Form.Item>
 
-      <Form.Item label={t('release-date')} name="releaseDate">
+      <Form.Item
+        label={t('release-date')}
+        name="releaseDate"
+        extra={<AskGoogle query={`release date of ${platform?.name} game "${game?.name}"`} />}
+      >
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
 
@@ -175,11 +180,19 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         <Input maxLength={2} />
       </Form.Item>
 
-      <Form.Item label={t('developers')} name="developerIds">
+      <Form.Item
+        label={t('developers')}
+        name="developerIds"
+        extra={<AskGoogle query={`developer of ${platform?.name} game "${game?.name}"`} />}
+      >
         <CompanySelect mode="multiple" />
       </Form.Item>
 
-      <Form.Item label={t('publishers')} name="publisherIds">
+      <Form.Item
+        label={t('publishers')}
+        name="publisherIds"
+        extra={<AskGoogle query={`publisher of ${platform?.name} game "${game?.name}"`} />}
+      >
         <CompanySelect mode="multiple" />
       </Form.Item>
 
@@ -193,7 +206,11 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         />
       </Form.Item>
 
-      <Form.Item label={t('languages')} name="languageIds">
+      <Form.Item
+        label={t('languages')}
+        name="languageIds"
+        extra={<AskGoogle query={`languages of ${platform?.name} game "${game?.name}"`} />}
+      >
         <Select
           mode="multiple"
           options={
