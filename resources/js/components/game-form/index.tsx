@@ -10,6 +10,7 @@ import type Region from '../../types/Region';
 import type Title from '../../types/Title';
 import AskGoogle from '../ask-google';
 import CompanySelect from '../company-select';
+import EsrbRatingSelect from '../esrb-rating-select';
 import ImageUpload from '../image-upload';
 
 interface GameFormProps {
@@ -177,7 +178,7 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       </Form.Item>
 
       <Form.Item label={t('esrb-rating')} name="esrbRating">
-        <Input maxLength={4} />
+        <EsrbRatingSelect />
       </Form.Item>
 
       <Form.Item label={t('pegi-rating')} name="pegiRating">
