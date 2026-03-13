@@ -1,4 +1,4 @@
-import { Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
+import { Checkbox, Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,10 @@ interface GameListFilters {
   developerId?: number;
   publisherId?: number;
   titleId?: number;
+  noDeveloper?: boolean;
+  noPublisher?: boolean;
+  noReleaseDate?: boolean;
+  noLanguage?: boolean;
   search?: string;
   orderBy?: string;
 }
@@ -129,6 +133,30 @@ export default function GameList({
                   label: language.name,
                 }))}
               />
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noDeveloper') && (
+            <Form.Item name="noDeveloper" valuePropName="checked">
+              <Checkbox>{t('no-developer')}</Checkbox>
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noPublisher') && (
+            <Form.Item name="noPublisher" valuePropName="checked">
+              <Checkbox>{t('no-publisher')}</Checkbox>
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noReleaseDate') && (
+            <Form.Item name="noReleaseDate" valuePropName="checked">
+              <Checkbox>{t('no-release-date')}</Checkbox>
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noLanguage') && (
+            <Form.Item name="noLanguage" valuePropName="checked">
+              <Checkbox>{t('no-languages')}</Checkbox>
             </Form.Item>
           )}
         </Form>

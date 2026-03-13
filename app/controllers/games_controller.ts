@@ -74,6 +74,26 @@ export default class GamesController {
       });
     }
 
+    const noDeveloper = request.input('noDeveloper');
+    if (noDeveloper === 'true' || noDeveloper === true) {
+      query.doesntHave('developers');
+    }
+
+    const noPublisher = request.input('noPublisher');
+    if (noPublisher === 'true' || noPublisher === true) {
+      query.doesntHave('publishers');
+    }
+
+    const noReleaseDate = request.input('noReleaseDate');
+    if (noReleaseDate === 'true' || noReleaseDate === true) {
+      query.whereNull('releaseDate');
+    }
+
+    const noLanguage = request.input('noLanguage');
+    if (noLanguage === 'true' || noLanguage === true) {
+      query.doesntHave('languages');
+    }
+
     const search = request.input('search');
     if (search) {
       search

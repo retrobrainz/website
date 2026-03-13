@@ -141,7 +141,15 @@ export default function CompanyPage() {
             children: (
               <GameList
                 initialFilters={{ developerId: Number(companyId) }}
-                showFilters={['search', 'platformId', 'regionId', 'languageId']}
+                showFilters={[
+                  'search',
+                  'platformId',
+                  'regionId',
+                  'languageId',
+                  'noPublisher',
+                  'noReleaseDate',
+                  'noLanguage',
+                ]}
               />
             ),
           },
@@ -151,7 +159,15 @@ export default function CompanyPage() {
             children: (
               <GameList
                 initialFilters={{ publisherId: Number(companyId) }}
-                showFilters={['search', 'platformId', 'regionId', 'languageId']}
+                showFilters={[
+                  'search',
+                  'platformId',
+                  'regionId',
+                  'languageId',
+                  'noDeveloper',
+                  'noReleaseDate',
+                  'noLanguage',
+                ]}
               />
             ),
           },

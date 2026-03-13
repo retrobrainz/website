@@ -64,7 +64,16 @@ export default function TitlePage() {
 
       <GameList
         initialFilters={{ titleId: Number(titleId) }}
-        showFilters={['search', 'platformId', 'regionId', 'languageId']}
+        showFilters={[
+          'search',
+          'platformId',
+          'regionId',
+          'languageId',
+          'noDeveloper',
+          'noPublisher',
+          'noReleaseDate',
+          'noLanguage',
+        ]}
       />
     </Container>
   );

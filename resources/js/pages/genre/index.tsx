@@ -68,7 +68,16 @@ export default function GenrePage() {
             children: (
               <GameList
                 initialFilters={{ genreId: Number(genreId) }}
-                showFilters={['search', 'platformId', 'regionId', 'languageId']}
+                showFilters={[
+                  'search',
+                  'platformId',
+                  'regionId',
+                  'languageId',
+                  'noDeveloper',
+                  'noPublisher',
+                  'noReleaseDate',
+                  'noLanguage',
+                ]}
               />
             ),
           },

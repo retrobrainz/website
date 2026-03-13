@@ -116,7 +116,16 @@ export default function FranchisePage() {
             children: (
               <GameList
                 initialFilters={{ franchiseId: Number(franchiseId) }}
-                showFilters={['search', 'platformId', 'regionId', 'languageId']}
+                showFilters={[
+                  'search',
+                  'platformId',
+                  'regionId',
+                  'languageId',
+                  'noDeveloper',
+                  'noPublisher',
+                  'noReleaseDate',
+                  'noLanguage',
+                ]}
               />
             ),
           },

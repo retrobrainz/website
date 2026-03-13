@@ -10,7 +10,16 @@ export default function SearchPage() {
     <Container style={{ paddingTop: 24 }}>
       <GameList
         initialFilters={{ search }}
-        showFilters={['search', 'platformId', 'regionId', 'languageId']}
+        showFilters={[
+          'search',
+          'platformId',
+          'regionId',
+          'languageId',
+          'noDeveloper',
+          'noPublisher',
+          'noReleaseDate',
+          'noLanguage',
+        ]}
       />
     </Container>
   );
