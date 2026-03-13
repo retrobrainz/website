@@ -12,6 +12,7 @@ import AskGoogle from '../ask-google';
 import CompanySelect from '../company-select';
 import EsrbRatingSelect from '../esrb-rating-select';
 import ImageUpload from '../image-upload';
+import PegiRatingSelect from '../pegi-rating-select';
 
 interface GameFormProps {
   game?: Game;
@@ -182,7 +183,7 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       </Form.Item>
 
       <Form.Item label={t('pegi-rating')} name="pegiRating">
-        <Input maxLength={2} />
+        <PegiRatingSelect />
       </Form.Item>
 
       <Form.Item
