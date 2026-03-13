@@ -103,7 +103,7 @@
     "xior": "^0.8.3"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^8.0.0",
+    "@adonisjs/assembler": "^8.0.1",
     "@adonisjs/eslint-config": "^3.0.0",
     "@adonisjs/prettier-config": "^1.4.5",
     "@adonisjs/tsconfig": "^2.0.0",
