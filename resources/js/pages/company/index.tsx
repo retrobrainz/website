@@ -4,9 +4,11 @@ import {
   Breadcrumb,
   Button,
   Card,
+  Col,
   Descriptions,
   Flex,
   Popconfirm,
+  Row,
   Tabs,
   Typography,
 } from 'antd';
@@ -17,6 +19,7 @@ import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import CompanyMergeButton from '../../components/company-merge-button';
 import GameList from '../../components/game-list';
+import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Company from '../../types/Company';
 
@@ -88,49 +91,57 @@ export default function CompanyPage() {
       </Flex>
 
       <Card style={{ marginBottom: 16 }}>
-        <Descriptions
-          items={[
-            {
-              label: t('wikipedia'),
-              children: company?.wikipedia && (
-                <a href={company.wikipedia} target="_blank" rel="noreferrer">
-                  {company.wikipedia}
-                </a>
-              ),
-              hidden: !company?.wikipedia,
-            },
-            {
-              label: t('founding-date'),
-              children: company?.foundingDate,
-              hidden: !company?.foundingDate,
-            },
-            {
-              label: t('defunct-date'),
-              children: company?.defunctDate,
-              hidden: !company?.defunctDate,
-            },
-            {
-              label: t('parent-company'),
-              children: company?.parent && (
-                <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
-              ),
-              hidden: !company?.parent,
-            },
-            {
-              label: t('children-companies'),
-              children:
-                company?.children && company.children.length > 0
-                  ? company.children.map((child, index) => (
-                      <span key={child.id}>
-                        {index > 0 ? ', ' : ''}
-                        <Link href={`/companies/${child.id}`}>{child.name}</Link>
-                      </span>
-                    ))
-                  : null,
-              hidden: !company?.children || company.children.length === 0,
-            },
-          ].filter((item) => !item.hidden)}
-        />
+        <Row gutter={16}>
+          <Col xs={24} md={12} lg={16} xxl={18}>
+            <WikipediaExcerpt url={company?.wikipedia} />
+          </Col>
+          <Col xs={24} md={12} lg={8} xxl={6}>
+            <Descriptions
+              column={1}
+              items={[
+                {
+                  label: t('wikipedia'),
+                  children: company?.wikipedia && (
+                    <a href={company.wikipedia} target="_blank" rel="noreferrer">
+                      {company.wikipedia}
+                    </a>
+                  ),
+                  hidden: !company?.wikipedia,
+                },
+                {
+                  label: t('founding-date'),
+                  children: company?.foundingDate,
+                  hidden: !company?.foundingDate,
+                },
+                {
+                  label: t('defunct-date'),
+                  children: company?.defunctDate,
+                  hidden: !company?.defunctDate,
+                },
+                {
+                  label: t('parent-company'),
+                  children: company?.parent && (
+                    <Link href={`/companies/${company.parent.id}`}>{company.parent.name}</Link>
+                  ),
+                  hidden: !company?.parent,
+                },
+                {
+                  label: t('children-companies'),
+                  children:
+                    company?.children && company.children.length > 0
+                      ? company.children.map((child, index) => (
+                          <span key={child.id}>
+                            {index > 0 ? ', ' : ''}
+                            <Link href={`/companies/${child.id}`}>{child.name}</Link>
+                          </span>
+                        ))
+                      : null,
+                  hidden: !company?.children || company.children.length === 0,
+                },
+              ].filter((item) => !item.hidden)}
+            />
+          </Col>
+        </Row>
       </Card>
 
       <Tabs
