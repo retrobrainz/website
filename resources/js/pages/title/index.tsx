@@ -1,5 +1,5 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Card, Flex, Typography } from 'antd';
+import { Breadcrumb, Button, Card, Col, Descriptions, Flex, Row, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +56,46 @@ export default function TitlePage() {
       </Flex>
 
       <Card style={{ marginBottom: 24 }}>
-        <WikipediaExcerpt url={title?.wikipedia} />
+        <Row gutter={16}>
+          <Col xs={24} md={10} lg={8} xxl={7}>
+            <Descriptions
+              column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 1, xxl: 1 }}
+              items={[
+                {
+                  label: t('franchises'),
+                  children:
+                    title?.franchises && title.franchises.length > 0
+                      ? title.franchises.map((franchise, index, arr) => (
+                          <span key={franchise.id}>
+                            <Link href={`/franchises/${franchise.id}`}>
+                              {franchise.translations?.[0]?.name || franchise.name}
+                            </Link>
+                            {index < arr.length - 1 ? ', ' : ''}
+                          </span>
+                        ))
+                      : 'N/A',
+                },
+                {
+                  label: t('genres'),
+                  children:
+                    title?.genres && title.genres.length > 0
+                      ? title.genres.map((genre, index, arr) => (
+                          <span key={genre.id}>
+                            <Link href={`/genres/${genre.id}`}>
+                              {genre.translations?.[0]?.name || genre.name}
+                            </Link>
+                            {index < arr.length - 1 ? ', ' : ''}
+                          </span>
+                        ))
+                      : 'N/A',
+                },
+              ]}
+            />
+          </Col>
+          <Col xs={24} md={14} lg={16} xxl={17}>
+            <WikipediaExcerpt url={title?.wikipedia} />
+          </Col>
+        </Row>
       </Card>
 
       <GameList
