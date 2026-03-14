@@ -17,7 +17,11 @@ export default class CompaniesController {
     const query = Company.query().preload('parent');
 
     if (search) {
-      query.where('name', 'ilike', `%${search}%`);
+      query.where((companyQuery) => {
+        companyQuery.where('name', 'ilike', `%${search}%`).orWhereHas('names', (nameQuery) => {
+          nameQuery.where('name', 'ilike', `%${search}%`);
+        });
+      });
     }
 
     query.orderBy('name', 'asc');
