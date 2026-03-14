@@ -9,6 +9,7 @@
 
 import AuthController from '#controllers/auth_controller';
 import CompaniesController from '#controllers/companies_controller';
+import CompanyNamesController from '#controllers/company_names_controller';
 import EmulatorFavoritesController from '#controllers/emulator_favorites_controller';
 import EmulatorsController from '#controllers/emulators_controller';
 import FranchiseTranslationsController from '#controllers/franchise_translations_controller';
@@ -37,6 +38,10 @@ router
   .group(() => {
     router
       .resource('companies', CompaniesController)
+      .apiOnly()
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
+    router
+      .resource('companies.names', CompanyNamesController)
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router

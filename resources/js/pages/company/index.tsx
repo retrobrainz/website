@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'wouter';
 import xior from 'xior';
 import CompanyMergeButton from '../../components/company-merge-button';
+import CompanyNamesManager from '../../components/company-names-manager';
 import GameList from '../../components/game-list';
 import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
@@ -128,6 +129,12 @@ export default function CompanyPage() {
                   label: t('defunct-date'),
                   children: company?.defunctDate,
                   hidden: !company?.defunctDate,
+                },
+                {
+                  label: 'Former Names',
+                  children: (
+                    <CompanyNamesManager companyId={Number(companyId)} canManage={canEdit} />
+                  ),
                 },
                 {
                   label: t('parent-company'),

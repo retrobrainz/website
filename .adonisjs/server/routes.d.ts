@@ -10,6 +10,11 @@ export type ScannedRoutes = {
     'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'companies.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.index': { paramsTuple: [ParamValue]; params: {'company_id': ParamValue} }
+    'companies.names.store': { paramsTuple: [ParamValue]; params: {'company_id': ParamValue} }
+    'companies.names.show': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
+    'companies.names.update': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
+    'companies.names.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'companies.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'emulators.index': { paramsTuple?: []; params?: {} }
     'emulators.store': { paramsTuple?: []; params?: {} }
@@ -123,6 +128,8 @@ export type ScannedRoutes = {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
     'companies.index': { paramsTuple?: []; params?: {} }
     'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.index': { paramsTuple: [ParamValue]; params: {'company_id': ParamValue} }
+    'companies.names.show': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'emulators.index': { paramsTuple?: []; params?: {} }
     'emulators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.index': { paramsTuple?: []; params?: {} }
@@ -169,6 +176,8 @@ export type ScannedRoutes = {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
     'companies.index': { paramsTuple?: []; params?: {} }
     'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.index': { paramsTuple: [ParamValue]; params: {'company_id': ParamValue} }
+    'companies.names.show': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'emulators.index': { paramsTuple?: []; params?: {} }
     'emulators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.index': { paramsTuple?: []; params?: {} }
@@ -213,6 +222,7 @@ export type ScannedRoutes = {
   }
   POST: {
     'companies.store': { paramsTuple?: []; params?: {} }
+    'companies.names.store': { paramsTuple: [ParamValue]; params: {'company_id': ParamValue} }
     'companies.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'emulators.store': { paramsTuple?: []; params?: {} }
     'franchises.store': { paramsTuple?: []; params?: {} }
@@ -242,6 +252,7 @@ export type ScannedRoutes = {
   }
   PUT: {
     'companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.update': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'emulators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -266,6 +277,7 @@ export type ScannedRoutes = {
   }
   PATCH: {
     'companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.update': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'emulators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -289,6 +301,7 @@ export type ScannedRoutes = {
   }
   DELETE: {
     'companies.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.names.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'company_id': ParamValue,'id': ParamValue} }
     'emulators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'franchises.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

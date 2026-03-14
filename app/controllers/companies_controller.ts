@@ -39,6 +39,9 @@ export default class CompaniesController {
     return Company.query()
       .where('id', params.id)
       .preload('parent')
+      .preload('names', (query) => {
+        query.orderBy('name', 'asc');
+      })
       .preload('children', (query) => {
         query.orderBy('name', 'asc');
       })
@@ -160,6 +163,9 @@ export default class CompaniesController {
     const mergedCompany = await Company.query()
       .where('id', targetCompanyId)
       .preload('parent')
+      .preload('names', (query) => {
+        query.orderBy('name', 'asc');
+      })
       .preload('children', (query) => {
         query.orderBy('name', 'asc');
       })
