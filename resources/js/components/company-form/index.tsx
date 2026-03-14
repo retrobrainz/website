@@ -39,6 +39,10 @@ export default function CompanyForm({ company, onSubmit, submitText }: CompanyFo
         <Input />
       </Form.Item>
 
+      <Form.Item label={t('abbr')} name="abbr">
+        <Input maxLength={64} />
+      </Form.Item>
+
       <Form.Item label={t('wikipedia')} name="wikipedia">
         <Input type="url" />
       </Form.Item>

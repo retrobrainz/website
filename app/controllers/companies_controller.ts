@@ -18,9 +18,12 @@ export default class CompaniesController {
 
     if (search) {
       query.where((companyQuery) => {
-        companyQuery.where('name', 'ilike', `%${search}%`).orWhereHas('names', (nameQuery) => {
-          nameQuery.where('name', 'ilike', `%${search}%`);
-        });
+        companyQuery
+          .where('name', 'ilike', `%${search}%`)
+          .orWhere('abbr', 'ilike', `%${search}%`)
+          .orWhereHas('names', (nameQuery) => {
+            nameQuery.where('name', 'ilike', `%${search}%`).orWhere('abbr', 'ilike', `%${search}%`);
+          });
       });
     }
 

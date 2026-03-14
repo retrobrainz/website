@@ -7,10 +7,12 @@ export interface CompanyCardProps {
 }
 
 export default function CompanyCard({ company }: CompanyCardProps) {
+  const description = [company.abbr, company.parent?.name].filter(Boolean).join(' • ') || undefined;
+
   return (
     <Link href={`/companies/${company.id}`}>
       <Card hoverable>
-        <Card.Meta title={company.name} description={company.parent?.name || undefined} />
+        <Card.Meta title={company.name} description={description} />
       </Card>
     </Link>
   );

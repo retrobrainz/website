@@ -11,6 +11,9 @@ export default class Company extends BaseModel {
   declare name: string;
 
   @column()
+  declare abbr: string | null;
+
+  @column()
   declare wikipedia: string | null;
 
   @column()

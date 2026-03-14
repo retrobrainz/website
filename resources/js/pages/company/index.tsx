@@ -63,6 +63,12 @@ export default function CompanyPage() {
           {company?.defunctDate && '🪦'}
         </Typography.Title>
 
+        {company?.abbr && (
+          <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
+            {company.abbr}
+          </Typography.Text>
+        )}
+
         <div style={{ flex: 1 }} />
 
         <Flex gap={8}>
@@ -99,6 +105,11 @@ export default function CompanyPage() {
             <Descriptions
               column={1}
               items={[
+                {
+                  label: t('abbr'),
+                  children: company?.abbr,
+                  hidden: !company?.abbr,
+                },
                 {
                   label: t('wikipedia'),
                   children: company?.wikipedia && (

@@ -17,6 +17,7 @@ const defunctDateRule = vine
 export const companyValidator = vine.create(
   vine.object({
     name: vine.string().trim().minLength(1).maxLength(255),
+    abbr: vine.string().trim().maxLength(64).optional().nullable(),
     wikipedia: vine.string().trim().maxLength(2048).optional().nullable(),
     foundingDate: foundingDateRule,
     defunctDate: defunctDateRule,

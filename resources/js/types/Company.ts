@@ -1,6 +1,7 @@
 export default interface Company {
   id: number;
   name: string;
+  abbr: string | null;
   wikipedia: string | null;
   foundingDate: string | null;
   defunctDate: string | null;
