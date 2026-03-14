@@ -6,7 +6,7 @@ export default function EsrbRatingSelect(props: SelectProps<any>) {
 
   const options = [
     { label: 'eC - Early Childhood', value: 'eC' },
-    { label: 'E - Everyone', value: 'E' },
+    { label: 'E - Everyone (Formerly KA)', value: 'E' },
     { label: 'E10+ - Everyone 10+', value: 'E10+' },
     { label: 'T - Teen', value: 'T' },
     { label: 'M - Mature 17+', value: 'M' },
