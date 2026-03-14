@@ -180,18 +180,6 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item label={t('esrb-rating')} name="esrbRating">
-        <EsrbRatingSelect />
-      </Form.Item>
-
-      <Form.Item label={t('pegi-rating')} name="pegiRating">
-        <PegiRatingSelect />
-      </Form.Item>
-
-      <Form.Item label={t('cero-rating')} name="ceroRating">
-        <CeroRatingSelect />
-      </Form.Item>
-
       <Form.Item
         label={t('developers')}
         name="developerIds"
@@ -232,6 +220,30 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
           showSearch
           optionFilterProp="label"
         />
+      </Form.Item>
+
+      <Form.Item
+        label={t('esrb-rating')}
+        name="esrbRating"
+        extra={<AskGoogle query={`ESRB rating of ${platform?.name} game "${game?.name}"`} />}
+      >
+        <EsrbRatingSelect />
+      </Form.Item>
+
+      <Form.Item
+        label={t('pegi-rating')}
+        name="pegiRating"
+        extra={<AskGoogle query={`PEGI rating of ${platform?.name} game "${game?.name}"`} />}
+      >
+        <PegiRatingSelect />
+      </Form.Item>
+
+      <Form.Item
+        label={t('cero-rating')}
+        name="ceroRating"
+        extra={<AskGoogle query={`CERO rating of ${platform?.name} game "${game?.name}"`} />}
+      >
+        <CeroRatingSelect />
       </Form.Item>
 
       <Form.Item label={t('boxart')} name="boxart">
