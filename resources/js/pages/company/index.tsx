@@ -131,7 +131,7 @@ export default function CompanyPage() {
                   hidden: !company?.defunctDate,
                 },
                 {
-                  label: 'Former Names',
+                  label: t('former-names'),
                   children: (
                     <CompanyNamesManager companyId={Number(companyId)} canManage={canEdit} />
                   ),
