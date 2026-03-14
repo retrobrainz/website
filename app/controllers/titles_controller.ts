@@ -89,7 +89,13 @@ export default class TitlesController {
       await title.related('franchises').sync(franchiseIds);
     }
 
+    const genreIds = request.input('genreIds');
+    if (Array.isArray(genreIds)) {
+      await title.related('genres').sync(genreIds);
+    }
+
     await title.load('franchises');
+    await title.load('genres');
     return response.created(title);
   }
 
@@ -107,7 +113,13 @@ export default class TitlesController {
       await title.related('franchises').sync(franchiseIds);
     }
 
+    const genreIds = request.input('genreIds');
+    if (Array.isArray(genreIds)) {
+      await title.related('genres').sync(genreIds);
+    }
+
     await title.load('franchises');
+    await title.load('genres');
     return title;
   }
 

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type Title from '../../types/Title';
 
 import FranchiseSelect from '../franchise-select';
+import GenreSelect from '../genre-select';
 
 interface TitleFormProps {
   title?: Title;
@@ -23,6 +24,7 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
         name: title.name,
         wikipedia: title.wikipedia,
         franchiseIds: title.franchises?.map((f) => f.id) || [],
+        genreIds: title.genres?.map((g) => g.id) || [],
       });
     }
   }, [title, form]);
@@ -56,6 +58,10 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
 
       <Form.Item label={t('franchises')} name="franchiseIds">
         <FranchiseSelect mode="multiple" />
+      </Form.Item>
+
+      <Form.Item label={t('genres')} name="genreIds">
+        <GenreSelect mode="multiple" />
       </Form.Item>
 
       <Form.Item>
