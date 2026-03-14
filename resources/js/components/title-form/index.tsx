@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Title from '../../types/Title';
 
+import AskGoogle from '../ask-google';
 import FranchiseSelect from '../franchise-select';
 import GenreSelect from '../genre-select';
 
@@ -46,21 +47,35 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
     }
   };
 
+  const name = Form.useWatch('name', form);
+
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
 
-      <Form.Item label="Wikipedia" name="wikipedia">
+      <Form.Item
+        label="Wikipedia"
+        name="wikipedia"
+        extra={<AskGoogle query={`wikipedia link of game "${name}"`} />}
+      >
         <Input placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
 
-      <Form.Item label={t('franchises')} name="franchiseIds">
+      <Form.Item
+        label={t('franchises')}
+        name="franchiseIds"
+        extra={<AskGoogle query={`franchises of game "${name}"`} />}
+      >
         <FranchiseSelect mode="multiple" />
       </Form.Item>
 
-      <Form.Item label={t('genres')} name="genreIds">
+      <Form.Item
+        label={t('genres')}
+        name="genreIds"
+        extra={<AskGoogle query={`genres of game "${name}"`} />}
+      >
         <GenreSelect mode="multiple" />
       </Form.Item>
 
