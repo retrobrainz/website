@@ -17,6 +17,7 @@ import { Link, useParams } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
 import { esrbRatingLabelMap } from '../../components/esrb-rating-select';
 import FavoriteButton from '../../components/favorite-button';
+import { pegiRatingLabelMap } from '../../components/pegi-rating-select';
 import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Game from '../../types/Game';
@@ -36,6 +37,9 @@ export default function GamePage() {
   const titleDisplayName = titleTranslation?.name || game?.title?.name;
   const esrbRatingLabel = game?.esrbRating
     ? esrbRatingLabelMap[game.esrbRating] || game.esrbRating
+    : 'N/A';
+  const pegiRatingLabel = game?.pegiRating
+    ? pegiRatingLabelMap[game.pegiRating] || game.pegiRating
     : 'N/A';
 
   return (
@@ -218,7 +222,7 @@ export default function GamePage() {
             },
             {
               label: t('pegi-rating'),
-              children: game?.pegiRating || 'N/A',
+              children: pegiRatingLabel,
             },
           ]}
         />
