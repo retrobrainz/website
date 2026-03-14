@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 export const esrbRatingOptions = [
   { label: 'eC - Early Childhood', value: 'eC' },
+  { label: 'KA - Kids to Adults', value: 'KA' },
   { label: 'E - Everyone', value: 'E' },
   { label: 'E10+ - Everyone 10+', value: 'E10+' },
   { label: 'T - Teen', value: 'T' },
