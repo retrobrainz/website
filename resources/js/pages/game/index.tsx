@@ -15,6 +15,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
+import { esrbRatingLabelMap } from '../../components/esrb-rating-select';
 import FavoriteButton from '../../components/favorite-button';
 import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
@@ -33,6 +34,9 @@ export default function GamePage() {
   const displayName = gameTranslation?.name || game?.name;
   const titleTranslation = game?.title?.translations?.find((tr) => tr.locale === i18n.language);
   const titleDisplayName = titleTranslation?.name || game?.title?.name;
+  const esrbRatingLabel = game?.esrbRating
+    ? esrbRatingLabelMap[game.esrbRating] || game.esrbRating
+    : 'N/A';
 
   return (
     <Container maxWidth="lg" style={{ paddingTop: 16 }}>
@@ -210,7 +214,7 @@ export default function GamePage() {
             },
             {
               label: t('esrb-rating'),
-              children: game?.esrbRating || 'N/A',
+              children: esrbRatingLabel,
             },
             {
               label: t('pegi-rating'),
