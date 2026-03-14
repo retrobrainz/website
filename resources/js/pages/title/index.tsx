@@ -1,5 +1,5 @@
-import { EditOutlined, GlobalOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Typography } from 'antd';
+import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Card, Flex, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -41,11 +41,6 @@ export default function TitlePage() {
         <div style={{ flex: 1 }} />
 
         <Flex gap="small">
-          {title?.wikipedia && (
-            <a href={title.wikipedia} target="_blank" rel="noopener noreferrer">
-              <Button icon={<GlobalOutlined />}>Wikipedia</Button>
-            </a>
-          )}
           {canEdit && (
             <>
               {canMerge && <TitleMergeButton titleId={Number(titleId)} />}
@@ -60,7 +55,9 @@ export default function TitlePage() {
         </Flex>
       </Flex>
 
-      <WikipediaExcerpt url={title?.wikipedia} />
+      <Card style={{ marginBottom: 24 }}>
+        <WikipediaExcerpt url={title?.wikipedia} />
+      </Card>
 
       <GameList
         initialFilters={{ titleId: Number(titleId) }}
