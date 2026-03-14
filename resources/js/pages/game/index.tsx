@@ -15,6 +15,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import fallbackImage from '../../../img/fallback-screenshot.avif';
+import { ceroRatingLabelMap } from '../../components/cero-rating-select';
 import { esrbRatingLabelMap } from '../../components/esrb-rating-select';
 import FavoriteButton from '../../components/favorite-button';
 import { pegiRatingLabelMap } from '../../components/pegi-rating-select';
@@ -40,6 +41,9 @@ export default function GamePage() {
     : 'N/A';
   const pegiRatingLabel = game?.pegiRating
     ? pegiRatingLabelMap[game.pegiRating] || game.pegiRating
+    : 'N/A';
+  const ceroRatingLabel = game?.ceroRating
+    ? ceroRatingLabelMap[game.ceroRating] || game.ceroRating
     : 'N/A';
 
   return (
@@ -223,6 +227,10 @@ export default function GamePage() {
             {
               label: t('pegi-rating'),
               children: pegiRatingLabel,
+            },
+            {
+              label: t('cero-rating'),
+              children: ceroRatingLabel,
             },
           ]}
         />

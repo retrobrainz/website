@@ -34,6 +34,9 @@ export default class Game extends BaseModel {
   declare pegiRating: string | null;
 
   @column()
+  declare ceroRating: string | null;
+
+  @column()
   declare boxartId: number | null;
 
   @column()

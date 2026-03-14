@@ -324,10 +324,12 @@ export class GameTranslationSchema extends BaseModel {
 }
 
 export class GameSchema extends BaseModel {
-  static $columns = ['boxartId', 'createdAt', 'esrbRating', 'id', 'logoId', 'name', 'pegiRating', 'platformId', 'releaseDate', 'screenshotId', 'titleId', 'titlescreenId', 'updatedAt'] as const
+  static $columns = ['boxartId', 'ceroRating', 'createdAt', 'esrbRating', 'id', 'logoId', 'name', 'pegiRating', 'platformId', 'releaseDate', 'screenshotId', 'titleId', 'titlescreenId', 'updatedAt'] as const
   $columns = GameSchema.$columns
   @column()
   declare boxartId: number | null
+  @column()
+  declare ceroRating: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()

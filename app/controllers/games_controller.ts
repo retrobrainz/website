@@ -170,6 +170,7 @@ export default class GamesController {
       releaseDate,
       esrbRating,
       pegiRating,
+      ceroRating,
       boxartId,
       logoId,
       screenshotId,
@@ -187,6 +188,7 @@ export default class GamesController {
       releaseDate: releaseDate ? DateTime.fromISO(releaseDate) : null,
       esrbRating,
       pegiRating,
+      ceroRating,
       boxartId,
       logoId,
       screenshotId,
@@ -229,6 +231,7 @@ export default class GamesController {
       releaseDate,
       esrbRating,
       pegiRating,
+      ceroRating,
       boxartId,
       logoId,
       screenshotId,
@@ -274,6 +277,9 @@ export default class GamesController {
       }
       if (pegiRating !== undefined) {
         payload.pegiRating = pegiRating;
+      }
+      if (ceroRating !== undefined) {
+        payload.ceroRating = ceroRating;
       }
       if (boxartId !== undefined) {
         payload.boxartId = boxartId;

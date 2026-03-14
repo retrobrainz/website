@@ -9,6 +9,7 @@ import type Platform from '../../types/Platform';
 import type Region from '../../types/Region';
 import type Title from '../../types/Title';
 import AskGoogle from '../ask-google';
+import CeroRatingSelect from '../cero-rating-select';
 import CompanySelect from '../company-select';
 import EsrbRatingSelect from '../esrb-rating-select';
 import ImageUpload from '../image-upload';
@@ -88,6 +89,7 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         releaseDate: game.releaseDate ? dayjs(game.releaseDate) : null,
         esrbRating: game.esrbRating,
         pegiRating: game.pegiRating,
+        ceroRating: game.ceroRating,
         developerIds: game.developers?.map((developer) => developer.id) || [],
         publisherIds: game.publishers?.map((publisher) => publisher.id) || [],
         regionIds: game.regions?.map((region) => region.id) || [],
@@ -184,6 +186,10 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
 
       <Form.Item label={t('pegi-rating')} name="pegiRating">
         <PegiRatingSelect />
+      </Form.Item>
+
+      <Form.Item label={t('cero-rating')} name="ceroRating">
+        <CeroRatingSelect />
       </Form.Item>
 
       <Form.Item
