@@ -1,6 +1,7 @@
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 import { DateTime } from 'luxon';
+import CompanyName from './company_name.js';
 
 export default class Company extends BaseModel {
   @column({ isPrimary: true })
@@ -32,4 +33,7 @@ export default class Company extends BaseModel {
 
   @hasMany(() => Company, { foreignKey: 'parentId' })
   declare children: HasMany<typeof Company>;
+
+  @hasMany(() => CompanyName)
+  declare names: HasMany<typeof CompanyName>;
 }

@@ -53,6 +53,27 @@ export class CompanySchema extends BaseModel {
   declare wikipedia: string | null
 }
 
+export class CompanyNameSchema extends BaseModel {
+  static $columns = ['abbr', 'companyId', 'createdAt', 'endDate', 'id', 'name', 'startDate', 'updatedAt'] as const
+  $columns = CompanyNameSchema.$columns
+  @column()
+  declare abbr: string | null
+  @column()
+  declare companyId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column.date()
+  declare endDate: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column.date()
+  declare startDate: DateTime | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class EmulatorFavoriteSchema extends BaseModel {
   static $columns = ['createdAt', 'emulatorId', 'id', 'updatedAt', 'userId'] as const
   $columns = EmulatorFavoriteSchema.$columns
