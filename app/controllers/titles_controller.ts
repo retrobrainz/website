@@ -15,6 +15,7 @@ export default class TitlesController {
     const franchiseId = request.input('franchiseId');
     const noFranchise = request.input('noFranchise');
     const genreId = request.input('genreId');
+    const noGenre = request.input('noGenre');
 
     const query = Title.query();
 
@@ -47,6 +48,10 @@ export default class TitlesController {
       query.whereHas('genres', (q) => {
         q.where('genres.id', genreId);
       });
+    }
+
+    if (noGenre === true || noGenre === 'true') {
+      query.whereDoesntHave('genres', () => {});
     }
 
     query

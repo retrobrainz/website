@@ -11,6 +11,7 @@ interface TitleListFilters {
   platformId?: number | string;
   franchiseId?: number | string;
   noFranchise?: boolean;
+  noGenre?: boolean;
   genreId?: number | string;
 }
 
@@ -87,6 +88,12 @@ export default function TitleList({
           {showFilters.includes('noFranchise') && (
             <Form.Item name="noFranchise" valuePropName="checked">
               <Checkbox>{t('no-franchise')}</Checkbox>
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noGenre') && (
+            <Form.Item name="noGenre" valuePropName="checked">
+              <Checkbox>{t('no-genre')}</Checkbox>
             </Form.Item>
           )}
         </Form>

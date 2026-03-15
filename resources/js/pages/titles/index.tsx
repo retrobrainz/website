@@ -30,7 +30,7 @@ export default function TitlesPage() {
         )}
       </Flex>
 
-      <TitleList showFilters={['search', 'platformId', 'noFranchise', 'genreId']} />
+      <TitleList showFilters={['search', 'platformId', 'noFranchise', 'noGenre', 'genreId']} />
     </Container>
   );
 }
