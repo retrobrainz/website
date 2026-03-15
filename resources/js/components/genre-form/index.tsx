@@ -17,20 +17,14 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
 
   useEffect(() => {
     if (genre) {
-      form.setFieldsValue({
-        name: genre.name,
-        wikipedia: genre.wikipedia,
-      });
+      form.setFieldsValue(genre);
     }
   }, [genre, form]);
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      await onSubmit({
-        ...values,
-        wikipedia: values.wikipedia?.trim() ? values.wikipedia.trim() : null,
-      });
+      await onSubmit(values);
     } catch (error: any) {
       if (error.response?.data?.errors) {
         error.response.data.errors.forEach((err: any) => {
@@ -51,7 +45,7 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
       </Form.Item>
 
       <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
-        <Input type="url" placeholder="https://wikipedia.org/wiki/..." />
+        <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
 
       <Form.Item>
