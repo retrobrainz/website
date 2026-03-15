@@ -66,7 +66,10 @@ router
       .resource('games', GamesController)
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
-    router.resource('genres', GenresController).apiOnly();
+    router
+      .resource('genres', GenresController)
+      .apiOnly()
+      .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
       .resource('images', ImagesController)
       .apiOnly()
