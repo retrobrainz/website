@@ -50,7 +50,7 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
       </Form.Item>
 
       <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
-        <Input type="url" placeholder="https://wikipedia.org/wiki/..." />
+        <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
 
       <Form.Item>
