@@ -11,6 +11,7 @@ export default class GenresController {
     const pageSize = request.input('pageSize', 10);
     const locale = request.input('locale', i18n.locale);
     const search = request.input('search');
+    const noWikipedia = request.input('noWikipedia');
 
     const query = Genre.query().withCount('titles');
 
@@ -21,6 +22,10 @@ export default class GenresController {
         .forEach((term: string) => {
           query.where('name', 'ilike', `%${term}%`);
         });
+    }
+
+    if (noWikipedia) {
+      query.whereNull('wikipedia');
     }
 
     query.orderBy('titles_count', 'desc');

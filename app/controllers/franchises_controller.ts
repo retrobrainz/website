@@ -13,6 +13,7 @@ export default class FranchisesController {
     const pageSize = request.input('pageSize', 24);
     const locale = request.input('locale', i18n.locale);
     const search = request.input('search');
+    const noWikipedia = request.input('noWikipedia');
 
     const query = Franchise.query().withCount('titles').preload('icon');
 
@@ -23,6 +24,10 @@ export default class FranchisesController {
         .forEach((term: string) => {
           query.where('name', 'ilike', `%${term}%`);
         });
+    }
+
+    if (noWikipedia) {
+      query.whereNull('wikipedia');
     }
 
     query.orderBy('titles_count', 'desc').orderBy('name', 'asc');

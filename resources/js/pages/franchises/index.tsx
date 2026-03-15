@@ -1,5 +1,16 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Flex, Input, Pagination, Row, Spin, Typography } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Checkbox,
+  Col,
+  Flex,
+  Input,
+  Pagination,
+  Row,
+  Spin,
+  Typography,
+} from 'antd';
 import { Container } from 'antd-moe';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -15,17 +26,18 @@ export default function FranchisesPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
   const [search, setSearch] = useState('');
+  const [noWikipedia, setNoWikipedia] = useState(false);
 
   const { data: franchises, loading } = useFetch<{ data: Franchise[]; meta: { total: number } }>(
     '/franchises',
     {
-      params: { page, pageSize, search },
+      params: { page, pageSize, search, noWikipedia: noWikipedia || undefined },
     },
   );
 
   useEffect(() => {
     setPage(1);
-  }, [search]);
+  }, [search, noWikipedia]);
 
   const canCreateFranchise = user?.role === 'admin' || user?.role === 'editor';
 
@@ -50,9 +62,15 @@ export default function FranchisesPage() {
       <Input.Search
         placeholder={t('search')}
         onSearch={setSearch}
-        style={{ marginBottom: 24 }}
+        style={{ marginBottom: 16 }}
         allowClear
       />
+
+      <div style={{ marginBottom: 24 }}>
+        <Checkbox checked={noWikipedia} onChange={(e) => setNoWikipedia(e.target.checked)}>
+          {t('no-wikipedia')}
+        </Checkbox>
+      </div>
 
       <Spin spinning={loading}>
         <Row gutter={[24, 24]}>
