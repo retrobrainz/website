@@ -56,7 +56,7 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
         label={t('wikipedia')}
         name="wikipedia"
         rules={[{ type: 'url' }]}
-        extra={<AskGoogle query={`wikipedia link of franchise "${name}"`} />}
+        extra={<AskGoogle query={`wikipedia link of game franchise "${name}"`} />}
       >
         <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>

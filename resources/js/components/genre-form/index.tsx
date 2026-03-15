@@ -51,7 +51,7 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
         label={t('wikipedia')}
         name="wikipedia"
         rules={[{ type: 'url' }]}
-        extra={<AskGoogle query={`wikipedia link of genre "${name}"`} />}
+        extra={<AskGoogle query={`wikipedia link of game genre "${name}"`} />}
       >
         <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
