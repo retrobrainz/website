@@ -52,6 +52,13 @@ export default class TitlesController {
     query
       .withCount('games')
       .preload('translations', (q) => q.where('locale', i18n.locale))
+      .preload('games', (q) => {
+        q.whereNotNull('boxartId')
+          .withCount('favorites')
+          .orderBy('favorites_count', 'desc')
+          .groupLimit(1)
+          .preload('boxart');
+      })
       .preload('platforms')
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
