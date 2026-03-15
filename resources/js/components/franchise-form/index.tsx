@@ -2,6 +2,7 @@ import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Franchise from '../../types/Franchise';
+import AskGoogle from '../ask-google';
 import ImageUpload from '../image-upload';
 
 interface FranchiseFormProps {
@@ -39,6 +40,8 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
     }
   };
 
+  const name = Form.useWatch('name', form);
+
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('icon')} name="icon">
@@ -49,7 +52,12 @@ export default function FranchiseForm({ franchise, onSubmit, submitText }: Franc
         <Input />
       </Form.Item>
 
-      <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
+      <Form.Item
+        label={t('wikipedia')}
+        name="wikipedia"
+        rules={[{ type: 'url' }]}
+        extra={<AskGoogle query={`wikipedia link of franchise "${name}"`} />}
+      >
         <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
 

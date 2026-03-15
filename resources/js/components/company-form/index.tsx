@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Company from '../../types/Company';
+import AskGoogle from '../ask-google';
 import CompanySelect from '../company-select';
 
 export interface CompanyFormProps {
@@ -14,6 +15,7 @@ export interface CompanyFormProps {
 export default function CompanyForm({ company, onSubmit, submitText }: CompanyFormProps) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const name = Form.useWatch('name', form);
 
   useEffect(() => {
     if (company) {
@@ -43,7 +45,11 @@ export default function CompanyForm({ company, onSubmit, submitText }: CompanyFo
         <Input maxLength={64} />
       </Form.Item>
 
-      <Form.Item label={t('wikipedia')} name="wikipedia">
+      <Form.Item
+        label={t('wikipedia')}
+        name="wikipedia"
+        extra={<AskGoogle query={`wikipedia link of company "${name}"`} />}
+      >
         <Input type="url" />
       </Form.Item>
 

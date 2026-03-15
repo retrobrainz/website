@@ -2,6 +2,7 @@ import { App, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Genre from '../../types/Genre';
+import AskGoogle from '../ask-google';
 
 interface GenreFormProps {
   genre?: Genre;
@@ -38,13 +39,20 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
     }
   };
 
+  const name = Form.useWatch('name', form);
+
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
 
-      <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
+      <Form.Item
+        label={t('wikipedia')}
+        name="wikipedia"
+        rules={[{ type: 'url' }]}
+        extra={<AskGoogle query={`wikipedia link of genre "${name}"`} />}
+      >
         <Input type="url" placeholder="https://en.wikipedia.org/wiki/..." />
       </Form.Item>
 
