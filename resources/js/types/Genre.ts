@@ -9,6 +9,7 @@ export interface GenreTranslation {
 export default interface Genre {
   id: number;
   name: string;
+  wikipedia?: string | null;
   translations?: GenreTranslation[];
   titlesCount?: number | null;
   createdAt: string;

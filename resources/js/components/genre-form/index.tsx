@@ -19,6 +19,7 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
     if (genre) {
       form.setFieldsValue({
         name: genre.name,
+        wikipedia: genre.wikipedia,
       });
     }
   }, [genre, form]);
@@ -26,7 +27,10 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      await onSubmit(values);
+      await onSubmit({
+        ...values,
+        wikipedia: values.wikipedia?.trim() ? values.wikipedia.trim() : null,
+      });
     } catch (error: any) {
       if (error.response?.data?.errors) {
         error.response.data.errors.forEach((err: any) => {
@@ -44,6 +48,10 @@ export default function GenreForm({ genre, onSubmit, submitText }: GenreFormProp
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
+      </Form.Item>
+
+      <Form.Item label={t('wikipedia')} name="wikipedia" rules={[{ type: 'url' }]}>
+        <Input type="url" placeholder="https://wikipedia.org/wiki/..." />
       </Form.Item>
 
       <Form.Item>

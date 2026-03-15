@@ -1,11 +1,12 @@
 import { EditOutlined, TranslationOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
+import { Breadcrumb, Button, Card, Col, Descriptions, Flex, Row, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import GameList from '../../components/game-list';
 import TitleList from '../../components/title-list';
+import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Genre from '../../types/Genre';
 
@@ -49,6 +50,31 @@ export default function GenrePage() {
           </Flex>
         )}
       </Flex>
+
+      {genre?.wikipedia && (
+        <Card style={{ marginBottom: 16 }}>
+          <Row gutter={16}>
+            <Col xs={24} md={12} lg={16} xxl={18}>
+              <WikipediaExcerpt url={genre.wikipedia} />
+            </Col>
+            <Col xs={24} md={12} lg={8} xxl={6}>
+              <Descriptions
+                column={1}
+                items={[
+                  {
+                    label: t('wikipedia'),
+                    children: (
+                      <a href={genre.wikipedia} target="_blank" rel="noreferrer">
+                        {genre.wikipedia}
+                      </a>
+                    ),
+                  },
+                ]}
+              />
+            </Col>
+          </Row>
+        </Card>
+      )}
 
       <Tabs
         items={[
