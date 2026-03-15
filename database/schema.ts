@@ -374,7 +374,7 @@ export class GenreTranslationSchema extends BaseModel {
 }
 
 export class GenreSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt', 'wikipedia'] as const
   $columns = GenreSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -384,6 +384,8 @@ export class GenreSchema extends BaseModel {
   declare name: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare wikipedia: string | null
 }
 
 export class ImageSchema extends BaseModel {
