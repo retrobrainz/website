@@ -15,6 +15,7 @@ export default interface Title {
   id: number;
   name: string;
   wikipedia: string | null;
+  mobygames: string | null;
   translations?: TitleTranslation[];
   games?: Game[];
   gamesCount?: number;

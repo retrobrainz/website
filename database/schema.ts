@@ -620,12 +620,14 @@ export class TitleTranslationSchema extends BaseModel {
 }
 
 export class TitleSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'name', 'updatedAt', 'wikipedia'] as const
+  static $columns = ['createdAt', 'id', 'mobygames', 'name', 'updatedAt', 'wikipedia'] as const
   $columns = TitleSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare mobygames: string | null
   @column()
   declare name: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
