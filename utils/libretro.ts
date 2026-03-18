@@ -65,6 +65,7 @@ export async function fetchDat(platform: Platform): Promise<void> {
   const gameEntries: any[] = [];
 
   for (const folder of [
+    'dat',
     'metadat/no-intro',
     'metadat/redump',
     'metadat/developer',
