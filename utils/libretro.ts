@@ -1,5 +1,5 @@
-import { downloadGithubRepo } from '#utils/github';
 import type Platform from '#models/platform';
+import { downloadGithubRepo } from '#utils/github';
 
 export async function importLibretro(platform: Platform): Promise<void> {
   await downloadGithubRepo('libretro', 'libretro-database');
