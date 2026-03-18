@@ -3,6 +3,7 @@ import Image from './Image';
 import Language from './Language';
 import Platform from './Platform';
 import Region from './Region';
+import Rom from './Rom';
 import Title from './Title';
 
 export interface GameTranslation {
@@ -39,5 +40,6 @@ export default interface Game {
   developers?: Company[];
   publishers?: Company[];
   languages?: Language[];
+  roms?: Rom[];
   favoritesCount?: number;
 }

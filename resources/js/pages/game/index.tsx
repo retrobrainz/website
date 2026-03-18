@@ -8,6 +8,7 @@ import {
   Divider,
   Flex,
   Image,
+  Table,
   Typography,
 } from 'antd';
 import { Container } from 'antd-moe';
@@ -23,6 +24,16 @@ import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Game from '../../types/Game';
 import ImageUpload from '../platform/ImageUpload';
+
+function formatFileSize(size: number): string {
+  if (!size) return '0 B';
+
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const index = Math.min(Math.floor(Math.log(size) / Math.log(1024)), units.length - 1);
+  const value = size / 1024 ** index;
+
+  return `${value >= 100 ? value.toFixed(0) : value.toFixed(1)} ${units[index]}`;
+}
 
 export default function GamePage() {
   const { gameId } = useParams<{ gameId: string }>();
@@ -47,7 +58,7 @@ export default function GamePage() {
     : 'N/A';
 
   return (
-    <Container maxWidth="lg" style={{ paddingTop: 16 }}>
+    <Container maxWidth="xxl" style={{ paddingTop: 16 }}>
       <Breadcrumb
         items={[
           { title: <Link href="/">{t('home')}</Link> },
@@ -238,6 +249,46 @@ export default function GamePage() {
         <Divider />
 
         <WikipediaExcerpt url={game?.title?.wikipedia} />
+      </Card>
+
+      <Card title={t('roms')}>
+        <Table
+          size="small"
+          pagination={false}
+          rowKey="id"
+          dataSource={game?.roms}
+          columns={[
+            {
+              title: t('filename'),
+              dataIndex: 'filename',
+            },
+            {
+              title: t('serial'),
+              dataIndex: 'serial',
+            },
+            {
+              title: 'CRC', // do not translate
+              dataIndex: 'crc',
+              width: 100,
+            },
+            {
+              title: 'MD5', // do not translate
+              dataIndex: 'md5',
+              width: 260,
+            },
+            {
+              title: 'SHA1', // do not translate
+              dataIndex: 'sha1',
+              width: 320,
+            },
+            {
+              title: t('size', { defaultValue: 'Size' }),
+              dataIndex: 'size',
+              align: 'right',
+              render: (size: number) => formatFileSize(size),
+            },
+          ]}
+        />
       </Card>
     </Container>
   );
