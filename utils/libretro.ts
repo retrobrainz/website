@@ -3,26 +3,62 @@ import Company from '#models/company';
 import Franchise from '#models/franchise';
 import Game from '#models/game';
 import Genre from '#models/genre';
+import Image from '#models/image';
 import Language from '#models/language';
 import type Platform from '#models/platform';
 import Region from '#models/region';
 import Rom from '#models/rom';
 import Title from '#models/title';
-import { downloadGithubRepo } from '#utils/github';
+import { deleteGithubRepo, downloadGithubRepo } from '#utils/github';
 import { deduplicate, fixSerial } from '#utils/platform';
 import { parse as parseDat } from '@retrobrainz/dat';
 import { parse as parseName } from '@retrobrainz/name';
+import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { DateTime } from 'luxon';
 
 export async function importLibretro(platform: Platform): Promise<void> {
   await downloadGithubRepo('libretro', 'libretro-database');
 
-  await platform.downloadThumbnails();
+  await downloadThumbnails(platform);
 
   await fetchDat(platform);
 
-  process.env.NODE_ENV === 'production' && (await platform.deleteThumbnails());
+  process.env.NODE_ENV === 'production' && (await deleteThumbnails(platform));
+}
+
+export async function downloadThumbnails(platform: Platform): Promise<void> {
+  const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+  await downloadGithubRepo('libretro-thumbnails', repo);
+}
+
+export async function deleteThumbnails(platform: Platform): Promise<void> {
+  const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+  await deleteGithubRepo(repo);
+}
+
+export async function importGameImage(
+  platform: Platform,
+  game: Game,
+  romName: string,
+  type: 'boxartId' | 'logoId' | 'screenshotId' | 'titlescreenId',
+  folder: string,
+): Promise<void> {
+  const repo = `${platform.company.name} - ${platform.name}`.replaceAll(' ', '_');
+  // special characters in image names are replaced with underscores
+  const filename = `${romName.replace(/[&*/:`<>?\\|"]/g, '_')}.png`;
+
+  const imagePath = `${process.cwd()}/tmp/${repo}-master/${folder}/${filename}`;
+
+  if (!game[type] && existsSync(imagePath)) {
+    try {
+      const image = await Image.fromFs(imagePath);
+      game[type] = image.id;
+      await game.save();
+    } catch {
+      //
+    }
+  }
 }
 
 export async function fetchDat(platform: Platform): Promise<void> {
@@ -198,10 +234,10 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
     }
   }
 
-  await platform.importGameImage(game, romName, 'boxartId', 'Named_Boxarts');
-  await platform.importGameImage(game, romName, 'logoId', 'Named_Logos');
-  await platform.importGameImage(game, romName, 'screenshotId', 'Named_Snaps');
-  await platform.importGameImage(game, romName, 'titlescreenId', 'Named_Titles');
+  await importGameImage(platform, game, romName, 'boxartId', 'Named_Boxarts');
+  await importGameImage(platform, game, romName, 'logoId', 'Named_Logos');
+  await importGameImage(platform, game, romName, 'screenshotId', 'Named_Snaps');
+  await importGameImage(platform, game, romName, 'titlescreenId', 'Named_Titles');
 
   await Promise.all(
     $entries.map(
