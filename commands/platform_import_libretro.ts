@@ -1,5 +1,6 @@
 import Platform from '#models/platform';
 import { deleteGithubRepo } from '#utils/github';
+import { importLibretro } from '#utils/libretro';
 import { args, BaseCommand } from '@adonisjs/core/ace';
 import type { CommandOptions } from '@adonisjs/core/types/ace';
 
@@ -25,7 +26,7 @@ export default class PlatformImportLibretro extends BaseCommand {
     for (const platform of platforms) {
       await platform.load('company');
       this.logger.info(`Importing platform: ${platform.name}`);
-      await platform.importLibretro();
+      await importLibretro(platform);
       this.logger.info('done');
     }
 

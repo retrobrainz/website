@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Platform from '#models/platform';
 import { deleteGithubRepo } from '#utils/github';
+import { importLibretro } from '#utils/libretro';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
 export default class extends BaseSeeder {
@@ -10,7 +11,7 @@ export default class extends BaseSeeder {
     for (const platform of platforms) {
       await platform.load('company');
       console.log(`start import: ${platform.name}`);
-      await platform.importLibretro();
+      await importLibretro(platform);
       console.log('done');
     }
 

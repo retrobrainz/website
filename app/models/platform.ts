@@ -78,16 +78,6 @@ export default class Platform extends BaseModel {
 
   // Libretro import
 
-  async importLibretro(): Promise<void> {
-    await downloadGithubRepo('libretro', 'libretro-database');
-
-    await this.downloadThumbnails();
-
-    await this.fetchDat();
-
-    process.env.NODE_ENV === 'production' && (await this.deleteThumbnails());
-  }
-
   async fetchDat(): Promise<void> {
     const gameEntries: any[] = [];
 
