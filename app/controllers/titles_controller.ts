@@ -93,7 +93,7 @@ export default class TitlesController {
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
-    const data = request.only(['name', 'wikipedia']);
+    const data = request.only(['name', 'wikipedia', 'mobygames']);
     const title = await Title.create(data);
 
     const franchiseIds = request.input('franchiseIds');
@@ -116,7 +116,7 @@ export default class TitlesController {
    */
   async update({ params, request }: HttpContext) {
     const title = await Title.findOrFail(params.id);
-    const data = request.only(['name', 'wikipedia']);
+    const data = request.only(['name', 'wikipedia', 'mobygames']);
     title.merge(data);
     await title.save();
 

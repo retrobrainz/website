@@ -89,6 +89,18 @@ export default function TitlePage() {
                         ))
                       : 'N/A',
                 },
+                ...(title?.mobygames
+                  ? [
+                      {
+                        label: 'MobyGames',
+                        children: (
+                          <a href={title.mobygames} target="_blank" rel="noreferrer">
+                            {title.mobygames}
+                          </a>
+                        ),
+                      },
+                    ]
+                  : []),
               ]}
             />
           </Col>

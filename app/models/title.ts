@@ -18,6 +18,9 @@ export default class Title extends BaseModel {
   @column()
   declare wikipedia: string | null;
 
+  @column()
+  declare mobygames: string | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime;
 

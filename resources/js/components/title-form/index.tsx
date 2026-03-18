@@ -24,6 +24,7 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
       form.setFieldsValue({
         name: title.name,
         wikipedia: title.wikipedia,
+        mobygames: title.mobygames,
         franchiseIds: title.franchises?.map((f) => f.id) || [],
         genreIds: title.genres?.map((g) => g.id) || [],
       });
@@ -61,6 +62,14 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
         extra={<AskGoogle query={`wikipedia link of game "${name}"`} />}
       >
         <Input placeholder="https://en.wikipedia.org/wiki/..." />
+      </Form.Item>
+
+      <Form.Item
+        label="MobyGames"
+        name="mobygames"
+        extra={<AskGoogle query={`mobygames link of game "${name}"`} />}
+      >
+        <Input placeholder="https://www.mobygames.com/game/..." />
       </Form.Item>
 
       <Form.Item
