@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import { deduplicate, deleteGithubRepo, downloadGithubRepo, fixSerial } from '#utils/platform';
+import { deleteGithubRepo, downloadGithubRepo } from '#utils/github';
+import { deduplicate, fixSerial } from '#utils/platform';
 import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
 import { parse as parseDat } from '@retrobrainz/dat';

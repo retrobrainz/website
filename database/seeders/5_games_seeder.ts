@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Platform from '#models/platform';
-import { deleteGithubRepo } from '#utils/platform';
+import { deleteGithubRepo } from '#utils/github';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
 export default class extends BaseSeeder {

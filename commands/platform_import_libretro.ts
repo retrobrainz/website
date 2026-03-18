@@ -1,5 +1,5 @@
 import Platform from '#models/platform';
-import { deleteGithubRepo } from '#utils/platform';
+import { deleteGithubRepo } from '#utils/github';
 import { args, BaseCommand } from '@adonisjs/core/ace';
 import type { CommandOptions } from '@adonisjs/core/types/ace';
 
