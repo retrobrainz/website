@@ -1,4 +1,5 @@
 import Company from '#models/company';
+import CompanyName from '#models/company_name';
 import { companyMergeValidator } from '#validators/company_merge_validator';
 import { companyValidator } from '#validators/company_validator';
 import type { HttpContext } from '@adonisjs/core/http';
@@ -118,7 +119,9 @@ export default class CompaniesController {
     }
 
     await db.transaction(async (trx) => {
-      await Company.query({ client: trx }).where('id', sourceCompanyId).firstOrFail();
+      const sourceCompany = await Company.query({ client: trx })
+        .where('id', sourceCompanyId)
+        .firstOrFail();
       await Company.query({ client: trx }).where('id', targetCompanyId).firstOrFail();
 
       const developerRows = await trx
@@ -155,6 +158,19 @@ export default class CompaniesController {
           )
           .onConflict(['game_id', 'company_id'])
           .ignore();
+      }
+
+      await trx
+        .from('company_names')
+        .where('company_id', sourceCompanyId)
+        .update({ company_id: targetCompanyId });
+
+      const existingName = await CompanyName.query({ client: trx })
+        .where('name', sourceCompany.name)
+        .first();
+
+      if (!existingName) {
+        await CompanyName.create({ companyId: targetCompanyId, name: sourceCompany.name }, { client: trx });
       }
 
       await trx.from('companies').where('id', sourceCompanyId).delete();
