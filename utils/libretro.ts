@@ -1,12 +1,239 @@
+/* eslint-disable no-console */
+import Company from '#models/company';
+import Franchise from '#models/franchise';
+import Game from '#models/game';
+import Genre from '#models/genre';
+import Language from '#models/language';
 import type Platform from '#models/platform';
+import Region from '#models/region';
+import Rom from '#models/rom';
+import Title from '#models/title';
 import { downloadGithubRepo } from '#utils/github';
+import { deduplicate, fixSerial } from '#utils/platform';
+import { parse as parseDat } from '@retrobrainz/dat';
+import { parse as parseName } from '@retrobrainz/name';
+import { readFile } from 'fs/promises';
+import { DateTime } from 'luxon';
 
 export async function importLibretro(platform: Platform): Promise<void> {
   await downloadGithubRepo('libretro', 'libretro-database');
 
   await platform.downloadThumbnails();
 
-  await platform.fetchDat();
+  await fetchDat(platform);
 
   process.env.NODE_ENV === 'production' && (await platform.deleteThumbnails());
+}
+
+export async function fetchDat(platform: Platform): Promise<void> {
+  const gameEntries: any[] = [];
+
+  for (const folder of [
+    'metadat/no-intro',
+    'metadat/redump',
+    'metadat/developer',
+    'metadat/esrb',
+    'metadat/franchise',
+    'metadat/genre',
+    'metadat/maxusers',
+    'metadat/publisher',
+    'metadat/releaseyear',
+    'metadat/releasemonth',
+    'metadat/serial',
+  ]) {
+    const file = `${folder}/${platform.company.name} - ${platform.name}.dat`;
+    const data = await readFile(`${process.cwd()}/tmp/libretro-database-master/${file}`, 'utf-8')
+      .then((text) => parseDat(text))
+      .catch(() => {
+        return [] as any[];
+      });
+
+    for (const entry of data) {
+      if (entry.$class !== 'game' || !entry.$entries?.length) {
+        continue;
+      }
+
+      entry.serial = fixSerial(entry.serial);
+      entry.$entries[0].serial = fixSerial(entry.$entries[0].serial);
+      const { crc, serial } = entry.$entries[0];
+
+      const existings = gameEntries.filter(
+        (e) =>
+          (!crc || e.$entries?.[0]?.crc === crc) && (!serial || e.$entries?.[0]?.serial === serial),
+      );
+      if (existings.length > 0) {
+        existings.forEach((existing) => {
+          // add missing fields to existing entry
+          Object.assign(entry, existing);
+          Object.assign(existing, entry);
+        });
+      } else {
+        gameEntries.push(entry);
+      }
+    }
+  }
+
+  const deduplicatedGameEntries = deduplicate(gameEntries);
+
+  for (const rawGame of deduplicatedGameEntries) {
+    await importGame(platform, rawGame);
+  }
+}
+
+export async function importGame(platform: Platform, rawGame: any): Promise<void> {
+  const {
+    name: romName,
+    $entries,
+    releaseyear,
+    releasemonth,
+    releaseday,
+    serial: gameSerial = null,
+    developer,
+    publisher,
+    franchise,
+    genre,
+    esrb_rating,
+  } = rawGame;
+
+  if (!romName) {
+    return;
+  }
+
+  const existingGame = await Game.query()
+    .where('platformId', platform.id)
+    .whereHas('roms', (q) => {
+      for (const { crc, serial } of $entries) {
+        q.orWhere((subBuilder) => {
+          if (crc) {
+            subBuilder.andWhere('crc', crc);
+          }
+          if (serial) {
+            subBuilder.andWhere('serial', serial);
+          }
+        });
+      }
+    })
+    .first();
+
+  const {
+    name: gameName,
+    title: titleName,
+    disc = null,
+    regions,
+    languages = [],
+  } = parseName(romName);
+
+  const game =
+    existingGame ||
+    (await Game.firstOrCreate({
+      platformId: platform.id,
+      name: gameName,
+    }));
+
+  await game.refresh();
+
+  if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
+    game.esrbRating = esrb_rating;
+  }
+
+  if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
+    game.releaseDate = DateTime.fromObject({
+      year: Number(releaseyear),
+      month: Number(releasemonth),
+      day: releaseday ? Number(releaseday) : 1,
+    });
+  }
+
+  if (!game.titleId && titleName) {
+    const title = await Title.firstOrCreate({ name: titleName });
+    game.titleId = title.id;
+    if (franchise) {
+      for (const franchiseName of (franchise as string).split('/')) {
+        const franchiseModel = await Franchise.firstOrCreate({ name: franchiseName.trim() });
+        await title.related('franchises').save(franchiseModel);
+      }
+    }
+    if (genre) {
+      for (const genreName of (genre as string).split('/')) {
+        const genreModel = await Genre.firstOrCreate({ name: genreName.trim() });
+        await title.related('genres').save(genreModel);
+      }
+    }
+  }
+
+  if (game.$isDirty) {
+    await game.save();
+  }
+
+  await game
+    .related('regions')
+    .saveMany(
+      await Promise.all(regions.map((regionName) => Region.firstOrCreate({ name: regionName }))),
+      true,
+    );
+
+  for (const language of languages) {
+    try {
+      const languageModel = await Language.findByOrFail('code', language.toLocaleLowerCase());
+      await game.related('languages').save(languageModel);
+    } catch (error) {
+      console.log(`Unknown language code: ${language}`);
+      throw error;
+    }
+  }
+
+  if (developer) {
+    for (const developerName of (developer as string).split('/')) {
+      const developerModel = await Company.firstOrCreate({ name: developerName.trim() });
+      await developerModel.refresh();
+      await game.related('developers').save(developerModel);
+    }
+  }
+
+  if (publisher) {
+    for (const publisherName of (publisher as string).split('/')) {
+      const publisherModel = await Company.firstOrCreate({ name: publisherName.trim() });
+      await publisherModel.refresh();
+      await game.related('publishers').save(publisherModel);
+    }
+  }
+
+  await platform.importGameImage(game, romName, 'boxartId', 'Named_Boxarts');
+  await platform.importGameImage(game, romName, 'logoId', 'Named_Logos');
+  await platform.importGameImage(game, romName, 'screenshotId', 'Named_Snaps');
+  await platform.importGameImage(game, romName, 'titlescreenId', 'Named_Titles');
+
+  await Promise.all(
+    $entries.map(
+      async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
+        if (!crc) {
+          console.log(`ROM without CRC: ${filename}`);
+          return;
+        }
+
+        const extra = {
+          gameId: game.id,
+          name: romName,
+          filename,
+          size,
+          md5,
+          sha1,
+          disc,
+        };
+
+        const rom = await Rom.firstOrCreate(
+          {
+            crc,
+            serial: romSerial || gameSerial,
+          },
+          extra,
+        );
+        rom.merge(extra);
+
+        if (rom.$isDirty) {
+          await rom.save();
+        }
+      },
+    ),
+  );
 }
