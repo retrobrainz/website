@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
+import { deduplicate, deleteGithubRepo, downloadGithubRepo, fixSerial } from '#utils/platform';
 import { BaseModel, belongsTo, column, computed, hasMany, manyToMany } from '@adonisjs/lucid/orm';
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations';
-import { download } from '@guoyunhe/downloader';
 import { parse as parseDat } from '@retrobrainz/dat';
 import { parse as parseName } from '@retrobrainz/name';
 import { existsSync } from 'fs';
-import { readFile, rm } from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { DateTime } from 'luxon';
 import Company from './company.js';
 import Emulator from './emulator.js';
@@ -78,7 +78,7 @@ export default class Platform extends BaseModel {
   // Libretro import
 
   async importLibretro(): Promise<void> {
-    await Platform.downloadGithubRepo('libretro', 'libretro-database');
+    await downloadGithubRepo('libretro', 'libretro-database');
 
     await this.downloadThumbnails();
 
@@ -115,8 +115,8 @@ export default class Platform extends BaseModel {
           continue;
         }
 
-        entry.serial = Platform.fixSerial(entry.serial);
-        entry.$entries[0].serial = Platform.fixSerial(entry.$entries[0].serial);
+        entry.serial = fixSerial(entry.serial);
+        entry.$entries[0].serial = fixSerial(entry.$entries[0].serial);
         const { crc, serial } = entry.$entries[0];
 
         const existings = gameEntries.filter(
@@ -136,7 +136,7 @@ export default class Platform extends BaseModel {
       }
     }
 
-    const deduplicatedGameEntries = Platform.deduplicate(gameEntries);
+    const deduplicatedGameEntries = deduplicate(gameEntries);
 
     for (const rawGame of deduplicatedGameEntries) {
       await this.importGame(rawGame);
@@ -303,12 +303,12 @@ export default class Platform extends BaseModel {
 
   async downloadThumbnails(): Promise<void> {
     const repo = `${this.company.name} - ${this.name}`.replaceAll(' ', '_');
-    await Platform.downloadGithubRepo('libretro-thumbnails', repo);
+    await downloadGithubRepo('libretro-thumbnails', repo);
   }
 
   async deleteThumbnails(): Promise<void> {
     const repo = `${this.company.name} - ${this.name}`.replaceAll(' ', '_');
-    await Platform.deleteGithubRepo(repo);
+    await deleteGithubRepo(repo);
   }
 
   async importGameImage(
@@ -332,49 +332,5 @@ export default class Platform extends BaseModel {
         //
       }
     }
-  }
-
-  static async downloadGithubRepo(org: string, repo: string): Promise<void> {
-    const url = `https://github.com/${org}/${repo}/archive/refs/heads/master.tar.gz`;
-    if (existsSync(`${process.cwd()}/tmp/${repo}-master`)) {
-      return;
-    }
-    const tmp = `${process.cwd()}/tmp/`;
-    try {
-      await download(url, tmp, {
-        extract: true,
-      });
-    } catch {
-      console.error(`Failed to download ${url}`);
-    }
-  }
-
-  static async deleteGithubRepo(repo: string): Promise<void> {
-    const path = `${process.cwd()}/tmp/${repo}-master`;
-    if (existsSync(path)) {
-      await rm(path, { recursive: true, force: true });
-    }
-  }
-
-  static deduplicate(games: any[]): any[] {
-    const gamesMap: Record<string, any> = {};
-    games.forEach((game) => {
-      const { crc } = game.$entries[0];
-      const serial = game.$entries[0].serial || game.serial;
-      const key = JSON.stringify({ crc, serial });
-      if (!gamesMap[key]) {
-        gamesMap[key] = game;
-      } else {
-        console.log(`Deduplicating game: ${game.name} (${crc}/${serial})`);
-        gamesMap[key].$entries = [...gamesMap[key].$entries, ...game.$entries];
-      }
-    });
-    return Object.values(gamesMap);
-  }
-
-  static fixSerial(serial: string): string {
-    if (!serial) return serial;
-    if (serial === 'SLUS21568') return 'SLUS-21568';
-    return serial;
   }
 }

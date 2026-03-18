@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import Platform from '#models/platform';
+import { deleteGithubRepo } from '#utils/platform';
 import { BaseSeeder } from '@adonisjs/lucid/seeders';
 
 export default class extends BaseSeeder {
@@ -13,6 +14,6 @@ export default class extends BaseSeeder {
       console.log('done');
     }
 
-    process.env.NODE_ENV === 'production' && (await Platform.deleteGithubRepo('libretro-database'));
+    process.env.NODE_ENV === 'production' && (await deleteGithubRepo('libretro-database'));
   }
 }

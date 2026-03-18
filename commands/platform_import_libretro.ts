@@ -1,4 +1,5 @@
 import Platform from '#models/platform';
+import { deleteGithubRepo } from '#utils/platform';
 import { args, BaseCommand } from '@adonisjs/core/ace';
 import type { CommandOptions } from '@adonisjs/core/types/ace';
 
@@ -28,6 +29,6 @@ export default class PlatformImportLibretro extends BaseCommand {
       this.logger.info('done');
     }
 
-    process.env.NODE_ENV === 'production' && (await Platform.deleteGithubRepo('libretro-database'));
+    process.env.NODE_ENV === 'production' && (await deleteGithubRepo('libretro-database'));
   }
 }
