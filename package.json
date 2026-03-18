@@ -94,6 +94,7 @@
     "image-type": "^6.0.0",
     "luxon": "^3.7.2",
     "pg": "^8.20.0",
+    "pretty-bytes": "^7.1.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-fast-fetch": "^2.0.1",

@@ -12,6 +12,7 @@ import {
   Typography,
 } from 'antd';
 import { Container } from 'antd-moe';
+import prettyBytes from 'pretty-bytes';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
@@ -24,16 +25,6 @@ import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
 import Game from '../../types/Game';
 import ImageUpload from '../platform/ImageUpload';
-
-function formatFileSize(size: number): string {
-  if (!size) return '0 B';
-
-  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-  const index = Math.min(Math.floor(Math.log(size) / Math.log(1024)), units.length - 1);
-  const value = size / 1024 ** index;
-
-  return `${value >= 100 ? value.toFixed(0) : value.toFixed(1)} ${units[index]}`;
-}
 
 export default function GamePage() {
   const { gameId } = useParams<{ gameId: string }>();
@@ -285,7 +276,7 @@ export default function GamePage() {
               title: t('size', { defaultValue: 'Size' }),
               dataIndex: 'size',
               align: 'right',
-              render: (size: number) => formatFileSize(size),
+              render: (size: number) => size && prettyBytes(size),
             },
           ]}
         />
