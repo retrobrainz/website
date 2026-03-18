@@ -276,7 +276,7 @@ export default function GamePage() {
               title: t('size', { defaultValue: 'Size' }),
               dataIndex: 'size',
               align: 'right',
-              render: (size: number) => size && prettyBytes(size),
+              render: (size: number) => size && prettyBytes(Number(size)),
             },
           ]}
         />
