@@ -18,14 +18,19 @@ export default class CompaniesController {
     const query = Company.query().preload('parent');
 
     if (search) {
-      query.where((companyQuery) => {
-        companyQuery
-          .where('name', 'ilike', `%${search}%`)
-          .orWhere('abbr', 'ilike', `%${search}%`)
-          .orWhereHas('names', (nameQuery) => {
-            nameQuery.where('name', 'ilike', `%${search}%`).orWhere('abbr', 'ilike', `%${search}%`);
+      search
+        .split(/\s+/)
+        .filter(Boolean)
+        .forEach((term: string) => {
+          query.where((companyQuery) => {
+            companyQuery
+              .where('name', 'ilike', `%${term}%`)
+              .orWhere('abbr', 'ilike', `%${term}%`)
+              .orWhereHas('names', (nameQuery) => {
+                nameQuery.where('name', 'ilike', `%${term}%`).orWhere('abbr', 'ilike', `%${term}%`);
+              });
           });
-      });
+        });
     }
 
     query.orderBy('name', 'asc');
@@ -170,7 +175,10 @@ export default class CompaniesController {
         .first();
 
       if (!existingName) {
-        await CompanyName.create({ companyId: targetCompanyId, name: sourceCompany.name }, { client: trx });
+        await CompanyName.create(
+          { companyId: targetCompanyId, name: sourceCompany.name },
+          { client: trx },
+        );
       }
 
       await trx.from('companies').where('id', sourceCompanyId).delete();
