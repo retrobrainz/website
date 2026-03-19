@@ -6,6 +6,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import xior from 'xior';
 import type { CompanyName } from '../../types/Company';
+import AskGoogle from '../ask-google';
 
 export interface CompanyNamesManagerProps {
   companyId: number;
@@ -16,6 +17,7 @@ export default function CompanyNamesManager({ companyId, canManage }: CompanyNam
   const { t } = useTranslation();
   const { message } = App.useApp();
   const [form] = Form.useForm();
+  const watchedName = Form.useWatch('name', form);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editingName, setEditingName] = useState<CompanyName | null>(null);
@@ -190,11 +192,19 @@ export default function CompanyNamesManager({ companyId, canManage }: CompanyNam
             <Input maxLength={64} />
           </Form.Item>
 
-          <Form.Item label={t('start-date')} name="startDate">
+          <Form.Item
+            label={t('start-date')}
+            name="startDate"
+            extra={<AskGoogle query={`start date of company name "${watchedName}"`} />}
+          >
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
 
-          <Form.Item label={t('end-date')} name="endDate">
+          <Form.Item
+            label={t('end-date')}
+            name="endDate"
+            extra={<AskGoogle query={`end date of company name "${watchedName}"`} />}
+          >
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
 
