@@ -190,11 +190,11 @@ export default function CompanyNamesManager({ companyId, canManage }: CompanyNam
             <Input maxLength={64} />
           </Form.Item>
 
-          <Form.Item label={t('founding-date')} name="startDate">
+          <Form.Item label={t('start-date')} name="startDate">
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
 
-          <Form.Item label={t('defunct-date')} name="endDate">
+          <Form.Item label={t('end-date')} name="endDate">
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
 
