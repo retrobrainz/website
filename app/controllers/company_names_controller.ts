@@ -9,9 +9,7 @@ import { DateTime } from 'luxon';
 
 export default class CompanyNamesController {
   async index({ params }: HttpContext) {
-    await Company.findOrFail(params.company_id);
-
-    return CompanyName.query().where('companyId', params.company_id).orderBy('name', 'asc');
+    return CompanyName.query().where('companyId', params.company_id).orderBy('startDate', 'asc');
   }
 
   async show({ params }: HttpContext) {
