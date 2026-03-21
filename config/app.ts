@@ -1,7 +1,7 @@
 import env from '#start/env';
-import app from '@adonisjs/core/services/app';
 import { Secret } from '@adonisjs/core/helpers';
 import { defineConfig } from '@adonisjs/core/http';
+import app from '@adonisjs/core/services/app';
 
 /**
  * The app key is used for encrypting cookies, generating signed URLs,
@@ -37,4 +37,10 @@ export const http = defineConfig({
     secure: app.inProduction,
     sameSite: 'lax',
   },
+
+  /**
+   * Keep-alive timeout in milliseconds. Set this value highter than Nginx's proxy_read_timeout to
+   * prevent Nginx 502 error.
+   */
+  keepAliveTimeout: 55000,
 });
