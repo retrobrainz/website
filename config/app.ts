@@ -39,8 +39,8 @@ export const http = defineConfig({
   },
 
   /**
-   * Keep-alive timeout in milliseconds. Set this value highter than Nginx's proxy_read_timeout to
-   * prevent Nginx 502 error.
+   * Keep-alive timeout in milliseconds. Set this value highter than Nginx's proxy_read_timeout
+   * (60s by default) to prevent 502 error.
    */
-  keepAliveTimeout: 55000,
+  keepAliveTimeout: 65000,
 });
