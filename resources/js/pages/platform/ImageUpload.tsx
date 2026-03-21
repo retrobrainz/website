@@ -23,7 +23,7 @@ export default function ImageUpload({ game, type, onFinish }: ImageUploadProps) 
   const { data: games } = useFetch<{ data: Game[] }>('/games', {
     params: {
       platformId: game.platformId,
-      search: game.name.substring(0, game.name.indexOf('(')).trim(),
+      titleId: game.titleId,
     },
     disabled: !open,
   });
