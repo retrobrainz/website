@@ -5,6 +5,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import xior from 'xior';
+import AskGoogle from '../../components/ask-google';
 import { languages } from '../../config/i18n';
 import Genre from '../../types/Genre';
 
@@ -89,7 +90,14 @@ export default function GenreTranslatePage() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
+            <Form.Item
+              label={t('name')}
+              name="name"
+              rules={[{ required: true }]}
+              extra={
+                <AskGoogle query={`translate name of genre "${genre?.name}" into ${locale}`} />
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
