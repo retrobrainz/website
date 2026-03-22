@@ -22,7 +22,7 @@ export default class TitlesController {
 
     if (search) {
       search
-        .split(' ')
+        .split(/\s+/)
         .filter(Boolean)
         .forEach((term: string) => {
           query.where('name', 'ilike', `%${term}%`);
