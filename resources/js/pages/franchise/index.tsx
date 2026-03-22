@@ -91,7 +91,7 @@ export default function FranchisePage() {
             label: t('titles'),
             children: (
               <TitleList
-                initialFilters={{ franchiseId: Number(franchiseId) }}
+                initialFilters={{ franchiseId: Number(franchiseId), orderBy: 'releaseDateDesc' }}
                 showFilters={['search', 'platformId']}
               />
             ),

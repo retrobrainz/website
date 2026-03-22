@@ -83,7 +83,7 @@ export default function GenrePage() {
             label: t('titles'),
             children: (
               <TitleList
-                initialFilters={{ genreId: Number(genreId) }}
+                initialFilters={{ genreId: Number(genreId), orderBy: 'releaseDateDesc' }}
                 showFilters={['search', 'platformId', 'noFranchise']}
               />
             ),
