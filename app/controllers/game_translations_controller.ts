@@ -12,7 +12,7 @@ export default class GameTranslationsController {
    */
   async store({ params, request, response }: HttpContext) {
     // Verify the game exists
-    await Game.findOrFail(params.game_id);
+    const game = await Game.findOrFail(params.game_id);
 
     const { locale, name } = await request.validateUsing(gameTranslationStoreValidator);
 
@@ -22,6 +22,22 @@ export default class GameTranslationsController {
       name,
     });
 
+    const sameNameGames = await Game.query()
+      .where('name', game.name)
+      .whereNot('id', game.id)
+      .select('id');
+
+    if (sameNameGames.length > 0) {
+      await GameTranslation.updateOrCreateMany(
+        ['gameId', 'locale'],
+        sameNameGames.map((sameNameGame) => ({
+          gameId: sameNameGame.id,
+          locale,
+          name,
+        })),
+      );
+    }
+
     return response.created(translation);
   }
 
@@ -30,7 +46,7 @@ export default class GameTranslationsController {
    */
   async update({ params, request, response }: HttpContext) {
     // Verify the game exists
-    await Game.findOrFail(params.game_id);
+    const game = await Game.findOrFail(params.game_id);
 
     const translation = await GameTranslation.findOrFail(params.id);
 
@@ -42,7 +58,24 @@ export default class GameTranslationsController {
     const data = await request.validateUsing(gameTranslationUpdateValidator);
 
     translation.merge(data);
+    await translation.save();
 
-    return await translation.save();
+    const sameNameGames = await Game.query()
+      .where('name', game.name)
+      .whereNot('id', game.id)
+      .select('id');
+
+    if (sameNameGames.length > 0) {
+      await GameTranslation.updateOrCreateMany(
+        ['gameId', 'locale'],
+        sameNameGames.map((sameNameGame) => ({
+          gameId: sameNameGame.id,
+          locale: translation.locale,
+          name: translation.name,
+        })),
+      );
+    }
+
+    return translation;
   }
 }
