@@ -111,6 +111,7 @@ export default function FranchisePage() {
                   'noPublisher',
                   'noReleaseDate',
                   'noLanguage',
+                  'noRom',
                 ]}
               />
             ),

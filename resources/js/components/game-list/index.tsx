@@ -22,6 +22,7 @@ interface GameListFilters {
   noPublisher?: boolean;
   noReleaseDate?: boolean;
   noLanguage?: boolean;
+  noRom?: boolean;
   search?: string;
   orderBy?: string;
 }
@@ -157,6 +158,12 @@ export default function GameList({
           {showFilters.includes('noLanguage') && (
             <Form.Item name="noLanguage" valuePropName="checked">
               <Checkbox>{t('no-languages')}</Checkbox>
+            </Form.Item>
+          )}
+
+          {showFilters.includes('noRom') && (
+            <Form.Item name="noRom" valuePropName="checked">
+              <Checkbox>{t('no-rom')}</Checkbox>
             </Form.Item>
           )}
         </Form>

@@ -96,6 +96,11 @@ export default class GamesController {
       query.doesntHave('languages');
     }
 
+    const noRom = request.input('noRom');
+    if (noRom === 'true' || noRom === true) {
+      query.doesntHave('roms');
+    }
+
     const search = request.input('search');
     if (search) {
       search

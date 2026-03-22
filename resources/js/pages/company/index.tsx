@@ -178,6 +178,7 @@ export default function CompanyPage() {
                   'noPublisher',
                   'noReleaseDate',
                   'noLanguage',
+                  'noRom',
                 ]}
               />
             ),
@@ -196,6 +197,7 @@ export default function CompanyPage() {
                   'noDeveloper',
                   'noReleaseDate',
                   'noLanguage',
+                  'noRom',
                 ]}
               />
             ),

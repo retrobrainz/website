@@ -125,6 +125,7 @@ export default function TitlePage() {
           'noPublisher',
           'noReleaseDate',
           'noLanguage',
+          'noRom',
         ]}
       />
     </Container>

@@ -61,6 +61,7 @@ export default function PlatformPage() {
                   'noPublisher',
                   'noReleaseDate',
                   'noLanguage',
+                  'noRom',
                 ]}
               />
             ),

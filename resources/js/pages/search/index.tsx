@@ -19,6 +19,7 @@ export default function SearchPage() {
           'noPublisher',
           'noReleaseDate',
           'noLanguage',
+          'noRom',
         ]}
       />
     </Container>

@@ -103,6 +103,7 @@ export default function GenrePage() {
                   'noPublisher',
                   'noReleaseDate',
                   'noLanguage',
+                  'noRom',
                 ]}
               />
             ),
