@@ -37,6 +37,7 @@ export type ScannedRoutes = {
     'games.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'games.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'games.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'games.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'genres.index': { paramsTuple?: []; params?: {} }
     'genres.store': { paramsTuple?: []; params?: {} }
     'genres.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -229,6 +230,7 @@ export type ScannedRoutes = {
     'franchises.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'frontends.store': { paramsTuple?: []; params?: {} }
     'games.store': { paramsTuple?: []; params?: {} }
+    'games.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'genres.store': { paramsTuple?: []; params?: {} }
     'images.store': { paramsTuple?: []; params?: {} }
     'languages.store': { paramsTuple?: []; params?: {} }

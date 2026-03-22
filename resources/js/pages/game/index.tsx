@@ -20,6 +20,7 @@ import fallbackImage from '../../../img/fallback-screenshot.avif';
 import { ceroRatingLabelMap } from '../../components/cero-rating-select';
 import { esrbRatingLabelMap } from '../../components/esrb-rating-select';
 import FavoriteButton from '../../components/favorite-button';
+import GameMergeButton from '../../components/game-merge-button';
 import { pegiRatingLabelMap } from '../../components/pegi-rating-select';
 import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
@@ -33,6 +34,7 @@ export default function GamePage() {
 
   const { data: game, reload } = useFetch<Game>(`/games/${gameId}`);
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
+  const canMerge = user?.role === 'admin';
 
   const gameTranslation = game?.translations?.find((tr) => tr.locale === i18n.language);
   const displayName = gameTranslation?.name || game?.name;
@@ -78,9 +80,14 @@ export default function GamePage() {
           <Button>{t('translate')}</Button>
         </Link>
         {canEdit && (
-          <Link href={`/platforms/${game?.platform?.id}/games/${game?.id}/edit`}>
-            <Button icon={<EditOutlined />}>{t('edit')}</Button>
-          </Link>
+          <>
+            {canMerge && game?.id && (
+              <GameMergeButton gameId={game.id} platformId={game.platformId} />
+            )}
+            <Link href={`/platforms/${game?.platform?.id}/games/${game?.id}/edit`}>
+              <Button icon={<EditOutlined />}>{t('edit')}</Button>
+            </Link>
+          </>
         )}
       </Flex>
 

@@ -1,5 +1,7 @@
 import Game from '#models/game';
+import { gameMergeValidator } from '#validators/game_merge_validator';
 import type { HttpContext } from '@adonisjs/core/http';
+import db from '@adonisjs/lucid/services/db';
 import { DateTime } from 'luxon';
 
 export default class GamesController {
@@ -324,5 +326,166 @@ export default class GamesController {
     await game.load('titlescreen');
 
     return game;
+  }
+
+  async merge({ params, request, auth, response }: HttpContext) {
+    if (!auth.user || auth.user.role !== 'admin') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    const sourceGameId = Number(params.id);
+    const { targetGameId } = await request.validateUsing(gameMergeValidator);
+
+    if (sourceGameId === targetGameId) {
+      return response.badRequest({ message: 'Source and target games must be different' });
+    }
+
+    const sourceGame = await Game.query()
+      .where('id', sourceGameId)
+      .select('id', 'platformId')
+      .firstOrFail();
+    const targetGame = await Game.query()
+      .where('id', targetGameId)
+      .select('id', 'platformId')
+      .firstOrFail();
+
+    if (sourceGame.platformId !== targetGame.platformId) {
+      return response.badRequest({
+        message: 'Source and target games must be on the same platform',
+      });
+    }
+
+    await db.transaction(async (trx) => {
+      await Game.query({ client: trx }).where('id', sourceGameId).firstOrFail();
+      await Game.query({ client: trx }).where('id', targetGameId).firstOrFail();
+
+      const developerRows = await trx
+        .from('game_developer')
+        .where('game_id', sourceGameId)
+        .select('company_id');
+      if (developerRows.length > 0) {
+        await trx
+          .table('game_developer')
+          .insert(
+            developerRows.map((row) => ({
+              game_id: targetGameId,
+              company_id: row.company_id,
+            })),
+          )
+          .onConflict(['game_id', 'company_id'])
+          .ignore();
+      }
+
+      const publisherRows = await trx
+        .from('game_publisher')
+        .where('game_id', sourceGameId)
+        .select('company_id');
+      if (publisherRows.length > 0) {
+        await trx
+          .table('game_publisher')
+          .insert(
+            publisherRows.map((row) => ({
+              game_id: targetGameId,
+              company_id: row.company_id,
+            })),
+          )
+          .onConflict(['game_id', 'company_id'])
+          .ignore();
+      }
+
+      const regionRows = await trx
+        .from('game_region')
+        .where('game_id', sourceGameId)
+        .select('region_id');
+      if (regionRows.length > 0) {
+        await trx
+          .table('game_region')
+          .insert(
+            regionRows.map((row) => ({
+              game_id: targetGameId,
+              region_id: row.region_id,
+            })),
+          )
+          .onConflict(['game_id', 'region_id'])
+          .ignore();
+      }
+
+      const languageRows = await trx
+        .from('game_language')
+        .where('game_id', sourceGameId)
+        .select('language_id');
+      if (languageRows.length > 0) {
+        await trx
+          .table('game_language')
+          .insert(
+            languageRows.map((row) => ({
+              game_id: targetGameId,
+              language_id: row.language_id,
+            })),
+          )
+          .onConflict(['game_id', 'language_id'])
+          .ignore();
+      }
+
+      const favoriteRows = await trx
+        .from('game_favorites')
+        .where('game_id', sourceGameId)
+        .select('user_id');
+      if (favoriteRows.length > 0) {
+        await trx
+          .table('game_favorites')
+          .insert(
+            favoriteRows.map((row) => ({
+              user_id: row.user_id,
+              game_id: targetGameId,
+            })),
+          )
+          .onConflict(['user_id', 'game_id'])
+          .ignore();
+      }
+
+      const translationRows = await trx
+        .from('game_translations')
+        .where('game_id', sourceGameId)
+        .select('locale', 'name');
+      if (translationRows.length > 0) {
+        await trx
+          .table('game_translations')
+          .insert(
+            translationRows.map((row) => ({
+              game_id: targetGameId,
+              locale: row.locale,
+              name: row.name,
+            })),
+          )
+          .onConflict(['game_id', 'locale'])
+          .ignore();
+      }
+
+      await trx.from('roms').where('game_id', sourceGameId).update({ game_id: targetGameId });
+
+      await trx.from('games').where('id', sourceGameId).delete();
+    });
+
+    return Game.query()
+      .where('id', targetGameId)
+      .preload('title', (q) => {
+        q.preload('translations');
+        q.preload('franchises', (qq) => qq.preload('translations'));
+        q.preload('genres', (qq) => qq.preload('translations'));
+      })
+      .preload('platform')
+      .preload('regions')
+      .preload('developers')
+      .preload('publishers')
+      .preload('languages')
+      .preload('roms')
+      .preload('boxart')
+      .preload('logo')
+      .preload('screenshot')
+      .preload('titlescreen')
+      .preload('translations')
+      .withCount('favorites')
+      .firstOrFail();
   }
 }

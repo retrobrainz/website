@@ -67,6 +67,9 @@ router
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
+      .post('games/:id/merge', [GamesController, 'merge'])
+      .use(middleware.auth({ guards: ['api'] }));
+    router
       .resource('genres', GenresController)
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
