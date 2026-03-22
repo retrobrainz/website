@@ -16,6 +16,7 @@ export default interface Title {
   name: string;
   wikipedia: string | null;
   mobygames: string | null;
+  releaseDate?: string | null;
   translations?: TitleTranslation[];
   games?: Game[];
   gamesCount?: number;

@@ -16,6 +16,7 @@ export default class TitlesController {
     const noFranchise = request.input('noFranchise');
     const genreId = request.input('genreId');
     const noGenre = request.input('noGenre');
+    const orderBy = request.input('orderBy');
 
     const query = Title.query();
 
@@ -56,6 +57,9 @@ export default class TitlesController {
 
     query
       .withCount('games')
+      .withAggregate('games', (q) => {
+        q.min('release_date').as('release_date');
+      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('games', (q) => {
         q.whereNotNull('boxartId')
@@ -70,7 +74,13 @@ export default class TitlesController {
       )
       .preload('genres', (q) => q.preload('translations', (qq) => qq.where('locale', i18n.locale)));
 
-    query.orderBy('name', 'asc');
+    if (orderBy === 'releaseDateAsc') {
+      query.orderByRaw('release_date asc nulls last').orderBy('name', 'asc');
+    } else if (orderBy === 'releaseDateDesc') {
+      query.orderByRaw('release_date desc nulls last').orderBy('name', 'asc');
+    } else {
+      query.orderBy('name', 'asc');
+    }
 
     return query.paginate(page, pageSize);
   }
@@ -81,6 +91,9 @@ export default class TitlesController {
   async show({ params, i18n }: HttpContext) {
     return Title.query()
       .where('id', params.id)
+      .withAggregate('games', (q) => {
+        q.min('release_date').as('release_date');
+      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
@@ -106,9 +119,16 @@ export default class TitlesController {
       await title.related('genres').sync(genreIds);
     }
 
-    await title.load('franchises');
-    await title.load('genres');
-    return response.created(title);
+    const createdTitle = await Title.query()
+      .where('id', title.id)
+      .withAggregate('games', (q) => {
+        q.min('release_date').as('release_date');
+      })
+      .preload('franchises')
+      .preload('genres')
+      .firstOrFail();
+
+    return response.created(createdTitle);
   }
 
   /**
@@ -130,9 +150,14 @@ export default class TitlesController {
       await title.related('genres').sync(genreIds);
     }
 
-    await title.load('franchises');
-    await title.load('genres');
-    return title;
+    return Title.query()
+      .where('id', title.id)
+      .withAggregate('games', (q) => {
+        q.min('release_date').as('release_date');
+      })
+      .preload('franchises')
+      .preload('genres')
+      .firstOrFail();
   }
 
   /**
@@ -212,6 +237,9 @@ export default class TitlesController {
 
     return Title.query()
       .where('id', targetTitleId)
+      .withAggregate('games', (q) => {
+        q.min('release_date').as('release_date');
+      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),

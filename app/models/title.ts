@@ -59,4 +59,38 @@ export default class Title extends BaseModel {
   get gamesCount(): number | null {
     return this.$extras.games_count ?? null;
   }
+
+  @computed()
+  get releaseDate(): DateTime | null {
+    const aggregatedReleaseDate = this.$extras.release_date;
+
+    if (aggregatedReleaseDate instanceof Date) {
+      return DateTime.fromJSDate(aggregatedReleaseDate);
+    }
+
+    if (typeof aggregatedReleaseDate === 'string') {
+      const parsedReleaseDate = DateTime.fromISO(aggregatedReleaseDate);
+      return parsedReleaseDate.isValid ? parsedReleaseDate : null;
+    }
+
+    const loadedGames = Array.isArray(this.$preloaded.games)
+      ? (this.$preloaded.games as Game[])
+      : null;
+
+    if (!loadedGames?.length) {
+      return null;
+    }
+
+    return loadedGames.reduce<DateTime | null>((earliestReleaseDate, game) => {
+      if (!game.releaseDate) {
+        return earliestReleaseDate;
+      }
+
+      if (!earliestReleaseDate || game.releaseDate.toMillis() < earliestReleaseDate.toMillis()) {
+        return game.releaseDate;
+      }
+
+      return earliestReleaseDate;
+    }, null);
+  }
 }

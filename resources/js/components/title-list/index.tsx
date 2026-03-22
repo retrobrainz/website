@@ -1,4 +1,4 @@
-import { Checkbox, Col, Form, Input, Pagination, Row, Spin, Tag } from 'antd';
+import { Checkbox, Col, Form, Input, Pagination, Row, Select, Spin, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,7 @@ interface TitleListFilters {
   noFranchise?: boolean;
   noGenre?: boolean;
   genreId?: number | string;
+  orderBy?: string;
 }
 
 interface TitleListProps {
@@ -65,6 +66,20 @@ export default function TitleList({
                 placeholder={t('search')}
                 allowClear
                 onSearch={(value) => setFilters((prev) => ({ ...prev, search: value }))}
+              />
+            </Form.Item>
+          )}
+
+          {showFilters.includes('orderBy') && (
+            <Form.Item label={t('sort')} name="orderBy">
+              <Select
+                allowClear
+                placeholder={t('select')}
+                options={[
+                  { value: 'name', label: t('sort-name-asc') },
+                  { value: 'releaseDateAsc', label: t('sort-release-date-asc') },
+                  { value: 'releaseDateDesc', label: t('sort-release-date-desc') },
+                ]}
               />
             </Form.Item>
           )}

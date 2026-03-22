@@ -23,7 +23,14 @@ export default class TitleFavoritesController {
       query.where('titleId', titleId);
     }
 
-    return await query.preload('title').preload('user').paginate(page, pageSize);
+    return await query
+      .preload('title', (q) => {
+        q.withAggregate('games', (qq) => {
+          qq.min('release_date').as('release_date');
+        });
+      })
+      .preload('user')
+      .paginate(page, pageSize);
   }
 
   /**
@@ -32,7 +39,11 @@ export default class TitleFavoritesController {
   async show({ params }: HttpContext) {
     const favorite = await TitleFavorite.query()
       .where('id', params.id)
-      .preload('title')
+      .preload('title', (q) => {
+        q.withAggregate('games', (qq) => {
+          qq.min('release_date').as('release_date');
+        });
+      })
       .preload('user')
       .firstOrFail();
 
@@ -65,7 +76,13 @@ export default class TitleFavoritesController {
     const favorite = await TitleFavorite.firstOrCreate(searchPayload);
 
     await favorite.load((loader) => {
-      loader.load('title').load('user');
+      loader
+        .load('title', (q) => {
+          q.withAggregate('games', (qq) => {
+            qq.min('release_date').as('release_date');
+          });
+        })
+        .load('user');
     });
 
     return favorite;

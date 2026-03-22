@@ -76,6 +76,10 @@ export default function TitlePage() {
                       : 'N/A',
                 },
                 {
+                  label: t('release-date'),
+                  children: title?.releaseDate || 'N/A',
+                },
+                {
                   label: t('genres'),
                   children:
                     title?.genres && title.genres.length > 0

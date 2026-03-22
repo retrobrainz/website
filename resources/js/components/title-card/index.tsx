@@ -12,6 +12,8 @@ export default function TitleCard({ title }: TitleCardProps) {
   const { t } = useTranslation();
   const displayName = title.translations?.[0]?.name || title.name;
   const featuredGame = title.games?.[0]?.boxart?.url ?? fallbackImage;
+  const platforms = Array.from(new Set(title.platforms?.map((platform) => platform.name))).sort();
+  const releaseYear = title.releaseDate?.slice(0, 4);
 
   return (
     <Link href={`/titles/${title.id}`}>
@@ -29,10 +31,15 @@ export default function TitleCard({ title }: TitleCardProps) {
           title={displayName}
           description={
             <div>
-              {`${title.gamesCount ?? 0} ${t('games')}`}&nbsp;|&nbsp;
-              {Array.from(new Set(title.platforms?.map((platform) => platform.name)))
-                .sort()
-                .join(', ')}
+              <div>
+                {`${title.gamesCount ?? 0} ${t('games')}`}
+                {platforms.length > 0 ? ` | ${platforms.join(', ')}` : ''}
+              </div>
+              {releaseYear && (
+                <div>
+                  {t('release-date')}: {releaseYear}
+                </div>
+              )}
             </div>
           }
         />

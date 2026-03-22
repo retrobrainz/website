@@ -115,6 +115,9 @@ export default class GamesController {
 
     return query
       .preload('title', (q) => {
+        q.withAggregate('games', (qq) => {
+          qq.min('release_date').as('release_date');
+        });
         q.preload('translations');
         q.preload('franchises', (qq) => qq.preload('translations'));
         q.preload('genres', (qq) => qq.preload('translations'));
@@ -136,6 +139,9 @@ export default class GamesController {
     const game = await Game.query()
       .where('id', params.id)
       .preload('title', (q) => {
+        q.withAggregate('games', (qq) => {
+          qq.min('release_date').as('release_date');
+        });
         q.preload('translations');
         q.preload('franchises', (qq) => qq.preload('translations'));
         q.preload('genres', (qq) => qq.preload('translations'));
@@ -208,7 +214,11 @@ export default class GamesController {
       await game.related('languages').attach(languageIds);
     }
 
-    await game.load('title');
+    await game.load('title', (q) => {
+      q.withAggregate('games', (qq) => {
+        qq.min('release_date').as('release_date');
+      });
+    });
     await game.load('platform');
     await game.load('regions');
     await game.load('developers');
@@ -312,7 +322,11 @@ export default class GamesController {
 
     await game.save();
 
-    await game.load('title');
+    await game.load('title', (q) => {
+      q.withAggregate('games', (qq) => {
+        qq.min('release_date').as('release_date');
+      });
+    });
     await game.load('platform');
     await game.load('regions');
     await game.load('developers');
