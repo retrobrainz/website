@@ -9,7 +9,10 @@ interface PlatformCardProps {
 
 export default function PlatformCard({ platform }: PlatformCardProps) {
   const { t } = useTranslation();
-  const title = platform.abbr ? `${platform.name} (${platform.abbr})` : platform.name;
+  const title =
+    platform.abbr && platform.abbr !== platform.name
+      ? `${platform.name} (${platform.abbr})`
+      : platform.name;
   const description = platform.company?.name || undefined;
 
   return (
