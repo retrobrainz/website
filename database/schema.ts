@@ -474,8 +474,10 @@ export class PlatformEmulatorSchema extends BaseModel {
 }
 
 export class PlatformSchema extends BaseModel {
-  static $columns = ['companyId', 'createdAt', 'id', 'logoId', 'name', 'photoId', 'releaseDate', 'screenHeight', 'screenWidth', 'updatedAt'] as const
+  static $columns = ['abbr', 'companyId', 'createdAt', 'id', 'logoId', 'name', 'photoId', 'releaseDate', 'screenHeight', 'screenWidth', 'updatedAt'] as const
   $columns = PlatformSchema.$columns
+  @column()
+  declare abbr: string | null
   @column()
   declare companyId: number
   @column.dateTime({ autoCreate: true })

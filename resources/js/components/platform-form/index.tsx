@@ -23,6 +23,7 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
     if (platform) {
       form.setFieldsValue({
         name: platform.name,
+        abbr: platform.abbr,
         companyId: platform.company?.id || null,
         screenWidth: platform.screenWidth,
         screenHeight: platform.screenHeight,
@@ -63,6 +64,10 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
+      </Form.Item>
+
+      <Form.Item label={t('abbr')} name="abbr">
+        <Input maxLength={8} />
       </Form.Item>
 
       <Form.Item label={t('companies')} name="companyId" rules={[{ required: true }]}>

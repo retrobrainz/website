@@ -5,6 +5,7 @@ import Image from './Image';
 export default interface Platform {
   id: number;
   name: string;
+  abbr: string | null;
   company: Company | null;
   companyId?: number | null;
   screenWidth: number;

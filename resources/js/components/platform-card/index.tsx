@@ -9,6 +9,8 @@ interface PlatformCardProps {
 
 export default function PlatformCard({ platform }: PlatformCardProps) {
   const { t } = useTranslation();
+  const description =
+    [platform.abbr, platform.company?.name].filter(Boolean).join(' • ') || undefined;
 
   return (
     <Link href={`/platforms/${platform.id}`}>
@@ -29,7 +31,7 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
             title={platform.name}
             description={
               <Space separator="|">
-                <span>{platform.company?.name}</span>
+                {description && <span>{description}</span>}
                 <span>{t('total-games', { total: platform.gamesCount })}</span>
               </Space>
             }

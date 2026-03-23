@@ -26,84 +26,98 @@ export default class extends BaseSeeder {
     for (const props of [
       {
         name: 'Nintendo Entertainment System',
+        abbr: 'NES',
         screenWidth: 256,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1983-07-15'),
       },
       {
         name: 'Family Computer Disk System',
+        abbr: 'FDS',
         screenWidth: 256,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1986-02-21'),
       },
       {
         name: 'Game Boy',
+        abbr: 'GB',
         screenWidth: 160,
         screenHeight: 144,
         releaseDate: DateTime.fromISO('1989-04-21'),
       },
       {
         name: 'Super Nintendo Entertainment System',
+        abbr: 'SNES',
         screenWidth: 256,
         screenHeight: 224,
         releaseDate: DateTime.fromISO('1990-11-21'),
       },
       {
         name: 'Nintendo 64',
+        abbr: 'N64',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1996-06-23'),
       },
       {
         name: 'Game Boy Color',
+        abbr: 'GBC',
         screenWidth: 160,
         screenHeight: 144,
         releaseDate: DateTime.fromISO('1998-10-21'),
       },
       {
         name: 'Game Boy Advance',
+        abbr: 'GBA',
         screenWidth: 240,
         screenHeight: 160,
         releaseDate: DateTime.fromISO('2001-03-21'),
       },
       {
         name: 'GameCube',
+        abbr: 'GC',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('2001-09-14'),
       },
       {
         name: 'Nintendo DS',
+        abbr: 'NDS',
         screenWidth: 256,
         screenHeight: 384,
         releaseDate: DateTime.fromISO('2004-11-21'),
       },
       {
         name: 'Wii',
+        abbr: 'Wii',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('2006-11-19'),
       },
       {
         name: 'Nintendo DSi',
+        abbr: 'DSi',
         screenWidth: 256,
         screenHeight: 384,
         releaseDate: DateTime.fromISO('2008-11-01'),
       },
       {
         name: 'Nintendo 3DS',
+        abbr: '3DS',
         screenWidth: 400,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('2011-02-26'),
       },
       {
         name: 'Wii U',
+        abbr: 'Wii U',
         screenWidth: 1280,
         screenHeight: 720,
         releaseDate: DateTime.fromISO('2012-11-18'),
       },
       {
         name: 'Switch',
+        abbr: 'NS',
         screenWidth: 1280,
         screenHeight: 720,
         releaseDate: DateTime.fromISO('2017-03-03'),
@@ -117,36 +131,42 @@ export default class extends BaseSeeder {
     for (const props of [
       {
         name: 'PlayStation',
+        abbr: 'PS1',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-12-03'),
       },
       {
         name: 'PlayStation 2',
+        abbr: 'PS2',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('2000-03-04'),
       },
       {
         name: 'PlayStation Portable',
+        abbr: 'PSP',
         screenWidth: 480,
         screenHeight: 272,
         releaseDate: DateTime.fromISO('2004-12-12'),
       },
       {
         name: 'PlayStation 3',
+        abbr: 'PS3',
         screenWidth: 1280,
         screenHeight: 720,
         releaseDate: DateTime.fromISO('2006-11-11'),
       },
       {
         name: 'PlayStation Vita',
+        abbr: 'PSV',
         screenWidth: 960,
         screenHeight: 544,
         releaseDate: DateTime.fromISO('2011-12-17'),
       },
       {
         name: 'PlayStation 4',
+        abbr: 'PS4',
         screenWidth: 1920,
         screenHeight: 1080,
         releaseDate: DateTime.fromISO('2013-11-15'),
@@ -160,42 +180,49 @@ export default class extends BaseSeeder {
     for (const props of [
       {
         name: 'Master System - Mark III',
+        abbr: 'SMS',
         screenWidth: 256,
         screenHeight: 192,
         releaseDate: DateTime.fromISO('1985-10-20'),
       },
       {
         name: 'Mega Drive - Genesis',
+        abbr: 'MD',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1988-10-29'),
       },
       {
         name: 'Game Gear',
+        abbr: 'GG',
         screenWidth: 160,
         screenHeight: 144,
         releaseDate: DateTime.fromISO('1990-10-06'),
       },
       {
         name: 'Mega-CD - Sega CD',
+        abbr: 'MCD',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1991-12-17'),
       },
       {
         name: '32X',
+        abbr: '32X',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-11-21'),
       },
       {
         name: 'Saturn',
+        abbr: 'SAT',
         screenWidth: 320,
         screenHeight: 240,
         releaseDate: DateTime.fromISO('1994-11-22'),
       },
       {
         name: 'Dreamcast',
+        abbr: 'DC',
         screenWidth: 640,
         screenHeight: 480,
         releaseDate: DateTime.fromISO('1999-11-27'),
@@ -207,6 +234,10 @@ export default class extends BaseSeeder {
 
   async createPlatform({ companyId, name, ...rest }: any) {
     const platform = await Platform.firstOrCreate({ companyId, name }, rest);
+
+    if (!platform.abbr && rest.abbr) {
+      platform.abbr = rest.abbr;
+    }
 
     if (!platform.logoId) {
       const logoPath = [
