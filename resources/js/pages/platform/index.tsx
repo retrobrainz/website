@@ -1,5 +1,5 @@
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Flex, Tabs, Tag, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Tabs, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -31,8 +31,8 @@ export default function PlatformPage() {
       <Flex align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
           {platform?.name || '...'}
+          {platform?.abbr && <span style={{ marginLeft: 12 }}>({platform.abbr})</span>}
         </Typography.Title>
-        {platform?.abbr && <Tag style={{ marginLeft: 12 }}>{platform.abbr}</Tag>}
         <div style={{ flex: 1 }} />
         {canEdit && (
           <Flex gap="small">

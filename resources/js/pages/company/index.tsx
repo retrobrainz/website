@@ -60,15 +60,10 @@ export default function CompanyPage() {
 
       <Flex align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {company?.name || '...'}
-          {company?.defunctDate && '🪦'}
+          <span>{company?.name || '...'}</span>
+          {company?.abbr && <span style={{ marginLeft: 12 }}>({company.abbr})</span>}
+          {company?.defunctDate && <span style={{ marginLeft: 12 }}>🪦</span>}
         </Typography.Title>
-
-        {company?.abbr && (
-          <Typography.Text type="secondary" style={{ marginLeft: 12 }}>
-            {company.abbr}
-          </Typography.Text>
-        )}
 
         <div style={{ flex: 1 }} />
 
