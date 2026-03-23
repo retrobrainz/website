@@ -9,8 +9,8 @@ interface PlatformCardProps {
 
 export default function PlatformCard({ platform }: PlatformCardProps) {
   const { t } = useTranslation();
-  const description =
-    [platform.abbr, platform.company?.name].filter(Boolean).join(' • ') || undefined;
+  const title = platform.abbr ? `${platform.name} (${platform.abbr})` : platform.name;
+  const description = platform.company?.name || undefined;
 
   return (
     <Link href={`/platforms/${platform.id}`}>
@@ -28,7 +28,7 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
       >
         <Flex align="center">
           <Card.Meta
-            title={platform.name}
+            title={title}
             description={
               <Space separator="|">
                 {description && <span>{description}</span>}
