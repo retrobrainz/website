@@ -474,7 +474,7 @@ export class PlatformEmulatorSchema extends BaseModel {
 }
 
 export class PlatformSchema extends BaseModel {
-  static $columns = ['abbr', 'companyId', 'createdAt', 'id', 'logoId', 'name', 'photoId', 'releaseDate', 'screenHeight', 'screenWidth', 'updatedAt'] as const
+  static $columns = ['abbr', 'companyId', 'createdAt', 'id', 'logoId', 'name', 'photoId', 'releaseDate', 'screenHeight', 'screenWidth', 'updatedAt', 'wikipedia'] as const
   $columns = PlatformSchema.$columns
   @column()
   declare abbr: string | null
@@ -498,6 +498,8 @@ export class PlatformSchema extends BaseModel {
   declare screenWidth: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare wikipedia: string | null
 }
 
 export class RegionTranslationSchema extends BaseModel {

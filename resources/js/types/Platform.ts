@@ -6,6 +6,7 @@ export default interface Platform {
   id: number;
   name: string;
   abbr: string | null;
+  wikipedia: string | null;
   company: Company | null;
   companyId?: number | null;
   screenWidth: number;

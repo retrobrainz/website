@@ -22,6 +22,7 @@ export const createPlatformValidator = vine.create(
   vine.object({
     name: vine.string().trim().minLength(1).maxLength(64),
     abbr: vine.string().trim().maxLength(8).optional().nullable(),
+    wikipedia: vine.string().trim().maxLength(2048).optional().nullable(),
     companyId: vine.number().withoutDecimals().exists({ table: 'companies', column: 'id' }),
     screenWidth: vine.number().withoutDecimals().min(1),
     screenHeight: vine.number().withoutDecimals().min(1),
@@ -36,6 +37,7 @@ export const updatePlatformValidator = vine.create(
   vine.object({
     name: vine.string().trim().minLength(1).maxLength(64).optional(),
     abbr: vine.string().trim().maxLength(8).optional().nullable(),
+    wikipedia: vine.string().trim().maxLength(2048).optional().nullable(),
     companyId: vine
       .number()
       .withoutDecimals()

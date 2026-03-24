@@ -7,6 +7,41 @@ import { download } from '@guoyunhe/downloader';
 import { DateTime } from 'luxon';
 import { existsSync } from 'node:fs';
 
+const WIKIPEDIA_ARTICLE_BY_PLATFORM: Record<string, string> = {
+  'Nintendo Entertainment System': 'Nintendo_Entertainment_System',
+  'Family Computer Disk System': 'Family_Computer_Disk_System',
+  'Game Boy': 'Game_Boy',
+  'Super Nintendo Entertainment System': 'Super_Nintendo_Entertainment_System',
+  'Nintendo 64': 'Nintendo_64',
+  'Game Boy Color': 'Game_Boy_Color',
+  'Game Boy Advance': 'Game_Boy_Advance',
+  GameCube: 'GameCube',
+  'Nintendo DS': 'Nintendo_DS',
+  Wii: 'Wii',
+  'Nintendo DSi': 'Nintendo_DSi',
+  'Nintendo 3DS': 'Nintendo_3DS',
+  'Wii U': 'Wii_U',
+  Switch: 'Nintendo_Switch',
+  PlayStation: 'PlayStation_(console)',
+  'PlayStation 2': 'PlayStation_2',
+  'PlayStation Portable': 'PlayStation_Portable',
+  'PlayStation 3': 'PlayStation_3',
+  'PlayStation Vita': 'PlayStation_Vita',
+  'PlayStation 4': 'PlayStation_4',
+  'Master System - Mark III': 'Master_System',
+  'Mega Drive - Genesis': 'Sega_Genesis',
+  'Game Gear': 'Game_Gear',
+  'Mega-CD - Sega CD': 'Sega_CD',
+  '32X': '32X',
+  Saturn: 'Sega_Saturn',
+  Dreamcast: 'Dreamcast',
+};
+
+function getWikipediaUrl(platformName: string) {
+  const article = WIKIPEDIA_ARTICLE_BY_PLATFORM[platformName] || platformName.replaceAll(' ', '_');
+  return `https://en.wikipedia.org/wiki/${article}`;
+}
+
 export default class extends BaseSeeder {
   /**
    * Exclude platforms that currently cannot be emulated.
@@ -233,10 +268,15 @@ export default class extends BaseSeeder {
   }
 
   async createPlatform({ companyId, name, ...rest }: any) {
-    const platform = await Platform.firstOrCreate({ companyId, name }, rest);
+    const wikipedia = rest.wikipedia || getWikipediaUrl(name);
+    const platform = await Platform.firstOrCreate({ companyId, name }, { ...rest, wikipedia });
 
     if (!platform.abbr && rest.abbr) {
       platform.abbr = rest.abbr;
+    }
+
+    if (!platform.wikipedia && wikipedia) {
+      platform.wikipedia = wikipedia;
     }
 
     if (!platform.logoId) {

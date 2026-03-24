@@ -17,6 +17,9 @@ export default class Platform extends BaseModel {
   declare abbr: string | null;
 
   @column()
+  declare wikipedia: string | null;
+
+  @column()
   declare companyId: number | null;
 
   @column()

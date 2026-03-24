@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Platform from '../../types/Platform';
+import AskGoogle from '../ask-google';
 import CompanySelect from '../company-select';
 import EmulatorSelect from '../emulator-select';
 import ImageUpload from '../image-upload';
@@ -18,12 +19,14 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const name = Form.useWatch('name', form);
 
   useEffect(() => {
     if (platform) {
       form.setFieldsValue({
         name: platform.name,
         abbr: platform.abbr,
+        wikipedia: platform.wikipedia,
         companyId: platform.company?.id || null,
         screenWidth: platform.screenWidth,
         screenHeight: platform.screenHeight,
@@ -68,6 +71,14 @@ export default function PlatformForm({ platform, onSubmit, submitText }: Platfor
 
       <Form.Item label={t('abbr')} name="abbr">
         <Input maxLength={8} />
+      </Form.Item>
+
+      <Form.Item
+        label={t('wikipedia')}
+        name="wikipedia"
+        extra={<AskGoogle query={`wikipedia link of platform "${name}"`} />}
+      >
+        <Input type="url" />
       </Form.Item>
 
       <Form.Item label={t('companies')} name="companyId" rules={[{ required: true }]}>
