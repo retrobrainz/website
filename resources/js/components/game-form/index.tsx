@@ -83,21 +83,12 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
   useEffect(() => {
     if (game) {
       form.setFieldsValue({
-        platformId: game.platformId,
-        titleId: game.titleId,
-        name: game.name,
+        ...game,
         releaseDate: game.releaseDate ? dayjs(game.releaseDate) : null,
-        esrbRating: game.esrbRating,
-        pegiRating: game.pegiRating,
-        ceroRating: game.ceroRating,
         developerIds: game.developers?.map((developer) => developer.id) || [],
         publisherIds: game.publishers?.map((publisher) => publisher.id) || [],
         regionIds: game.regions?.map((region) => region.id) || [],
         languageIds: game.languages?.map((language) => language.id) || [],
-        boxart: game.boxart || null,
-        logo: game.logo || null,
-        screenshot: game.screenshot || null,
-        titlescreen: game.titlescreen || null,
       });
       return;
     }
@@ -113,6 +104,9 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       const payload = {
         ...values,
         releaseDate: values.releaseDate ? values.releaseDate.format('YYYY-MM-DD') : null,
+        esrbRating: values.esrbRating || null,
+        pegiRating: values.pegiRating || null,
+        ceroRating: values.ceroRating || null,
         boxartId: values.boxart?.id || null,
         logoId: values.logo?.id || null,
         screenshotId: values.screenshot?.id || null,
