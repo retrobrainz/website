@@ -49,6 +49,109 @@ export default function GamePage() {
   const ceroRatingLabel = game?.ceroRating
     ? ceroRatingLabelMap[game.ceroRating] || game.ceroRating
     : 'N/A';
+  const descriptionItems = [
+    {
+      label: t('regions'),
+      children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
+    },
+    {
+      label: t('languages'),
+      children: game?.languages?.map((language) => language.name).join(', ') || 'N/A',
+    },
+    {
+      label: t('release-date'),
+      children: game?.releaseDate || 'N/A',
+    },
+    {
+      label: t('title'),
+      children:
+        game?.title?.id && titleDisplayName ? (
+          <Link href={`/titles/${game.title.id}`}>{titleDisplayName}</Link>
+        ) : (
+          'N/A'
+        ),
+    },
+    {
+      label: t('developers'),
+      children:
+        game?.developers && game.developers.length > 0
+          ? game.developers.map((developer, index, arr) => (
+              <span key={developer.id}>
+                <Link href={`/companies/${developer.id}`}>{developer.name}</Link>
+                {index < arr.length - 1 ? ', ' : ''}
+              </span>
+            ))
+          : 'N/A',
+    },
+    {
+      label: t('publishers'),
+      children:
+        game?.publishers && game.publishers.length > 0
+          ? game.publishers.map((publisher, index, arr) => (
+              <span key={publisher.id}>
+                <Link href={`/companies/${publisher.id}`}>{publisher.name}</Link>
+                {index < arr.length - 1 ? ', ' : ''}
+              </span>
+            ))
+          : 'N/A',
+    },
+    {
+      label: t('franchise'),
+      children:
+        game?.title?.franchises && game.title.franchises.length > 0
+          ? game.title.franchises.map((franchise, index, arr) => {
+              const translation = franchise.translations?.find((tr) => tr.locale === i18n.language);
+              return (
+                <span key={franchise.id}>
+                  <Link href={`/franchises/${franchise.id}`}>
+                    {translation?.name || franchise.name}
+                  </Link>
+                  {index < arr.length - 1 ? ', ' : ''}
+                </span>
+              );
+            })
+          : 'N/A',
+    },
+    {
+      label: t('genres'),
+      children:
+        game?.title?.genres && game.title.genres.length > 0
+          ? game.title.genres.map((genre, index, arr) => {
+              const translation = genre.translations?.find((tr) => tr.locale === i18n.language);
+              return (
+                <span key={genre.id}>
+                  <Link href={`/genres/${genre.id}`}>{translation?.name || genre.name}</Link>
+                  {index < arr.length - 1 ? ', ' : ''}
+                </span>
+              );
+            })
+          : 'N/A',
+    },
+    ...(game?.esrbRating
+      ? [
+          {
+            label: t('esrb-rating'),
+            children: esrbRatingLabel,
+          },
+        ]
+      : []),
+    ...(game?.pegiRating
+      ? [
+          {
+            label: t('pegi-rating'),
+            children: pegiRatingLabel,
+          },
+        ]
+      : []),
+    ...(game?.ceroRating
+      ? [
+          {
+            label: t('cero-rating'),
+            children: ceroRatingLabel,
+          },
+        ]
+      : []),
+  ];
 
   return (
     <Container maxWidth="xxl" style={{ paddingTop: 16 }}>
@@ -143,106 +246,7 @@ export default function GamePage() {
       </Image.PreviewGroup>
 
       <Card style={{ marginBottom: 24 }}>
-        <Descriptions
-          column={2}
-          items={[
-            {
-              label: t('regions'),
-              children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
-            },
-            {
-              label: t('languages'),
-              children: game?.languages?.map((language) => language.name).join(', ') || 'N/A',
-            },
-            {
-              label: t('release-date'),
-              children: game?.releaseDate || 'N/A',
-            },
-            {
-              label: t('title'),
-              children:
-                game?.title?.id && titleDisplayName ? (
-                  <Link href={`/titles/${game.title.id}`}>{titleDisplayName}</Link>
-                ) : (
-                  'N/A'
-                ),
-            },
-            {
-              label: t('developers'),
-              children:
-                game?.developers && game.developers.length > 0
-                  ? game.developers.map((developer, index, arr) => (
-                      <span key={developer.id}>
-                        <Link href={`/companies/${developer.id}`}>{developer.name}</Link>
-                        {index < arr.length - 1 ? ', ' : ''}
-                      </span>
-                    ))
-                  : 'N/A',
-            },
-            {
-              label: t('publishers'),
-              children:
-                game?.publishers && game.publishers.length > 0
-                  ? game.publishers.map((publisher, index, arr) => (
-                      <span key={publisher.id}>
-                        <Link href={`/companies/${publisher.id}`}>{publisher.name}</Link>
-                        {index < arr.length - 1 ? ', ' : ''}
-                      </span>
-                    ))
-                  : 'N/A',
-            },
-            {
-              label: t('franchise'),
-              children:
-                game?.title?.franchises && game.title.franchises.length > 0
-                  ? game.title.franchises.map((franchise, index, arr) => {
-                      const translation = franchise.translations?.find(
-                        (tr) => tr.locale === i18n.language,
-                      );
-                      return (
-                        <span key={franchise.id}>
-                          <Link href={`/franchises/${franchise.id}`}>
-                            {translation?.name || franchise.name}
-                          </Link>
-                          {index < arr.length - 1 ? ', ' : ''}
-                        </span>
-                      );
-                    })
-                  : 'N/A',
-            },
-            {
-              label: t('genres'),
-              children:
-                game?.title?.genres && game.title.genres.length > 0
-                  ? game.title.genres.map((genre, index, arr) => {
-                      const translation = genre.translations?.find(
-                        (tr) => tr.locale === i18n.language,
-                      );
-                      return (
-                        <span key={genre.id}>
-                          <Link href={`/genres/${genre.id}`}>
-                            {translation?.name || genre.name}
-                          </Link>
-                          {index < arr.length - 1 ? ', ' : ''}
-                        </span>
-                      );
-                    })
-                  : 'N/A',
-            },
-            {
-              label: t('esrb-rating'),
-              children: esrbRatingLabel,
-            },
-            {
-              label: t('pegi-rating'),
-              children: pegiRatingLabel,
-            },
-            {
-              label: t('cero-rating'),
-              children: ceroRatingLabel,
-            },
-          ]}
-        />
+        <Descriptions column={2} items={descriptionItems} />
 
         <Divider />
 
