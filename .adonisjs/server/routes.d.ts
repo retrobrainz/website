@@ -43,6 +43,7 @@ export type ScannedRoutes = {
     'genres.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'genres.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'genres.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'genres.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'images.index': { paramsTuple?: []; params?: {} }
     'images.store': { paramsTuple?: []; params?: {} }
     'images.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -232,6 +233,7 @@ export type ScannedRoutes = {
     'games.store': { paramsTuple?: []; params?: {} }
     'games.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'genres.store': { paramsTuple?: []; params?: {} }
+    'genres.merge': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'images.store': { paramsTuple?: []; params?: {} }
     'languages.store': { paramsTuple?: []; params?: {} }
     'operating_systems.store': { paramsTuple?: []; params?: {} }
