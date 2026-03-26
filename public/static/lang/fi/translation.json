@@ -57,6 +57,8 @@
   "merge-franchise-description": "Siirrä otsikot kohdepelisarjaan.",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "Yhdistä genre",
+  "merge-genre-description": "Siirrä otsikot kohdegenreen.",
   "merge-success": "Yhdistetty onnistuneesti",
   "merge-title": "Yhdistä otsikko",
   "merge-title-description": "Siirrä liittyvät pelit ja suhteet kohdeotsikkoon.",

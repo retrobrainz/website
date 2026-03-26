@@ -55,6 +55,8 @@
   "merge-franchise-description": "Mueva los títulos a la franquicia de destino.",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "Fusionar género",
+  "merge-genre-description": "Mueva los títulos al género de destino.",
   "merge-success": "Fusionado con éxito",
   "merge-title": "Fusionar título",
   "merge-title-description": "Mueva los juegos y relaciones relacionados al título de destino.",

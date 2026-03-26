@@ -5,6 +5,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'wouter';
 import GameList from '../../components/game-list';
+import GenreMergeButton from '../../components/genre-merge-button';
 import TitleList from '../../components/title-list';
 import WikipediaExcerpt from '../../components/wikipedia-excerpt';
 import { useAuth } from '../../contexts/auth';
@@ -18,6 +19,7 @@ export default function GenrePage() {
   const { data: genre } = useFetch<Genre>(`/genres/${genreId}`);
 
   const canEdit = user?.role === 'admin' || user?.role === 'editor';
+  const canMerge = user?.role === 'admin';
 
   const displayName = genre ? genre.translations?.[0]?.name || genre.name : '...';
 
@@ -47,6 +49,7 @@ export default function GenrePage() {
             <Link href={`/genres/${genreId}/edit`}>
               <Button icon={<EditOutlined />}>{t('edit')}</Button>
             </Link>
+            {canMerge && <GenreMergeButton genreId={Number(genreId)} />}
           </Flex>
         )}
       </Flex>

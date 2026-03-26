@@ -74,6 +74,9 @@ router
       .apiOnly()
       .use(['store', 'update', 'destroy'], middleware.auth({ guards: ['api'] }));
     router
+      .post('genres/:id/merge', [GenresController, 'merge'])
+      .use(middleware.auth({ guards: ['api'] }));
+    router
       .resource('images', ImagesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
