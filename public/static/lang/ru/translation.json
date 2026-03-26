@@ -55,6 +55,8 @@
   "merge-franchise-description": "Перенесите названия в целевую франшизу.",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "Объединить жанр",
+  "merge-genre-description": "Перенесите названия в целевой жанр.",
   "merge-success": "Успешно объединено",
   "merge-title": "Объединить название",
   "merge-title-description": "Перенесите связанные игры и отношения в целевое название.",

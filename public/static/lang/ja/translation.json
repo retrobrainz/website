@@ -55,6 +55,8 @@
   "merge-franchise-description": "タイトルを対象のフランチャイズに移行します。",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "ジャンルを統合",
+  "merge-genre-description": "タイトルを対象のジャンルに移行します。",
   "merge-success": "統合に成功しました",
   "merge-title": "タイトルをマージ",
   "merge-title-description": "関連するゲームと関係をターゲットタイトルに移動します。",

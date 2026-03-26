@@ -55,6 +55,8 @@
   "merge-franchise-description": "Flytta titlar till målfranchisen.",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "Sammanfoga genre",
+  "merge-genre-description": "Flytta titlar till målgenren.",
   "merge-success": "Sammanfogning lyckades",
   "merge-title": "Slå samman titel",
   "merge-title-description": "Flytta relaterade spel och relationer till måltiteln.",

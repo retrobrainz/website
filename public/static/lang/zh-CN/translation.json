@@ -55,6 +55,8 @@
   "merge-franchise-description": "将相关作品迁移到目标系列。",
   "merge-game": "合并游戏",
   "merge-game-description": "将相关关系迁移到目标游戏。",
+  "merge-genre": "合并类型",
+  "merge-genre-description": "将相关作品迁移到目标类型。",
   "merge-success": "合并成功",
   "merge-title": "合并作品",
   "merge-title-description": "将相关游戏和关系迁移到目标作品。",

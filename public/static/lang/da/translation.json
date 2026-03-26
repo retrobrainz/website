@@ -55,6 +55,8 @@
   "merge-franchise-description": "Flyt titler til målfranchisen.",
   "merge-game": "Merge game",
   "merge-game-description": "Move related relationships to the target game.",
+  "merge-genre": "Flet genre",
+  "merge-genre-description": "Flyt titler til målgenren.",
   "merge-success": "Flettet succesfuldt",
   "merge-title": "Flet titel",
   "merge-title-description": "Flyt relaterede spil og relationer til måltitlen.",
