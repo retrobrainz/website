@@ -1,6 +1,8 @@
 import Genre from '#models/genre';
+import { genreMergeValidator } from '#validators/genre_merge_validator';
 import { createGenreValidator, updateGenreValidator } from '#validators/genre_validator';
 import type { HttpContext } from '@adonisjs/core/http';
+import db from '@adonisjs/lucid/services/db';
 
 export default class GenresController {
   /**
@@ -88,5 +90,49 @@ export default class GenresController {
     const genre = await Genre.findOrFail(params.id);
     await genre.delete();
     return response.noContent();
+  }
+
+  async merge({ params, request, auth, response }: HttpContext) {
+    if (!auth.user || auth.user.role !== 'admin') {
+      return response.forbidden({ message: 'Unauthorized' });
+    }
+
+    const sourceGenreId = Number(params.id);
+    const { targetGenreId } = await request.validateUsing(genreMergeValidator);
+
+    if (sourceGenreId === targetGenreId) {
+      return response.badRequest({ message: 'Source and target genres must be different' });
+    }
+
+    await db.transaction(async (trx) => {
+      await Genre.query({ client: trx }).where('id', sourceGenreId).firstOrFail();
+      await Genre.query({ client: trx }).where('id', targetGenreId).firstOrFail();
+
+      const titleRows = await trx
+        .from('title_genre')
+        .where('genre_id', sourceGenreId)
+        .select('title_id');
+
+      if (titleRows.length > 0) {
+        await trx
+          .table('title_genre')
+          .insert(
+            titleRows.map((row) => ({
+              title_id: row.title_id,
+              genre_id: targetGenreId,
+            })),
+          )
+          .onConflict(['title_id', 'genre_id'])
+          .ignore();
+      }
+
+      await trx.from('title_genre').where('genre_id', sourceGenreId).delete();
+
+      await trx.from('genres').where('id', sourceGenreId).delete();
+    });
+
+    const mergedGenre = await Genre.query().where('id', targetGenreId).firstOrFail();
+
+    return mergedGenre;
   }
 }
