@@ -148,10 +148,12 @@ router
         router.resource('regions', RegionsController).apiOnly();
       })
       .prefix('/admin')
+      .as('admin')
       .use(middleware.auth({ guards: ['api'] }))
       .use(middleware.role({ roles: ['admin'] }));
   })
-  .prefix('/api');
+  .prefix('/api')
+  .as('api');
 
 router.get('/lang/:locale/:filename', async ({ params, response }) => {
   const { locale, filename } = params;
