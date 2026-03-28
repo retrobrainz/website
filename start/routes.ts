@@ -22,6 +22,7 @@ import GamesController from '#controllers/games_controller';
 import GenreTranslationsController from '#controllers/genre_translations_controller';
 import GenresController from '#controllers/genres_controller';
 import ImagesController from '#controllers/images_controller';
+import LanguageTranslationsController from '#controllers/language_translations_controller';
 import LanguagesController from '#controllers/languages_controller';
 import OperatingSystemsController from '#controllers/operating_systems_controller';
 import PlatformsController from '#controllers/platforms_controller';
@@ -113,6 +114,10 @@ router
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
+      .resource('languages.translations', LanguageTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router
       .resource('regions.translations', RegionTranslationsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
@@ -150,6 +155,7 @@ router
       .group(() => {
         // Admin API routes
         router.resource('languages', LanguagesController).apiOnly();
+        router.resource('languages.translations', LanguageTranslationsController).apiOnly();
         router.resource('regions', RegionsController).apiOnly();
         router.resource('regions.translations', RegionTranslationsController).apiOnly();
       })

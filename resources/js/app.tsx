@@ -15,6 +15,7 @@ import AppLayout from './layouts/app';
 
 const AdminLanguageEditPage = lazy(() => import('./pages/admin-language-edit'));
 const AdminLanguageNewPage = lazy(() => import('./pages/admin-language-new'));
+const AdminLanguageTranslatePage = lazy(() => import('./pages/admin-language-translate'));
 const AdminLanguagesPage = lazy(() => import('./pages/admin-languages'));
 const AdminRegionEditPage = lazy(() => import('./pages/admin-region-edit'));
 const AdminRegionNewPage = lazy(() => import('./pages/admin-region-new'));
@@ -102,6 +103,12 @@ function App() {
                   <Route path="/admin/languages/:languageId/edit">
                     <RequireAdmin>
                       <AdminLanguageEditPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/languages/:languageId/translate">
+                    <RequireAdmin>
+                      <AdminLanguageTranslatePage />
                     </RequireAdmin>
                   </Route>
 

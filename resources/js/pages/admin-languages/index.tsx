@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined, TranslationOutlined } from '@ant-design/icons';
 import { App, Breadcrumb, Button, Flex, Input, Popconfirm, Space, Table, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
@@ -84,9 +84,12 @@ export default function AdminLanguagesPage() {
           {
             title: t('action'),
             key: 'action',
-            width: 200,
+            width: 320,
             render: (_: unknown, language: Language) => (
               <Space>
+                <Link href={`/admin/languages/${language.id}/translate`}>
+                  <Button icon={<TranslationOutlined />}>{t('translate')}</Button>
+                </Link>
                 <Link href={`/admin/languages/${language.id}/edit`}>
                   <Button icon={<EditOutlined />}>{t('edit')}</Button>
                 </Link>

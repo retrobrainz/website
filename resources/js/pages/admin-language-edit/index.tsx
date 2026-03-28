@@ -1,4 +1,5 @@
-import { App, Breadcrumb, Card, Typography } from 'antd';
+import { TranslationOutlined } from '@ant-design/icons';
+import { App, Breadcrumb, Button, Card, Flex, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
@@ -33,9 +34,15 @@ export default function AdminLanguageEditPage() {
         style={{ marginTop: 32 }}
       />
 
-      <Typography.Title level={1}>
-        {t('edit')}: {language?.name || '...'}
-      </Typography.Title>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
+        <Typography.Title level={1} style={{ margin: 0 }}>
+          {t('edit')}: {language?.name || '...'}
+        </Typography.Title>
+
+        <Link href={`/admin/languages/${languageId}/translate`}>
+          <Button icon={<TranslationOutlined />}>{t('translate')}</Button>
+        </Link>
+      </Flex>
 
       <Card>
         <LanguageForm language={language} onSubmit={handleSubmit} submitText={t('save')} />
