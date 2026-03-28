@@ -84,11 +84,11 @@ export default function AdminLanguagesPage() {
           {
             title: t('action'),
             key: 'action',
-            width: 160,
+            width: 200,
             render: (_: unknown, language: Language) => (
               <Space>
                 <Link href={`/admin/languages/${language.id}/edit`}>
-                  <Button icon={<EditOutlined />} />
+                  <Button icon={<EditOutlined />}>{t('edit')}</Button>
                 </Link>
                 <Popconfirm
                   title={`${t('delete')} ${language.name}?`}
@@ -96,7 +96,9 @@ export default function AdminLanguagesPage() {
                   okText={t('delete')}
                   cancelText={t('cancel')}
                 >
-                  <Button danger icon={<DeleteOutlined />} />
+                  <Button danger icon={<DeleteOutlined />}>
+                    {t('delete')}
+                  </Button>
                 </Popconfirm>
               </Space>
             ),

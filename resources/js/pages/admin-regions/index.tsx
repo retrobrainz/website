@@ -79,14 +79,14 @@ export default function AdminRegionsPage() {
           {
             title: t('action'),
             key: 'action',
-            width: 160,
+            width: 280,
             render: (_: unknown, region: Region) => (
               <Space>
                 <Link href={`/admin/regions/${region.id}/translate`}>
-                  <Button icon={<TranslationOutlined />} />
+                  <Button icon={<TranslationOutlined />}>{t('translate')}</Button>
                 </Link>
                 <Link href={`/admin/regions/${region.id}/edit`}>
-                  <Button icon={<EditOutlined />} />
+                  <Button icon={<EditOutlined />}>{t('edit')}</Button>
                 </Link>
                 <Popconfirm
                   title={`${t('delete')} ${region.name}?`}
@@ -94,7 +94,9 @@ export default function AdminRegionsPage() {
                   okText={t('delete')}
                   cancelText={t('cancel')}
                 >
-                  <Button danger icon={<DeleteOutlined />} />
+                  <Button danger icon={<DeleteOutlined />}>
+                    {t('delete')}
+                  </Button>
                 </Popconfirm>
               </Space>
             ),
