@@ -5,6 +5,7 @@ import { FetchProvider } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Route, Switch } from 'wouter';
 import xior from 'xior';
+import RequireAdmin from './components/require-admin';
 import RequireAuth from './components/require-auth';
 import './config/fetch';
 import './config/i18n';
@@ -12,6 +13,12 @@ import { AuthProvider } from './contexts/auth';
 import useAntdLocale from './hooks/use-antd-locale';
 import AppLayout from './layouts/app';
 
+const AdminLanguageEditPage = lazy(() => import('./pages/admin-language-edit'));
+const AdminLanguageNewPage = lazy(() => import('./pages/admin-language-new'));
+const AdminLanguagesPage = lazy(() => import('./pages/admin-languages'));
+const AdminRegionEditPage = lazy(() => import('./pages/admin-region-edit'));
+const AdminRegionNewPage = lazy(() => import('./pages/admin-region-new'));
+const AdminRegionsPage = lazy(() => import('./pages/admin-regions'));
 const EmulatorEditPage = lazy(() => import('./pages/emulator-edit'));
 const EmulatorNewPage = lazy(() => import('./pages/emulator-new'));
 const EmulatorPage = lazy(() => import('./pages/emulator'));
@@ -77,6 +84,42 @@ function App() {
                 <Switch>
                   <Route path="/">
                     <HomePage />
+                  </Route>
+
+                  <Route path="/admin/languages">
+                    <RequireAdmin>
+                      <AdminLanguagesPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/languages/new">
+                    <RequireAdmin>
+                      <AdminLanguageNewPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/languages/:languageId/edit">
+                    <RequireAdmin>
+                      <AdminLanguageEditPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/regions">
+                    <RequireAdmin>
+                      <AdminRegionsPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/regions/new">
+                    <RequireAdmin>
+                      <AdminRegionNewPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/regions/:regionId/edit">
+                    <RequireAdmin>
+                      <AdminRegionEditPage />
+                    </RequireAdmin>
                   </Route>
 
                   <Route path="/companies">

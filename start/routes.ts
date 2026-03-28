@@ -82,7 +82,8 @@ router
       .resource('images', ImagesController)
       .apiOnly()
       .use(['store', 'destroy'], middleware.auth({ guards: ['api'] }));
-    router.resource('languages', LanguagesController).apiOnly();
+    router.get('languages', [LanguagesController, 'index']);
+    router.get('languages/:id', [LanguagesController, 'show']);
     router
       .resource('operatingSystems', OperatingSystemsController)
       .apiOnly()
@@ -91,7 +92,8 @@ router
       .resource('platforms', PlatformsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
-    router.resource('regions', RegionsController).apiOnly();
+    router.get('regions', [RegionsController, 'index']);
+    router.get('regions/:id', [RegionsController, 'show']);
     router.resource('titles', TitlesController).apiOnly();
     router.post('titles/:id/merge', [TitlesController, 'merge']).use(middleware.auth());
     router.resource('users', UsersController).apiOnly();
@@ -142,6 +144,8 @@ router
     router
       .group(() => {
         // Admin API routes
+        router.resource('languages', LanguagesController).apiOnly();
+        router.resource('regions', RegionsController).apiOnly();
       })
       .prefix('/admin')
       .use(middleware.auth({ guards: ['api'] }))

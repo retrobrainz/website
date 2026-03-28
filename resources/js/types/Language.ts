@@ -8,7 +8,9 @@ export interface LanguageTranslation {
 
 export default interface Language {
   id: number;
+  code: string;
   name: string;
+  gamesCount?: number | null;
   translations?: LanguageTranslation[];
   createdAt: string;
   updatedAt: string | null;

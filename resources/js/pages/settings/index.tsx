@@ -1,4 +1,4 @@
-import { App, Breadcrumb, Card, Typography, Upload } from 'antd';
+import { App, Breadcrumb, Button, Card, Flex, Typography, Upload } from 'antd';
 import { Container } from 'antd-moe';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
@@ -60,6 +60,19 @@ export default function SettingsPage() {
           )}
         </Upload>
       </Card>
+
+      {user?.role === 'admin' && (
+        <Card title="Admin" style={{ marginTop: 24 }}>
+          <Flex gap={12} wrap>
+            <Link href="/admin/regions">
+              <Button>{t('regions')}</Button>
+            </Link>
+            <Link href="/admin/languages">
+              <Button>{t('languages')}</Button>
+            </Link>
+          </Flex>
+        </Card>
+      )}
     </Container>
   );
 }
