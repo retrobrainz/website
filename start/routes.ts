@@ -138,6 +138,14 @@ router
 
     router.get('me', [ProfileController, 'show']).use(middleware.auth({ guards: ['api'] }));
     router.put('me', [ProfileController, 'update']).use(middleware.auth({ guards: ['api'] }));
+
+    router
+      .group(() => {
+        // Admin API routes
+      })
+      .prefix('/admin')
+      .use(middleware.auth({ guards: ['api'] }))
+      .use(middleware.role({ roles: ['admin'] }));
   })
   .prefix('/api');
 
