@@ -31,7 +31,7 @@ i18next
     interpolation: {
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
-    backend: { loadPath: '/static/lang/{{lng}}/{{ns}}.json' },
+    backend: { loadPath: '/lang/{{lng}}/{{ns}}.json' },
     detection: {
       // order and from where user language should be detected
       order: ['navigator', 'localStorage', 'querystring'],

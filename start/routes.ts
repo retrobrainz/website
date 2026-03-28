@@ -32,7 +32,9 @@ import TitleTranslationsController from '#controllers/title_translations_control
 import TitlesController from '#controllers/titles_controller';
 import UsersController from '#controllers/users_controller';
 import { middleware } from '#start/kernel';
+import app from '@adonisjs/core/services/app';
 import router from '@adonisjs/core/services/router';
+import { readFile } from 'node:fs/promises';
 
 router
   .group(() => {
@@ -138,5 +140,17 @@ router
     router.put('me', [ProfileController, 'update']).use(middleware.auth({ guards: ['api'] }));
   })
   .prefix('/api');
+
+router.get('/lang/:locale/:filename', async ({ params, response }) => {
+  const { locale, filename } = params;
+  const filePath = app.languageFilesPath(locale, filename);
+
+  try {
+    const translation = await readFile(filePath, 'utf-8').then((data) => JSON.parse(data));
+    return response.json(translation);
+  } catch {
+    return response.notFound();
+  }
+});
 
 router.on('*').render('pages/home');
