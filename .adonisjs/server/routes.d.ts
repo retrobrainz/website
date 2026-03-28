@@ -89,6 +89,11 @@ export type ScannedRoutes = {
     'api.genres.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.regions.translations.store': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.index': { paramsTuple: [ParamValue]; params: {'title_id': ParamValue} }
     'api.titles.translations.store': { paramsTuple: [ParamValue]; params: {'title_id': ParamValue} }
     'api.titles.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
@@ -129,6 +134,11 @@ export type ScannedRoutes = {
     'api.admin.regions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.admin.regions.translations.store': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.admin.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
+    'api.admin.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
+    'api.admin.regions.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
   GET: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -166,6 +176,8 @@ export type ScannedRoutes = {
     'api.games.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.index': { paramsTuple: [ParamValue]; params: {'genre_id': ParamValue} }
     'api.genres.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.index': { paramsTuple: [ParamValue]; params: {'title_id': ParamValue} }
     'api.titles.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.games.favorites.index': { paramsTuple: [ParamValue]; params: {'game_id': ParamValue} }
@@ -181,6 +193,8 @@ export type ScannedRoutes = {
     'api.admin.languages.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.index': { paramsTuple?: []; params?: {} }
     'api.admin.regions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.admin.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
   HEAD: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -218,6 +232,8 @@ export type ScannedRoutes = {
     'api.games.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.index': { paramsTuple: [ParamValue]; params: {'genre_id': ParamValue} }
     'api.genres.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.index': { paramsTuple: [ParamValue]; params: {'title_id': ParamValue} }
     'api.titles.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.games.favorites.index': { paramsTuple: [ParamValue]; params: {'game_id': ParamValue} }
@@ -233,6 +249,8 @@ export type ScannedRoutes = {
     'api.admin.languages.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.index': { paramsTuple?: []; params?: {} }
     'api.admin.regions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.index': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
+    'api.admin.regions.translations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
   POST: {
     'api.companies.store': { paramsTuple?: []; params?: {} }
@@ -255,6 +273,7 @@ export type ScannedRoutes = {
     'api.franchises.translations.store': { paramsTuple: [ParamValue]; params: {'franchise_id': ParamValue} }
     'api.games.translations.store': { paramsTuple: [ParamValue]; params: {'game_id': ParamValue} }
     'api.genres.translations.store': { paramsTuple: [ParamValue]; params: {'genre_id': ParamValue} }
+    'api.regions.translations.store': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
     'api.titles.translations.store': { paramsTuple: [ParamValue]; params: {'title_id': ParamValue} }
     'api.games.favorites.store': { paramsTuple: [ParamValue]; params: {'game_id': ParamValue} }
     'api.emulators.favorites.store': { paramsTuple: [ParamValue]; params: {'emulator_id': ParamValue} }
@@ -265,6 +284,7 @@ export type ScannedRoutes = {
     'api.auth.logout': { paramsTuple?: []; params?: {} }
     'api.admin.languages.store': { paramsTuple?: []; params?: {} }
     'api.admin.regions.store': { paramsTuple?: []; params?: {} }
+    'api.admin.regions.translations.store': { paramsTuple: [ParamValue]; params: {'region_id': ParamValue} }
   }
   PUT: {
     'api.companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -282,6 +302,7 @@ export type ScannedRoutes = {
     'api.franchises.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'franchise_id': ParamValue,'id': ParamValue} }
     'api.games.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.games.favorites.update': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.emulators.favorites.update': { paramsTuple: [ParamValue,ParamValue]; params: {'emulator_id': ParamValue,'id': ParamValue} }
@@ -290,6 +311,7 @@ export type ScannedRoutes = {
     'api.profile.update': { paramsTuple?: []; params?: {} }
     'api.admin.languages.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
   PATCH: {
     'api.companies.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -307,6 +329,7 @@ export type ScannedRoutes = {
     'api.franchises.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'franchise_id': ParamValue,'id': ParamValue} }
     'api.games.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.games.favorites.update': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.emulators.favorites.update': { paramsTuple: [ParamValue,ParamValue]; params: {'emulator_id': ParamValue,'id': ParamValue} }
@@ -314,6 +337,7 @@ export type ScannedRoutes = {
     'api.titles.favorites.update': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.admin.languages.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.update': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
   DELETE: {
     'api.companies.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -331,6 +355,7 @@ export type ScannedRoutes = {
     'api.franchises.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'franchise_id': ParamValue,'id': ParamValue} }
     'api.games.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.genres.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'genre_id': ParamValue,'id': ParamValue} }
+    'api.regions.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
     'api.titles.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.games.favorites.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'game_id': ParamValue,'id': ParamValue} }
     'api.emulators.favorites.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'emulator_id': ParamValue,'id': ParamValue} }
@@ -338,6 +363,7 @@ export type ScannedRoutes = {
     'api.titles.favorites.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'title_id': ParamValue,'id': ParamValue} }
     'api.admin.languages.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'api.admin.regions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'api.admin.regions.translations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'region_id': ParamValue,'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

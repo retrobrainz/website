@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined, TranslationOutlined } from '@ant-design/icons';
 import { App, Breadcrumb, Button, Flex, Input, Popconfirm, Space, Table, Typography } from 'antd';
 import { Container } from 'antd-moe';
 import { useState } from 'react';
@@ -82,6 +82,9 @@ export default function AdminRegionsPage() {
             width: 160,
             render: (_: unknown, region: Region) => (
               <Space>
+                <Link href={`/admin/regions/${region.id}/translate`}>
+                  <Button icon={<TranslationOutlined />} />
+                </Link>
                 <Link href={`/admin/regions/${region.id}/edit`}>
                   <Button icon={<EditOutlined />} />
                 </Link>

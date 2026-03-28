@@ -18,6 +18,7 @@ const AdminLanguageNewPage = lazy(() => import('./pages/admin-language-new'));
 const AdminLanguagesPage = lazy(() => import('./pages/admin-languages'));
 const AdminRegionEditPage = lazy(() => import('./pages/admin-region-edit'));
 const AdminRegionNewPage = lazy(() => import('./pages/admin-region-new'));
+const AdminRegionTranslatePage = lazy(() => import('./pages/admin-region-translate'));
 const AdminRegionsPage = lazy(() => import('./pages/admin-regions'));
 const EmulatorEditPage = lazy(() => import('./pages/emulator-edit'));
 const EmulatorNewPage = lazy(() => import('./pages/emulator-new'));
@@ -119,6 +120,12 @@ function App() {
                   <Route path="/admin/regions/:regionId/edit">
                     <RequireAdmin>
                       <AdminRegionEditPage />
+                    </RequireAdmin>
+                  </Route>
+
+                  <Route path="/admin/regions/:regionId/translate">
+                    <RequireAdmin>
+                      <AdminRegionTranslatePage />
                     </RequireAdmin>
                   </Route>
 

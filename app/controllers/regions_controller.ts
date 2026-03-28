@@ -57,8 +57,19 @@ export default class RegionsController {
     return query.exec();
   }
 
-  async show({ params }: HttpContext) {
-    return Region.query().where('id', params.id).withCount('games').firstOrFail();
+  async show({ params, request, i18n }: HttpContext) {
+    const locale = request.input('locale');
+    const query = Region.query().where('id', params.id).withCount('games');
+
+    if (locale === '*') {
+      query.preload('translations');
+    } else {
+      query.preload('translations', (translationQuery) => {
+        translationQuery.where('locale', locale || i18n.locale);
+      });
+    }
+
+    return query.firstOrFail();
   }
 
   async store({ request, auth, response }: HttpContext) {

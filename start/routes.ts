@@ -26,6 +26,7 @@ import LanguagesController from '#controllers/languages_controller';
 import OperatingSystemsController from '#controllers/operating_systems_controller';
 import PlatformsController from '#controllers/platforms_controller';
 import ProfileController from '#controllers/profile_controller';
+import RegionTranslationsController from '#controllers/region_translations_controller';
 import RegionsController from '#controllers/regions_controller';
 import TitleFavoritesController from '#controllers/title_favorites_controller';
 import TitleTranslationsController from '#controllers/title_translations_controller';
@@ -112,6 +113,10 @@ router
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
     router
+      .resource('regions.translations', RegionTranslationsController)
+      .apiOnly()
+      .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
+    router
       .resource('titles.translations', TitleTranslationsController)
       .apiOnly()
       .use(['store', 'update'], middleware.auth({ guards: ['api'] }));
@@ -146,6 +151,7 @@ router
         // Admin API routes
         router.resource('languages', LanguagesController).apiOnly();
         router.resource('regions', RegionsController).apiOnly();
+        router.resource('regions.translations', RegionTranslationsController).apiOnly();
       })
       .prefix('/admin')
       .as('admin')
