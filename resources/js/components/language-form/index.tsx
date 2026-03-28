@@ -49,7 +49,7 @@ export default function LanguageForm({ language, onSubmit, submitText }: Languag
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item label="Code" name="code" rules={[{ required: true }]}>
+      <Form.Item label={t('code')} name="code" rules={[{ required: true }]}>
         <Input maxLength={2} />
       </Form.Item>
 

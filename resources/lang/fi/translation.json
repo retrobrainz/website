@@ -10,6 +10,7 @@
   "cero-rating": "CERO-luokitus",
   "children-companies": "Tytäryhtiöt",
   "companies": "Yritykset",
+  "code": "Koodi",
   "company-created-successfully": "Yritys luotu onnistuneesti",
   "company-updated-successfully": "Yritys päivitetty onnistuneesti",
   "copyright": "© {{year}} RetroBrainz, Libretro ja avustajat",

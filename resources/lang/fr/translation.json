@@ -10,6 +10,7 @@
   "cero-rating": "Classification CERO",
   "children-companies": "Filiales",
   "companies": "Sociétés",
+  "code": "Code",
   "copyright": "© {{year}} RetroBrainz, Libretro et contributeurs",
   "create": "Créer",
   "create-success": "Créé avec succès",

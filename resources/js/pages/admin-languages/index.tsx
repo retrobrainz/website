@@ -67,7 +67,7 @@ export default function AdminLanguagesPage() {
         pagination={false}
         columns={[
           {
-            title: 'Code',
+            title: t('code'),
             dataIndex: 'code',
             width: 120,
           },
