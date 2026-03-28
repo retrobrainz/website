@@ -5,8 +5,8 @@ export default interface Rom {
   filename: string;
   size: number;
   crc: string;
-  md5: string;
-  sha1: string;
+  md5: string | null;
+  sha1: string | null;
   serial: string | null;
   disc: number | null;
   createdAt: string;

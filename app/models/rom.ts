@@ -24,13 +24,13 @@ export default class Rom extends BaseModel {
     // Otherwise AdonisJS mistakes column name to md_5
     columnName: 'md5',
   })
-  declare md5: string;
+  declare md5: string | null;
 
   @column({
     // Otherwise AdonisJS mistakes column name to sha_1
     columnName: 'sha1',
   })
-  declare sha1: string;
+  declare sha1: string | null;
 
   @column()
   declare serial: string | null;
