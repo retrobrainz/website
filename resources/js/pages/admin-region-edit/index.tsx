@@ -14,6 +14,7 @@ export default function AdminRegionEditPage() {
   const { regionId } = useParams<{ regionId: string }>();
   const [, setLocation] = useLocation();
   const { data: region } = useFetch<Region>(`/admin/regions/${regionId}`);
+  const displayName = region?.translations?.[0]?.name || region?.name || '...';
 
   const handleSubmit = async (values: { name: string }) => {
     await xior.put(`/admin/regions/${regionId}`, values);
@@ -28,7 +29,7 @@ export default function AdminRegionEditPage() {
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/settings">{t('settings')}</Link> },
           { title: <Link href="/admin/regions">{t('regions')}</Link> },
-          { title: region?.name || '...' },
+          { title: displayName },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}
@@ -36,7 +37,7 @@ export default function AdminRegionEditPage() {
 
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {t('edit')}: {region?.name || '...'}
+          {t('edit')}: {displayName}
         </Typography.Title>
 
         <Link href={`/admin/regions/${regionId}/translate`}>

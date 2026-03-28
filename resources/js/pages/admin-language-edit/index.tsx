@@ -14,6 +14,7 @@ export default function AdminLanguageEditPage() {
   const { languageId } = useParams<{ languageId: string }>();
   const [, setLocation] = useLocation();
   const { data: language } = useFetch<Language>(`/admin/languages/${languageId}`);
+  const displayName = language?.translations?.[0]?.name || language?.name || '...';
 
   const handleSubmit = async (values: { code: string; name: string }) => {
     await xior.put(`/admin/languages/${languageId}`, values);
@@ -28,7 +29,7 @@ export default function AdminLanguageEditPage() {
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/settings">{t('settings')}</Link> },
           { title: <Link href="/admin/languages">{t('languages')}</Link> },
-          { title: language?.name || '...' },
+          { title: displayName },
           { title: t('edit') },
         ]}
         style={{ marginTop: 32 }}
@@ -36,7 +37,7 @@ export default function AdminLanguageEditPage() {
 
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {t('edit')}: {language?.name || '...'}
+          {t('edit')}: {displayName}
         </Typography.Title>
 
         <Link href={`/admin/languages/${languageId}/translate`}>

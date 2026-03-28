@@ -52,11 +52,16 @@ export default function GamePage() {
   const descriptionItems = [
     {
       label: t('regions'),
-      children: game?.regions?.map((region) => region.name).join(', ') || 'N/A',
+      children:
+        game?.regions?.map((region) => region.translations?.[0]?.name || region.name).join(', ') ||
+        'N/A',
     },
     {
       label: t('languages'),
-      children: game?.languages?.map((language) => language.name).join(', ') || 'N/A',
+      children:
+        game?.languages
+          ?.map((language) => language.translations?.[0]?.name || language.name)
+          .join(', ') || 'N/A',
     },
     {
       label: t('release-date'),

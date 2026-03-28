@@ -30,6 +30,8 @@ export default function AdminLanguagesPage() {
     }
   };
 
+  const getDisplayName = (language: Language) => language.translations?.[0]?.name || language.name;
+
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
@@ -73,7 +75,7 @@ export default function AdminLanguagesPage() {
             title: t('name'),
             dataIndex: 'name',
             render: (_: string, language: Language) => (
-              <Link href={`/admin/languages/${language.id}/edit`}>{language.name}</Link>
+              <Link href={`/admin/languages/${language.id}/edit`}>{getDisplayName(language)}</Link>
             ),
           },
           {
@@ -94,7 +96,7 @@ export default function AdminLanguagesPage() {
                   <Button icon={<EditOutlined />}>{t('edit')}</Button>
                 </Link>
                 <Popconfirm
-                  title={`${t('delete')} ${language.name}?`}
+                  title={`${t('delete')} ${getDisplayName(language)}?`}
                   onConfirm={() => handleDelete(language.id)}
                   okText={t('delete')}
                   cancelText={t('cancel')}

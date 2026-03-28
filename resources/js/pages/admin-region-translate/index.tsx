@@ -20,6 +20,7 @@ export default function AdminRegionTranslatePage() {
   });
 
   const translation = region?.translations?.find((item) => item.locale === locale);
+  const displayName = translation?.name || region?.translations?.[0]?.name || region?.name || '...';
 
   const handleSave = async (values: { name: string }) => {
     try {
@@ -59,7 +60,7 @@ export default function AdminRegionTranslatePage() {
           { title: <Link href="/">{t('home')}</Link> },
           { title: <Link href="/settings">{t('settings')}</Link> },
           { title: <Link href="/admin/regions">{t('regions')}</Link> },
-          { title: <Link href={`/admin/regions/${regionId}/edit`}>{region?.name || '...'}</Link> },
+          { title: <Link href={`/admin/regions/${regionId}/edit`}>{displayName}</Link> },
           { title: t('translate') },
         ]}
         style={{ marginBottom: 16 }}
@@ -67,7 +68,7 @@ export default function AdminRegionTranslatePage() {
 
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {t('translate')}: {translation?.name || region?.name || '...'}
+          {t('translate')}: {displayName}
         </Typography.Title>
 
         <Select

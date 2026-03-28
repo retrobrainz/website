@@ -20,6 +20,8 @@ export default function AdminLanguageTranslatePage() {
   });
 
   const translation = language?.translations?.find((item) => item.locale === locale);
+  const displayName =
+    translation?.name || language?.translations?.[0]?.name || language?.name || '...';
 
   const handleSave = async (values: { name: string }) => {
     try {
@@ -60,9 +62,7 @@ export default function AdminLanguageTranslatePage() {
           { title: <Link href="/settings">{t('settings')}</Link> },
           { title: <Link href="/admin/languages">{t('languages')}</Link> },
           {
-            title: (
-              <Link href={`/admin/languages/${languageId}/edit`}>{language?.name || '...'}</Link>
-            ),
+            title: <Link href={`/admin/languages/${languageId}/edit`}>{displayName}</Link>,
           },
           { title: t('translate') },
         ]}
@@ -71,7 +71,7 @@ export default function AdminLanguageTranslatePage() {
 
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={1} style={{ margin: 0 }}>
-          {t('translate')}: {translation?.name || language?.name || '...'}
+          {t('translate')}: {displayName}
         </Typography.Title>
 
         <Select

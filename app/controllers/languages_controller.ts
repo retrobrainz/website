@@ -3,8 +3,9 @@ import { createLanguageValidator, updateLanguageValidator } from '#validators/la
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class LanguagesController {
-  async index({ request }: HttpContext) {
+  async index({ request, i18n }: HttpContext) {
     const search = request.input('search');
+    const locale = request.input('locale');
     const query = Language.query().orderBy('name', 'asc').withCount('games');
 
     if (search) {
@@ -48,6 +49,14 @@ export default class LanguagesController {
             publisherQuery.where('companies.id', publisherId);
           });
         }
+      });
+    }
+
+    if (locale === '*') {
+      query.preload('translations');
+    } else {
+      query.preload('translations', (translationQuery) => {
+        translationQuery.where('locale', locale || i18n.locale);
       });
     }
 

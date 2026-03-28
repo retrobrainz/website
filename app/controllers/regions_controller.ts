@@ -6,8 +6,9 @@ export default class RegionsController {
   /**
    * Display a list of resource
    */
-  async index({ request }: HttpContext) {
+  async index({ request, i18n }: HttpContext) {
     const search = request.input('search');
+    const locale = request.input('locale');
     const query = Region.query().orderBy('name', 'asc').withCount('games');
 
     if (search) {
@@ -51,6 +52,14 @@ export default class RegionsController {
             publisherQuery.where('companies.id', publisherId);
           });
         }
+      });
+    }
+
+    if (locale === '*') {
+      query.preload('translations');
+    } else {
+      query.preload('translations', (translationQuery) => {
+        translationQuery.where('locale', locale || i18n.locale);
       });
     }
 

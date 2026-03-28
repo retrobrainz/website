@@ -193,7 +193,12 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
       <Form.Item label={t('regions')} name="regionIds">
         <Select
           mode="multiple"
-          options={regions?.map((region) => ({ value: region.id, label: region.name })) || []}
+          options={
+            regions?.map((region) => ({
+              value: region.id,
+              label: region.translations?.[0]?.name || region.name,
+            })) || []
+          }
           placeholder={t('select')}
           showSearch
           optionFilterProp="label"
@@ -208,7 +213,10 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
         <Select
           mode="multiple"
           options={
-            languages?.map((language) => ({ value: language.id, label: language.name })) || []
+            languages?.map((language) => ({
+              value: language.id,
+              label: language.translations?.[0]?.name || language.name,
+            })) || []
           }
           placeholder={t('select')}
           showSearch

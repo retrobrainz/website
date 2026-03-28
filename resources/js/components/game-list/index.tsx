@@ -121,7 +121,10 @@ export default function GameList({
           {showFilters.includes('regionId') && (
             <Form.Item label={t('region')} name="regionId">
               <Tag.CheckableTagGroup
-                options={regions?.map((region) => ({ value: region.id, label: region.name }))}
+                options={regions?.map((region) => ({
+                  value: region.id,
+                  label: region.translations?.[0]?.name || region.name,
+                }))}
               />
             </Form.Item>
           )}
@@ -131,7 +134,7 @@ export default function GameList({
               <Tag.CheckableTagGroup
                 options={languages?.map((language) => ({
                   value: language.id,
-                  label: language.name,
+                  label: language.translations?.[0]?.name || language.name,
                 }))}
               />
             </Form.Item>

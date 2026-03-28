@@ -30,6 +30,8 @@ export default function AdminRegionsPage() {
     }
   };
 
+  const getDisplayName = (region: Region) => region.translations?.[0]?.name || region.name;
+
   return (
     <Container style={{ paddingTop: 24 }}>
       <Breadcrumb
@@ -68,7 +70,7 @@ export default function AdminRegionsPage() {
             title: t('name'),
             dataIndex: 'name',
             render: (_: string, region: Region) => (
-              <Link href={`/admin/regions/${region.id}/edit`}>{region.name}</Link>
+              <Link href={`/admin/regions/${region.id}/edit`}>{getDisplayName(region)}</Link>
             ),
           },
           {
@@ -89,7 +91,7 @@ export default function AdminRegionsPage() {
                   <Button icon={<EditOutlined />}>{t('edit')}</Button>
                 </Link>
                 <Popconfirm
-                  title={`${t('delete')} ${region.name}?`}
+                  title={`${t('delete')} ${getDisplayName(region)}?`}
                   onConfirm={() => handleDelete(region.id)}
                   okText={t('delete')}
                   cancelText={t('cancel')}
