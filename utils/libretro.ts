@@ -82,6 +82,15 @@ export async function importGameImage(
   }
 }
 
+const platformMap: Record<string, string[]> = {
+  'Nintendo 3DS': [
+    'Nintendo - Nintendo 3DS',
+    'Nintendo - Nintendo 3DS (Digital)',
+    'Nintendo - New Nintendo 3DS',
+    'Nintendo - New Nintendo 3DS (Digital)',
+  ],
+};
+
 export async function fetchDat(platform: Platform): Promise<void> {
   const gameEntries: any[] = [];
 
@@ -99,34 +108,40 @@ export async function fetchDat(platform: Platform): Promise<void> {
     'metadat/releasemonth',
     'metadat/serial',
   ]) {
-    const file = `${folder}/${platform.company.name} - ${platform.name}.dat`;
-    const data = await readFile(`${process.cwd()}/tmp/libretro-database-master/${file}`, 'utf-8')
-      .then((text) => parseDat(text))
-      .catch(() => {
-        return [] as any[];
-      });
-
-    for (const entry of data) {
-      if (entry.$class !== 'game' || !entry.$entries?.length) {
-        continue;
-      }
-
-      entry.serial = fixSerial(entry.serial);
-      entry.$entries[0].serial = fixSerial(entry.$entries[0].serial);
-      const { crc, serial } = entry.$entries[0];
-
-      const existings = gameEntries.filter(
-        (e) =>
-          (!crc || e.$entries?.[0]?.crc === crc) && (!serial || e.$entries?.[0]?.serial === serial),
-      );
-      if (existings.length > 0) {
-        existings.forEach((existing) => {
-          // add missing fields to existing entry
-          Object.assign(entry, existing);
-          Object.assign(existing, entry);
+    const files = platformMap[platform.name] || [`${platform.company.name} - ${platform.name}`];
+    for (const file of files) {
+      const data = await readFile(
+        `${process.cwd()}/tmp/libretro-database-master/${folder}/${file}.dat`,
+        'utf-8',
+      )
+        .then((text) => parseDat(text))
+        .catch(() => {
+          return [] as any[];
         });
-      } else {
-        gameEntries.push(entry);
+
+      for (const entry of data) {
+        if (entry.$class !== 'game' || !entry.$entries?.length) {
+          continue;
+        }
+
+        entry.serial = fixSerial(entry.serial);
+        entry.$entries[0].serial = fixSerial(entry.$entries[0].serial);
+        const { crc, serial } = entry.$entries[0];
+
+        const existings = gameEntries.filter(
+          (e) =>
+            (!crc || e.$entries?.[0]?.crc === crc) &&
+            (!serial || e.$entries?.[0]?.serial === serial),
+        );
+        if (existings.length > 0) {
+          existings.forEach((existing) => {
+            // add missing fields to existing entry
+            Object.assign(entry, existing);
+            Object.assign(existing, entry);
+          });
+        } else {
+          gameEntries.push(entry);
+        }
       }
     }
   }
