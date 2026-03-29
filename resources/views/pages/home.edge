@@ -10,9 +10,14 @@
     <script>
       (function () {
         var storedTheme = localStorage.getItem('retrobrainz-theme')
+
         if (storedTheme === 'dark' || storedTheme === 'light') {
           document.documentElement.setAttribute('data-theme', storedTheme)
+          return
         }
+
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light')
       })()
     </script>
     <style>
