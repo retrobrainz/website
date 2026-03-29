@@ -3,8 +3,8 @@ export default interface Rom {
   gameId: number;
   name: string;
   filename: string;
-  size: number;
-  crc: string;
+  size: number | null;
+  crc: string | null;
   md5: string | null;
   sha1: string | null;
   serial: string | null;

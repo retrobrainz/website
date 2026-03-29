@@ -15,10 +15,10 @@ export default class Rom extends BaseModel {
   declare filename: string;
 
   @column()
-  declare size: number;
+  declare size: number | null;
 
   @column()
-  declare crc: string;
+  declare crc: string | null;
 
   @column({
     // Otherwise AdonisJS mistakes column name to md_5

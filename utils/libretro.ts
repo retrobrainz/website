@@ -305,10 +305,7 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
   await Promise.all(
     $entries.map(
       async ({ name: filename, size, crc, md5, sha1, serial: romSerial = null }: any) => {
-        if (!crc) {
-          console.log(`ROM without CRC: ${filename}`);
-          return;
-        }
+        const normalizedRomSerial = fixSerial(romSerial) || normalizedGameSerial;
 
         const extra = {
           gameId: game.id,
@@ -320,13 +317,22 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
           disc,
         };
 
-        const rom = await Rom.firstOrCreate(
-          {
-            crc,
-            serial: fixSerial(romSerial) || normalizedGameSerial,
-          },
-          extra,
-        );
+        const lookup: Record<string, unknown> = {
+          gameId: game.id,
+        };
+
+        if (crc) {
+          lookup.crc = crc;
+        }
+        if (normalizedRomSerial) {
+          lookup.serial = normalizedRomSerial;
+        }
+        if (!crc && !normalizedRomSerial) {
+          // Fall back to filename when checksums/serial are missing to keep imports idempotent.
+          lookup.filename = filename;
+        }
+
+        const rom = await Rom.firstOrCreate(lookup, extra);
         rom.merge(extra);
 
         if (rom.$isDirty) {
