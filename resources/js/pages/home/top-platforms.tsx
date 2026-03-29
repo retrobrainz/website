@@ -10,12 +10,8 @@ export default function TopPlatforms() {
   const { t } = useTranslation();
   const { data: platforms } = useFetch<Platform[]>('/platforms');
 
-  const topPlatforms = platforms
-    ?.sort((a, b) => (b.gamesCount || 0) - (a.gamesCount || 0))
-    .slice(0, 6);
-
   return (
-    <>
+    <div>
       <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
         <Typography.Title level={2} style={{ margin: 0 }}>
           {t('platforms')}
@@ -27,12 +23,12 @@ export default function TopPlatforms() {
         </Link>
       </Flex>
       <Row gutter={[24, 24]} style={{ marginBottom: 48 }}>
-        {topPlatforms?.map((platform) => (
-          <Col key={platform.id} xs={24} md={12} xl={8} xxl={4}>
+        {platforms?.slice(0, 12)?.map((platform) => (
+          <Col key={platform.id} xs={24} md={12} xl={8} xxl={6}>
             <PlatformCard platform={platform} />
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }
