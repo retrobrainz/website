@@ -268,10 +268,11 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
 
   if (developer) {
     for (const developerName of (developer as string).split('/')) {
+      const trimmedName = developerName.trim().substring(0, 64);
       const developerModel =
         (await Company.query()
-          .whereHas('names', (q) => q.where('name', developerName.trim()))
-          .first()) || (await Company.firstOrCreate({ name: developerName.trim() }));
+          .whereHas('names', (q) => q.where('name', trimmedName))
+          .first()) || (await Company.firstOrCreate({ name: trimmedName }));
       await developerModel.refresh();
       await game.related('developers').save(developerModel);
     }
@@ -279,10 +280,11 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
 
   if (publisher) {
     for (const publisherName of (publisher as string).split('/')) {
+      const trimmedName = publisherName.trim().substring(0, 64);
       const publisherModel =
         (await Company.query()
-          .whereHas('names', (q) => q.where('name', publisherName.trim()))
-          .first()) || (await Company.firstOrCreate({ name: publisherName.trim() }));
+          .whereHas('names', (q) => q.where('name', trimmedName))
+          .first()) || (await Company.firstOrCreate({ name: trimmedName }));
       await publisherModel.refresh();
       await game.related('publishers').save(publisherModel);
     }
