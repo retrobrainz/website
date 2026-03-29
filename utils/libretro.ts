@@ -93,6 +93,13 @@ const platformMap: Record<string, string[]> = {
   'Nintendo DS': ['Nintendo - Nintendo DS', 'Nintendo - Nintendo DS (Download Play)'],
   Wii: ['Nintendo - Wii', 'Nintendo - Wii (Digital)'],
   'Wii U': ['Nintendo - Wii U', 'Nintendo - Wii U (Digital)'],
+  'PlayStation 3': ['Sony - PlayStation 3', 'Sony - PlayStation 3 (PSN)'],
+  'PlayStation Portable': [
+    'Sony - PlayStation Portable',
+    'Sony - PlayStation Portable (PSN)',
+    'Sony - PlayStation Portable (PSX2PSP)',
+  ],
+  'PlayStation Vita': ['Sony - PlayStation Vita', 'Sony - PlayStation Vita (PSN)'],
 };
 
 export async function fetchDat(platform: Platform): Promise<void> {
