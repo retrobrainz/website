@@ -324,7 +324,7 @@ export class GameTranslationSchema extends BaseModel {
 }
 
 export class GameSchema extends BaseModel {
-  static $columns = ['boxartId', 'ceroRating', 'createdAt', 'esrbRating', 'id', 'logoId', 'name', 'pegiRating', 'platformId', 'releaseDate', 'screenshotId', 'titleId', 'titlescreenId', 'updatedAt'] as const
+  static $columns = ['boxartId', 'ceroRating', 'createdAt', 'esrbRating', 'id', 'logoId', 'name', 'pegiRating', 'platformId', 'releaseDate', 'screenshotId', 'serial', 'titleId', 'titlescreenId', 'updatedAt'] as const
   $columns = GameSchema.$columns
   @column()
   declare boxartId: number | null
@@ -348,6 +348,8 @@ export class GameSchema extends BaseModel {
   declare releaseDate: DateTime | null
   @column()
   declare screenshotId: number | null
+  @column()
+  declare serial: string | null
   @column()
   declare titleId: number | null
   @column()
@@ -536,7 +538,7 @@ export class RomSchema extends BaseModel {
   static $columns = ['crc', 'createdAt', 'disc', 'filename', 'gameId', 'id', 'md5', 'name', 'serial', 'sha1', 'size', 'updatedAt'] as const
   $columns = RomSchema.$columns
   @column()
-  declare crc: string
+  declare crc: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
@@ -548,15 +550,15 @@ export class RomSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare md5: string
+  declare md5: string | null
   @column()
   declare name: string
   @column()
   declare serial: string | null
   @column()
-  declare sha1: string
+  declare sha1: string | null
   @column()
-  declare size: bigint | number
+  declare size: bigint | number | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

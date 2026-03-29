@@ -114,7 +114,9 @@ export default class GamesController {
     }
 
     const orderBy = request.input('orderBy');
-    if (orderBy === 'random') {
+    if (search) {
+      query.orderByRaw('LENGTH(name) ASC').orderBy('name', 'asc');
+    } else if (orderBy === 'random') {
       query.orderByRaw('RANDOM()');
     } else if (orderBy === 'favoritesCount') {
       query.orderBy('favorites_count', 'desc');

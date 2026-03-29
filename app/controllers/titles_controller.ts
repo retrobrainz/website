@@ -74,7 +74,9 @@ export default class TitlesController {
       )
       .preload('genres', (q) => q.preload('translations', (qq) => qq.where('locale', i18n.locale)));
 
-    if (orderBy === 'releaseDateAsc') {
+    if (search) {
+      query.orderByRaw('LENGTH(name) ASC').orderBy('name', 'asc');
+    } else if (orderBy === 'releaseDateAsc') {
       query.orderBy('release_date', 'asc').orderBy('name', 'asc');
     } else if (orderBy === 'releaseDateDesc') {
       query.orderBy('release_date', 'desc').orderBy('name', 'asc');
