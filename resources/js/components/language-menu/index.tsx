@@ -19,9 +19,7 @@ export default function LanguageMenu() {
 
   return (
     <Dropdown menu={{ items }} placement="bottomRight">
-      <Button type="text" icon={<GlobalOutlined />}>
-        {currentLanguage?.name || 'English'}
-      </Button>
+      <Button icon={<GlobalOutlined />}>{currentLanguage?.name || 'English'}</Button>
     </Dropdown>
   );
 }

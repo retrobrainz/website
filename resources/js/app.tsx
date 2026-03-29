@@ -11,6 +11,7 @@ import './config/fetch';
 import './config/i18n';
 import { AuthProvider } from './contexts/auth';
 import useAntdLocale from './hooks/use-antd-locale';
+import useThemeMode from './hooks/use-theme-mode';
 import AppLayout from './layouts/app';
 
 const AdminLanguageEditPage = lazy(() => import('./pages/admin-language-edit'));
@@ -65,6 +66,7 @@ const UserPage = lazy(() => import('./pages/user'));
 
 function App() {
   const { i18n } = useTranslation();
+  const { theme } = useThemeMode();
 
   xior.defaults.headers['Accept-Language'] = i18n.language;
 
@@ -72,7 +74,7 @@ function App() {
 
   return (
     <FetchProvider fetcher={(url) => xior.get(url).then((res) => res.data)}>
-      <ConfigProvider locale={locale}>
+      <ConfigProvider locale={locale} theme={theme}>
         <AntApp>
           <AuthProvider>
             <AppLayout>

@@ -1,4 +1,4 @@
-import { SettingOutlined } from '@ant-design/icons';
+import { MoonOutlined, SettingOutlined, SunOutlined } from '@ant-design/icons';
 import { Avatar, Button, Layout, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'wouter';
@@ -6,10 +6,12 @@ import LanguageMenu from '../../components/language-menu';
 import Logout from '../../components/logout';
 import SearchBar from '../../components/search-bar';
 import { useAuth } from '../../contexts/auth';
+import useThemeMode from '../../hooks/use-theme-mode';
 
 export default function AppNavbar() {
   const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
+  const { isDarkTheme, toggleTheme } = useThemeMode();
   return (
     <Layout.Header
       style={{
@@ -19,9 +21,9 @@ export default function AppNavbar() {
         gap: 8,
         position: 'sticky',
         top: 0,
-        background: 'rgba(255, 255, 255, 0.6)',
+        background: isDarkTheme ? 'rgba(20, 20, 20, 0.72)' : 'rgba(255, 255, 255, 0.6)',
         zIndex: 1000,
-        borderBottom: '1px solid #eee',
+        borderBottom: isDarkTheme ? '1px solid #303030' : '1px solid #eee',
         backdropFilter: 'blur(10px)',
       }}
     >
@@ -69,6 +71,14 @@ export default function AppNavbar() {
       <div style={{ flex: 1 }} />
 
       <LanguageMenu />
+
+      <Tooltip title={isDarkTheme ? 'Switch to light mode' : 'Switch to dark mode'}>
+        <Button
+          aria-label={isDarkTheme ? 'Switch to light mode' : 'Switch to dark mode'}
+          icon={isDarkTheme ? <SunOutlined /> : <MoonOutlined />}
+          onClick={toggleTheme}
+        />
+      </Tooltip>
 
       {isAuthenticated && user ? (
         <>
