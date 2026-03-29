@@ -21,6 +21,7 @@ export default interface Game {
   titleId: number | null;
   title?: Title | null;
   name: string;
+  serial: string | null;
   releaseDate: string | null;
   esrbRating: string | null;
   pegiRating: string | null;

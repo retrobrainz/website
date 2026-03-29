@@ -32,7 +32,7 @@ export function deduplicate(games: any[]): any[] {
   return Object.values(gamesMap);
 }
 
-export function fixSerial(serial: string): string {
+export function fixSerial(serial: string | null | undefined): string | null | undefined {
   if (!serial) return serial;
   if (serial === 'SLUS21568') return 'SLUS-21568';
   return serial;
@@ -183,6 +183,9 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
     return;
   }
 
+  const normalizedGameSerial =
+    fixSerial(gameSerial || $entries.find((entry: any) => entry.serial)?.serial) || null;
+
   const existingGame = await Game.query()
     .where('platformId', platform.id)
     .whereHas('roms', (q) => {
@@ -218,6 +221,10 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
 
   if (!game.esrbRating && esrb_rating && esrb_rating !== 'NOT RATED') {
     game.esrbRating = esrb_rating;
+  }
+
+  if (!game.serial && normalizedGameSerial) {
+    game.serial = normalizedGameSerial;
   }
 
   if ((!game.releaseDate || gameName === romName) && releaseyear && releasemonth) {
@@ -316,7 +323,7 @@ export async function importGame(platform: Platform, rawGame: any): Promise<void
         const rom = await Rom.firstOrCreate(
           {
             crc,
-            serial: romSerial || gameSerial,
+            serial: fixSerial(romSerial) || normalizedGameSerial,
           },
           extra,
         );

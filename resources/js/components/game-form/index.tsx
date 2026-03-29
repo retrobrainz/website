@@ -103,6 +103,7 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
     try {
       const payload = {
         ...values,
+        serial: values.serial?.trim() || null,
         releaseDate: values.releaseDate ? values.releaseDate.format('YYYY-MM-DD') : null,
         esrbRating: values.esrbRating || null,
         pegiRating: values.pegiRating || null,
@@ -139,6 +140,10 @@ export default function GameForm({ game, initialPlatformId, onSubmit, submitText
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Form.Item label={t('name')} name="name" rules={[{ required: true }]}>
         <Input />
+      </Form.Item>
+
+      <Form.Item label={t('serial', { defaultValue: 'Serial' })} name="serial">
+        <Input allowClear />
       </Form.Item>
 
       <Form.Item label={t('platform')} name="platformId" rules={[{ required: true }]}>

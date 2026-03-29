@@ -68,6 +68,10 @@ export default function GamePage() {
       children: game?.releaseDate || 'N/A',
     },
     {
+      label: t('serial', { defaultValue: 'Serial' }),
+      children: game?.serial || 'N/A',
+    },
+    {
       label: t('title'),
       children:
         game?.title?.id && titleDisplayName ? (
@@ -270,7 +274,7 @@ export default function GamePage() {
               dataIndex: 'filename',
             },
             {
-              title: t('serial'),
+              title: t('serial', { defaultValue: 'Serial' }),
               dataIndex: 'serial',
             },
             {

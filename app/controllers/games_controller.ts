@@ -104,10 +104,12 @@ export default class GamesController {
     const search = request.input('search');
     if (search) {
       search
-        .split(' ')
+        .split(/\s+/)
         .filter(Boolean)
         .forEach((term: string) => {
-          query.where('name', 'ilike', `%${term}%`);
+          query.where((q) => {
+            q.where('name', 'ilike', `%${term}%`).orWhere('serial', 'ilike', `%${term}%`);
+          });
         });
     }
 
@@ -174,6 +176,7 @@ export default class GamesController {
       platformId,
       titleId,
       name,
+      serial,
       releaseDate,
       esrbRating,
       pegiRating,
@@ -192,6 +195,7 @@ export default class GamesController {
       platformId,
       titleId,
       name,
+      serial,
       releaseDate: releaseDate ? DateTime.fromISO(releaseDate) : null,
       esrbRating,
       pegiRating,
@@ -235,6 +239,7 @@ export default class GamesController {
       platformId,
       titleId,
       name,
+      serial,
       releaseDate,
       esrbRating,
       pegiRating,
@@ -275,6 +280,9 @@ export default class GamesController {
       }
       if (name !== undefined) {
         payload.name = name;
+      }
+      if (serial !== undefined) {
+        payload.serial = serial;
       }
       if (releaseDate !== undefined) {
         payload.releaseDate = releaseDate ? DateTime.fromISO(releaseDate) : null;
@@ -361,8 +369,17 @@ export default class GamesController {
     }
 
     await db.transaction(async (trx) => {
-      await Game.query({ client: trx }).where('id', sourceGameId).firstOrFail();
-      await Game.query({ client: trx }).where('id', targetGameId).firstOrFail();
+      const sourceGameInTrx = await Game.query({ client: trx })
+        .where('id', sourceGameId)
+        .firstOrFail();
+      const targetGameInTrx = await Game.query({ client: trx })
+        .where('id', targetGameId)
+        .firstOrFail();
+
+      if (!targetGameInTrx.serial && sourceGameInTrx.serial) {
+        targetGameInTrx.serial = sourceGameInTrx.serial;
+        await targetGameInTrx.save();
+      }
 
       const developerRows = await trx
         .from('game_developer')
