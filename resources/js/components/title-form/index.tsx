@@ -1,4 +1,5 @@
-import { App, Button, Form, Input } from 'antd';
+import { App, Button, DatePicker, Form, Input } from 'antd';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type Title from '../../types/Title';
@@ -25,6 +26,7 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
         name: title.name,
         wikipedia: title.wikipedia,
         mobygames: title.mobygames,
+        releaseDate: title.releaseDate ? dayjs(title.releaseDate) : null,
         franchiseIds: title.franchises?.map((f) => f.id) || [],
         genreIds: title.genres?.map((g) => g.id) || [],
       });
@@ -34,7 +36,10 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      await onSubmit(values);
+      await onSubmit({
+        ...values,
+        releaseDate: values.releaseDate ? values.releaseDate.format('YYYY-MM-DD') : null,
+      });
     } catch (error: any) {
       if (error.response?.data?.errors) {
         error.response.data.errors.forEach((err: any) => {
@@ -70,6 +75,10 @@ export default function TitleForm({ title, onSubmit, submitText }: TitleFormProp
         extra={<AskGoogle query={`mobygames link of game "${name}"`} />}
       >
         <Input placeholder="https://www.mobygames.com/game/..." />
+      </Form.Item>
+
+      <Form.Item label={t('release-date')} name="releaseDate">
+        <DatePicker style={{ width: '100%' }} />
       </Form.Item>
 
       <Form.Item
