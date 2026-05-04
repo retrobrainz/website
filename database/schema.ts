@@ -626,7 +626,7 @@ export class TitleTranslationSchema extends BaseModel {
 }
 
 export class TitleSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'mobygames', 'name', 'updatedAt', 'wikipedia'] as const
+  static $columns = ['createdAt', 'id', 'mobygames', 'name', 'releaseDate', 'updatedAt', 'wikipedia'] as const
   $columns = TitleSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -636,6 +636,8 @@ export class TitleSchema extends BaseModel {
   declare mobygames: string | null
   @column()
   declare name: string
+  @column.date()
+  declare releaseDate: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()

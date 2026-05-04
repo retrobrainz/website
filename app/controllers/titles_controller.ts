@@ -57,9 +57,6 @@ export default class TitlesController {
 
     query
       .withCount('games')
-      .withAggregate('games', (q) => {
-        q.min('release_date').as('release_date');
-      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('games', (q) => {
         q.whereNotNull('boxartId')
@@ -93,9 +90,6 @@ export default class TitlesController {
   async show({ params, i18n }: HttpContext) {
     return Title.query()
       .where('id', params.id)
-      .withAggregate('games', (q) => {
-        q.min('release_date').as('release_date');
-      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
@@ -123,9 +117,6 @@ export default class TitlesController {
 
     const createdTitle = await Title.query()
       .where('id', title.id)
-      .withAggregate('games', (q) => {
-        q.min('release_date').as('release_date');
-      })
       .preload('franchises')
       .preload('genres')
       .firstOrFail();
@@ -154,9 +145,6 @@ export default class TitlesController {
 
     return Title.query()
       .where('id', title.id)
-      .withAggregate('games', (q) => {
-        q.min('release_date').as('release_date');
-      })
       .preload('franchises')
       .preload('genres')
       .firstOrFail();
@@ -239,9 +227,6 @@ export default class TitlesController {
 
     return Title.query()
       .where('id', targetTitleId)
-      .withAggregate('games', (q) => {
-        q.min('release_date').as('release_date');
-      })
       .preload('translations', (q) => q.where('locale', i18n.locale))
       .preload('franchises', (q) =>
         q.preload('translations', (qq) => qq.where('locale', i18n.locale)),
