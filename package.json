@@ -42,9 +42,9 @@
     "build": "node ace build",
     "ci:eslint": "eslint -f json src -o ./.ci/eslint.json",
     "dev": "node ace serve --hmr",
-    "format": "prettier --write .",
+    "format": "oxfmt --write .",
     "lint": "eslint . && stylelint --allow-empty-input \"**/*.{css,less,scss}\"",
-    "lint:fix": "prettier --write . && eslint --fix . && stylelint --allow-empty-input --fix \"**/*.{css,less,scss}\"",
+    "lint:fix": "oxfmt --write . && eslint --fix . && stylelint --allow-empty-input --fix \"**/*.{css,less,scss}\"",
     "prepare": "husky",
     "start": "node bin/server.js",
     "test": "node ace test",
@@ -58,13 +58,11 @@
   "lint-staged": {
     "*.{cjs,cts,js,jsx,mjs,mts,ts,tsx,vue}": "eslint --fix",
     "*.{css,less,scss}": "stylelint --fix",
-    "*.{cjs,css,cts,html,js,json,jsx,less,md,mjs,mts,scss,ts,tsx,vue,yaml,yml}": "prettier --write"
+    "*.{cjs,css,cts,html,js,json,jsx,less,md,mjs,mts,scss,ts,tsx,vue,yaml,yml}": "oxfmt --write"
   },
-  "prettier": "prettier-config-ali",
   "stylelint": {
     "extends": [
-      "stylelint-config-ali",
-      "stylelint-prettier/recommended"
+      "stylelint-config-ali"
     ]
   },
   "dependencies": {
@@ -109,7 +107,6 @@
   "devDependencies": {
     "@adonisjs/assembler": "^8.4.0",
     "@adonisjs/eslint-config": "^3.0.0",
-    "@adonisjs/prettier-config": "^1.4.5",
     "@adonisjs/tsconfig": "^2.0.0",
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
@@ -124,17 +121,13 @@
     "@vitejs/plugin-react-swc": "^4.3.0",
     "eslint": "^9.39.4",
     "eslint-config-ali": "^16.6.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
+    "oxfmt": "^0.47.0",
     "hot-hook": "^1.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "pino-pretty": "^13.1.3",
-    "prettier": "^3.8.3",
-    "prettier-config-ali": "^1.5.0",
     "stylelint": "^16.26.1",
     "stylelint-config-ali": "^2.3.0",
-    "stylelint-prettier": "^5.0.3",
     "typescript": "~5.8.3",
     "vite": "^7.3.2",
     "youch": "^4.1.1"
