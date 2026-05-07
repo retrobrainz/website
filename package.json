@@ -129,8 +129,16 @@
     "stylelint": "^16.26.1",
     "stylelint-config-ali": "^2.3.0",
     "typescript": "~5.8.3",
-    "vite": "^7.3.2",
+    "vite": "^8.0.0",
     "youch": "^4.1.1"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@adonisjs/vite>vite": "8",
+        "vite-plugin-restart>vite": "8"
+      }
+    }
   },
   "hotHook": {
     "boundaries": [
